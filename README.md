@@ -40,5 +40,5 @@ Jeder Teil: Kreuzaufgaben (drei Aussagen wahr/falsch, je richtiges Kreuz 1 P., a
 
 ## Stand der Inhalte
 
-Grundlage: Folien Heine WiSe 26/27, Altklausuren (WiSe 17/18, 18/19, 22/23, 24/25), Fragenkatalog „Fragen Heine“. Studentische Unterlagen nur nach Prüfung.
+Grundlage: Folien Heine WiSe 26/27, Lehrbuch Urhahne/Dresel/Fischer (2019, im Projekt), Altklausuren (WiSe 17/18, 18/19, 22/23, 24/25), Fragenkatalog „Fragen Heine“. Studentische Unterlagen nur nach Prüfung.
 Fertig: Kapitel 1 und 9 (Sitzungen 1–2) sowie Kapitel 16 (Normwerte). Übrige Kapitel stehen im Lernpfad als „folgt“.

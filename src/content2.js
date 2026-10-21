@@ -1,5 +1,5 @@
 /* ================= Kapitel 9: Lernen und nicht-assoziatives Lernen =================
-   Grundlage: Folien Sitzung 2 (WiSe 26/27), Klausur WiSe 24/25 (Lehr-Lernpsychologie, Aufgaben 1 und 2) */
+   Grundlage: Folien Sitzung 2 (WiSe 26/27), Klausur WiSe 24/25 (Lehr-Lernpsychologie, Aufgaben 1 und 2), Lehrbuch Urhahne/Dresel/Fischer (2019) Kap. 1 */
 LESSONS[9]=[
 {id:"9-1", t:"Was ist Lernen?", html:`
 <p>Heine stellt drei Definitionen von Lernen gegenüber:</p>
@@ -13,6 +13,11 @@ LESSONS[9]=[
 <li>Nicht jedes Lernen zeigt sich sofort im Verhalten. Es kann als <b>Verhaltenspotenzial</b> vorhanden sein, ohne dass es ausgeführt wird. Das ist ein <i>messtheoretisches Problem</i>.</li></ul>
 <p><b>2. Konsistent und dauerhaft.</b> Die Veränderung muss über gleichartige Situationen hinweg und zeitlich stabil sein. Offen bleibt: Was sind „gleichartige“ Situationen, und wie lange ist „dauerhaft“? Eine kurzfristige Motivationsschwankung ist jedenfalls kein Lernen.</p>
 <p><b>3. Erfahrungsbasiert.</b> Lernen hängt von Erfahrung ab, Reifung nicht. Dafür müssen Informationen aufgenommen, verarbeitet und gespeichert werden. Deshalb ist das <b>Gedächtnis</b> so wichtig für das Lernen. Die Abgrenzung zur Reifung ist trotzdem schwierig, weil auch manche Reifungsprozesse umweltabhängig sind (z. B. die frühe Entwicklung des Sehens).</p>
+<div class="merk"><b>Schulbeispiele aus dem Lehrbuch (Urhahne et al., 2019, Kap. 1)</b>
+<i>Erfahrung statt Reifung:</i> Zeigt die Lehrkraft den „Schweigefuchs“, wird die Klasse still. Das Handzeichen hat erst durch frühere Erfahrungen seine Wirkung bekommen. Krabbeln, Laufen und Sprechen beim Kleinkind kommen dagegen mit der Reifung.<br>
+<i>Keine physiologischen Ursachen:</i> Bleibt am Abend vor der Prüfung nichts mehr hängen, kann das an Krankheit, Übermüdung oder Alkohol liegen. Das ist dann kein Lernen und kein Vergessen.<br>
+<i>Verhaltenspotenzial:</i> Auch ein Kind, das stumm im Unterricht sitzt, kann lernen. Ob es gelernt hat, zeigt sich erst, wenn es die Fragen der Lehrkraft beantworten kann.<br>
+<i>Dauerhaft:</i> Wer mit Messer und Gabel essen gelernt hat, kann es bei jeder Gelegenheit. Schulwissen (Wer war Franz Ferdinand?) wirkt weniger stabil, lässt sich aber oft mit passenden Hinweisreizen wieder abrufen. Erst wenn auch das scheitert, war die Veränderung nicht dauerhaft genug.</div>
 <div class="merk"><b>Klausur WiSe 24/25</b>„Jede beobachtbare Veränderung des Verhaltens ist das Ergebnis von Lernprozessen.“ Falsch (Reifung, Ermüdung).<br>„Ein Lernprozess führt nicht unbedingt zu einer unmittelbar beobachtbaren Veränderung des Verhaltens.“ Wahr (Verhaltenspotenzial).</div>`,
 check:[
  {q:"Ein Kind kann nach den Ferien plötzlich höher springen. Warum ist das nicht automatisch Lernen?", o:["Weil Springen kein Verhalten ist","Weil die Veränderung auch auf Reifung, also körperlichem Wachstum, beruhen kann","Weil Lernen immer bewusst ist","Weil die Veränderung zu dauerhaft ist"], a:1, ex:"Nicht jede beobachtbare Verhaltensänderung ist Lernen. Reifung ist nicht erfahrungsbasiert."},
@@ -73,7 +78,7 @@ check:[
 CARDS[9]=[
  {id:"c9-01", f:"Lernen: Arbeitsdefinition (Definition 3)", b:"Ein Veränderungsprozess, durch den sich Verhalten bzw. Verhaltenspotenzial in Abhängigkeit von Erfahrung konsistent und relativ dauerhaft ändert."},
  {id:"c9-02", f:"Die drei Lerndefinitionen und ihr Fokus", b:"1. Veränderung als Folge der Auseinandersetzung mit der Umwelt (eher unspezifisch)\n2. Biologischer Prozess der Anpassung an die Umwelt (eher evolutionär)\n3. Erfahrungsbedingte, konsistente, relativ dauerhafte Änderung von Verhalten bzw. Verhaltenspotenzial (Art und Qualität der Veränderung)"},
- {id:"c9-03", f:"Warum ist nicht jede Verhaltensänderung Lernen?", b:"Sie kann auch auf Reifung (langfristig, z. B. Wachstum) oder Ermüdung (kurzfristig) beruhen."},
+ {id:"c9-03", f:"Warum ist nicht jede Verhaltensänderung Lernen?", b:"Sie kann auch auf Reifung (langfristig, z. B. Wachstum) oder Ermüdung (kurzfristig) beruhen. Auch Krankheit, Alkohol oder Drogen erzeugen Veränderungen, die kein Lernen sind (Lehrbuch Kap. 1)."},
  {id:"c9-04", f:"Warum zeigt sich nicht jedes Lernen im Verhalten?", b:"Gelerntes kann als Verhaltenspotenzial vorhanden sein, ohne ausgeführt zu werden, weil die tatsächliche Ausführung von vielen Faktoren abhängt (z. B. Motivation, Aufregung). Ein messtheoretisches Problem."},
  {id:"c9-05", f:"Lernen vs. Reifung", b:"Lernen ist erfahrungsabhängig: Informationen werden aufgenommen, verarbeitet und gespeichert (daher die Bedeutung des Gedächtnisses).\nReifung ist es nicht. Abgrenzung schwierig, weil auch manche Reifung umweltabhängig ist (frühe Entwicklung des Sehens)."},
  {id:"c9-06", f:"Nichtassoziatives vs. assoziatives Lernen", b:"Nichtassoziativ: Stärke oder Art einer Reaktion auf einen Reiz ändert sich durch wiederholte Darbietung (Habituation, Sensitivierung).\nAssoziativ: Lernen von Kontingenzen (gemeinsamem Auftreten) von Ereignissen, S → S (klassisch) oder R → S (operant)."},
