@@ -1,0 +1,1379 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BiWi II</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="BiWi II">
+<meta name="theme-color" content="#5E3F73">
+<link rel="apple-touch-icon" href="/BiWi-II/apple-touch-icon.png?v=2">
+<link rel="icon" type="image/png" href="/BiWi-II/icon-192.png?v=2">
+<link rel="manifest" href="/BiWi-II/manifest.webmanifest?v=2">
+<style>
+/* Layout: eine schmale Lernspalte (max. 42rem) mit fester Tableiste unten, wie die W&G-I-App; eigene Akzentfarbe (Pflaume) für BiWi II Psychologie */
+:root{
+  --bg:#F0EEF2; --surface:#FAF9FB; --ink:#211B27; --muted:#625A6B; --line:#D3CDD9;
+  --accent:#5E3F73; --accent-ink:#FFFFFF; --accent-soft:#E7DEEF;
+  --good:#2F7A4A; --good-soft:#DDEEE2; --bad:#A3392B; --bad-soft:#F4DEDA; --gold:#A87B1F;
+  --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ color-scheme:dark;
+    --bg:#151219; --surface:#1E1A24; --ink:#E8E3EE; --muted:#A79DB1; --line:#3A3242;
+    --accent:#C9AEDF; --accent-ink:#1A1222; --accent-soft:#34293F;
+    --good:#6CC28B; --good-soft:#1E3327; --bad:#E58373; --bad-soft:#3A2420; --gold:#D9AE55; }
+}
+:root[data-theme="dark"]{ color-scheme:dark;
+  --bg:#151219; --surface:#1E1A24; --ink:#E8E3EE; --muted:#A79DB1; --line:#3A3242;
+  --accent:#C9AEDF; --accent-ink:#1A1222; --accent-soft:#34293F;
+  --good:#6CC28B; --good-soft:#1E3327; --bad:#E58373; --bad-soft:#3A2420; --gold:#D9AE55; }
+*{box-sizing:border-box}
+html{font-size:calc(100% * var(--z,1))}
+.zoom{position:fixed;right:max(12px, env(safe-area-inset-right, 0px));bottom:calc(72px + env(safe-area-inset-bottom, 0px));display:flex;flex-direction:column;gap:8px;z-index:6}
+.zoom button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:22px;line-height:1;opacity:.9;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.tag{display:inline-block;font-family:var(--sans);font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:1px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+.tag.core{color:var(--accent);border:1px solid var(--accent)}
+.tag.bg{color:var(--muted);border:1px dashed var(--line)}
+.cctx{margin:-4px 0 0;font-size:.82rem;color:var(--muted)}
+.cinfo{display:flex;gap:8px;align-items:flex-start;margin:0;font-size:.82rem;line-height:1.45;color:var(--muted)}
+.cinfo .cl{display:block}
+.cinfo .cl+.cl{margin-top:3px}
+.cinfo b{color:var(--ink);font-weight:600}
+.cinfo .ci{flex:none;width:18px;height:18px;border-radius:50%;border:1px solid var(--muted);font:600 .7rem/16px var(--serif);font-style:italic;text-align:center;margin-top:1px}
+.wlink{color:var(--accent);text-decoration:none;font-weight:600;font-size:.92rem;line-height:1.4}
+.wlink:hover{text-decoration:underline}
+.mc .idk{border-style:dashed;color:var(--muted);text-align:center}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+main{max-width:42rem;margin:0 auto;padding-block:20px 120px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;margin:0 0 .4em;text-wrap:balance}
+h1{font-size:1.75rem} h2{font-size:1.3rem} h3{font-size:1.05rem}
+p{margin:0 0 .8em}
+.muted{color:var(--muted)} .small{font-size:.875rem}
+.eyebrow{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 .3em}
+.block{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 14px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row.between{justify-content:space-between}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:12px 18px;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.small{padding:8px 12px;font-size:.9rem}
+.btn.warn{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+.btn:disabled{opacity:.45;cursor:default}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.chip{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.l1{color:var(--gold);border-color:var(--gold)}
+.chip.l2{color:var(--accent);border-color:var(--accent)}
+.chip.l3{color:var(--good);border-color:var(--good)}
+.chip.soon{border-style:dashed}
+
+/* Klausuraufbau */
+.parts{display:grid;grid-template-columns:12fr 24fr 24fr;gap:4px;margin:10px 0 8px}
+.parts div{height:10px;border-radius:3px;background:var(--line)}
+.parts div.on{background:var(--accent)}
+.partlist{display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;font-size:.92rem}
+.partlist b{font-variant-numeric:tabular-nums}
+
+/* Aufgabenliste */
+.tlist{display:flex;flex-direction:column}
+.titem{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:12px 2px;border-top:1px solid var(--line);text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;width:100%}
+.titem:first-child{border-top:0}
+.titem .t{font-weight:600}
+.titem .d{grid-column:1/-1;font-size:.85rem;color:var(--muted)}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;grid-column:1/-1}
+.bar i{display:block;height:100%;background:var(--good)}
+
+/* Aufgabe */
+.data{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.95rem}
+.data th,.data td{border:1px solid var(--line);padding:6px 8px;text-align:center}
+.data th{font-weight:600;color:var(--muted);font-size:.8rem}
+.data td{font-family:var(--mono)}
+.tablewrap{overflow-x:auto;margin:8px 0 2px}
+.eq{font-family:var(--mono);font-size:.92rem;background:var(--bg);border-radius:8px;padding:8px 10px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{background:none;border:0;padding:7px 12px;font-size:.85rem;color:var(--muted)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--ink);font-weight:600}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface)}
+.step.ok{border-color:var(--good);background:var(--good-soft)}
+.step.no{border-color:var(--bad);background:var(--bad-soft)}
+.step .lab{font-weight:600}
+.step .why{font-size:.88rem;color:var(--muted);margin:2px 0 8px}
+.inp{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.inp input{width:9.5rem;max-width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-family:var(--mono);font-size:1.05rem}
+.inp input:focus{border-color:var(--accent)}
+.res{font-size:.9rem;margin-top:8px}
+.res.good{color:var(--good)} .res.bad{color:var(--bad)}
+.hint{font-size:.88rem}
+.check{display:flex;gap:10px;align-items:flex-start;padding:6px 0}
+.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--accent)}
+
+/* Schmierzettel */
+.pad{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--bg);overflow:hidden}
+.pad canvas{display:block;width:100%;height:240px;touch-action:none}
+.pad .tools{position:absolute;right:8px;top:8px;display:flex;gap:6px}
+.pad .tools button{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:.8rem}
+.pad .ph{position:absolute;left:12px;top:10px;font-size:.8rem;color:var(--muted);pointer-events:none}
+
+/* Statistik */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:90px;margin:10px 0 4px}
+.week div{background:var(--accent);border-radius:4px 4px 0 0;min-height:2px}
+.weekl{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-size:.75rem;color:var(--muted);text-align:center}
+.srow{display:grid;grid-template-columns:1fr auto auto;gap:4px 12px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:.92rem}
+.srow:first-of-type{border-top:0}
+.srow span{font-variant-numeric:tabular-nums}
+
+/* Tableiste */
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:8px max(16px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));z-index:5}
+nav button{flex:1;max-width:9rem;background:none;border:0;border-radius:10px;padding:9px 6px;font-weight:600;font-size:.9rem;color:var(--muted)}
+nav button[aria-current="page"]{background:var(--accent-soft);color:var(--ink)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(80px + env(safe-area-inset-bottom, 0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.9rem;z-index:9;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){ .step{transition:background .2s,border-color .2s} }
+
+/* ===== Lernpfad, Lektionen, Karten, Grafiken, Essay ===== */
+.chap{display:grid;grid-template-columns:2.4rem 1fr auto;gap:4px 12px;align-items:center;padding:12px 2px;border-top:1px solid var(--line);width:100%;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left}
+.chap:first-child{border-top:0}
+.chap .no{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--accent);text-align:center}
+.chap .t{font-weight:600;min-width:0}
+.chap .d{grid-column:2/-1;font-size:.82rem;color:var(--muted)}
+.chap .bar{grid-column:2/-1}
+.chap.off .no,.chap.off .t{color:var(--muted)}
+.chap:disabled{cursor:default}
+.modes{display:flex;flex-direction:column}
+.mode{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center;padding:13px 2px;border-top:1px solid var(--line);background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left}
+.mode:first-child{border-top:0}
+.mode .t{font-weight:600}
+.mode .d{grid-column:1/-1;font-size:.84rem;color:var(--muted)}
+.mode .n{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--muted)}
+.today{border-color:var(--accent);background:var(--accent-soft)}
+.lesson h2{margin-top:.2em}
+.lesson p,.lesson li{max-width:65ch}
+.lesson ul{padding-left:1.2em;margin:0 0 .8em}
+.lesson li{margin:.2em 0}
+.merk{border-left:4px solid var(--gold);background:var(--bg);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0}
+.merk b:first-child{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.kv{width:100%;border-collapse:collapse;font-size:.9rem;margin:6px 0 10px}
+.kv td{border-top:1px solid var(--line);padding:6px 4px;vertical-align:top}
+.kv td:first-child{font-weight:600;white-space:nowrap;padding-right:10px}
+.mc{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.mc button{text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.mc button.r{border-color:var(--good);background:var(--good-soft)}
+.mc button.w{border-color:var(--bad);background:var(--bad-soft)}
+.mc button:disabled{cursor:default;color:var(--ink)}
+.ex{font-size:.9rem;margin-top:8px}
+.card{min-height:12rem;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.card .front{font-family:var(--serif);font-size:1.25rem;font-weight:600;text-wrap:balance}
+.card .back{border-top:1px solid var(--line);padding-top:10px;white-space:pre-line}
+.dots{display:flex;gap:4px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--good)}
+.gbox{position:relative;width:100%;aspect-ratio:4/3;max-width:100%;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.gbox svg,.gbox canvas{position:absolute;inset:0;width:100%;height:100%}
+.gbox canvas{touch-action:none}
+.gbox .solsvg{pointer-events:none}
+.fig{width:100%;max-width:100%;border:1px solid var(--line);border-radius:12px;background:var(--bg);margin:8px 0 12px}
+svg .ax{stroke:var(--muted);stroke-width:1.6;fill:none}
+svg .base{stroke:var(--ink);stroke-width:2.4;fill:none}
+svg .sol{stroke:var(--accent);stroke-width:2.8;fill:none}
+svg .gold{stroke:var(--gold);stroke-width:2.8;fill:none}
+svg .dash{stroke-dasharray:5 5}
+svg .thin{stroke-width:1.4}
+svg text{fill:var(--muted);font:13px var(--sans)}
+svg text.st{fill:var(--accent);font-weight:600}
+svg text.bt{fill:var(--ink)}
+svg .dot{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+svg .sdot{fill:var(--accent)}
+svg .arrowhead{fill:var(--muted)}
+svg .sarrow{fill:var(--accent)}
+.essay textarea{width:100%;min-height:16rem;border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:12px;font:1rem/1.55 var(--sans);resize:vertical}
+.pts{font-variant-numeric:tabular-nums;font-weight:600}
+.lnav{display:flex;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap}
+.crumb{background:none;border:0;padding:0;color:var(--accent);font-weight:600;font-size:.9rem;margin-bottom:8px}
+
+/* ===== BiWi II: Kreuzaufgaben, Abschnitte, Verständnis-Hilfe ===== */
+.sect{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:4px 2px 8px;display:flex;justify-content:space-between;gap:8px}
+.kz{border-top:1px solid var(--line);padding:12px 0 10px}
+.kz:first-of-type{border-top:0;padding-top:4px}
+.kz .st{margin:0 0 8px;line-height:1.45}
+.kz .st i.no{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums;margin-right:6px}
+.wf{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.wf button{background:var(--bg);border:0;padding:8px 16px;font-size:.9rem;font-weight:600;color:var(--muted);min-width:5.5rem}
+.wf button+button{border-left:1px solid var(--line)}
+.wf button[aria-pressed="true"]{background:var(--accent-soft);color:var(--ink)}
+.wf button.r{background:var(--good-soft);color:var(--good)}
+.wf button.w{background:var(--bad-soft);color:var(--bad)}
+.wf button:disabled{cursor:default}
+.kz .why{font-size:.86rem;color:var(--muted);margin:8px 0 0;line-height:1.45}
+.kz .why b{color:var(--ink);font-weight:600}
+.pbadge{font-variant-numeric:tabular-nums;font-weight:600;font-size:.95rem}
+.unclear{display:flex;gap:10px;align-items:flex-start}
+.unclear p{margin:0}
+.kvq{width:100%;border-collapse:collapse;font-size:.9rem;margin:6px 0 10px;font-variant-numeric:tabular-nums}
+.kvq th,.kvq td{border-top:1px solid var(--line);padding:6px 6px;text-align:left}
+.kvq th{font-weight:600;color:var(--muted);font-size:.8rem}
+svg .fillA{fill:var(--accent-soft);stroke:none}
+svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
+.kvq .nw{white-space:nowrap}
+.chip.flag{color:var(--gold);border-color:var(--gold)}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px)}</style>
+</head>
+<body>
+<main id="app"></main>
+<nav id="nav"></nav>
+<div class="zoom" role="group" aria-label="Schriftgröße"><button id="zIn" aria-label="Größer">+</button><button id="zOut" aria-label="Kleiner">−</button></div>
+
+<script>
+"use strict";
+/* ================= Speicher (eigene Schlüssel, damit nichts mit anderen Apps unter talib47.github.io kollidiert) ================= */
+const KEY="bw2-lernapp-v1";
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ return false; } }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+let state;
+try{ state=JSON.parse(lsGet(KEY)||"null"); }catch(e){ state=null; }
+if(!state||typeof state!=="object") state={};
+function norm(){ for(const k of ["lvl","streak","hist","days","lessons","box","graphs","essays","drafts","kreuz","unclear"]) if(!state[k]||typeof state[k]!=="object") state[k]={}; }
+norm();
+function save(){ state.updated=Date.now(); lsSet(KEY,JSON.stringify(state)); schedulePush(); }
+
+/* ===== Geräte-Abgleich über GitHub (Datei fortschritt.json im Zweig "fortschritt", wie in der W&G-I-App) ===== */
+const GH={repo:"https://api.github.com/repos/talib47/BiWi-II", file:"fortschritt.json", branch:"fortschritt", tokenKey:"bw2-gh-token"};
+GH.api=GH.repo+"/contents/"+GH.file;
+let ghToken=null, remoteSha=null, syncStatus="aus", lastSync=null, pushTimer=null, pushing=false, pushAgain=false;
+function initToken(){
+  const m=location.hash.match(/[#&]t=([A-Za-z0-9_]+)/);
+  if(m){ lsSet(GH.tokenKey,m[1]); try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){} }
+  ghToken=lsGet(GH.tokenKey);
+}
+const ghHeaders=()=>({"Authorization":"Bearer "+ghToken,"Accept":"application/vnd.github+json"});
+const b64enc=str=>btoa(unescape(encodeURIComponent(str)));
+const b64dec=str=>decodeURIComponent(escape(atob(str.replace(/\n/g,""))));
+async function ensureBranch(){
+  const r=await fetch(GH.repo+"/git/ref/heads/"+GH.branch,{headers:ghHeaders(),cache:"no-store"});
+  if(r.ok) return true;
+  const base=await fetch(GH.repo,{headers:ghHeaders(),cache:"no-store"}); if(!base.ok) return false;
+  const def=(await base.json()).default_branch||"main";
+  const h=await fetch(GH.repo+"/git/ref/heads/"+def,{headers:ghHeaders(),cache:"no-store"}); if(!h.ok) return false;
+  const sha=(await h.json()).object.sha;
+  const c=await fetch(GH.repo+"/git/refs",{method:"POST",headers:ghHeaders(),body:JSON.stringify({ref:"refs/heads/"+GH.branch,sha})});
+  return c.ok;
+}
+async function pull(){
+  if(!ghToken) return null;
+  const r=await fetch(GH.api+"?ref="+GH.branch+"&_="+Date.now(),{headers:ghHeaders(),cache:"no-store"});
+  if(r.status===404){ remoteSha=null; return {}; }
+  if(r.status===401){ syncStatus="schluessel"; return null; }
+  if(!r.ok) throw new Error(r.status);
+  const d=await r.json(); remoteSha=d.sha;
+  return JSON.parse(b64dec(d.content));
+}
+async function push(){
+  if(!ghToken) return;
+  if(pushing){ pushAgain=true; return; }
+  pushing=true;
+  try{
+    for(let attempt=0;attempt<3;attempt++){
+      const body={message:"Lernstand",branch:GH.branch,content:b64enc(JSON.stringify(state))};
+      if(remoteSha) body.sha=remoteSha;
+      const r=await fetch(GH.api,{method:"PUT",headers:ghHeaders(),body:JSON.stringify(body)});
+      if(r.ok){ const d=await r.json(); remoteSha=d.content.sha; syncStatus="ok"; lastSync=new Date(); break; }
+      if(r.status===401){ syncStatus="schluessel"; break; }
+      if(r.status===404){ if(!(await ensureBranch())){ syncStatus="fehler"; break; } continue; }  // Zweig fehlt noch: anlegen
+      if(r.status===409||r.status===422){ await pull(); continue; }  // veraltete Version: neu holen und nochmal
+      syncStatus="fehler"; break;
+    }
+  }catch(e){ syncStatus="fehler"; }
+  pushing=false;
+  if(pushAgain){ pushAgain=false; push(); }
+}
+function schedulePush(){ if(!ghToken) return; clearTimeout(pushTimer); pushTimer=setTimeout(()=>{ pushTimer=null; push(); },1500); }
+function flushPush(){ if(pushTimer){ clearTimeout(pushTimer); pushTimer=null; push(); } }
+/* Neuerer Stand gewinnt (Zeitstempel "updated") */
+async function syncFromRemote(){
+  if(!ghToken) return false;
+  try{
+    const remote=await pull();
+    if(remote===null) return false;
+    if(remote.updated && remote.updated>(state.updated||0)){ state=Object.assign(state,remote); norm(); lsSet(KEY,JSON.stringify(state)); syncStatus="ok"; lastSync=new Date(); return true; }
+    if((state.updated||0)>(remote.updated||0)) await push();
+    else { syncStatus="ok"; lastSync=new Date(); }
+  }catch(e){ syncStatus="fehler"; }
+  return false;
+}
+async function autoPull(){
+  if(!ghToken||document.visibilityState!=="visible"||["task","exam","essay","graph","kurz","lesson","cards","kreuz"].includes(view)||pushTimer||pushing) return;
+  if(await syncFromRemote()) render();
+}
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") flushPush(); else autoPull(); });
+window.addEventListener("pagehide",flushPush);
+window.addEventListener("focus",autoPull);
+setInterval(autoPull,30000);
+function syncBox(){
+  if(!ghToken) return `<div class="block"><h3>Geräte verbinden</h3>
+    <p class="small muted">Damit iPad, iPhone und Laptop denselben Stand haben, verbinde jedes Gerät einmal. Am einfachsten öffnest du dafür deinen Verbindungslink (Adresse der App mit #t=Schlüssel am Ende).</p>
+    <label class="small muted" for="tkIn">Oder füge hier deinen GitHub-Schlüssel ein (beginnt mit github_pat_):</label>
+    <textarea id="tkIn" style="width:100%;min-height:70px;margin-top:6px;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:8px;font-family:var(--mono);font-size:.85rem"></textarea>
+    <button class="btn" id="tkGo" style="margin-top:8px">Gerät verbinden</button></div>`;
+  const msg={ok:`Dieses Gerät ist verbunden und gleicht automatisch ab${lastSync?", zuletzt um "+lastSync.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}):""}.`,
+    fehler:"Abgleich gerade nicht möglich, etwa ohne Internet. Dein Stand bleibt auf diesem Gerät und wird später abgeglichen.",
+    schluessel:"Der Schlüssel funktioniert nicht. Prüfe, ob er Zugriff auf das Repository BiWi-II hat, oder verbinde mit einem neuen Schlüssel.",
+    aus:"Wird abgeglichen …"}[syncStatus];
+  return `<div class="block"><h3>Geräte-Abgleich</h3>
+    <p class="small" ${syncStatus==="ok"?'style="color:var(--muted)"':'style="color:var(--bad)"'}>${msg}</p>
+    <div class="row"><button class="btn ghost small" id="syNow">Jetzt abgleichen</button><button class="btn ghost small" id="syOff">Gerät trennen</button></div></div>`;
+}
+function bindSync(){
+  const goB=$("#tkGo");
+  if(goB) goB.onclick=async()=>{
+    const t=$("#tkIn").value.trim();
+    if(!/^github_pat_\w+$/.test(t)){ toast("Das sieht nicht nach einem Schlüssel aus. Er beginnt mit github_pat_."); return; }
+    lsSet(GH.tokenKey,t); ghToken=t; toast("Verbinde …");
+    await syncFromRemote(); toast(syncStatus==="ok"?"Gerät verbunden":"Verbinden hat nicht geklappt"); render();
+  };
+  const now=$("#syNow");
+  if(now) now.onclick=async()=>{ flushPush(); await syncFromRemote(); toast(syncStatus==="ok"?"Abgeglichen":"Abgleich hat nicht geklappt"); render(); };
+  const off=$("#syOff");
+  if(off) off.onclick=()=>{ if(!off.dataset.armed){ off.dataset.armed="1"; off.textContent="Wirklich trennen"; return; } lsDel(GH.tokenKey); ghToken=null; syncStatus="aus"; render(); };
+}
+
+/* ================= Helfer ================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const rint=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const isInt=x=>Math.abs(x-Math.round(x))<1e-9;
+const nice=(x,dec)=>Math.abs(x*10**dec-Math.round(x*10**dec))<1e-7;
+const r=x=>Math.round(x*1e6)/1e6;
+function fmt(x){
+  x=r(x); if(Object.is(x,-0)) x=0;
+  let s=String(Math.abs(x)); if(s.includes("e")) s=Math.abs(x).toFixed(6).replace(/0+$/,"");
+  s=s.replace(".",","); return (x<0?"−":"")+s;
+}
+const par=x=>x<0?"("+fmt(x)+")":fmt(x);
+function toast(t){ const d=document.createElement("div"); d.className="toast"; d.textContent=t; document.body.appendChild(d); setTimeout(()=>d.remove(),2200); }
+function today(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function parseNum(v){
+  let t=String(v).trim().replace(/\s|€/g,"").replace(/−|–/g,"-");
+  const pct=t.includes("%"); t=t.replace("%","");
+  if(t.includes(",")) t=t.replace(/\./g,"").replace(",",".");
+  if(t===""||t==="-"||isNaN(+t)) return null;
+  return {v:+t,pct};
+}
+const close=(a,b)=>Math.abs(a-b)<=Math.max(0.011,Math.abs(b)*0.005);
+function judge(step,raw){
+  const p=parseNum(raw); if(!p) return null;
+  let v=p.v;
+  if(step.tol!=null) return Math.abs(v-step.ans)<=step.tol;
+  if(step.rate){ if(p.pct) v=v/100; return close(v,step.ans)||close(v/100,step.ans); }
+  if(step.pct){ return close(v,step.ans)||close(v*100,step.ans); }
+  return close(v,step.ans);
+}
+
+/* ================= Inhalte =================
+   Grundlage bisher: Altklausuren Heine (WiSe 17/18, 18/19, 22/23, 24/25) und der Fragenkatalog „Fragen Heine“.
+   Sobald Folien vorliegen, werden die Kapitel daran abgeglichen und ergänzt.
+   vl: 1 = Einführung in die Psychologie / Lehr-Lernpsychologie (Mi 8–10), 2 = Päd.-psych. Diagnostik & Inklusion (Mi 10–12)
+   teil: Klausurteil (1 Einführung, 2 Lehr-Lernpsychologie, 3 Diagnostik, 4 Inklusion) */
+const VL={1:"Einführung in die Psychologie · Lehr-Lernpsychologie", 2:"Pädagogisch-psychologische Diagnostik · Inklusion"};
+const CHAPTERS=[
+  {n:1,  vl:1, teil:1, title:"Gedächtnis", teaser:"Mehrspeichermodell, Arbeitsgedächtnis, Chunking, explizites und implizites Langzeitgedächtnis, Netzwerkmodell."},
+  {n:2,  vl:1, teil:1, title:"Vergessen und Abruf", teaser:"Verarbeitungstiefe, Enkodierungsspezifität, Interferenz, Kontextfluktuation, Gedächtnis als Rekonstruktion."},
+  {n:3,  vl:1, teil:1, title:"Motivation", teaser:"Intrinsisch und extrinsisch, Erwartungs-Wert-Modell nach Atkinson, Attribution und Feedback."},
+  {n:4,  vl:1, teil:1, title:"Emotion", teaser:"Circumplexmodell nach Russell (Valenz und Erregung) und Strategien der Emotionsregulation."},
+  {n:5,  vl:1, teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Habituation und Sensitivierung."},
+  {n:6,  vl:1, teil:2, title:"Klassische Konditionierung", teaser:"Reflexe, neutrale und konditionierte Reize, Generalisierung, Konditionierung höherer Ordnung."},
+  {n:7,  vl:1, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen nach Skinner und ihre Wirkung auf künftiges Verhalten."},
+  {n:8,  vl:1, teil:2, title:"Lernen am Modell", teaser:"Beobachtungslernen nach Bandura, stellvertretende Verstärkung, Selbstwirksamkeit."},
+  {n:9,  vl:2, teil:3, title:"Psychologie als empirische Wissenschaft", teaser:"Konstrukte und Merkmale, Operationalisierung, Messen, Skalenniveaus."},
+  {n:10, vl:2, teil:3, title:"Normwerte und Standardisierung", teaser:"Normalverteilung, z-Wert, Abweichungs-IQ, T-Wert, Prozentrang und warum man Rohwerte standardisiert."},
+  {n:11, vl:2, teil:3, title:"Gütekriterien", teaser:"Objektivität, Reliabilität, Validität, Nebengütekriterien und Facettentheorie."},
+  {n:12, vl:2, teil:3, title:"Diagnostischer Prozess und Urteilsbildung", teaser:"Messzugänge, klinische und statistische Urteile, Verknüpfungsregeln, Urteilsfehler, Bezugsnormen."},
+  {n:13, vl:2, teil:3, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
+  {n:14, vl:2, teil:4, title:"Hochbegabung und Underachievement", teaser:"Kompetenz- und Performanzdefinition, Befunde zur Asynchronität, Probleme der Diagnostik."},
+  {n:15, vl:2, teil:4, title:"Aufmerksamkeitsstörungen", teaser:"Kernsymptome, ICD-10 F90, Ätiologie, Komorbidität und multimodale Intervention."},
+  {n:16, vl:2, teil:4, title:"Lese-Rechtschreibstörung", teaser:"Schriftspracherwerb nach Frith, Dual-Route-Modell, phonologische Bewusstheit, Diagnose nach F81."},
+  {n:17, vl:2, teil:4, title:"Rechenstörung", teaser:"Numerische Kognition, Kernsymptome, Diagnoseverfahren und Diagnose nach F81.2."}
+];
+const LESSONS={}, CARDS={}, ESSAYS={}, GRAPHS={}, CALC={};
+
+/* ================= Kapitel 10: Normwerte und Standardisierung ================= */
+LESSONS[10]=[
+{id:"10-1", t:"Warum ein Rohwert allein nichts sagt", html:`
+<p>Ein Kind löst in einem Lesetest 36 Aufgaben. Ist das gut? Das lässt sich erst beurteilen, wenn man weiß, wie andere Kinder <i>desselben Alters im selben Test</i> abgeschnitten haben. Die Zahl der gelösten Aufgaben heißt <b>Testrohwert</b>. Er bekommt seine Bedeutung erst durch den Vergleich mit einer <b>Referenzgruppe</b>, der sogenannten <b>Normstichprobe</b>.</p>
+<p>Viele psychologische Merkmale, etwa die Intelligenz, sind in der Bevölkerung annähernd <b>normalverteilt</b>: Die meisten Menschen liegen nahe am Mittelwert, nach außen hin werden es symmetrisch immer weniger. Beschrieben wird so eine Verteilung durch zwei Kennwerte:</p>
+<ul><li><b>Mittelwert</b> (μ oder x̄): wo die Mitte liegt.</li>
+<li><b>Standardabweichung</b> (σ oder sd): wie weit die Werte typischerweise um die Mitte streuen.</li></ul>
+{{fig:nv}}
+<p>Bei jeder Normalverteilung liegen immer dieselben Anteile in denselben Abschnitten, gemessen in Standardabweichungen (SD):</p>
+<table class="kvq"><tr><th>Bereich</th><th>Anteil</th><th>Beim IQ (100/15)</th></tr>
+<tr><td>zwischen Mittelwert und ±1 SD</td><td class="nw">je 34,13 %</td><td>85–115 zusammen 68,26 %</td></tr>
+<tr><td>zwischen 1 und 2 SD</td><td class="nw">je 13,59 %</td><td>70–85 und 115–130</td></tr>
+<tr><td>zwischen 2 und 3 SD</td><td class="nw">je 2,14 %</td><td>55–70 und 130–145</td></tr>
+<tr><td>jenseits von 3 SD</td><td class="nw">je 0,13 %</td><td>unter 55, über 145</td></tr></table>
+<p>Daraus folgt die <b>deskriptive Einordnung</b>, die Heine in den Klausuren abfragt:</p>
+<table class="kvq"><tr><th>IQ</th><th>Einordnung</th></tr>
+<tr><td class="nw">unter 70</td><td>weit unterdurchschnittlich (z. B. geistige Behinderung)</td></tr>
+<tr><td class="nw">70–85</td><td>unterdurchschnittlich</td></tr>
+<tr><td class="nw">85–115</td><td>durchschnittlich</td></tr>
+<tr><td class="nw">115–130</td><td>überdurchschnittlich</td></tr>
+<tr><td class="nw">über 130</td><td>weit überdurchschnittlich (z. B. Hochbegabung)</td></tr></table>
+<div class="merk"><b>Merksatz</b>Zwei Drittel (68,26 %) liegen innerhalb von einer Standardabweichung um den Mittelwert. Jenseits von zwei Standardabweichungen liegen auf jeder Seite nur 2,27 % (2,14 + 0,13).</div>`,
+check:[
+ {q:"Wie viel Prozent der Bevölkerung haben einen IQ von 130 oder mehr?", o:["0,13 %","2,27 %","13,59 %","15,87 %"], a:1, ex:"130 liegt zwei Standardabweichungen über dem Mittelwert. Darüber liegen 2,14 % + 0,13 % = 2,27 %."},
+ {q:"Eine Schülerin hat einen IQ von 117. Wie ordnen Sie das deskriptiv ein?", o:["Durchschnittlich","Überdurchschnittlich","Weit überdurchschnittlich","Hochbegabt"], a:1, ex:"117 liegt zwischen 115 und 130, also zwischen einer und zwei Standardabweichungen über dem Mittelwert."}
+]},
+{id:"10-2", t:"z-Wert und Abweichungs-IQ", html:`
+<p>Um einen Rohwert einzuordnen, rechnet man ihn zuerst in einen <b>z-Wert</b> um. Der z-Wert sagt, um wie viele Standardabweichungen ein Wert über oder unter dem Mittelwert liegt:</p>
+<div class="eq">z = (x − μ) / σ</div>
+<p class="small muted" style="margin-top:6px">x = Rohwert der Person, μ = Mittelwert der Normstichprobe, σ = Standardabweichung der Normstichprobe</p>
+<p>Ein z-Wert von +1 heißt „eine Standardabweichung über dem Durchschnitt“, ein z-Wert von −0,5 „eine halbe Standardabweichung darunter“. Die z-Skala hat den Mittelwert 0 und die Standardabweichung 1.</p>
+<p>Weil Kommazahlen und negative Werte im Alltag schwer zu vermitteln sind, rechnet man z in eine andere Skala um. Das Prinzip ist immer gleich: <b>neuer Mittelwert + neue Standardabweichung · z</b>.</p>
+<table class="kvq"><tr><th>Skala</th><th>Mittelwert</th><th>SD</th><th>Umrechnung</th></tr>
+<tr><td>z-Skala</td><td>0</td><td>1</td><td>z</td></tr>
+<tr><td>IQ-Skala</td><td>100</td><td>15</td><td>100 + 15 · z</td></tr>
+<tr><td>T-Skala</td><td>50</td><td>10</td><td>50 + 10 · z</td></tr>
+<tr><td>C-Skala</td><td>5</td><td>2</td><td>5 + 2 · z</td></tr></table>
+<p>Die IQ-Umrechnung heißt <b>Abweichungs-IQ</b> und geht auf David Wechsler (1939) zurück:</p>
+<div class="eq">AIQ = 100 + 15 · (x − μ) / σ</div>
+<div class="merk"><b>Klausurbeispiel</b>Testrohwert 500 in einem Test mit μ = 460 und σ = 50.<br>z = (500 − 460) / 50 = 0,8<br>IQ = 100 + 15 · 0,8 = 112, also durchschnittlich.</div>
+<p>Früher wurde der IQ anders berechnet: Binet führte das <b>Intelligenzalter</b> (mentale Alter) ein, Stern teilte es durch das Lebensalter: <span style="font-family:var(--mono)">IQ = Intelligenzalter / Lebensalter · 100</span>. Das funktioniert bei Kindern, aber nicht bei Erwachsenen, deren Intelligenz nicht mehr jedes Jahr wächst. Deshalb setzte sich Wechslers Abweichungs-IQ durch.</p>`,
+check:[
+ {q:"Ein Testrohwert liegt 18 Punkte unter dem Mittelwert, die Standardabweichung beträgt 12. Welcher IQ ergibt sich?", o:["82","77,5","122,5","85"], a:1, ex:"z = −18 / 12 = −1,5. IQ = 100 + 15 · (−1,5) = 77,5. Achtung aufs Vorzeichen, sonst kommt 122,5 heraus."},
+ {q:"Welchen Mittelwert und welche Standardabweichung hat die T-Skala?", o:["100 und 15","50 und 10","5 und 2","0 und 1"], a:1, ex:"T = 50 + 10 · z. Ein IQ von 115 entspricht z = 1 und damit T = 60."}
+]},
+{id:"10-3", t:"Der Prozentrang", html:`
+<p>Der <b>Prozentrang</b> (PR) beschreibt ein Ergebnis anders als der z-Wert: Er gibt an, wie viel Prozent der Referenzgruppe <b>gleich gut oder schlechter</b> abgeschnitten haben. Er braucht keine Normalverteilung, sondern nur eine Reihenfolge der Werte.</p>
+<div class="eq">PR = cumf / N · 100</div>
+<p class="small muted" style="margin-top:6px">cumf = kumulierte Häufigkeit, also die Anzahl der Werte bis einschließlich des gesuchten Werts · N = Gesamtzahl der Werte (Probanden)</p>
+<p>So gehst du in der Klausur vor:</p>
+<ul><li><b>Sortieren:</b> alle Werte der Größe nach ordnen.</li>
+<li><b>cumf bestimmen:</b> zählen, wie viele Werte kleiner oder gleich dem gesuchten Wert sind.</li>
+<li><b>N bestimmen</b> und in die Formel einsetzen.</li></ul>
+<div class="merk"><b>Klausurbeispiel (WiSe 22/23)</b>Werte: 21; 18; 19; 12; 13; 16; 13; 12; 25; 10; 13; 16. Gesucht: PR von 18.<br>Sortiert: 10, 12, 12, 13, 13, 13, 16, 16, <b>18</b>, 19, 21, 25<br>cumf = 9, N = 12, PR = 9/12 · 100 = 75</div>
+<p><b>Interpretation:</b> Ein Prozentrang von 75 heißt, dass 75 % der Gruppe gleich gut oder schlechter abgeschnitten haben, also 25 % besser. Ein Prozentrang von 25 heißt umgekehrt: 75 % waren besser.</p>
+<p>Prozentrang und z-Wert hängen über die Normalverteilung zusammen: Der Mittelwert (z = 0) hat PR 50, z = +1 entspricht PR 84,1, z = −2 entspricht PR 2,3.</p>`,
+check:[
+ {q:"Ein Student hat in einer Klausur den Prozentrang 25. Was bedeutet das?", o:["Er hat 25 % der Punkte erreicht","25 % haben besser abgeschnitten","75 % haben besser abgeschnitten","Er liegt eine Standardabweichung unter dem Mittel"], a:2, ex:"25 % haben gleich gut oder schlechter abgeschnitten, also 75 % besser. Mit der Punktzahl hat der Prozentrang nichts zu tun."},
+ {q:"In einer Verteilung von 20 Werten sind 14 Werte kleiner oder gleich dem gesuchten Wert. Wie hoch ist der Prozentrang?", o:["14","70","30","65"], a:1, ex:"PR = 14 / 20 · 100 = 70."}
+]},
+{id:"10-4", t:"Standardisieren in der Praxis", html:`
+<p>Rohwerte aus <b>verschiedenen Tests</b> lassen sich nicht direkt vergleichen. Wer in Test A und Test B je 36 Punkte hat, kann ganz unterschiedlich gut sein, weil die Tests unterschiedlich schwer sind und anders streuen. Erst die Umrechnung in Standardwerte (z, IQ, T) macht sie vergleichbar.</p>
+<div class="merk"><b>Klausuraufgabe (WiSe 22/23)</b>Drei Viertklässlerinnen, drei verschiedene Lesetests, ein Platz im Lesetraining für die Schwächste.
+<table class="kvq" style="margin-top:6px"><tr><th></th><th>Rohwert</th><th>M</th><th>SD</th><th>z</th><th>IQ-Skala</th></tr>
+<tr><td>A</td><td>36</td><td>42</td><td>3</td><td>−2</td><td>70</td></tr>
+<tr><td>B</td><td>36</td><td>39</td><td>6</td><td>−0,5</td><td>92,5</td></tr>
+<tr><td>C</td><td>36</td><td>42</td><td>6</td><td>−1</td><td>85</td></tr></table>
+Alle haben 36 Punkte, aber Schülerin A liegt zwei Standardabweichungen unter ihrer Referenzgruppe. Sie bekommt den Platz.</div>
+<p>Damit Standardwerte stimmen, müssen die Normen selbst gut sein. Die <b>Normierung</b> ist ein Nebengütekriterium: Die Normen sollen <b>aktuell</b> und an einer <b>repräsentativen</b> Stichprobe gewonnen sein. Drei typische Probleme, gerade in extremen Leistungsbereichen wie der Hochbegabungsdiagnostik:</p>
+<ul><li><b>Deckeneffekt:</b> Der Test ist zu leicht, sehr gute Personen lösen fast alles. Er kann oben nicht mehr unterscheiden (Messfehler durch Überschreiten des Messbereichs).</li>
+<li><b>Größerer Messfehler</b> an den Rändern der Verteilung, weil es dort nur wenige Aufgaben und Vergleichspersonen gibt.</li>
+<li><b>Flynn-Effekt:</b> Die durchschnittlichen Testleistungen sind über Jahrzehnte gestiegen. Mit veralteten Normen wirkt eine Person deshalb besser, als sie im Vergleich zu heute ist.</li></ul>`,
+check:[
+ {q:"Warum lässt man in der Aufgabe nicht einfach die Rohwerte entscheiden?", o:["Weil alle drei gleich sind","Weil die Tests unterschiedliche Mittelwerte und Streuungen haben","Weil Rohwerte immer ungenau sind","Weil nur IQ-Werte zulässig sind"], a:1, ex:"Gleiche Rohwerte bedeuten in unterschiedlich schweren Tests Unterschiedliches. Erst z-Werte zeigen die Position in der jeweiligen Referenzgruppe."},
+ {q:"Ein Intelligenztest wurde vor 30 Jahren normiert. Was ist zu erwarten?", o:["Die IQ-Werte fallen zu niedrig aus","Die IQ-Werte fallen zu hoch aus","Es gibt keinen Unterschied","Der Test wird reliabler"], a:1, ex:"Wegen des Flynn-Effekts war die alte Normstichprobe im Schnitt schwächer. Im Vergleich zu ihr schneidet man heute besser ab, der IQ wird überschätzt."}
+]}
+];
+
+CARDS[10]=[
+ {id:"c10-01", f:"Testrohwert und Normstichprobe", b:"Testrohwert: das unmittelbare Testergebnis, etwa die Zahl gelöster Aufgaben.\nNormstichprobe (Referenzgruppe): eine große, möglichst repräsentative Vergleichsgruppe, an der der Test erprobt wurde. Erst der Vergleich mit ihr macht den Rohwert interpretierbar."},
+ {id:"c10-02", f:"Mittelwert und Standardabweichung der IQ-Skala", b:"Mittelwert 100, Standardabweichung 15. Der IQ ist in der Bevölkerung annähernd normalverteilt."},
+ {id:"c10-03", f:"Flächenanteile der Normalverteilung", b:"Mittelwert bis ±1 SD: je 34,13 % (zusammen 68,26 %)\n1 bis 2 SD: je 13,59 %\n2 bis 3 SD: je 2,14 %\njenseits von 3 SD: je 0,13 %"},
+ {id:"c10-04", f:"Deskriptive Einordnung von IQ-Werten", b:"unter 70: weit unterdurchschnittlich (z. B. geistige Behinderung)\n70–85: unterdurchschnittlich\n85–115: durchschnittlich\n115–130: überdurchschnittlich\nüber 130: weit überdurchschnittlich (z. B. Hochbegabung)"},
+ {id:"c10-05", f:"Formel des z-Werts und Bedeutung der Variablen", b:"z = (x − μ) / σ\nx: Rohwert der Person\nμ: Mittelwert der Referenzgruppe\nσ: Standardabweichung (Streuung) der Referenzgruppe\nz sagt, um wie viele Standardabweichungen der Wert vom Mittel abweicht."},
+ {id:"c10-06", f:"Abweichungs-IQ: Formel und Urheber", b:"AIQ = 100 + 15 · (x − μ) / σ, also 100 + 15 · z.\nEingeführt von David Wechsler (1939)."},
+ {id:"c10-07", f:"Mittelwert und SD der Standardskalen", b:"z-Skala: 0 und 1\nIQ-Skala: 100 und 15\nT-Skala: 50 und 10\nC-Skala: 5 und 2\nUmrechnung immer: Mittelwert + SD · z"},
+ {id:"c10-08", f:"IQ nach Stern", b:"IQ = Intelligenzalter / Lebensalter · 100.\nDas Intelligenzalter (mentale Alter, z. B. „löst Aufgaben wie ein Achtjähriger“) geht auf Binet zurück. Für Erwachsene ungeeignet, deshalb abgelöst vom Abweichungs-IQ."},
+ {id:"c10-09", f:"Formel des Prozentrangs und Bedeutung der Variablen", b:"PR = cumf / N · 100\ncumf: kumulierte Häufigkeit, also Anzahl der Werte bis einschließlich des gesuchten Werts\nN: Gesamtzahl der Werte (Probanden)"},
+ {id:"c10-10", f:"Was bedeutet ein Prozentrang von 90?", b:"90 % der Referenzgruppe haben gleich gut oder schlechter abgeschnitten, nur 10 % besser."},
+ {id:"c10-11", f:"Anteil der Bevölkerung mit IQ 85 bis 115", b:"68,26 % (zweimal 34,13 %), also der durchschnittliche Leistungsbereich."},
+ {id:"c10-12", f:"Anteil mit IQ ≥ 130 und mit IQ ≥ 70", b:"IQ ≥ 130: 2,27 % (2,14 + 0,13)\nIQ ≥ 70: 97,73 % (100 − 2,27)"},
+ {id:"c10-13", f:"Warum standardisiert man Rohwerte?", b:"Rohwerte verschiedener Tests sind nicht vergleichbar, weil die Tests unterschiedlich schwer sind und anders streuen. Standardwerte (z, IQ, T) zeigen die Position in der jeweiligen Referenzgruppe und machen Ergebnisse vergleichbar (z. B. drei Schülerinnen mit drei verschiedenen Lesetests)."},
+ {id:"c10-14", f:"Deckeneffekt", b:"Messfehler, der auf dem Überschreiten des Messbereichs beruht: Der Test ist für sehr leistungsstarke Personen zu leicht und kann oben nicht mehr unterscheiden (z. B. fast alle lösen alle Aufgaben)."},
+ {id:"c10-15", f:"Flynn-Effekt", b:"Die durchschnittlichen Intelligenztestleistungen sind über Jahrzehnte gestiegen. Veraltete Normen überschätzen deshalb die Intelligenz (die Person wird mit einer schwächeren früheren Generation verglichen)."},
+ {id:"c10-16", f:"Drei Probleme unausgereifter Zugänge in der Hochbegabungsdiagnostik", b:"Deckeneffekte: im extremen Leistungsbereich kann nicht mehr unterschieden werden\nMessfehler: größere Ungenauigkeit im Extrembereich\nFlynn-Effekt: veraltete Normen sind dort besonders problematisch"},
+ {id:"c10-17", f:"Normierung als Nebengütekriterium", b:"Für den Test liegen aktuelle und an einer repräsentativen Stichprobe ermittelte Normen vor."}
+];
+CALC[10]=["zwert","iq","skalen","nv","pr","vergleich"];
+
+/* ================= Kleine Erklärhilfen zu Karten =================
+   Jede Zeile ein Begriff. „Begriff: Erklärung“ wird als fetter Begriff dargestellt. */
+const CARD_INFO={
+ /* Kapitel 10 */
+ "c10-01":"Norm: von lateinisch norma, „Richtschnur“.\nRepräsentativ: die Stichprobe bildet die Zielgruppe im Kleinen ab, etwa nach Alter, Geschlecht und Schulform.",
+ "c10-02":"Eselsbrücke: „Hundert und eine Fünfzehn“, jede SD sind 15 IQ-Punkte.",
+ "c10-03":"Eselsbrücke: 34 – 14 – 2 (gerundet), von innen nach außen.\nGauß: Die Glockenkurve heißt nach Carl Friedrich Gauß auch Gauß-Kurve.",
+ "c10-04":"Grenzen: liegen genau eine und zwei Standardabweichungen vom Mittelwert entfernt (85/115 und 70/130).",
+ "c10-05":"μ: griechisch „mü“, Mittelwert der Grundgesamtheit.\nσ: griechisch „sigma“, Standardabweichung.\nIn manchen Klausuren auch x̄ (x quer) und sd.",
+ "c10-06":"Wechsler: Autor der Wechsler-Tests (WISC für Kinder, WAIS für Erwachsene), bis heute verbreitet.",
+ "c10-07":"T-Wert: in Schulleistungstests verbreitet.\nC-Wert: von „Centil“, grobe Skala mit nur 11 Stufen (0 bis 10).",
+ "c10-08":"Binet: Alfred Binet, französischer Psychologe, entwickelte um 1905 den ersten Intelligenztest für Schulkinder.\nStern: William Stern, deutscher Psychologe, prägte 1912 den Begriff Intelligenzquotient.",
+ "c10-09":"Kumuliert: von lateinisch cumulus, „Haufen“, also aufgehäuft oder aufsummiert.\ncumf: cumulative frequency.",
+ "c10-12":"Rechenweg: 50 % liegen über 100, davon 34,13 % bis 115 und 13,59 % bis 130. Bleibt 50 − 34,13 − 13,59 = 2,28 (≈ 2,27 wegen Rundung).",
+ "c10-14":"Gegenstück: Bodeneffekt, wenn ein Test zu schwer ist und unten nicht mehr unterscheidet.",
+ "c10-15":"Flynn: James R. Flynn, neuseeländischer Politikwissenschaftler, beschrieb den Effekt 1984.",
+ "c10-17":"Nebengütekriterien: Fairness, Ökonomie, Nützlichkeit, Akzeptanz, Normierung (mehr dazu in Kapitel 11)."
+};
+function cardInfoHTML(id){
+  const t=CARD_INFO[id]; if(!t) return "";
+  const lines=t.split("\n").map(l=>{ const m=l.match(/^([^:]{1,32}): (.*)$/); return m?`<span class="cl"><b>${m[1]}</b> ${m[2]}</span>`:`<span class="cl">${l}</span>`; }).join("");
+  return `<div class="cinfo"><span class="ci">i</span><div>${lines}</div></div>`;
+}
+
+/* Kontext auf der Vorderseite: worum es bei der Frage überhaupt geht */
+const CARD_CTX={
+ "c10-01":"Wie man Testergebnisse überhaupt interpretierbar macht",
+ "c10-02":"Die bekannteste Normskala",
+ "c10-03":"Wie sich Werte um den Mittelwert verteilen",
+ "c10-04":"Wie man einen IQ in Worte fasst, wie in der Klausur verlangt",
+ "c10-05":"Rohwert in Standardabweichungen ausdrücken",
+ "c10-06":"Vom z-Wert zum IQ",
+ "c10-07":"Verschiedene Normskalen, ein Prinzip",
+ "c10-08":"Historischer Vorläufer des heutigen IQ",
+ "c10-09":"Position in einer Werteverteilung, ohne Normalverteilung",
+ "c10-10":"Prozentränge richtig interpretieren",
+ "c10-11":"Prozentanteile unter der Normalverteilung",
+ "c10-12":"Prozentanteile unter der Normalverteilung",
+ "c10-13":"Vergleich von Ergebnissen aus unterschiedlichen Tests",
+ "c10-14":"Messprobleme im extremen Leistungsbereich",
+ "c10-15":"Warum alte Normen verzerren",
+ "c10-16":"Messprobleme, wenn man Hochbegabung feststellen will",
+ "c10-17":"Gütekriterien von Tests"
+};
+
+/* ================= Rechentrainer Diagnostik (Kapitel 10) =================
+   Jede Aufgabe liefert Schritte {lab, why, f, calc, ans, final?}; Stufen wie in Wirtschaft II: vorgerechnet, geführt, frei. */
+const ZS=[-2.5,-2,-1.75,-1.5,-1.25,-1,-.8,-.75,-.6,-.5,-.4,-.25,.25,.4,.5,.6,.75,.8,1,1.25,1.5,1.75,2,2.5];
+function rawCase(){
+  for(;;){ const mu=pick([20,24,30,36,40,42,50,60,100,120,200,300,460,500,600]), sd=pick([2,3,4,5,6,8,10,12,15,20,25,40,50,100]), z=pick(ZS);
+    const x=mu+z*sd; if(!isInt(x)||x<0||sd>=mu) continue; return {mu,sd,z,x}; }
+}
+const tblRow=(h,v)=>`<div class="tablewrap"><table class="data"><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr><tr>${v.map(x=>`<td>${typeof x==="number"?fmt(x):x}</td>`).join("")}</tr></table></div>`;
+const zSteps=(c,lab="")=>[
+  {lab:`Abstand zum Mittelwert x − μ${lab}`, why:"Erst schauen, wie weit der Rohwert vom Mittelwert der Referenzgruppe entfernt ist. Liegt er darunter, wird es negativ.", f:"x − μ", calc:`${fmt(c.x)} − ${fmt(c.mu)} = ${fmt(c.x-c.mu)}`, ans:c.x-c.mu, sign:true},
+  {lab:`z-Wert${lab}`, why:"Den Abstand durch die Standardabweichung teilen: So viele Standardabweichungen liegt die Person vom Mittel entfernt.", f:"z = (x − μ) / σ", calc:`z = ${par(c.x-c.mu)} / ${fmt(c.sd)} = ${fmt(c.z)}`, ans:c.z, final:true, sign:true}
+];
+const iqLabel=iq=>iq<70?"weit unterdurchschnittlich":iq<85?"unterdurchschnittlich":iq<=115?"durchschnittlich":iq<=130?"überdurchschnittlich":"weit überdurchschnittlich";
+/* Flächen unter der Normalverteilung nach Heines Tabelle (in %) */
+const NV_SEG=[[-99,-3,.13],[-3,-2,2.14],[-2,-1,13.59],[-1,0,34.13],[0,1,34.13],[1,2,13.59],[2,3,2.14],[3,99,.13]];
+const nvArea=(a,b)=>r(NV_SEG.filter(([lo,hi])=>lo>=a&&hi<=b).reduce((s,x)=>s+x[2],0));
+const SCALES={z:{n:"z-Wert",m:0,s:1},IQ:{n:"IQ",m:100,s:15},T:{n:"T-Wert",m:50,s:10},C:{n:"C-Wert",m:5,s:2}};
+
+const TYPES={
+  zwert:{name:"z-Wert berechnen", short:"z-Wert", desc:"Rohwert, Mittelwert und Standardabweichung gegeben: Wie viele Standardabweichungen liegt die Person vom Mittel entfernt?", gen(){
+    const c=rawCase();
+    return {intro:"Eine Person hat in einem standardisierten Leistungstest folgenden Testrohwert erzielt. Für die Normstichprobe sind Mittelwert und Standardabweichung angegeben.", table:tblRow(["Rohwert x","Mittelwert μ","Standardabw. σ"],[c.x,c.mu,c.sd]), q:"Berechnen Sie den z-Wert (exakt).", steps:zSteps(c)};
+  }},
+  iq:{name:"Vom Rohwert zum IQ", short:"Rohwert → IQ", desc:"Klausurklassiker (WiSe 17/18, 18/19): z-Wert berechnen, in den Abweichungs-IQ umrechnen, deskriptiv einordnen.", gen(){
+    const c=rawCase(), iq=r(100+15*c.z);
+    return {intro:`Eine Person hat bei einem standardisierten Intelligenztest (μ = ${fmt(c.mu)}, σ = ${fmt(c.sd)}) einen Testrohwert von ${fmt(c.x)} erzielt.`, table:"", q:"Berechnen Sie den z-Wert und den IQ-Wert (jeweils exakt) und ordnen Sie das Ergebnis deskriptiv ein.",
+      steps:[...zSteps(c),{lab:"IQ-Wert (Abweichungs-IQ)", why:"Die IQ-Skala hat Mittelwert 100 und Standardabweichung 15: 100 plus 15 mal z.", f:"IQ = 100 + 15 · z", calc:`IQ = 100 + 15 · ${par(c.z)} = ${fmt(iq)}  →  ${iqLabel(iq)}`, ans:iq, final:true}]};
+  }},
+  skalen:{name:"Zwischen Normskalen umrechnen", short:"Skalen", desc:"IQ, T-Wert, C-Wert und z-Wert ineinander umrechnen: immer erst zurück zu z.", gen(){
+    for(;;){ const from=pick(["IQ","T","C","z"]), to=pick(["IQ","T","C","z"].filter(x=>x!==from)), z=pick(ZS), A=SCALES[from], B=SCALES[to];
+      const v=r(A.m+A.s*z), w=r(B.m+B.s*z); if(!nice(v,2)) continue;
+      const steps=[];
+      if(from!=="z") steps.push({lab:"Zurück zum z-Wert", why:`Die ${A.n}-Skala hat Mittelwert ${A.m} und Standardabweichung ${A.s}. Abstand zum Mittel durch die Standardabweichung teilen.`, f:`z = (Wert − ${A.m}) / ${A.s}`, calc:`z = (${fmt(v)} − ${A.m}) / ${A.s} = ${fmt(z)}`, ans:z, sign:true, final:to==="z"});
+      if(to!=="z") steps.push({lab:`${B.n}`, why:`Die ${B.n}-Skala hat Mittelwert ${B.m} und Standardabweichung ${B.s}: Mittelwert plus Standardabweichung mal z.`, f:`${B.n} = ${B.m} + ${B.s} · z`, calc:`${B.m} + ${B.s} · ${par(z)} = ${fmt(w)}`, ans:w, final:true});
+      return {intro:`Ein Kind hat in einem Test ${from==="z"?"einen z-Wert":from==="IQ"?"einen IQ":"einen "+A.n} von ${fmt(v)} erreicht.`, table:"", q:`Welcher ${B.n} entspricht diesem Ergebnis?`, steps};
+    }
+  }},
+  nv:{name:"Anteile unter der Normalverteilung", short:"Anteile", desc:"Wie viel Prozent der Bevölkerung haben einen IQ in einem bestimmten Bereich? Mit Heines Tabelle 34,13 / 13,59 / 2,14 / 0,13.", gen(){
+    const B=[55,70,85,100,115,130,145], kind=pick(["zw","ge","le"]);
+    let a,b,txt;
+    if(kind==="zw"){ const i=rint(0,5), j=rint(i+1,6); a=B[i]; b=B[j]; txt=`zwischen ${a} und ${b}`; }
+    else if(kind==="ge"){ a=pick([70,85,100,115,130,145]); b=null; txt=`von ${a} oder mehr`; }
+    else { a=null; b=pick([55,70,85,100,115,130]); txt=`von ${b} oder weniger`; }
+    const za=a==null?-99:(a-100)/15, zb=b==null?99:(b-100)/15, p=nvArea(za,zb);
+    const steps=[];
+    if(a!=null) steps.push({lab:`Grenze ${a} als z-Wert`, why:"Jede Grenze in Standardabweichungen ausdrücken.", f:"z = (IQ − 100) / 15", calc:`z = (${a} − 100) / 15 = ${fmt(za)}`, ans:za, sign:true});
+    if(b!=null) steps.push({lab:`Grenze ${b} als z-Wert`, why:"Jede Grenze in Standardabweichungen ausdrücken.", f:"z = (IQ − 100) / 15", calc:`z = (${b} − 100) / 15 = ${fmt(zb)}`, ans:zb, sign:true});
+    const parts=NV_SEG.filter(([lo,hi])=>lo>=za&&hi<=zb).map(x=>String(x[2]).replace(".",","));
+    steps.push({lab:"Anteil in Prozent", why:"Die Abschnitte zwischen den Grenzen aufaddieren: 34,13 innen, 13,59 zwischen 1 und 2 SD, 2,14 zwischen 2 und 3 SD, 0,13 außen.", f:"Summe der Abschnitte", calc:`${parts.join(" + ")} = ${fmt(p)} %`, ans:p, final:true, tol:.06});
+    return {intro:"Der IQ ist normalverteilt mit Mittelwert 100 und Standardabweichung 15.", table:"", q:`Wie viel Prozent der Bevölkerung haben einen IQ ${txt}?`, steps};
+  }},
+  pr:{name:"Prozentrang aus einer Werteverteilung", short:"Prozentrang", desc:"Klausur WiSe 18/19 und 22/23: Werte sortieren, cumf zählen, PR = cumf / N · 100.", gen(){
+    for(;;){ const N=pick([10,12,15,16,20]), vals=[...Array(N)].map(()=>rint(8,40)); const x=pick(vals);
+      const sorted=vals.slice().sort((a,b)=>a-b), cumf=sorted.filter(v=>v<=x).length, pr=r(cumf/N*100);
+      if(cumf===N||cumf<3||!nice(pr,2)) continue;
+      return {intro:"Gegeben ist die folgende Werteverteilung einer Referenzgruppe.", table:`<div class="eq" style="white-space:normal;margin-top:8px">${vals.join("; ")}</div>`, q:`Ermitteln Sie den Prozentrang des Testwerts ${x} und interpretieren Sie ihn.`,
+        steps:[
+          {lab:"cumf: Anzahl der Werte ≤ "+x, why:"Werte sortieren und zählen, wie viele kleiner oder gleich dem Testwert sind. Gleiche Werte zählen mit.", f:"cumf = Anzahl Werte ≤ x", calc:`${sorted.map(v=>v<=x?v:"·").join(" ").replace(/( ·)+$/,"")} → cumf = ${cumf}`, ans:cumf, tol:0},
+          {lab:"N: Anzahl aller Werte", why:"Alle Werte der Verteilung zählen.", f:"N", calc:`N = ${N}`, ans:N, tol:0},
+          {lab:"Prozentrang PR", why:"Anteil der Werte bis einschließlich des Testwerts in Prozent.", f:"PR = cumf / N · 100", calc:`PR = ${cumf} / ${N} · 100 = ${fmt(pr)}  →  ${fmt(pr)} % haben gleich gut oder schlechter abgeschnitten, ${fmt(r(100-pr))} % besser.`, ans:pr, final:true, tol:.06}
+        ]};
+    }
+  }},
+  vergleich:{name:"Ergebnisse aus verschiedenen Tests vergleichen", short:"Vergleich", desc:"Klausur WiSe 22/23 (14 P.): drei Schülerinnen, drei Lesetests. Rohwerte standardisieren und begründet auswählen.", gen(){
+    for(;;){ const x=rint(25,45), M=[0,1,2].map(()=>x+pick([-3,-2,-1,1,2,3,4,5,6,8])), S=[0,1,2].map(()=>pick([2,3,4,5,6,8]));
+      const Z=M.map((m,i)=>r((x-m)/S[i])); if(!Z.every(z=>nice(z,2))||new Set(Z).size<3) continue;
+      const w=Z.indexOf(Math.min(...Z)), N=["A","B","C"];
+      return {intro:"Ein letzter Platz in einem Lesetraining für leseschwache Kinder ist zu vergeben. Drei Schulen schlagen je eine Viertklässlerin vor, gemessen mit unterschiedlichen standardisierten Lesetests.",
+        table:`<div class="tablewrap"><table class="data"><tr><th></th><th>Rohwert</th><th>M</th><th>SD</th></tr>${N.map((n,i)=>`<tr><th>${n}</th><td>${x}</td><td>${M[i]}</td><td>${S[i]}</td></tr>`).join("")}</table></div>`,
+        q:"Wandeln Sie die Rohwerte in z-Werte um. Welche Schülerin sollte den Platz bekommen? (Antwort als Zahl: A = 1, B = 2, C = 3)",
+        steps:[...N.map((n,i)=>({lab:`z-Wert Schülerin ${n}`, why:"Rohwert minus Mittelwert ihres Tests, geteilt durch die Standardabweichung ihres Tests.", f:"z = (x − M) / SD", calc:`z = (${x} − ${M[i]}) / ${S[i]} = ${fmt(Z[i])}  (IQ-Skala: ${fmt(r(100+15*Z[i]))})`, ans:Z[i], final:true, sign:true})),
+          {lab:"Platz für Schülerin (A = 1, B = 2, C = 3)", why:"Gesucht ist die schwächste Leserin, also der niedrigste z-Wert: Sie liegt am weitesten unter ihrer Referenzgruppe.", f:"min(z)", calc:`Schülerin ${N[w]}: Ihre Leistung liegt ${fmt(Math.abs(Z[w]))} Standardabweichungen unter dem Mittel ihrer Referenzgruppe, weiter als bei den anderen.`, ans:w+1, final:true, tol:0}]};
+    }
+  }}
+};
+const ORDER=Object.keys(TYPES);
+const LVL={1:"Vorgerechnet",2:"Geführt",3:"Frei"};
+const lvlOf=t=>state.lvl[t]||1;
+
+/* ================= Grafiken (SVG, Raster 400 × 300) ================= */
+const tri=(x,y,dir,cls)=>{ const s=7, p={up:[[x,y],[x-s/1.6,y+s],[x+s/1.6,y+s]],right:[[x,y],[x-s,y-s/1.6],[x-s,y+s/1.6]],down:[[x,y],[x-s/1.6,y-s],[x+s/1.6,y-s]]}[dir]; return `<polygon class="${cls}" points="${p.map(q=>q.join(",")).join(" ")}"/>`; };
+const ln=(x1,y1,x2,y2,cls)=>`<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+const tx=(x,y,s,cls="",anchor="start",size)=>`<text class="${cls}" x="${x}" y="${y}" text-anchor="${anchor}"${size?` style="font-size:${size}px"`:""}>${s}</text>`;
+const dot=(x,y,cls="dot")=>`<circle class="${cls}" cx="${x}" cy="${y}" r="5"/>`;
+
+/* Normalverteilung mit Flächenanteilen und den üblichen Skalen (Mittelwert 200, 1 SD = 50 px) */
+function nvCurve(){
+  const X=z=>200+z*50, Y=z=>196-150*Math.exp(-z*z/2);
+  let d=""; for(let i=0;i<=140;i++){ const z=-3.5+i*.05; d+=(i?"L":"M")+X(z).toFixed(1)+","+Y(z).toFixed(1); }
+  return {X,Y,d};
+}
+const GFX={
+  nv:{base:()=>{ const {X,Y,d}=nvCurve();
+      const area=(a,b,cls)=>{ let p=`M${X(a)},196`; for(let z=a;z<=b+1e-9;z+=.05) p+=`L${X(z).toFixed(1)},${Y(z).toFixed(1)}`; return `<path class="${cls}" d="${p}L${X(b)},196Z"/>`; };
+      let s=area(-1,1,"fillA")+area(-2,-1,"fillB")+area(1,2,"fillB")+`<path class="base" d="${d}"/>`+ln(18,196,382,196,"ax");
+      for(const z of [-3,-2,-1,0,1,2,3]) s+=ln(X(z),Y(z),X(z),200,"ax dash thin");
+      const pc=[["34,13 %",-.5,150,11],["34,13 %",.5,150,11],["13,59 %",-1.5,189,10],["13,59 %",1.5,189,10],["2,14 %",-2.75,170,10],["2,14 %",2.75,170,10]];
+      for(const [t,z,y,f] of pc) s+=tx(X(z),y,t,"bt","middle",f);
+      const rows=[["z",z=>String(z).replace("-","−")],["IQ",z=>100+15*z],["T",z=>50+10*z],["PR",z=>({"-3":"0,13","-2":"2,3","-1":"15,9","0":"50","1":"84,1","2":"97,7","3":"99,9"})[z]]];
+      rows.forEach(([lab,f],i)=>{ const y=218+i*19; s+=tx(10,y,lab,"","start",11); for(const z of [-3,-2,-1,0,1,2,3]) s+=tx(X(z),y,f(z),i===1?"bt":"","middle",11); });
+      return s; },
+    sol:()=>""}
+};
+const figSVG=(id,sol=true)=>`<svg class="fig" viewBox="0 0 400 300" role="img" aria-label="Grafik">${GFX[id].base()}${sol?GFX[id].sol():""}</svg>`;
+
+/* Zeichenfläche für den Stift, wiederverwendbar */
+function drawSurface(c,strokes){
+  const ctx=c.getContext("2d"); let penSeen=false, cur=null;
+  const color=()=>getComputedStyle(document.documentElement).getPropertyValue("--gold").trim()||"#A87B1F";
+  function size(){ const r=c.getBoundingClientRect(), dpr=window.devicePixelRatio||1; c.width=r.width*dpr; c.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); draw(); }
+  function draw(){ const r=c.getBoundingClientRect(); ctx.clearRect(0,0,r.width,r.height); ctx.lineCap="round"; ctx.lineJoin="round"; ctx.strokeStyle=color();
+    for(const s of strokes){ for(let i=1;i<s.length;i++){ ctx.lineWidth=s[i][2]; ctx.beginPath(); ctx.moveTo(s[i-1][0]*r.width,s[i-1][1]*r.height); ctx.lineTo(s[i][0]*r.width,s[i][1]*r.height); ctx.stroke(); } } }
+  const pt=e=>{ const r=c.getBoundingClientRect(); const p=e.pressure&&e.pointerType==="pen"?e.pressure:.5; return [(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height,1.2+p*2.6]; };
+  c.onpointerdown=e=>{ if(e.pointerType==="pen") penSeen=true; if(penSeen&&e.pointerType==="touch") return; cur=[pt(e)]; strokes.push(cur); try{c.setPointerCapture(e.pointerId);}catch(x){} };
+  c.onpointermove=e=>{ if(!cur) return; const evs=e.getCoalescedEvents?e.getCoalescedEvents():[e]; for(const ev of evs) cur.push(pt(ev)); draw(); };
+  c.onpointerup=c.onpointercancel=()=>{ cur=null; };
+  size(); window.addEventListener("resize",size);
+  return {undo(){ strokes.pop(); draw(); }, clear(){ strokes.length=0; draw(); }};
+}
+
+/* ================= Fortschritt ================= */
+function lessonState(id){ return (state.lessons||{})[id]; }
+function cardBox(id){ return (state.box||{})[id]||0; }
+function chapterProgress(n){
+  const L=LESSONS[n]||[], K=CARDS[n]||[], C=CALC[n]||[], G=GRAPHS[n]||[], X=kreuzOf(n), W=kurzOf(n);
+  if(!L.length) return null;
+  const l=L.filter(x=>lessonState(x.id)).length/L.length;
+  const k=K.length? K.filter(x=>cardBox(x.id)>=3).length/K.length : 1;
+  const x=X.length? X.filter(i=>(kzStat(i.id)||{}).best===4).length/X.length : 1;
+  const c=C.length? C.filter(t=>lvlOf(t)===3 && (acc(t)||0)>=.6).length/C.length : 1;
+  const g=G.length? G.filter(i=>(state.graphs||{})[i.id]).length/G.length : 1;
+  const w=W.length? W.filter(i=>kurzScore(i.id)).length/W.length : 1;
+  const parts=[[l,.25,1],[k,.2,K.length],[x,.25,X.length],[c,.15,C.length],[g,.05,G.length],[w,.1,W.length]].filter(p=>p[2]);
+  const wsum=parts.reduce((s,p)=>s+p[1],0);
+  return {l,k,x,c,g,w,total:Math.round(parts.reduce((s,p)=>s+p[0]*p[1],0)/wsum*100)};
+}
+function acc(t){ const h=state.hist[t]; return h&&h.n? h.r/h.n : null; }
+/* Was ist als Nächstes dran? Theorie zuerst, dann abfragen, rechnen, zeichnen, schreiben */
+function nextStep(){
+  for(const ch of CHAPTERS){ const n=ch.n; if(!LESSONS[n]) continue;
+    const L=LESSONS[n], li=L.findIndex(x=>!lessonState(x.id));
+    if(li>=0) return {label:`Kapitel ${n} · Theorie`, title:L[li].t, go:()=>openLesson(n,li)};
+    if((CARDS[n]||[]).some(x=>!isSeen(x.id))) return {label:`Kapitel ${n} · Karten`, title:"Begriffe festigen", go:()=>openCards(n)};
+    if(kreuzOf(n).some(x=>!kzStat(x.id))) return {label:`Kapitel ${n} · Kreuzen`, title:"Kreuzaufgaben wie in der Klausur", go:()=>openKreuz(n)};
+    const ct=(CALC[n]||[]).find(t=>lvlOf(t)<3);
+    if(ct) return {label:`Kapitel ${n} · Rechnen`, title:TYPES[ct].name, go:()=>startTask(ct,false)};
+    const g=(GRAPHS[n]||[]).findIndex(x=>!(state.graphs||{})[x.id]);
+    if(g>=0) return {label:`Kapitel ${n} · Grafik`, title:GRAPHS[n][g].t, go:()=>openGraph(n,g)};
+    if(kurzOf(n).some(x=>!kurzScore(x.id))) return {label:`Kapitel ${n} · Schreiben`, title:"Offene Klausuraufgaben", go:()=>openKurz(n)};
+  }
+  return {label:"Wiederholen", title:"Gemischt üben hält alles frisch", go:()=>openCards(0)};
+}
+
+/* ================= Navigation ================= */
+let view="home", task=null, cur={};
+const TABS=[["home","Lernpfad"],["practice","Üben"],["stats","Statistik"]];
+const TAB_OF={home:"home",chapter:"home",lesson:"home",graph:"home",essay:"home",kreuz:"practice",cards:"practice",calc:"practice",task:"practice",practice:"practice",stats:"stats",exam:"practice",kurz:"practice"};
+function renderNav(){
+  $("#nav").innerHTML=TABS.map(([k,l])=>`<button data-v="${k}"${TAB_OF[view]===k?' aria-current="page"':""}>${l}</button>`).join("");
+  $("#nav").querySelectorAll("button").forEach(b=>b.onclick=()=>go(b.dataset.v));
+}
+function go(v){ view=v; render(); window.scrollTo(0,0); }
+function render(){ renderNav(); ({home:renderHome,chapter:renderChapter,lesson:renderLesson,cards:renderCards,graph:renderGraph,practice:renderPractice,calc:renderCalc,task:renderTask,stats:renderStats,exam:renderExam,kurz:renderKurz,kreuz:renderKreuz})[view](); }
+const backTo=(label,fn)=>`<button class="crumb" id="crumb">← ${label}</button>`;
+function bindCrumb(fn){ const b=$("#crumb"); if(b) b.onclick=fn; }
+
+/* ================= Lernpfad ================= */
+function renderHome(){
+  const nx=nextStep(), due=dueCards(0).length;
+  const chapRow=ch=>{ const p=chapterProgress(ch.n);
+    return `<button class="chap${p?"":" off"}" data-n="${ch.n}" ${p?"":"disabled"}>
+      <span class="no">${ch.n}</span><span class="t">${ch.title}</span>${p?`<span class="chip ${p.total>=80?"l3":p.total>0?"l2":""}">${p.total} %</span>`:`<span class="chip soon">folgt</span>`}
+      <span class="d">${ch.teaser}</span>${p?`<span class="bar"><i style="width:${p.total}%"></i></span>`:""}
+    </button>`; };
+  $("#app").innerHTML=`
+    <p class="eyebrow">Bildungswissenschaften II · Psychologie · Heine</p>
+    <h1>Lernpfad</h1>
+    <p class="muted">Alles für die Modulklausur in einer App: Theorie lesen, Karten wiederholen, Kreuzaufgaben üben, rechnen, offene Aufgaben schreiben.</p>
+    ${due?`<div class="block row between"><span><b>Heute fällig: ${due} Karten</b><br><span class="small muted">Zuerst wiederholen, dann Neues lernen.</span></span><button class="btn" id="goDue">Wiederholen</button></div>`:""}
+    <div class="block today">
+      <p class="eyebrow">Als Nächstes · ${nx.label}</p>
+      <h2>${nx.title}</h2>
+      <button class="btn" id="goNext">Weiter lernen</button>
+    </div>
+    ${[1,2].map(v=>`<p class="sect"><span>${VL[v]}</span><span>Mi ${v===1?"8–10":"10–12"}</span></p>
+      <div class="block"><div class="tlist">${CHAPTERS.filter(c=>c.vl===v).map(chapRow).join("")}</div></div>`).join("")}
+    <div class="block">
+      <h2>So ist die Klausur gebaut</h2>
+      <p class="small muted">Modulklausur WiSe 24/25: vier Teile mit je 30 Punkten, zusammen 120. Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe.</p>
+      <div class="partlist">
+        <span>Teil 1</span><span>Einführung: 5 Kreuzaufgaben, offene Aufgabe (2024: Emotion nach Russell)</span><b>30 P.</b>
+        <span>Teil 2</span><span>Lehr-Lernpsychologie: 5 Kreuzaufgaben, offene Aufgabe (2024: operante Konditionierung)</span><b>30 P.</b>
+        <span>Teil 3</span><span>Diagnostik: 5 Kreuzaufgaben, offene Aufgabe (früher: Rechnen, Bezugsnormen, Skalen)</span><b>30 P.</b>
+        <span>Teil 4</span><span>Inklusion: 4 Kreuzaufgaben, Fallanalyse nach ICD-10 F81 (14 P.)</span><b>30 P.</b>
+      </div>
+    </div>`;
+  $("#goNext").onclick=nx.go;
+  if($("#goDue")) $("#goDue").onclick=()=>openCards(0);
+  document.querySelectorAll(".chap").forEach(b=>b.onclick=()=>{ if(b.disabled) return; cur.ch=+b.dataset.n; go("chapter"); });
+}
+
+/* ================= Kapitel ================= */
+function renderChapter(){
+  const n=cur.ch, ch=CHAPTERS.find(c=>c.n===n), p=chapterProgress(n);
+  const L=LESSONS[n]||[], K=CARDS[n]||[], C=CALC[n]||[], G=GRAPHS[n]||[], X=kreuzOf(n), W=kurzOf(n);
+  const nl=L.filter(x=>lessonState(x.id)).length;
+  const nc=C.filter(t=>lvlOf(t)===3).length, ng=G.filter(x=>(state.graphs||{})[x.id]).length;
+  const nx=X.filter(x=>(kzStat(x.id)||{}).best===4).length, nw=W.filter(x=>kurzScore(x.id)).length;
+  $("#app").innerHTML=`${backTo("Lernpfad")}
+    <p class="eyebrow">Kapitel ${n} · Klausurteil ${ch.teil} · ${p.total} % geschafft</p>
+    <h1>${ch.title}</h1>
+    <div class="block"><div class="modes">
+      <button class="mode" id="mL"><span class="t">Theorie</span><span class="n">${nl}/${L.length}</span><span class="d">${L.length} kurze Lektionen mit Verständnisfragen. Hier fängst du an.</span></button>
+      ${K.length?`<button class="mode" id="mK"><span class="t">Karten</span><span class="n">${dueCards(n).length} fällig · ${K.filter(x=>!isSeen(x.id)).length} neu</span><span class="d">Begriffe, Formeln, Aufzählungen. Gewusste Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder.</span></button>`:""}
+      ${X.length?`<button class="mode" id="mX"><span class="t">Kreuzen</span><span class="n">${nx}/${X.length} fehlerfrei</span><span class="d">Kreuzaufgaben im Klausurformat: drei Aussagen, je wahr oder falsch, bis zu 4 Punkte.</span></button>`:""}
+      ${C.length?`<button class="mode" id="mC"><span class="t">Rechnen</span><span class="n">${nc}/${C.length} frei</span><span class="d">Immer neue Zahlen: erst vorgerechnet, dann geführt, dann frei wie in der Klausur.</span></button>`:""}
+      ${G.length?`<button class="mode" id="mG"><span class="t">Grafiken</span><span class="n">${ng}/${G.length}</span><span class="d">Mit dem Stift zeichnen, dann die Musterlösung darüberlegen.</span></button>`:""}
+      ${W.length?`<button class="mode" id="mW"><span class="t">Schreiben</span><span class="n">${nw}/${W.length}</span><span class="d">Offene Aufgaben: Antwort schreiben, mit dem Erwartungshorizont abhaken, auf Wunsch von Claude bewerten lassen.</span></button>`:""}
+    </div></div>
+    <div class="block"><h3>Lektionen</h3><p class="small muted" style="margin:0 0 6px">${tagOf("")} brauchst du für die Klausur. ${tagOf("hg")} einmal lesen genügt.</p><div class="tlist">${L.map((x,i)=>{ const s=lessonState(x.id);
+      return `<button class="titem" data-i="${i}"><span class="t">${i+1}. ${x.t} ${tagOf(x.id)}</span>${state.unclear[x.id]?`<span class="chip flag">unklar</span>`:`<span class="chip ${s?(s.ok?"l3":"l2"):""}">${s?(s.ok?"sicher":"gelesen"):"offen"}</span>`}</button>`;}).join("")}</div></div>`;
+  bindCrumb(()=>go("home"));
+  $("#mL").onclick=()=>openLesson(n,Math.max(0,L.findIndex(x=>!lessonState(x.id))));
+  if($("#mK")) $("#mK").onclick=()=>openCards(n);
+  if($("#mC")) $("#mC").onclick=()=>{ cur.calcCh=n; go("calc"); };
+  if($("#mG")) $("#mG").onclick=()=>openGraph(n,Math.max(0,G.findIndex(x=>!(state.graphs||{})[x.id])));
+  if($("#mX")) $("#mX").onclick=()=>openKreuz(n);
+  if($("#mW")) $("#mW").onclick=()=>openKurz(n);
+  document.querySelectorAll(".titem").forEach(b=>b.onclick=()=>openLesson(n,+b.dataset.i));
+}
+
+/* ================= Lektion ================= */
+function openLesson(n,i){ cur.ch=n; cur.li=i; cur.ans={}; go("lesson"); }
+function renderLesson(){
+  const n=cur.ch, L=LESSONS[n], x=L[cur.li];
+  const html=x.html.replace(/\{\{fig:(\w+)\}\}/g,(_,id)=>figSVG(id,true));
+  const allAns=x.check.every((_,j)=>cur.ans[j]!==undefined);
+  $("#app").innerHTML=`${backTo("Kapitel "+n)}
+    <p class="eyebrow">Kapitel ${n} · Lektion ${cur.li+1} von ${L.length} ${tagOf(x.id)}</p>
+    <article class="block lesson"><h1>${x.t}</h1>${html}</article>
+    ${unclearBox(x)}
+    <div class="block"><h3>Kurz prüfen</h3>${x.check.map((c,j)=>{ const a=cur.ans[j];
+      return `<div style="margin-top:${j?16:4}px"><p style="margin:0"><b>${c.q}</b></p><div class="mc">${c.o.map((o,k)=>{
+        const cls=a===undefined?"":(k===c.a?"r":(k===a?"w":""));
+        return `<button data-j="${j}" data-k="${k}" class="${cls}" ${a!==undefined?"disabled":""}>${o}</button>`;}).join("")}
+        ${a===undefined?`<button data-j="${j}" data-k="-1" class="idk">Weiß ich nicht</button>`:""}</div>
+        ${a!==undefined?`<p class="ex ${a===c.a?"res good":"res bad"}">${a===c.a?"Richtig. ":a===-1?"Gut, dass du ehrlich bist. Die Lektion kommt später wieder. ":"Nicht ganz. "}<span style="color:var(--ink)">${c.ex}</span></p>`:""}</div>`;}).join("")}
+    </div>
+    <div class="lnav">
+      ${cur.li>0?`<button class="btn ghost" id="prev">← Vorherige</button>`:"<span></span>"}
+      ${allAns?(cur.li<L.length-1?`<button class="btn" id="next">Nächste Lektion →</button>`:`<button class="btn" id="fin">Kapitel-Übersicht</button>`):`<span class="small muted">Beantworte die Fragen, dann geht es weiter.</span>`}
+    </div>`;
+  bindCrumb(()=>go("chapter"));
+  document.querySelectorAll(".mc button").forEach(b=>b.onclick=()=>{
+    const j=+b.dataset.j, k=+b.dataset.k; if(cur.ans[j]!==undefined) return; cur.ans[j]=k;
+    if(x.check.every((_,q)=>cur.ans[q]!==undefined)){ state.lessons=state.lessons||{}; const ok=x.check.every((c,q)=>cur.ans[q]===c.a);
+      state.lessons[x.id]={ok, t:Date.now()}; logDay(); save(); }
+    const y=window.scrollY; renderLesson(); window.scrollTo(0,y);
+  });
+  bindUnclear(x);
+  if($("#prev")) $("#prev").onclick=()=>openLesson(n,cur.li-1);
+  if($("#next")) $("#next").onclick=()=>openLesson(n,cur.li+1);
+  if($("#fin")) $("#fin").onclick=()=>go("chapter");
+}
+/* Kernstoff oder Hintergrund (laut Altklausuren und Fragenkatalog) */
+const HINTERGRUND=new Set(["hg"]);
+const tagOf=id=>HINTERGRUND.has(id)?'<span class="tag bg">Hintergrund</span>':'<span class="tag core">Kernstoff</span>';
+/* „Verstehe ich nicht“: Lektion vormerken und eine Bitte um einfachere Erklärung für Claude kopieren */
+function unclearBox(x){
+  const on=!!state.unclear[x.id];
+  return `<div class="block unclear"><div style="flex:1"><p class="small muted">${on?"Als unklar vorgemerkt. Die Lektion ist in der Kapitelübersicht markiert, bis du sie wieder freigibst.":"Hängt es irgendwo? Merk dir die Lektion vor und lass sie dir von Claude anders erklären."}</p>
+    <div class="row" style="margin-top:8px"><button class="btn ghost small" id="ucOn">${on?"Jetzt verstanden":"Verstehe ich nicht"}</button>${on?`<button class="btn ghost small" id="ucCl">Erklärung bei Claude holen</button>`:""}</div><div id="ucCopy"></div></div></div>`;
+}
+function bindUnclear(x){
+  const plain=x.html.replace(/\{\{fig:\w+\}\}/g,"").replace(/<br>/g,"\n").replace(/<\/(p|li|tr|div)>/g,"\n").replace(/<[^>]+>/g," ").replace(/[ \t]+/g," ").replace(/\n\s+/g,"\n").trim();
+  const ask=()=>copyForClaude(`Ich lerne für die Modulklausur Bildungswissenschaften II (UDE, Prof. Heine, Pädagogische Psychologie). Diese Lektion verstehe ich noch nicht richtig. Erkläre sie mir bitte einfacher, mit einem Beispiel aus der Schule, und stell mir danach zwei Kontrollfragen.\n\nLektion „${x.t}“:\n${plain}`,"#ucCopy");
+  $("#ucOn").onclick=()=>{ if(state.unclear[x.id]) delete state.unclear[x.id]; else { state.unclear[x.id]=Date.now(); ask(); } save(); const y=window.scrollY; renderLesson(); window.scrollTo(0,y); };
+  if($("#ucCl")) $("#ucCl").onclick=ask;
+}
+function logDay(){ const k=today(); state.days[k]=(state.days[k]||0)+1; }
+
+/* ================= Karten (Karteikasten, Fächer 0–5) ================= */
+function allCards(n){ return n? (CARDS[n]||[]) : Object.values(CARDS).flat(); }
+/* Wiederholung mit Fälligkeitsdatum (wie Anki): sicherer gewusst = längerer Abstand */
+const INTERVAL=[0,0,1,3,7,16];   // Tage bis zur nächsten Abfrage je Fach; Fach 5 erneut gewusst: 35 Tage
+const dayStart=(t=Date.now())=>{ const d=new Date(t); d.setHours(0,0,0,0); return d.getTime(); };
+const isSeen=id=>!!(state.box||{})[id];
+const isDue=id=>isSeen(id) && ((state.due||{})[id]||0)<=Date.now();
+function dueCards(n){ return allCards(n).filter(x=>isDue(x.id)).sort((a,b)=>((state.due||{})[a.id]||0)-((state.due||{})[b.id]||0)); }
+function openCards(n,free){ cur.cardCh=n; cur.free=!!free; cur.deck=free?buildDeck(n):buildDueDeck(n); cur.ci=0; cur.flip=false; cur.right=0; cur.requeued={}; go("cards"); }
+function buildDueDeck(n){
+  const due=dueCards(n), fresh=n? allCards(n).filter(x=>!isSeen(x.id)) : [];
+  return due.concat(fresh).slice(0,Math.max(10,Math.min(due.length,30)));
+}
+function buildDeck(n){
+  const pool=allCards(n).slice(), deck=[];
+  while(deck.length<Math.min(10,pool.length)){
+    const w=pool.map(x=>[6,5,4,3,2,1][cardBox(x.id)]); let r=Math.random()*w.reduce((a,b)=>a+b,0), i=0;
+    for(;i<pool.length;i++){ r-=w[i]; if(r<=0) break; } deck.push(pool.splice(Math.min(i,pool.length-1),1)[0]);
+  }
+  return deck;
+}
+function renderCards(){
+  const D=cur.deck, n=cur.cardCh;
+  if(cur.ci>=D.length){
+    const left=dueCards(n).length+(n?allCards(n).filter(x=>!isSeen(x.id)).length:0);
+    const nextDue=allCards(n).filter(x=>isSeen(x.id)&&!isDue(x.id)).map(x=>(state.due||{})[x.id]).sort((a,b)=>a-b)[0];
+    const when=nextDue? Math.round((dayStart(nextDue)-dayStart())/864e5) : null;
+    $("#app").innerHTML=`${backTo(n?"Kapitel "+n:"Üben")}<h1>${D.length?(left?"Runde geschafft":"Für heute erledigt"):"Nichts fällig"}</h1>
+      <div class="block">${D.length?`<p>${cur.right} von ${D.length} Antworten gewusst.</p>`:""}
+      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Kapitels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Gewusste Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, nicht gewusste sofort noch einmal.</p>
+      <div class="row">${left?`<button class="btn" id="again">Weiter</button>`:""}<button class="btn ghost" id="free">Freiwillig weiterüben</button><button class="btn ghost" id="out">Fertig</button></div></div>`;
+    bindCrumb(()=>go(n?"chapter":"practice")); if($("#again")) $("#again").onclick=()=>openCards(n); $("#free").onclick=()=>openCards(n,true); $("#out").onclick=()=>go(n?"chapter":"practice"); return;
+  }
+  const c=D[cur.ci], b=cardBox(c.id);
+  $("#app").innerHTML=`${backTo(n?"Kapitel "+n:"Üben")}
+    <div class="row between"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?" · fällig":" · neu"}</p><span class="dots" aria-label="Fach ${b} von 5">${[1,2,3,4,5].map(i=>`<i class="${i<=b?"on":""}"></i>`).join("")}</span></div>
+    <div class="block card" style="margin-top:8px"><div class="front">${c.f}</div>${CARD_CTX[c.id]?`<p class="cctx">${CARD_CTX[c.id]}</p>`:""}${cur.flip?`<div class="back">${c.b}</div>${cardInfoHTML(c.id)}`:""}</div>
+    ${cur.flip?`<div class="row"><button class="btn" id="yes" style="flex:1">Gewusst</button><button class="btn warn" id="no" style="flex:1">Nicht gewusst</button></div>`
+      :`<button class="btn" id="flip" style="width:100%">Antwort zeigen</button><p class="small muted" style="margin-top:8px">Erst im Kopf oder auf dem Schmierzettel antworten, dann aufdecken.</p>`}`;
+  bindCrumb(()=>go(n?"chapter":"practice"));
+  if($("#flip")) $("#flip").onclick=()=>{ cur.flip=true; renderCards(); };
+  const grade=ok=>{ state.box=state.box||{}; state.due=state.due||{}; const b0=cardBox(c.id), b1=ok?Math.min(5,Math.max(b0,1)+1):1;
+    state.box[c.id]=b1;
+    if(!cur.free||!ok||b1<b0){ const days=ok?(b0===5?35:INTERVAL[b1]):0; state.due[c.id]= ok? dayStart()+days*864e5 : Date.now(); }
+    if(ok) cur.right++; else if((cur.requeued[c.id]||0)<2){ cur.requeued[c.id]=(cur.requeued[c.id]||0)+1; D.push(c); }
+    logDay(); save(); cur.ci++; cur.flip=false; renderCards(); };
+  if($("#yes")) $("#yes").onclick=()=>grade(true);
+  if($("#no")) $("#no").onclick=()=>grade(false);
+}
+
+/* ================= Grafiken ================= */
+let gStrokes={};
+function openGraph(n,i){ cur.ch=n; cur.gi=i; cur.gshow=false; cur.gchecks={}; go("graph"); }
+function renderGraph(){
+  const n=cur.ch, G=GRAPHS[n], g=G[cur.gi], st=(state.graphs||{})[g.id];
+  gStrokes[g.id]=gStrokes[g.id]||[];
+  $("#app").innerHTML=`${backTo("Kapitel "+n)}
+    <p class="eyebrow">Kapitel ${n} · Grafik ${cur.gi+1} von ${G.length}${g.klausur?" · "+g.klausur:""}</p>
+    <h1>${g.t}</h1>
+    <div class="block"><p style="margin:0"><b>${g.task}</b></p></div>
+    <div class="gbox" id="gbox">
+      <svg viewBox="0 0 400 300" aria-hidden="true">${GFX[g.id].base()}</svg>
+      <canvas id="gc" aria-label="Zeichenfläche"></canvas>
+      <svg class="solsvg" viewBox="0 0 400 300" ${cur.gshow?"":"hidden"}>${GFX[g.id].sol()}</svg>
+    </div>
+    <div class="row" style="margin:10px 0 14px"><button class="btn ghost small" id="gu">Zurück</button><button class="btn ghost small" id="gx">Leeren</button>
+      <button class="btn small" id="gs" style="margin-left:auto">${cur.gshow?"Musterlösung ausblenden":"Musterlösung darüberlegen"}</button></div>
+    ${cur.gshow?`<div class="block"><h3>Hast du das drin?</h3>${g.check.map((c,j)=>`<label class="check"><input type="checkbox" id="k${j}" ${cur.gchecks[j]?"checked":""}><span>${c}</span></label>`).join("")}
+      <div class="row" style="margin-top:8px"><button class="btn" id="gsave">Ergebnis speichern</button>${st?`<span class="small muted">Zuletzt: ${st.p} von ${st.max}</span>`:""}</div></div>`
+      :`<p class="small muted">Zeichne mit dem Stift direkt ins Koordinatensystem. Die Musterlösung erscheint in Blau über deiner Zeichnung.</p>`}
+    <div class="lnav">${cur.gi>0?`<button class="btn ghost" id="gp">← Vorherige</button>`:"<span></span>"}${cur.gi<G.length-1?`<button class="btn ghost" id="gn">Nächste →</button>`:""}</div>`;
+  bindCrumb(()=>go("chapter"));
+  const s=drawSurface($("#gc"),gStrokes[g.id]);
+  $("#gu").onclick=()=>s.undo(); $("#gx").onclick=()=>s.clear();
+  $("#gs").onclick=()=>{ cur.gshow=!cur.gshow; renderGraph(); };
+  document.querySelectorAll(".check input").forEach(c=>c.onchange=()=>{ cur.gchecks[+c.id.slice(1)]=c.checked; });
+  if($("#gsave")) $("#gsave").onclick=()=>{ const p=g.check.filter((_,j)=>cur.gchecks[j]).length; state.graphs=state.graphs||{}; state.graphs[g.id]={p,max:g.check.length,t:Date.now()}; logDay(); save(); toast(`Gespeichert: ${p} von ${g.check.length}`); renderGraph(); };
+  if($("#gp")) $("#gp").onclick=()=>openGraph(n,cur.gi-1);
+  if($("#gn")) $("#gn").onclick=()=>openGraph(n,cur.gi+1);
+}
+
+/* ================= Üben (kapitelübergreifend) ================= */
+function renderPractice(){
+  const ready=CHAPTERS.filter(c=>LESSONS[c.n]).map(c=>c.n);
+  $("#app").innerHTML=`<p class="eyebrow">Wiederholen</p><h1>Üben</h1>
+    <p class="muted">Gemischt aus allen fertigen Kapiteln (${ready.join(", ")}). Gemischtes Üben ist anstrengender als blockweises, bleibt aber deutlich besser hängen.</p>
+    <div class="block"><div class="modes">
+      <button class="mode" id="pK"><span class="t">Fällige Karten</span><span class="n">${dueCards(0).length} fällig</span><span class="d">Alle Karten aus allen Kapiteln, die heute dran sind. Neue Karten lernst du im jeweiligen Kapitel.</span></button>
+      <button class="mode" id="pKr"><span class="t">Kreuzaufgaben gemischt</span><span class="n">${KREUZ.filter(x=>LESSONS[x.ch]&&(kzStat(x.id)||{}).best===4).length}/${kreuzOf(0).length} fehlerfrei</span><span class="d">Fünf Aufgaben wie ein Klausurblock, bevorzugt neue und solche mit Fehlern.</span></button>
+      <button class="mode" id="pC"><span class="t">Rechnen gemischt</span><span class="d">Wechselnde Aufgabentypen, bevorzugt was dir schwerfällt.</span></button>
+      <button class="mode" id="pL"><span class="t">Alle Rechenaufgaben</span><span class="d">Einzelne Typen gezielt üben.</span></button>
+      <button class="mode" id="pKz"><span class="t">Offene Aufgaben schreiben</span><span class="n">${kurzOf(0).filter(x=>kurzScore(x.id)).length}/${kurzOf(0).length}</span><span class="d">Antwort schreiben, mit dem Erwartungshorizont vergleichen.</span></button>
+      <button class="mode" id="pX"><span class="t">Probeklausur</span><span class="n">${state.examRun?"läuft":(state.exams||[]).length+"×"}</span><span class="d">Im Format der Klausur WiSe 24/25 mit Timer, jedes Mal neu zusammengestellt.</span></button>
+    </div></div>`;
+  $("#pK").onclick=()=>openCards(0);
+  $("#pKr").onclick=()=>openKreuz(0);
+  $("#pC").onclick=()=>startTask(recommend(),true);
+  $("#pL").onclick=()=>{ cur.calcCh=0; go("calc"); };
+  $("#pKz").onclick=()=>openKurz(0);
+  $("#pX").onclick=openExam;
+}
+function calcTypes(n){ return n? (CALC[n]||[]) : [...new Set(Object.values(CALC).flat())]; }
+function recommend(){
+  const T=calcTypes(0), started=T.filter(t=>state.hist[t]&&state.hist[t].n);
+  const fresh=T.find(t=>!started.includes(t)), weak=started.filter(t=>acc(t)<.7).sort((a,b)=>acc(a)-acc(b))[0];
+  return weak||fresh||T[Math.floor(Math.random()*T.length)];
+}
+function renderCalc(){
+  const n=cur.calcCh||0, T=calcTypes(n);
+  $("#app").innerHTML=`${backTo(n?"Kapitel "+n:"Üben")}
+    <p class="eyebrow">Rechentrainer${n?" · Kapitel "+n:""}</p><h1>Rechnen</h1>
+    <p class="muted">Jede Aufgabe läuft in drei Stufen: vorgerechnet, Schritt für Schritt geführt, dann frei wie in der Klausur. Nach zwei fehlerfreien Durchgängen steigst du auf.</p>
+    <button class="btn" id="mix" style="width:100%;margin:4px 0 14px">Gemischt üben</button>
+    <div class="block"><div class="tlist">${T.map(t=>{ const h=state.hist[t], a=acc(t), l=lvlOf(t);
+      return `<button class="titem" data-t="${t}"><span class="t">${TYPES[t].name}</span><span class="chip l${l}">${LVL[l]}</span>
+        <span class="d">${TYPES[t].desc}${h&&h.n?` · ${h.n}× gerechnet, ${Math.round(a*100)} % richtig`:""}</span>
+        ${h&&h.n?`<span class="bar"><i style="width:${Math.round(a*100)}%"></i></span>`:""}</button>`;}).join("")}</div></div>`;
+  bindCrumb(()=>{ if(n){ cur.ch=n; go("chapter"); } else go("practice"); });
+  document.querySelectorAll(".titem").forEach(b=>b.onclick=()=>startTask(b.dataset.t,false));
+  $("#mix").onclick=()=>startTask(recommend(),true);
+}
+
+/* ================= Statistik ================= */
+let statsArmed=false;
+function renderStats(){
+  const days=[...Array(7)].map((_,i)=>{ const d=new Date(); d.setDate(d.getDate()-6+i); const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); return [d,state.days[k]||0]; });
+  const mx=Math.max(1,...days.map(x=>x[1])), wd=["So","Mo","Di","Mi","Do","Fr","Sa"];
+  const ready=CHAPTERS.filter(c=>LESSONS[c.n]);
+  $("#app").innerHTML=`<h1>Statistik</h1>
+    <div class="block"><h2>Letzte 7 Tage</h2>
+      <div class="week">${days.map(([d,n])=>`<div style="height:${Math.round(n/mx*100)}%" title="${n} Schritte"></div>`).join("")}</div>
+      <div class="weekl">${days.map(([d,n])=>`<span>${wd[d.getDay()]}<br>${n}</span>`).join("")}</div></div>
+    <div class="block"><h2>Nach Kapitel</h2>${ready.map(c=>{ const p=chapterProgress(c.n);
+      return `<div class="srow"><span>Kap. ${c.n}</span><span class="small muted">${[["Theorie",p.l,1],["Karten",p.k,(CARDS[c.n]||[]).length],["Kreuzen",p.x,kreuzOf(c.n).length],["Rechnen",p.c,(CALC[c.n]||[]).length]].filter(x=>x[2]).map(x=>x[0]+" "+Math.round(x[1]*100)).join(" · ")}</span><span class="pts">${p.total} %</span></div>`;}).join("")}</div>
+    <div class="block"><h2>Rechenaufgaben</h2>${calcTypes(0).map(t=>{ const h=state.hist[t]; return `<div class="srow"><span>${TYPES[t].short}</span><span class="chip l${lvlOf(t)}">${LVL[lvlOf(t)]}</span><span>${h&&h.n?`${h.r}/${h.n}`:"–"}</span></div>`;}).join("")}</div>
+    ${syncBox()}
+    <div class="block"><h3>Fortschritt zurücksetzen</h3><p class="small muted">Löscht deinen gesamten Lernstand, auch auf den verbundenen Geräten.</p>
+      <button class="btn warn" id="rst">${statsArmed?"Wirklich zurücksetzen":"Zurücksetzen"}</button></div>`;
+  bindSync();
+  $("#rst").onclick=()=>{ if(!statsArmed){ statsArmed=true; renderStats(); return; } state={}; norm(); save(); flushPush(); statsArmed=false; toast("Zurückgesetzt"); renderStats(); };
+}
+
+/* ================= Kreuzaufgaben (Klausurformat Heine) =================
+   Je Aufgabe ein Satzanfang und drei Aussagen, jede wahr oder falsch.
+   Bewertung wie in der Klausur: je richtiges Kreuz 1 Punkt, alle drei richtig +1 Zusatzpunkt (max. 4). Keine Minuspunkte. */
+const KREUZ=[
+ /* Kapitel 10 */
+ {id:"x10-01", ch:10, stem:"Für die Verteilung des IQ in der Bevölkerung gilt:", s:[
+  ["Etwa zwei Drittel der Bevölkerung haben einen IQ zwischen 85 und 115.", true, "Zwischen −1 und +1 Standardabweichung liegen 68,26 %."],
+  ["Einen IQ von 130 oder mehr haben etwa 13,6 % der Bevölkerung.", false, "Über +2 SD liegen nur 2,14 % + 0,13 % = <b>2,27 %</b>. 13,59 % liegen zwischen 115 und 130."],
+  ["Eine Person mit einem IQ von 70 liegt zwei Standardabweichungen unter dem Mittelwert.", true, "(70 − 100) / 15 = −2."]]},
+ {id:"x10-02", ch:10, stem:"Für den z-Wert gilt:", s:[
+  ["Ein z-Wert von 0 entspricht genau dem Mittelwert der Referenzgruppe.", true, "Der Abstand x − μ ist dann null."],
+  ["Der z-Wert gibt an, wie viel Prozent der Referenzgruppe schlechter abgeschnitten haben.", false, "Das ist der <b>Prozentrang</b>. Der z-Wert gibt den Abstand zum Mittel in Standardabweichungen an."],
+  ["Ein Rohwert von 500 in einem Test mit μ = 460 und σ = 50 entspricht einem IQ von 112.", true, "z = 40 / 50 = 0,8; IQ = 100 + 15 · 0,8 = 112 (Klausur WiSe 17/18)."]]},
+ {id:"x10-03", ch:10, stem:"Für den Prozentrang gilt:", s:[
+  ["Ein Prozentrang von 25 bedeutet, dass 25 % der Referenzgruppe besser abgeschnitten haben.", false, "Umgekehrt: 25 % haben gleich gut oder schlechter abgeschnitten, <b>75 % besser</b>."],
+  ["Um einen Prozentrang bestimmen zu können, muss das Merkmal normalverteilt sein.", false, "Der Prozentrang braucht nur eine Rangfolge: PR = cumf / N · 100."],
+  ["Bei einem normalverteilten Merkmal entspricht ein z-Wert von 0 einem Prozentrang von 50.", true, "Genau die Hälfte liegt unter dem Mittelwert."]]},
+ {id:"x10-04", ch:10, stem:"Für Normskalen gilt:", s:[
+  ["Die T-Skala hat einen Mittelwert von 50 und eine Standardabweichung von 10.", true, "T = 50 + 10 · z."],
+  ["Ein IQ von 85 und ein T-Wert von 40 beschreiben dieselbe relative Position in der Referenzgruppe.", true, "Beide entsprechen z = −1."],
+  ["Der Abweichungs-IQ wird als Quotient aus Intelligenzalter und Lebensalter berechnet.", false, "Das ist der IQ nach <b>Stern</b>. Der Abweichungs-IQ (Wechsler) ist 100 + 15 · z."]]},
+ {id:"x10-05", ch:10, stem:"Für die Standardisierung von Testergebnissen gilt:", s:[
+  ["Gleiche Rohwerte in zwei verschiedenen Tests bedeuten die gleiche Leistung.", false, "Die Tests können unterschiedlich schwer sein und anders streuen. Erst Standardwerte zeigen die Position."],
+  ["Standardwerte machen Ergebnisse aus unterschiedlichen Tests vergleichbar.", true, "Klausur WiSe 22/23: drei Schülerinnen, drei Lesetests, gleicher Rohwert, verschiedene z-Werte."],
+  ["Je kleiner die Standardabweichung der Referenzgruppe, desto größer ist bei gleichem Abstand zum Mittelwert der Betrag des z-Werts.", true, "z = (x − μ) / σ: Ein kleinerer Nenner macht den Bruch größer. 6 Punkte Abstand sind bei σ = 3 schon z = −2."]]},
+ {id:"x10-06", ch:10, stem:"Für die Normierung von Tests gilt:", s:[
+  ["Veraltete Normen führen wegen des Flynn-Effekts eher zu einer Überschätzung der Intelligenz.", true, "Die alte Normstichprobe war im Schnitt schwächer als die heutige Bevölkerung."],
+  ["Ein Deckeneffekt liegt vor, wenn ein Test für leistungsschwache Personen zu schwer ist.", false, "Das wäre ein Bodeneffekt. Beim <b>Deckeneffekt</b> ist der Test für sehr Leistungsstarke zu leicht."],
+  ["Im extremen Leistungsbereich ist die Messung typischerweise ungenauer als im mittleren Bereich.", true, "Dort gibt es weniger passende Aufgaben und Vergleichspersonen, der Messfehler ist größer."]]},
+ {id:"x10-07", ch:10, stem:"Für die deskriptive Einordnung von IQ-Werten gilt:", s:[
+  ["Ein IQ von 90 liegt im durchschnittlichen Bereich.", true, "Durchschnittlich ist 85 bis 115."],
+  ["Ein IQ von 80 gilt als weit unterdurchschnittlich.", false, "80 liegt zwischen 70 und 85, also <b>unterdurchschnittlich</b>. Weit unterdurchschnittlich ist unter 70."],
+  ["Ab einem IQ über 130 spricht man von einer weit überdurchschnittlichen Intelligenzleistung.", true, "Mehr als zwei Standardabweichungen über dem Mittel."]]}
+];
+const kreuzOf=n=>n? KREUZ.filter(x=>x.ch===n) : KREUZ.filter(x=>LESSONS[x.ch]);
+const kzStat=id=>(state.kreuz||{})[id];
+function kzPoints(item,ans){ const right=item.s.filter((st,j)=>ans[j]===st[1]).length; return right+(right===3?1:0); }
+function pickKreuz(n,k){
+  const pool=kreuzOf(n).slice(), out=[];
+  while(out.length<Math.min(k,pool.length)){
+    const w=pool.map(x=>{ const s=kzStat(x.id); return !s?5:(s.p<4?4:(Date.now()-s.t>3*864e5?2:1)); });
+    let r=Math.random()*w.reduce((a,b)=>a+b,0), i=0; for(;i<pool.length;i++){ r-=w[i]; if(r<=0) break; }
+    out.push(pool.splice(Math.min(i,pool.length-1),1)[0]);
+  }
+  return out;
+}
+function openKreuz(n){ cur.kr={n, items:pickKreuz(n,5).map(x=>x.id), i:0, ans:{}, shown:false, pts:[]}; go("kreuz"); }
+function kzBlock(item,ans,shown,key){
+  return item.s.map((st,j)=>{ const a=ans[j];
+    const cls=v=>shown?(st[1]===v?"r":(a===v?"w":"")):"";
+    return `<div class="kz"><p class="st"><i class="no">${"abc"[j]})</i>${st[0]}</p>
+      <div class="wf" role="group" aria-label="Aussage ${"abc"[j]}"><button data-kz="${key}:${j}" data-v="1" aria-pressed="${a===true}" class="${cls(true)}" ${shown?"disabled":""}>wahr</button><button data-kz="${key}:${j}" data-v="0" aria-pressed="${a===false}" class="${cls(false)}" ${shown?"disabled":""}>falsch</button></div>
+      ${shown?`<p class="why">${a===st[1]?"":a===undefined?'<b>Nicht angekreuzt. </b>':'<b>Nicht richtig. </b>'}${st[2]}</p>`:""}</div>`; }).join("");
+}
+function renderKreuz(){
+  const K=cur.kr, back=K.n?"Kapitel "+K.n:"Üben", backFn=()=>{ if(K.n){ cur.ch=K.n; go("chapter"); } else go("practice"); };
+  if(!K.items.length){ $("#app").innerHTML=`${backTo(back)}<h1>Noch keine Kreuzaufgaben</h1><p class="muted">Für diesen Bereich gibt es noch keine Aufgaben.</p>`; bindCrumb(backFn); return; }
+  if(K.i>=K.items.length){
+    const sum=K.pts.reduce((a,b)=>a+b,0), max=K.items.length*4;
+    $("#app").innerHTML=`${backTo(back)}<h1>Runde geschafft</h1>
+      <div class="block"><p class="pbadge">${sum} von ${max} Punkten</p>
+      <p class="small muted">So wird auch in der Klausur gezählt: je richtiges Kreuz ein Punkt, alle drei Aussagen einer Aufgabe richtig ein Zusatzpunkt. Aufgaben mit Fehlern kommen bevorzugt wieder.</p>
+      <div class="row"><button class="btn" id="again">Neue Runde</button><button class="btn ghost" id="out">Fertig</button></div></div>`;
+    bindCrumb(backFn); $("#again").onclick=()=>openKreuz(K.n); $("#out").onclick=backFn; return;
+  }
+  const item=KREUZ.find(x=>x.id===K.items[K.i]), all=[0,1,2].every(j=>K.ans[j]!==undefined), ch=CHAPTERS.find(c=>c.n===item.ch);
+  if(!K.shown) K.prev=kzStat(item.id);
+  $("#app").innerHTML=`${backTo(back)}
+    <div class="row between"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}</p>${K.prev?`<span class="chip">zuletzt ${K.prev.p}/4</span>`:""}</div>
+    <div class="block" style="margin-top:8px"><h3 style="margin:0 0 4px">${item.stem}</h3>${kzBlock(item,K.ans,K.shown,"s")}</div>
+    ${K.shown?`<div class="row between"><span class="pbadge">${K.pts[K.i]} von 4 Punkten</span><button class="btn" id="nx">${K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button></div>`
+      :`<button class="btn" id="ev" style="width:100%" ${all?"":"disabled"}>Auswerten</button><p class="small muted" style="margin-top:8px">${all?"":"Kreuze bei jeder Aussage wahr oder falsch an. "}In der Klausur gibt es keine Minuspunkte, also im Zweifel immer ankreuzen.</p>`}`;
+  bindCrumb(backFn);
+  document.querySelectorAll("[data-kz]").forEach(b=>b.onclick=()=>{ K.ans[+b.dataset.kz.split(":").pop()]=b.dataset.v==="1"; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
+  if($("#ev")) $("#ev").onclick=()=>{ const p=kzPoints(item,K.ans); K.pts[K.i]=p; K.shown=true;
+    const s=kzStat(item.id)||{n:0,best:0}; state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now()}; logDay(); save(); renderKreuz(); };
+  if($("#nx")) $("#nx").onclick=()=>{ K.i++; K.ans={}; K.shown=false; renderKreuz(); window.scrollTo(0,0); };
+}
+
+/* ================= Offene Aufgaben (Schreiben) und Probeklausur ================= */
+const KURZ=[
+ /* Kapitel 10 */
+ {id:"k10-1", ch:10, pts:5, klausur:"WiSe 22/23, Aufgabe 2a",
+  q:"Ein ermittelter Testrohwert kann durch Angabe eines Prozentrangs in Bezug zu einer Referenzgruppe beschrieben werden. Geben Sie die Formel zur Ermittlung des Prozentrangs an und erläutern Sie kurz, was die Variablen bedeuten.",
+  k:["Formel: PR = cumf / N · 100","PR: Prozentrang, Anteil der Referenzgruppe mit gleichem oder schlechterem Ergebnis","cumf: kumulierte Häufigkeit, Anzahl der Werte bis einschließlich des betrachteten Werts","N: Gesamtzahl der Werte bzw. Probanden","· 100: Umrechnung des Anteils in Prozent"],
+  m:"PR = cumf / N · 100. PR ist der Prozentrang, also der Anteil der Referenzgruppe in Prozent, der gleich gut oder schlechter abgeschnitten hat. cumf ist die kumulierte Häufigkeit: die Anzahl aller Werte bis einschließlich des betrachteten Werts in der sortierten Verteilung. N ist die Gesamtzahl der Werte (Probanden). Die Multiplikation mit 100 macht aus dem Anteil eine Prozentangabe."},
+ {id:"k10-2", ch:10, pts:4,
+  q:"Drei Schulen haben die Lesekompetenz ihrer Schülerinnen mit unterschiedlichen standardisierten Lesetests erhoben. Alle drei Schülerinnen haben denselben Rohwert. Erläutern Sie, warum man daraus nicht auf gleiche Lesekompetenz schließen darf und wie man stattdessen vorgeht.",
+  k:["Tests unterscheiden sich in Schwierigkeit (Mittelwert) und Streuung (Standardabweichung) ihrer Referenzgruppen","Rohwerte haben daher in jedem Test eine andere Bedeutung","Umrechnung in Standardwerte, z. B. z = (x − M) / SD oder IQ-Skala","Vergleich über die Position relativ zur jeweiligen Referenzgruppe (niedrigster z-Wert = schwächste Leistung)"],
+  m:"Ein Rohwert ist nur im Vergleich zur Referenzgruppe des jeweiligen Tests interpretierbar. Die drei Tests haben unterschiedliche Mittelwerte und Standardabweichungen; derselbe Rohwert kann also in einem schweren Test gut und in einem leichten schwach sein. Deshalb rechnet man jeden Rohwert mit z = (x − M) / SD in einen Standardwert um (gegebenenfalls weiter in die IQ-Skala). Der z-Wert zeigt, um wie viele Standardabweichungen die Schülerin von ihrer Referenzgruppe abweicht; die Schülerin mit dem niedrigsten z-Wert hat die schwächste Leistung."},
+ {id:"k10-3", ch:10, pts:6, klausur:"Fragenkatalog Heine, Frage 47",
+  q:"Nennen Sie drei potenzielle Probleme unausgereifter diagnostischer Zugänge in der Hochbegabungsdiagnostik und erläutern Sie jeweils kurz.",
+  k:["Deckeneffekt genannt","Deckeneffekt erläutert: im extremen Leistungsbereich keine Unterscheidung mehr möglich","Messfehler genannt","Messfehler erläutert: größere Ungenauigkeit im Extrembereich","Flynn-Effekt genannt","Flynn-Effekt erläutert: veraltete Normen überschätzen die Leistung, im Extrembereich besonders problematisch"],
+  m:"Erstens Deckeneffekte: Ist ein Test für sehr leistungsstarke Personen zu leicht, lösen sie fast alle Aufgaben, und der Test kann im oberen Bereich nicht mehr zwischen ihnen unterscheiden. Zweitens Messfehler: Im Extrembereich gibt es wenige passende Aufgaben und Vergleichspersonen, die Messung ist ungenauer. Drittens der Flynn-Effekt: Die durchschnittlichen Testleistungen steigen über die Jahrzehnte; veraltete Normen überschätzen deshalb die Intelligenz, was gerade an der Grenze zur Hochbegabung (IQ 130) zu Fehldiagnosen führen kann."}
+];
+/* Offene Aufgaben für die Probeklausur: Schreibaufgaben (kurz) oder Rechenaufgaben (calc), je Klausurteil */
+const OPEN=[
+ {id:"o10-iq", ch:10, kind:"calc", t:"iq", pts:10, title:"Intelligenzmessung"},
+ {id:"o10-vg", ch:10, kind:"calc", t:"vergleich", pts:10, title:"Standardisierung von Messwerten"},
+ {id:"o10-pr", ch:10, kind:"calc", t:"pr", pts:10, title:"Prozentränge"},
+ {id:"o10-k1", ch:10, kind:"kurz", k:"k10-1", pts:10, title:"Normwerte in Leistungstests"},
+ {id:"o10-k3", ch:10, kind:"kurz", k:"k10-3", pts:10, title:"Hochbegabungsdiagnostik"}
+];
+const TEILE={1:{t:"Einführung in die Psychologie",kz:5,op:10},2:{t:"Lehr-/Lernpsychologie",kz:5,op:10},3:{t:"Pädagogisch-psychologische Diagnostik",kz:5,op:10},4:{t:"Inklusion",kz:4,op:14}};
+const teilOf=ch=>(CHAPTERS.find(c=>c.n===ch)||{}).teil;
+
+/* ---------- Schreiben üben ---------- */
+const kurzOf=n=>n? KURZ.filter(x=>x.ch===n) : KURZ.filter(x=>LESSONS[x.ch]);
+function kurzScore(id){ return (state.kurz||{})[id]; }
+function pickKurz(n){ const L=kurzOf(n); const w=L.map(x=>{ const s=kurzScore(x.id); return !s?4:(s.p<s.max?3:1); }); let r=Math.random()*w.reduce((a,b)=>a+b,0), i=0; for(;i<L.length;i++){ r-=w[i]; if(r<=0) break; } return L[Math.min(i,L.length-1)]; }
+function openKurz(n){ n=n||0; cur.kzn=n; cur.kz=pickKurz(n); cur.kzph="schreiben"; cur.kzc={}; cur.kzt=""; go("kurz"); }
+function renderKurz(){
+  const x=cur.kz, n=cur.kzn, L=kurzOf(n), done=L.filter(y=>kurzScore(y.id)).length;
+  const back=n?"Kapitel "+n:"Üben", backFn=()=>{ if(n){ cur.ch=n; go("chapter"); } else go("practice"); };
+  const per=x.pts/x.k.length, pts=()=>Math.round(x.k.filter((_,j)=>cur.kzc[j]).length*per*2)/2;
+  $("#app").innerHTML=`${backTo(back)}
+    <p class="eyebrow">Offene Aufgabe · ${x.pts} Punkte · ${done} von ${L.length} bearbeitet${x.klausur?" · "+x.klausur:""}</p>
+    <div class="block"><p style="margin:0"><b>${x.q}</b></p><p class="small muted" style="margin:8px 0 0">In Stichworten oder kurzen Sätzen, wie in der Klausur. Fachbegriffe korrekt verwenden, darauf achtet Heine.</p></div>
+    <div class="essay">${cur.kzph==="schreiben"?`
+      <label class="small muted" for="kt">Deine Antwort</label>
+      <textarea id="kt" style="margin-top:6px;min-height:9rem">${esc(cur.kzt)}</textarea>
+      <div class="row" style="margin-top:10px"><button class="btn" id="kd">Antwort prüfen</button><button class="btn ghost" id="kn0">Andere Aufgabe</button></div>`:`
+      <div class="block"><h3>Erwartungshorizont</h3><p class="small muted">Hake ab, was in deiner Antwort klar vorkommt.</p>${x.k.map((k,j)=>`<label class="check"><input type="checkbox" id="q${j}" ${cur.kzc[j]?"checked":""}><span>${k}</span></label>`).join("")}
+        <p class="pts" id="kp">${pts()} von ${x.pts} Punkten</p>
+        <div class="row"><button class="btn" id="ks">Speichern und weiter</button><button class="btn ghost" id="kcl">Für Claude kopieren</button><button class="btn ghost" id="kn">Ohne Speichern weiter</button></div><div id="kcopy"></div></div>
+      ${cur.kzt?`<div class="block"><h3>Deine Antwort</h3><p style="white-space:pre-wrap;margin:0">${esc(cur.kzt)}</p></div>`:""}
+      <div class="block lesson"><h3>Musterlösung</h3><p style="margin:0">${x.m}</p></div>`}
+    </div>`;
+  bindCrumb(backFn);
+  if($("#kd")) $("#kd").onclick=()=>{ cur.kzt=$("#kt").value; cur.kzph="bewerten"; renderKurz(); window.scrollTo(0,0); };
+  if($("#kn0")) $("#kn0").onclick=()=>openKurz(n);
+  document.querySelectorAll(".check input").forEach(c=>c.onchange=()=>{ cur.kzc[+c.id.slice(1)]=c.checked; $("#kp").textContent=`${pts()} von ${x.pts} Punkten`; });
+  if($("#ks")) $("#ks").onclick=()=>{ state.kurz=state.kurz||{}; const p=pts(); state.kurz[x.id]={p,max:x.pts,t:Date.now()}; logDay(); save(); toast(`${String(p).replace(".",",")} von ${x.pts} Punkten gespeichert`); openKurz(n); };
+  if($("#kn")) $("#kn").onclick=()=>openKurz(n);
+  if($("#kcl")) $("#kcl").onclick=()=>copyForClaude(`Bewerte bitte meine Antwort auf eine Klausuraufgabe im Modul Bildungswissenschaften II (UDE, Prof. Heine, Pädagogische Psychologie).\n\nAufgabe (${x.pts} Punkte):\n${x.q}\n\nErwartungshorizont:\n${x.k.map(k=>"- "+k).join("\n")}\n\nMeine Antwort:\n${cur.kzt}\n\nGib mir: Punktzahl mit Begründung je Kriterium, was fehlt oder fachlich ungenau ist, und eine verbesserte Formulierung.`,"#kcopy");
+}
+async function copyForClaude(prompt,box){
+  try{ await navigator.clipboard.writeText(prompt); toast("Kopiert. In den Claude-Chat einfügen."); }
+  catch(x){ $(box).innerHTML=`<textarea style="width:100%;min-height:8rem;margin-top:8px" readonly>${esc(prompt)}</textarea>`; const t=$(box+" textarea"); t.focus(); t.select(); toast("Text markiert, jetzt kopieren"); }
+}
+
+/* ---------- Probeklausur ---------- */
+function teilReady(t){ return KREUZ.some(x=>LESSONS[x.ch]&&teilOf(x.ch)===t); }
+function newExam(teile,min){
+  const parts=teile.filter(teilReady).map(t=>{
+    const pool=shuffle(KREUZ.filter(x=>LESSONS[x.ch]&&teilOf(x.ch)===t)).slice(0,TEILE[t].kz);
+    const ops=OPEN.filter(o=>LESSONS[o.ch]&&teilOf(o.ch)===t), o=ops.length?pick(ops):null;
+    const open=o?(o.kind==="calc"?{id:o.id,kind:"calc",title:o.title,pts:TEILE[t].op,data:TYPES[o.t].gen(),ans:{}}:{id:o.id,kind:"kurz",title:o.title,pts:TEILE[t].op,k:o.k,ans:""}):null;
+    return {teil:t, kz:pool.map(x=>({id:x.id,ans:{}})), open};
+  });
+  return {start:Date.now(), min, phase:"run", parts, grade:{}};
+}
+const partMax=p=>p.kz.length*4+(p.open?p.open.pts:0);
+let examTimer=null;
+function openExam(){ go("exam"); }
+function examLeft(){ const e=state.examRun; return e? e.start+e.min*60000-Date.now() : 0; }
+const mmss=ms=>{ const s=Math.max(0,Math.round(ms/1000)); return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); };
+let examSaveT=null; function examSave(){ clearTimeout(examSaveT); examSaveT=setTimeout(()=>save(),1200); }
+function renderExam(){
+  clearInterval(examTimer);
+  const e=state.examRun;
+  if(!e){
+    const hist=(state.exams||[]).slice(-6).reverse(), ready=[1,2,3,4].filter(teilReady);
+    $("#app").innerHTML=`${backTo("Üben")}<p class="eyebrow">Format wie die Klausur WiSe 24/25</p><h1>Probeklausur</h1>
+      <div class="block"><p>Die Modulklausur hat vier Teile mit je 30 Punkten, zusammen 120. In jedem Teil kommen zuerst Kreuzaufgaben (je drei Aussagen wahr oder falsch, bis zu 4 Punkte), danach eine offene Aufgabe: Fallbeispiel, Rechnung oder Grafik.</p>
+      <div class="partlist">${[1,2,3,4].map(t=>`<span>Teil ${t}</span><span>${TEILE[t].t}${ready.includes(t)?"":' <span class="chip soon">folgt</span>'}</span><b>30 P.</b>`).join("")}</div>
+      <p class="small muted" style="margin-top:10px">Wie lange die Klausur dauert, steht in den Unterlagen nicht. Für einen Teil sind 30 Minuten ein guter Richtwert. Aufgenommen werden nur Kapitel, die schon in der App stehen.</p>
+      <div class="row">${ready.length>1?`<button class="btn" id="xall">Alle fertigen Teile (${ready.length*30} Min.)</button>`:""}${ready.map(t=>`<button class="btn${ready.length>1?" ghost":""}" data-t="${t}">Teil ${t} (30 Min.)</button>`).join("")}</div></div>
+      ${hist.length?`<div class="block"><h3>Letzte Probeklausuren</h3>${hist.map(h=>`<div class="srow"><span>${new Date(h.t).toLocaleDateString("de-DE")}</span><span class="small muted">${h.parts.map(p=>"T"+p.teil+" "+p.p+"/"+p.max).join(" · ")}</span><span class="pts">${Math.round(h.p/h.max*100)} %</span></div>`).join("")}</div>`:""}`;
+    bindCrumb(()=>go("practice"));
+    const start=(T,min)=>{ state.examRun=newExam(T,min); save(); renderExam(); window.scrollTo(0,0); };
+    if($("#xall")) $("#xall").onclick=()=>start(ready,ready.length*30);
+    document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>start([+b.dataset.t],30));
+    return;
+  }
+  if(e.phase==="grade") return renderExamGrade();
+  const max=e.parts.reduce((s,p)=>s+partMax(p),0);
+  $("#app").innerHTML=`
+    <div class="block row between" style="position:sticky;top:env(safe-area-inset-top,0px);z-index:4"><span><b>Probeklausur</b> <span class="small muted">${max} Punkte</span></span><span class="pts" id="clock" style="font-size:1.3rem">${mmss(examLeft())}</span></div>
+    ${e.parts.map((p,pi)=>`<h2>Teil ${p.teil}: ${TEILE[p.teil].t}</h2>
+      <p class="small muted">Kreuzen Sie bei jeder Aussage an, ob sie wahr oder falsch ist. Jedes richtige Kreuz 1 Punkt, drei richtige Kreuze in einer Aufgabe 1 Zusatzpunkt.</p>
+      ${p.kz.map((k,ii)=>{ const item=KREUZ.find(x=>x.id===k.id); return `<div class="block"><h3 style="margin:0 0 4px">${ii+1}. ${item.stem}</h3>${kzBlock(item,k.ans,false,pi+"-"+ii)}</div>`; }).join("")}
+      ${p.open?openRun(p.open,pi,p.kz.length+1):""}`).join("")}
+    <div class="row" style="margin-bottom:20px"><button class="btn" id="xsub">${cur.xArm?"Wirklich abgeben":"Abgeben und bewerten"}</button><button class="btn warn" id="xq">${cur.xQuit?"Wirklich abbrechen":"Abbrechen"}</button></div>`;
+  document.querySelectorAll("[data-kz]").forEach(b=>b.onclick=()=>{ const [pi,ii,j]=b.dataset.kz.split(/[-:]/).map(Number); const a=e.parts[pi].kz[ii].ans; a[j]=b.dataset.v==="1";
+    b.parentNode.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b))); examSave(); });
+  document.querySelectorAll("[data-op]").forEach(t=>t.oninput=()=>{ const o=e.parts[+t.dataset.op].open; if(o.kind==="kurz") o.ans=t.value; else o.ans[t.dataset.i]=t.value; examSave(); });
+  $("#xsub").onclick=()=>{ if(!cur.xArm){ cur.xArm=true; $("#xsub").textContent="Wirklich abgeben"; return; } cur.xArm=false; e.phase="grade"; e.used=Date.now()-e.start; save(); renderExam(); window.scrollTo(0,0); };
+  $("#xq").onclick=()=>{ if(!cur.xQuit){ cur.xQuit=true; $("#xq").textContent="Wirklich abbrechen"; return; } cur.xQuit=false; state.examRun=null; save(); renderExam(); };
+  examTimer=setInterval(()=>{ const c=$("#clock"); if(!c||view!=="exam"){ clearInterval(examTimer); return; } const l=examLeft(); c.textContent=mmss(l); if(l<=0){ c.textContent="Zeit um"; c.style.color="var(--bad)"; } },1000);
+}
+function openRun(o,pi,no){
+  if(o.kind==="kurz"){ const x=KURZ.find(y=>y.id===o.k);
+    return `<div class="block"><p style="margin:0 0 6px"><b>${no}. ${o.title}</b> <span class="small muted">(${o.pts} P.)</span></p><p style="margin:0 0 8px">${x.q}</p>
+      <textarea data-op="${pi}" style="width:100%;min-height:9rem;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:10px;font:1rem/1.5 var(--sans)">${esc(o.ans)}</textarea></div>`; }
+  const d=o.data, F=d.steps.map((s,i)=>[s,i]).filter(([s])=>s.final);
+  return `<div class="block"><p style="margin:0 0 6px"><b>${no}. ${o.title}</b> <span class="small muted">(${o.pts} P.)</span></p><p class="small" style="margin:0">${d.intro}</p>${d.table}<p style="margin:8px 0 0"><b>${d.q}</b></p>
+    ${F.map(([s,i])=>`<div style="margin-top:8px"><label class="small" style="font-weight:600" for="op${pi}_${i}">${s.lab}</label><div class="inp" style="margin-top:4px"><input id="op${pi}_${i}" data-op="${pi}" data-i="${i}" inputmode="decimal" autocomplete="off" value="${esc(o.ans[i]||"")}"></div></div>`).join("")}</div>`;
+}
+function calcPts(o){ const F=o.data.steps.map((s,i)=>[s,i]).filter(([s])=>s.final); const ok=F.filter(([s,i])=>judge(s,o.ans[i]||"")).length; return {ok,n:F.length,p:Math.round(o.pts*ok/F.length*2)/2}; }
+function renderExamGrade(){
+  const e=state.examRun, g=e.grade;
+  const kurzP=(o,pi)=>{ const x=KURZ.find(y=>y.id===o.k); const c=x.k.filter((_,j)=>g[pi+"_"+j]).length; return Math.round(o.pts*c/x.k.length*2)/2; };
+  const partP=(p,pi)=>p.kz.reduce((s,k)=>s+kzPoints(KREUZ.find(x=>x.id===k.id),k.ans),0)+(p.open?(p.open.kind==="calc"?calcPts(p.open).p:kurzP(p.open,pi)):0);
+  const total=()=>e.parts.reduce((s,p,pi)=>s+partP(p,pi),0), max=e.parts.reduce((s,p)=>s+partMax(p),0);
+  $("#app").innerHTML=`<p class="eyebrow">Probeklausur · Bewertung · ${Math.round((e.used||0)/60000)} von ${e.min} Minuten genutzt</p>
+    <div class="block row between" style="position:sticky;top:env(safe-area-inset-top,0px);z-index:4"><span><b>Ergebnis</b></span><span class="pts" id="tot" style="font-size:1.3rem">${String(total()).replace(".",",")} / ${max}</span></div>
+    ${e.parts.map((p,pi)=>`<h2>Teil ${p.teil}: ${TEILE[p.teil].t}</h2>
+      ${p.kz.map((k,ii)=>{ const item=KREUZ.find(x=>x.id===k.id); return `<div class="block"><div class="row between"><h3 style="margin:0">${ii+1}. ${item.stem}</h3><span class="pbadge">${kzPoints(item,k.ans)}/4</span></div>${kzBlock(item,k.ans,true,"g")}</div>`; }).join("")}
+      ${p.open?openGrade(p.open,pi,p.kz.length+1):""}`).join("")}
+    <div class="row" style="margin-bottom:20px"><button class="btn" id="xsave">Ergebnis speichern und beenden</button></div>`;
+  document.querySelectorAll("[data-g]").forEach(c=>c.onchange=()=>{ g[c.dataset.g]=c.checked; $("#tot").textContent=String(total()).replace(".",",")+" / "+max; examSave(); });
+  document.querySelectorAll("[data-cl]").forEach(b=>b.onclick=()=>{ const pi=+b.dataset.cl, o=e.parts[pi].open, x=KURZ.find(y=>y.id===o.k);
+    copyForClaude(`Bewerte bitte meine Antwort aus einer Probeklausur im Modul Bildungswissenschaften II (UDE, Prof. Heine).\n\nAufgabe (${o.pts} Punkte):\n${x.q}\n\nErwartungshorizont:\n${x.k.map(k=>"- "+k).join("\n")}\n\nMeine Antwort:\n${o.ans}\n\nGib mir eine Punktzahl mit Begründung und sag, was fehlt.`,"#cl"+pi); });
+  $("#xsave").onclick=()=>{ state.exams=state.exams||[]; const parts=e.parts.map((p,pi)=>({teil:p.teil,p:partP(p,pi),max:partMax(p)}));
+    state.exams.push({t:Date.now(),p:total(),max,parts}); e.parts.forEach(p=>p.kz.forEach(k=>{ const item=KREUZ.find(x=>x.id===k.id), s=kzStat(k.id)||{n:0,best:0}, pp=kzPoints(item,k.ans); state.kreuz[k.id]={n:s.n+1,p:pp,best:Math.max(s.best||0,pp),t:Date.now()}; }));
+    state.examRun=null; logDay(); save(); toast("Gespeichert"); renderExam(); window.scrollTo(0,0); };
+}
+function openGrade(o,pi,no){
+  if(o.kind==="kurz"){ const x=KURZ.find(y=>y.id===o.k);
+    return `<div class="block"><p style="margin:0 0 6px"><b>${no}. ${o.title}</b> <span class="small muted">(${o.pts} P.)</span></p><p class="small" style="margin:0 0 6px">${x.q}</p>
+      <p class="small" style="white-space:pre-wrap;background:var(--bg);border-radius:8px;padding:8px">${esc(o.ans)||'<span class="muted">keine Antwort</span>'}</p>
+      ${x.k.map((k,j)=>`<label class="check"><input type="checkbox" data-g="${pi}_${j}" ${state.examRun.grade[pi+"_"+j]?"checked":""}><span>${k}</span></label>`).join("")}
+      <details><summary class="small">Musterlösung</summary><p class="small">${x.m}</p></details>
+      <div class="row" style="margin-top:6px"><button class="btn ghost small" data-cl="${pi}">Für Claude kopieren</button></div><div id="cl${pi}"></div></div>`; }
+  const c=calcPts(o), S=o.data.steps;
+  return `<div class="block"><div class="row between"><p style="margin:0"><b>${no}. ${o.title}</b></p><span class="pbadge">${String(c.p).replace(".",",")}/${o.pts}</span></div>
+    ${S.map((s,i)=>s.final?`<p class="res ${judge(s,o.ans[i]||"")?"good":"bad"}" style="margin:4px 0">${s.lab}: ${esc(o.ans[i]||"–")}${judge(s,o.ans[i]||"")?"":" · richtig: "+fmt(s.ans)}</p>`:"").join("")}
+    <div class="stack" style="margin-top:6px">${S.map(s=>`<div><div class="small" style="font-weight:600">${s.lab}</div><div class="eq">${esc(s.calc)}</div></div>`).join("")}</div></div>`;
+}
+
+/* ================= Aufgabe ================= */
+function startTask(t,mix){
+  task={t,mix,lvl:lvlOf(t),data:TYPES[t].gen(),cur:0,shown:0,first:{},done:false,checks:{}};
+  view="task"; render(); window.scrollTo(0,0);
+}
+function nextTask(){
+  if(task.mix){ const pool=ORDER.filter(x=>x!==task.t); const w=pool.map(x=>{const a=acc(x);return a==null?2:1.5-a;}); let s=Math.random()*w.reduce((a,b)=>a+b,0); let i=0; for(;i<pool.length;i++){ s-=w[i]; if(s<=0) break; } startTask(pool[Math.min(i,pool.length-1)],true); }
+  else startTask(task.t,false);
+}
+function record(ok){
+  const t=task.t; state.hist[t]=state.hist[t]||{n:0,r:0}; state.hist[t].n++; if(ok) state.hist[t].r++;
+  const k=today(); state.days[k]=(state.days[k]||0)+1;
+  const l=lvlOf(t), st=state.streak[t]||0;
+  if(l===2){ state.streak[t]= ok? st+1 : 0; if(state.streak[t]>=2){ state.lvl[t]=3; state.streak[t]=0; toast("Stufe Frei freigeschaltet"); } }
+  else if(l===3){ state.streak[t]= ok? 0 : st+1; if(state.streak[t]>=2){ state.lvl[t]=2; state.streak[t]=0; toast("Zurück zu Geführt, um den Weg zu festigen"); } }
+  save();
+}
+function head(){
+  const T=TYPES[task.t], d=task.data;
+  return `<div class="row between" style="margin-bottom:8px">
+      <button class="btn ghost small" id="back">← Liste</button>
+      <div class="seg" role="group" aria-label="Stufe">${[1,2,3].map(l=>`<button data-l="${l}" aria-pressed="${task.lvl===l}">${LVL[l]}</button>`).join("")}</div>
+    </div>
+    <p class="eyebrow">${task.mix?"Gemischt · ":""}${T.name}</p>
+    <div class="block">
+      <p class="small">${d.intro}</p>
+      ${d.table}
+      <p style="margin:10px 0 0"><b>${d.q}</b></p>
+    </div>`;
+}
+function bindHead(){
+  $("#back").onclick=()=>go("calc");
+  document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{ const l=+b.dataset.l; state.lvl[task.t]=l; state.streak[task.t]=0; save(); task.lvl=l; task.cur=0; task.shown=0; task.first={}; task.done=false; task.checks={}; render(); });
+}
+function renderTask(){
+  const T=TYPES[task.t];
+  if(T.self) return renderSelf();
+  if(task.lvl===1) return renderWorked();
+  if(task.lvl===2) return renderGuided();
+  return renderFree();
+}
+const eqLine=s=>`<div class="eq">${esc(s.calc)}</div>`;
+
+/* Stufe 1: vorgerechnet, Schritt für Schritt aufdecken */
+function renderWorked(){
+  const S=task.data.steps, n=task.shown;
+  $("#app").innerHTML=head()+`
+    <div class="stack">${S.slice(0,n+1).map((s,i)=>`<div class="step">
+      <div class="lab">${i+1}. ${s.lab}</div><div class="why">${s.why}</div>${eqLine(s)}</div>`).join("")}</div>
+    <div class="row" style="margin-top:14px">${n<S.length-1?`<button class="btn" id="more">Nächster Schritt</button>`:`<button class="btn" id="self">Jetzt selbst rechnen</button>`}</div>`;
+  bindHead();
+  if($("#more")) $("#more").onclick=()=>{ task.shown++; renderWorked(); };
+  if($("#self")) $("#self").onclick=()=>{ state.lvl[task.t]=2; state.streak[task.t]=0; save(); startTask(task.t,task.mix); };
+}
+
+/* Stufe 2: geführt, ein Schritt nach dem anderen mit Eingabe */
+function renderGuided(){
+  const S=task.data.steps, cur=task.cur;
+  const html=S.map((s,i)=>{
+    if(i>cur) return "";
+    if(i<cur){ const ok=task.first[i]; return `<div class="step ${ok?"ok":"no"}"><div class="lab">${i+1}. ${s.lab}</div>${eqLine(s)}</div>`; }
+    return `<div class="step" id="curStep"><div class="lab">${i+1}. ${s.lab}</div><div class="why">${s.why}</div>
+      <div class="inp"><input id="in" inputmode="decimal" autocomplete="off" aria-label="${esc(s.lab.replace(/<[^>]+>/g,""))}"><button class="btn small" id="chk">Prüfen</button><button class="btn ghost small" id="hint">Formel</button></div>
+      <div id="out"></div></div>`;
+  }).join("");
+  $("#app").innerHTML=head()+`<div class="stack">${html}</div>
+    ${task.done?finishBox():padHTML()}`;
+  bindHead(); bindPad();
+  if(task.done){ bindFinish(); return; }
+  const inp=$("#in"); inp.focus({preventScroll:true});
+  const s=S[cur];
+  const check=()=>{
+    const res=judge(s,inp.value);
+    if(res===null){ $("#out").innerHTML=`<p class="res bad">Bitte eine Zahl eingeben, Komma oder Punkt geht beides.</p>`; return; }
+    if(!(cur in task.first)) task.first[cur]=res;
+    if(res){ task.cur++; if(task.cur>=S.length){ task.done=true; record(Object.values(task.first).every(Boolean)); } renderGuided(); }
+    else{ $("#out").innerHTML=`<p class="res bad">Noch nicht. ${s.sign?"Achte auch aufs Vorzeichen. ":""}Versuch es nochmal oder lass dir den Schritt zeigen.</p><button class="btn ghost small" id="reveal">Schritt zeigen</button>`;
+      $("#reveal").onclick=()=>{ task.first[cur]=false; task.cur++; if(task.cur>=S.length){ task.done=true; record(false); } renderGuided(); }; }
+  };
+  $("#chk").onclick=check; inp.onkeydown=e=>{ if(e.key==="Enter") check(); };
+  $("#hint").onclick=()=>{ $("#out").innerHTML=`<p class="hint muted">Formel:</p><div class="eq">${esc(s.f)}</div>`; };
+}
+
+/* Stufe 3: frei, nur die Klausurgrößen */
+function renderFree(){
+  const S=task.data.steps, F=S.map((s,i)=>[s,i]).filter(([s])=>s.final);
+  $("#app").innerHTML=head()+`
+    ${padHTML()}
+    <div class="block stack">${F.map(([s,i])=>`<div>
+      <label class="lab" for="f${i}" style="font-weight:600">${s.lab}</label>
+      <div class="inp" style="margin-top:4px"><input id="f${i}" inputmode="decimal" autocomplete="off" ${task.done?"disabled":""}></div>
+      <div id="o${i}"></div></div>`).join("")}
+      ${task.done?"":`<button class="btn" id="chkAll">Abgeben</button>`}
+    </div>
+    <div id="sol"></div>`;
+  bindHead(); bindPad();
+  if(task.done) return;
+  $("#chkAll").onclick=()=>{
+    let all=true, empty=false;
+    F.forEach(([s,i])=>{ const v=$("#f"+i).value; const res=judge(s,v); if(res===null) empty=true; });
+    if(empty && !task.confirmEmpty){ task.confirmEmpty=true; toast("Noch leere Felder. Nochmal tippen zum Abgeben."); return; }
+    F.forEach(([s,i])=>{ const el=$("#f"+i), res=judge(s,el.value); if(!res) all=false;
+      el.disabled=true; $("#o"+i).innerHTML=`<p class="res ${res?"good":"bad"}">${res?"Richtig":"Richtig wäre "+fmt(s.ans)+(s.rate?" (= "+fmt(s.ans*100)+" Prozentpunkte)":"")+(s.pct?" %":"")}</p>`; });
+    task.done=true; record(all); $("#chkAll").remove();
+    $("#sol").innerHTML=`<div class="block"><h3>Lösungsweg</h3><div class="stack">${S.map((s,i)=>`<div><div class="small" style="font-weight:600">${i+1}. ${s.lab}</div>${eqLine(s)}</div>`).join("")}</div></div>`+finishBox(all);
+    bindFinish();
+  };
+}
+
+/* Herleitung: selbst schreiben, dann aufdecken und abhaken */
+function renderSelf(){
+  const S=task.data.steps, guided=task.lvl===2, worked=task.lvl===1;
+  const n= worked? S.length : (guided? task.shown : (task.done? S.length : 0));
+  $("#app").innerHTML=head()+`
+    ${worked?"":`<p class="small muted">${guided?"Schreib den nächsten Schritt auf den Schmierzettel, dann deck ihn auf.":"Schreib die komplette Herleitung auf den Schmierzettel. Danach vergleichen und abhaken, welche Schritte du hattest."}</p>${padHTML()}`}
+    <div class="block">${S.slice(0,n).map((s,i)=>`
+      <div class="check">${worked?"":`<input type="checkbox" id="c${i}" ${task.checks[i]?"checked":""} aria-label="Schritt ${i+1} gehabt">`}
+      <div style="min-width:0;flex:1"><div class="small" style="font-weight:600">${i+1}. ${s.lab}</div><div class="eq">${esc(s.f)}</div></div></div>`).join("")||`<p class="small muted" style="margin:0">${S.length} Schritte warten auf dich.</p>`}
+    </div>
+    <div class="row">
+      ${worked?`<button class="btn" id="self">Jetzt selbst schreiben</button>`:
+        (n<S.length?`<button class="btn" id="more">${guided?"Nächsten Schritt aufdecken":"Lösung aufdecken"}</button>`:
+        (task.saved?"":`<button class="btn" id="sv">Ergebnis speichern</button>`))}
+    </div>
+    <div id="fin">${task.saved?finishBox(task.savedOk):""}</div>`;
+  bindHead(); if(!worked) bindPad();
+  document.querySelectorAll(".check input").forEach(c=>c.onchange=()=>{ task.checks[+c.id.slice(1)]=c.checked; });
+  if($("#self")) $("#self").onclick=()=>{ state.lvl[task.t]=2; save(); startTask(task.t,task.mix); };
+  if($("#more")) $("#more").onclick=()=>{ if(guided) task.shown++; else task.done=true; renderSelf(); };
+  if($("#sv")) $("#sv").onclick=()=>{ const ok=S.every((_,i)=>task.checks[i]); task.saved=true; task.savedOk=ok; record(ok); renderSelf(); };
+  if(task.saved) bindFinish();
+}
+
+function finishBox(ok){
+  if(ok===undefined) ok=Object.values(task.first).every(Boolean);
+  const l=lvlOf(task.t);
+  return `<div class="block" style="margin-top:14px">
+    <h3>${ok?"Fehlerfrei":"Geschafft, mit Fehlern"}</h3>
+    <p class="small muted">${ok?"Gut so.":"Schau dir den markierten Schritt nochmal an, die nächste Aufgabe hat neue Zahlen."} Stufe jetzt: ${LVL[l]}.</p>
+    <div class="row"><button class="btn" id="next">${task.mix?"Nächste Aufgabe":"Neue Zahlen"}</button><button class="btn ghost" id="list">Zur Liste</button></div></div>`;
+}
+function bindFinish(){ if($("#next")) $("#next").onclick=nextTask; if($("#list")) $("#list").onclick=()=>go("calc"); }
+
+/* ================= Schmierzettel für den Apple Pencil ================= */
+let padStrokes=[];
+function padHTML(){ return `<div class="pad" style="margin:0 0 14px"><span class="ph">Schmierzettel</span><canvas id="pad" aria-label="Schmierzettel zum Rechnen mit dem Stift"></canvas><div class="tools"><button id="padUndo">Zurück</button><button id="padClr">Leeren</button></div></div>`; }
+function bindPad(){
+  const c=$("#pad"); if(!c) return;
+  const ctx=c.getContext("2d"); let penSeen=false, cur=null;
+  const size=()=>{ const r=c.getBoundingClientRect(), dpr=window.devicePixelRatio||1; c.width=r.width*dpr; c.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); draw(); };
+  const color=()=>getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#1B2433";
+  function draw(){ ctx.clearRect(0,0,c.width,c.height); ctx.lineCap="round"; ctx.lineJoin="round"; ctx.strokeStyle=color();
+    for(const s of padStrokes){ for(let i=1;i<s.length;i++){ ctx.lineWidth=s[i][2]; ctx.beginPath(); ctx.moveTo(s[i-1][0],s[i-1][1]); ctx.lineTo(s[i][0],s[i][1]); ctx.stroke(); } } }
+  const pt=e=>{ const r=c.getBoundingClientRect(); const p=e.pressure&&e.pointerType==="pen"? e.pressure : .5; return [e.clientX-r.left,e.clientY-r.top,1+p*2.4]; };
+  c.onpointerdown=e=>{ if(e.pointerType==="pen") penSeen=true; if(penSeen&&e.pointerType==="touch") return; cur=[pt(e)]; padStrokes.push(cur); c.setPointerCapture(e.pointerId); };
+  c.onpointermove=e=>{ if(!cur) return; const evs=e.getCoalescedEvents?e.getCoalescedEvents():[e]; for(const ev of evs) cur.push(pt(ev)); draw(); };
+  c.onpointerup=c.onpointercancel=()=>{ cur=null; };
+  $("#padUndo").onclick=()=>{ padStrokes.pop(); draw(); };
+  $("#padClr").onclick=()=>{ padStrokes=[]; draw(); };
+  size(); window.onresize=size;
+}
+
+/* Start: erst sofort zeigen, dann mit den anderen Geräten abgleichen */
+/* Zoom gilt pro Gerät (nicht synchronisiert) */
+(function(){ let z=parseFloat(lsGet("bw2-zoom"))||1;
+  const apply=()=>{ document.documentElement.style.setProperty("--z",z); lsSet("bw2-zoom",String(z)); };
+  apply();
+  document.getElementById("zIn").onclick=()=>{ z=Math.min(1.8,Math.round((z+.1)*10)/10); apply(); };
+  document.getElementById("zOut").onclick=()=>{ z=Math.max(.8,Math.round((z-.1)*10)/10); apply(); };
+})();
+initToken();
+render();
+syncFromRemote().then(changed=>{ if(changed&&!["task","essay","graph","lesson","cards","kreuz","exam","kurz"].includes(view)) render(); });
+
+</script>
+</body>
+</html>
