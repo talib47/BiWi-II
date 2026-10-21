@@ -155,7 +155,7 @@ nav button[aria-current="page"]{background:var(--accent-soft);color:var(--ink)}
 .lesson ul{padding-left:1.2em;margin:0 0 .8em}
 .lesson li{margin:.2em 0}
 .merk{border-left:4px solid var(--gold);background:var(--bg);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0}
-.merk b:first-child{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.merk>b:first-child{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
 .kv{width:100%;border-collapse:collapse;font-size:.9rem;margin:6px 0 10px}
 .kv td{border-top:1px solid var(--line);padding:6px 4px;vertical-align:top}
 .kv td:first-child{font-weight:600;white-space:nowrap;padding-right:10px}
@@ -167,7 +167,45 @@ nav button[aria-current="page"]{background:var(--accent-soft);color:var(--ink)}
 .ex{font-size:.9rem;margin-top:8px}
 .card{min-height:12rem;display:flex;flex-direction:column;justify-content:center;gap:10px}
 .card .front{font-family:var(--serif);font-size:1.25rem;font-weight:600;text-wrap:balance}
-.card .back{border-top:1px solid var(--line);padding-top:10px;white-space:pre-line}
+.card .back{border-top:1px solid var(--line);padding-top:10px}
+.card.tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.card.tap:active{transform:scale(.995)}
+.card .tapnote{align-self:flex-end;font-size:.75rem;color:var(--muted);margin-top:-2px}
+/* Kartenrückseite: Absätze, Listen, Begriffspaare, Vergleichstabelle */
+.cb p{margin:0 0 8px} .cb p:last-child{margin-bottom:0}
+.cb-dl{margin:0;display:flex;flex-direction:column}
+.cb-dl>div{padding:7px 0;border-top:1px solid var(--line)}
+.cb-dl>div:first-child{border-top:0;padding-top:0}
+.cb-dl dt{font-weight:600}
+.cb-dl dd{margin:1px 0 0}
+.cb-ul,.cb-ol{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:5px}
+.cb-ul li{position:relative;padding-left:1.05rem}
+.cb-ul li::before{content:"";position:absolute;left:.15rem;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.75}
+.cb-ol{counter-reset:n}
+.cb-ol li{display:grid;grid-template-columns:1.5rem 1fr;gap:8px;align-items:start}
+.cb-ol li::before{counter-increment:n;content:counter(n);width:1.4rem;height:1.4rem;border-radius:50%;border:1px solid var(--line);background:var(--bg);font:600 .74rem/1.35rem var(--sans);text-align:center;color:var(--muted);margin-top:.1rem}
+.cb-tbl{width:100%;border-collapse:collapse;table-layout:fixed}
+.cb .pd{color:var(--muted)}
+.cb-tbl th{font-weight:600;text-align:left;padding:0 10px 4px 0;font-family:var(--serif);font-size:1rem}
+.cb-tbl td{padding:1px 10px 7px 0;vertical-align:top}
+.cb-tbl tr.lab td{border-top:1px solid var(--line);padding:7px 0 1px;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.cb .eq{margin:0 0 8px}
+/* Kästen in Lektionen */
+.merk .mi{margin:0 0 8px}
+.merk .eq{background:var(--surface);display:inline-block;max-width:100%;margin-top:4px}
+.merk .kvq{background:transparent}
+.mrows{display:flex;flex-direction:column}
+.mrows>div{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-top:1px solid var(--line)}
+.mrows>div:first-child{border-top:0;padding-top:2px}
+.mrows>div:last-child{padding-bottom:0}
+.ml{font-weight:600;font-size:.92rem}
+.msteps{list-style:none;margin:0;padding:0;counter-reset:s;display:flex;flex-direction:column;gap:10px}
+.msteps li{display:grid;grid-template-columns:1.5rem 1fr;column-gap:10px;row-gap:3px;align-items:start}
+.msteps li::before{counter-increment:s;content:counter(s);grid-row:1 / span 2;width:1.4rem;height:1.4rem;border-radius:50%;border:1px solid var(--gold);color:var(--gold);font:600 .74rem/1.3rem var(--sans);text-align:center;margin-top:.05rem}
+.msteps .eq{margin:0;display:block}
+.vd{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 8px;border-radius:999px}
+.vd.t{color:var(--good);background:var(--good-soft)} .vd.f{color:var(--bad);background:var(--bad-soft)}
+.sol-ol{margin:6px 0 0;padding-left:1.2em} .sol-ol li{margin:.25em 0}
 .dots{display:flex;gap:4px}
 .dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
 .dots i.on{background:var(--good)}
@@ -446,7 +484,10 @@ check:[
 <tr><td>C-Skala</td><td>5</td><td>2</td><td>5 + 2 · z</td></tr></table>
 <p>Die IQ-Umrechnung heißt <b>Abweichungs-IQ</b> und geht auf David Wechsler (1939) zurück:</p>
 <div class="eq">AIQ = 100 + 15 · (x − μ) / σ</div>
-<div class="merk"><b>Klausurbeispiel</b>Testrohwert 500 in einem Test mit μ = 460 und σ = 50.<br>z = (500 − 460) / 50 = 0,8<br>IQ = 100 + 15 · 0,8 = 112, also durchschnittlich.</div>
+<div class="merk"><b>Klausurbeispiel</b><p class="mi">Testrohwert 500 in einem Test mit μ = 460 und σ = 50.</p>
+<ol class="msteps"><li><span class="ml">z-Wert</span><span class="eq">z = (500 − 460) / 50 = 0,8</span></li>
+<li><span class="ml">IQ-Wert</span><span class="eq">IQ = 100 + 15 · 0,8 = 112</span></li>
+<li><span class="ml">Einordnung</span><span>durchschnittlich (85 bis 115)</span></li></ol></div>
 <p>Früher wurde der IQ anders berechnet: Binet führte das <b>Intelligenzalter</b> (mentale Alter) ein, Stern teilte es durch das Lebensalter: <span style="font-family:var(--mono)">IQ = Intelligenzalter / Lebensalter · 100</span>. Das funktioniert bei Kindern, aber nicht bei Erwachsenen, deren Intelligenz nicht mehr jedes Jahr wächst. Deshalb setzte sich Wechslers Abweichungs-IQ durch.</p>`,
 check:[
  {q:"Ein Testrohwert liegt 18 Punkte unter dem Mittelwert, die Standardabweichung beträgt 12. Welcher IQ ergibt sich?", o:["82","77,5","122,5","85"], a:1, ex:"z = −18 / 12 = −1,5. IQ = 100 + 15 · (−1,5) = 77,5. Achtung aufs Vorzeichen, sonst kommt 122,5 heraus."},
@@ -460,7 +501,11 @@ check:[
 <ul><li><b>Sortieren:</b> alle Werte der Größe nach ordnen.</li>
 <li><b>cumf bestimmen:</b> zählen, wie viele Werte kleiner oder gleich dem gesuchten Wert sind.</li>
 <li><b>N bestimmen</b> und in die Formel einsetzen.</li></ul>
-<div class="merk"><b>Klausurbeispiel (WiSe 22/23)</b>Werte: 21; 18; 19; 12; 13; 16; 13; 12; 25; 10; 13; 16. Gesucht: PR von 18.<br>Sortiert: 10, 12, 12, 13, 13, 13, 16, 16, <b>18</b>, 19, 21, 25<br>cumf = 9, N = 12, PR = 9/12 · 100 = 75</div>
+<div class="merk"><b>Klausurbeispiel (WiSe 22/23)</b><p class="mi">Gesucht ist der Prozentrang des Testwerts 18 in dieser Verteilung:<br><span class="eq">21; 18; 19; 12; 13; 16; 13; 12; 25; 10; 13; 16</span></p>
+<ol class="msteps"><li><span class="ml">Sortieren</span><span class="eq">10, 12, 12, 13, 13, 13, 16, 16, <b>18</b>, 19, 21, 25</span></li>
+<li><span class="ml">cumf zählen</span><span>9 Werte sind kleiner oder gleich 18, also cumf = 9</span></li>
+<li><span class="ml">N zählen</span><span>12 Werte insgesamt, also N = 12</span></li>
+<li><span class="ml">Einsetzen</span><span class="eq">PR = 9 / 12 · 100 = 75</span></li></ol></div>
 <p><b>Interpretation:</b> Ein Prozentrang von 75 heißt, dass 75 % der Gruppe gleich gut oder schlechter abgeschnitten haben, also 25 % besser. Ein Prozentrang von 25 heißt umgekehrt: 75 % waren besser.</p>
 <p>Prozentrang und z-Wert hängen über die Normalverteilung zusammen: Der Mittelwert (z = 0) hat PR 50, z = +1 entspricht PR 84,1, z = −2 entspricht PR 2,3.</p>`,
 check:[
@@ -469,12 +514,12 @@ check:[
 ]},
 {id:"10-4", t:"Standardisieren in der Praxis", html:`
 <p>Rohwerte aus <b>verschiedenen Tests</b> lassen sich nicht direkt vergleichen. Wer in Test A und Test B je 36 Punkte hat, kann ganz unterschiedlich gut sein, weil die Tests unterschiedlich schwer sind und anders streuen. Erst die Umrechnung in Standardwerte (z, IQ, T) macht sie vergleichbar.</p>
-<div class="merk"><b>Klausuraufgabe (WiSe 22/23)</b>Drei Viertklässlerinnen, drei verschiedene Lesetests, ein Platz im Lesetraining für die Schwächste.
+<div class="merk"><b>Klausuraufgabe (WiSe 22/23)</b><p class="mi">Drei Viertklässlerinnen, drei verschiedene Lesetests, ein Platz im Lesetraining für die Schwächste.</p>
 <table class="kvq" style="margin-top:6px"><tr><th></th><th>Rohwert</th><th>M</th><th>SD</th><th>z</th><th>IQ-Skala</th></tr>
 <tr><td>A</td><td>36</td><td>42</td><td>3</td><td>−2</td><td>70</td></tr>
 <tr><td>B</td><td>36</td><td>39</td><td>6</td><td>−0,5</td><td>92,5</td></tr>
 <tr><td>C</td><td>36</td><td>42</td><td>6</td><td>−1</td><td>85</td></tr></table>
-Alle haben 36 Punkte, aber Schülerin A liegt zwei Standardabweichungen unter ihrer Referenzgruppe. Sie bekommt den Platz.</div>
+<p class="mi" style="margin:0">Alle haben 36 Punkte, aber Schülerin A liegt zwei Standardabweichungen unter ihrer Referenzgruppe. <b>Sie bekommt den Platz.</b></p></div>
 <p>Damit Standardwerte stimmen, müssen die Normen selbst gut sein. Die <b>Normierung</b> ist ein Nebengütekriterium: Die Normen sollen <b>aktuell</b> und an einer <b>repräsentativen</b> Stichprobe gewonnen sein. Drei typische Probleme, gerade in extremen Leistungsbereichen wie der Hochbegabungsdiagnostik:</p>
 <ul><li><b>Deckeneffekt:</b> Der Test ist zu leicht, sehr gute Personen lösen fast alles. Er kann oben nicht mehr unterscheiden (Messfehler durch Überschreiten des Messbereichs).</li>
 <li><b>Größerer Messfehler</b> an den Rändern der Verteilung, weil es dort nur wenige Aufgaben und Vergleichspersonen gibt.</li>
@@ -491,7 +536,7 @@ CARDS[16]=[
  {id:"c10-03", f:"Flächenanteile der Normalverteilung", b:"Mittelwert bis ±1 SD: je 34,13 % (zusammen 68,26 %)\n1 bis 2 SD: je 13,59 %\n2 bis 3 SD: je 2,14 %\njenseits von 3 SD: je 0,13 %"},
  {id:"c10-04", f:"Deskriptive Einordnung von IQ-Werten", b:"unter 70: weit unterdurchschnittlich (z. B. geistige Behinderung)\n70–85: unterdurchschnittlich\n85–115: durchschnittlich\n115–130: überdurchschnittlich\nüber 130: weit überdurchschnittlich (z. B. Hochbegabung)"},
  {id:"c10-05", f:"Formel des z-Werts und Bedeutung der Variablen", b:"z = (x − μ) / σ\nx: Rohwert der Person\nμ: Mittelwert der Referenzgruppe\nσ: Standardabweichung (Streuung) der Referenzgruppe\nz sagt, um wie viele Standardabweichungen der Wert vom Mittel abweicht."},
- {id:"c10-06", f:"Abweichungs-IQ: Formel und Urheber", b:"AIQ = 100 + 15 · (x − μ) / σ, also 100 + 15 · z.\nEingeführt von David Wechsler (1939)."},
+ {id:"c10-06", f:"Abweichungs-IQ: Formel und Urheber", b:"AIQ = 100 + 15 · (x − μ) / σ\nKurz: 100 + 15 · z\nUrheber: David Wechsler (1939)"},
  {id:"c10-07", f:"Mittelwert und SD der Standardskalen", b:"z-Skala: 0 und 1\nIQ-Skala: 100 und 15\nT-Skala: 50 und 10\nC-Skala: 5 und 2\nUmrechnung immer: Mittelwert + SD · z"},
  {id:"c10-08", f:"IQ nach Stern", b:"IQ = Intelligenzalter / Lebensalter · 100.\nDas Intelligenzalter (mentale Alter, z. B. „löst Aufgaben wie ein Achtjähriger“) geht auf Binet zurück. Für Erwachsene ungeeignet, deshalb abgelöst vom Abweichungs-IQ."},
  {id:"c10-09", f:"Formel des Prozentrangs und Bedeutung der Variablen", b:"PR = cumf / N · 100\ncumf: kumulierte Häufigkeit, also Anzahl der Werte bis einschließlich des gesuchten Werts\nN: Gesamtzahl der Werte (Probanden)"},
@@ -844,6 +889,28 @@ function bindUnclear(x){
 function logDay(){ const k=today(); state.days[k]=(state.days[k]||0)+1; }
 
 /* ================= Karten (Karteikasten, Fächer 0–5) ================= */
+/* Rückseite aus Zeilen aufbauen: „Begriff: Text“ wird zum Begriffspaar, „1. …“ zur nummerierten Liste,
+   mehrere einfache Zeilen zur Aufzählung, „A vs. B“ mit „Merkmal: a / b“ zur Vergleichstabelle */
+function cardBackHTML(c){
+  const lines=c.b.split("\n").map(s=>s.trim()).filter(Boolean);
+  const kvRe=/^([^:]{1,38}):\s+(.+)$/, numRe=/^\d+\.\s+(.+)$/;
+  const kind=l=>{ if(numRe.test(l)) return "num"; const m=l.match(kvRe); if(m&&!/,\s|\sheißt/.test(m[1])&&!/[.!?]$/.test(m[1])) return "kv"; if(/ = /.test(l)&&l.length<44) return "eq"; return "plain"; };
+  if(lines.length===1) return `<p>${lines[0]}</p>`;
+  const vs=c.f.split(/\s+vs\.\s+/);
+  if(vs.length===2 && lines.every(l=>kind(l)==="kv"&&l.match(kvRe)[2].includes(" / "))){
+    const h=vs.map(x=>x.replace(/\s+im Vergleich$/,"").replace(/[?:]$/,""));
+    return `<table class="cb-tbl"><tr><th>${h[0]}</th><th>${h[1]}</th></tr>${lines.map(l=>{ const m=l.match(kvRe), p=m[2].split(" / "); return `<tr class="lab"><td colspan="2">${m[1]}</td></tr><tr><td>${p[0]}</td><td>${p.slice(1).join(" / ")}</td></tr>`; }).join("")}</table>`;
+  }
+  const nm=l=>{ const m=l.match(/^([^()]{2,40}?) \((.+)\)$/); return m?`<b>${m[1]}</b> <span class="pd">(${m[2]})</span>`:l; };
+  const groups=[]; for(const l of lines){ const k=kind(l), g=groups[groups.length-1]; if(g&&g.k===k&&k!=="eq") g.l.push(l); else groups.push({k,l:[l]}); }
+  return groups.map((g,gi)=>{
+    if(g.k==="num") return `<ol class="cb-ol">${g.l.map(l=>`<li><span>${nm(l.match(numRe)[1])}</span></li>`).join("")}</ol>`;
+    if(g.k==="kv") return `<dl class="cb-dl">${g.l.map(l=>{ const m=l.match(kvRe); return `<div><dt>${m[1]}</dt><dd>${m[2]}</dd></div>`; }).join("")}</dl>`;
+    if(g.k==="eq") return `<div class="eq">${g.l[0]}</div>`;
+    if(g.l.length===1) return `<p>${g.l[0]}</p>`;
+    return `<ul class="cb-ul">${g.l.map(l=>`<li>${nm(l)}</li>`).join("")}</ul>`;
+  }).join("");
+}
 function allCards(n){ return n? (CARDS[n]||[]) : Object.values(CARDS).flat(); }
 /* Wiederholung mit Fälligkeitsdatum (wie Anki): sicherer gewusst = längerer Abstand */
 const INTERVAL=[0,0,1,3,7,16];   // Tage bis zur nächsten Abfrage je Fach; Fach 5 erneut gewusst: 35 Tage
@@ -879,11 +946,12 @@ function renderCards(){
   const c=D[cur.ci], b=cardBox(c.id);
   $("#app").innerHTML=`${backTo(n?"Kapitel "+n:"Üben")}
     <div class="row between"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?" · fällig":" · neu"}</p><span class="dots" aria-label="Fach ${b} von 5">${[1,2,3,4,5].map(i=>`<i class="${i<=b?"on":""}"></i>`).join("")}</span></div>
-    <div class="block card" style="margin-top:8px"><div class="front">${c.f}</div>${CARD_CTX[c.id]?`<p class="cctx">${CARD_CTX[c.id]}</p>`:""}${cur.flip?`<div class="back">${c.b}</div>${cardInfoHTML(c.id)}`:""}</div>
+    <div class="block card${cur.flip?"":" tap"}" id="theCard" style="margin-top:8px"><div class="front">${c.f}</div>${CARD_CTX[c.id]?`<p class="cctx">${CARD_CTX[c.id]}</p>`:""}${cur.flip?`<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div>
     ${cur.flip?`<div class="row"><button class="btn" id="yes" style="flex:1">Gewusst</button><button class="btn warn" id="no" style="flex:1">Nicht gewusst</button></div>`
       :`<button class="btn" id="flip" style="width:100%">Antwort zeigen</button><p class="small muted" style="margin-top:8px">Erst im Kopf oder auf dem Schmierzettel antworten, dann aufdecken.</p>`}`;
   bindCrumb(()=>go(n?"chapter":"practice"));
   if($("#flip")) $("#flip").onclick=()=>{ cur.flip=true; renderCards(); };
+  if(!cur.flip) $("#theCard").onclick=()=>{ cur.flip=true; renderCards(); };
   const grade=ok=>{ state.box=state.box||{}; state.due=state.due||{}; const b0=cardBox(c.id), b1=ok?Math.min(5,Math.max(b0,1)+1):1;
     state.box[c.id]=b1;
     if(!cur.free||!ok||b1<b0){ const days=ok?(b0===5?35:INTERVAL[b1]):0; state.due[c.id]= ok? dayStart()+days*864e5 : Date.now(); }
@@ -1091,6 +1159,16 @@ const OPEN=[
 const TEILE={1:{t:"Einführung in die Psychologie",kz:5,op:10},2:{t:"Lehr-/Lernpsychologie",kz:5,op:10},3:{t:"Pädagogisch-psychologische Diagnostik",kz:5,op:10},4:{t:"Inklusion",kz:4,op:14}};
 const teilOf=ch=>(CHAPTERS.find(c=>c.n===ch)||{}).teil;
 
+/* ---------- Musterlösung: „1) … 2) … 3) …“ als Liste setzen ---------- */
+function solHTML(m){
+  const parts=m.split(/(?:^|\s)(?=\d\)\s)/);
+  if(parts.length<3) return `<p style="margin:0">${m}</p>`;
+  const intro=/^\d\)\s/.test(parts[0])?"":parts.shift(), items=parts.map(p=>p.replace(/^\d\)\s/,""));
+  const last=items[items.length-1], cut=last.search(/\.\s+(Bei|Weitere|Insgesamt|Fazit)/);
+  let tail=""; if(cut>0){ tail=last.slice(cut+2); items[items.length-1]=last.slice(0,cut+1); }
+  return `${intro?`<p style="margin:0 0 6px">${intro}</p>`:""}<ol class="sol-ol">${items.map(i=>`<li>${i.replace(/^([^:.]{2,30}):/,"<b>$1:</b>")}</li>`).join("")}</ol>${tail?`<p style="margin:8px 0 0">${tail}</p>`:""}`;
+}
+
 /* ---------- Schreiben üben ---------- */
 const kurzOf=n=>n? KURZ.filter(x=>x.ch===n) : KURZ.filter(x=>LESSONS[x.ch]);
 function kurzScore(id){ return (state.kurz||{})[id]; }
@@ -1099,6 +1177,7 @@ function openKurz(n){ n=n||0; cur.kzn=n; cur.kz=pickKurz(n); cur.kzph="schreiben
 function renderKurz(){
   const x=cur.kz, n=cur.kzn, L=kurzOf(n), done=L.filter(y=>kurzScore(y.id)).length;
   const back=n?"Kapitel "+n:"Üben", backFn=()=>{ if(n){ cur.ch=n; go("chapter"); } else go("practice"); };
+  if(!x){ $("#app").innerHTML=`${backTo(back)}<h1>Noch keine Aufgaben</h1><p class="muted">Für diesen Bereich gibt es noch keine offenen Aufgaben.</p>`; bindCrumb(backFn); return; }
   const per=x.pts/x.k.length, pts=()=>Math.round(x.k.filter((_,j)=>cur.kzc[j]).length*per*2)/2;
   $("#app").innerHTML=`${backTo(back)}
     <p class="eyebrow">Offene Aufgabe · ${x.pts} Punkte · ${done} von ${L.length} bearbeitet${x.klausur?" · "+x.klausur:""}</p>
@@ -1111,7 +1190,7 @@ function renderKurz(){
         <p class="pts" id="kp">${pts()} von ${x.pts} Punkten</p>
         <div class="row"><button class="btn" id="ks">Speichern und weiter</button><button class="btn ghost" id="kcl">Für Claude kopieren</button><button class="btn ghost" id="kn">Ohne Speichern weiter</button></div><div id="kcopy"></div></div>
       ${cur.kzt?`<div class="block"><h3>Deine Antwort</h3><p style="white-space:pre-wrap;margin:0">${esc(cur.kzt)}</p></div>`:""}
-      <div class="block lesson"><h3>Musterlösung</h3><p style="margin:0">${x.m}</p></div>`}
+      <div class="block lesson"><h3>Musterlösung</h3>${solHTML(x.m)}</div>`}
     </div>`;
   bindCrumb(backFn);
   if($("#kd")) $("#kd").onclick=()=>{ cur.kzt=$("#kt").value; cur.kzph="bewerten"; renderKurz(); window.scrollTo(0,0); };
@@ -1208,7 +1287,7 @@ function openGrade(o,pi,no){
     return `<div class="block"><p style="margin:0 0 6px"><b>${no}. ${o.title}</b> <span class="small muted">(${o.pts} P.)</span></p><p class="small" style="margin:0 0 6px">${x.q}</p>
       <p class="small" style="white-space:pre-wrap;background:var(--bg);border-radius:8px;padding:8px">${esc(o.ans)||'<span class="muted">keine Antwort</span>'}</p>
       ${x.k.map((k,j)=>`<label class="check"><input type="checkbox" data-g="${pi}_${j}" ${state.examRun.grade[pi+"_"+j]?"checked":""}><span>${k}</span></label>`).join("")}
-      <details><summary class="small">Musterlösung</summary><p class="small">${x.m}</p></details>
+      <details><summary class="small">Musterlösung</summary><div class="small">${solHTML(x.m)}</div></details>
       <div class="row" style="margin-top:6px"><button class="btn ghost small" data-cl="${pi}">Für Claude kopieren</button></div><div id="cl${pi}"></div></div>`; }
   const c=calcPts(o), S=o.data.steps;
   return `<div class="block"><div class="row between"><p style="margin:0"><b>${no}. ${o.title}</b></p><span class="pbadge">${String(c.p).replace(".",",")}/${o.pts}</span></div>
@@ -1225,7 +1304,10 @@ LESSONS[1]=[
 <ul><li><b>beobachtbare Verhaltensweisen</b> (was genau soll man sehen können?),</li>
 <li><b>Bedingungen</b>, unter denen das Verhalten überprüft wird (worauf reagieren, in welcher Zeit …),</li>
 <li>einen <b>Bewertungsmaßstab</b>, an dem man ablesen kann, ob das Ziel erreicht ist.</li></ul>
-<div class="merk"><b>Beispiel</b>Nicht operationalisiert: „Die Schüler verstehen Brüche.“<br>Operationalisiert: „Die Schüler kürzen in 10 Minuten ohne Hilfsmittel mindestens 8 von 10 Brüchen richtig.“ Verhalten (kürzen), Bedingung (10 Minuten, ohne Hilfsmittel), Maßstab (8 von 10).</div>
+<div class="merk"><b>Beispiel</b><div class="mrows">
+<div><span class="ml">Nicht operationalisiert</span><span>„Die Schüler verstehen Brüche.“</span></div>
+<div><span class="ml">Operationalisiert</span><span>„Die Schüler kürzen in 10 Minuten ohne Hilfsmittel mindestens 8 von 10 Brüchen richtig.“</span></div></div>
+<table class="kvq" style="margin:8px 0 0"><tr><td>Verhalten</td><td>kürzen</td></tr><tr><td>Bedingung</td><td>10 Minuten, ohne Hilfsmittel</td></tr><tr><td>Maßstab</td><td>8 von 10 richtig</td></tr></table></div>
 <p><b>Bloom (1956)</b> hat in seiner „Taxonomy of Educational Objectives“ kognitive Lernziele nach Komplexität geordnet, von einfach nach schwer:</p>
 <table class="kvq"><tr><th>Stufe</th><th>englisch</th><th>Beispielverb</th></tr>
 <tr><td>1. Wissen / Erinnerung</td><td>Remembering</td><td>nennen, benennen</td></tr>
@@ -1285,10 +1367,11 @@ check:[
 <li><b>Proximale Merkmale</b>: beobachtbare und messbare <b>Indikatoren</b>, aus denen man auf das Konstrukt schließt. Wer misst, muss wissen, welche Indikatoren wirklich zum Konstrukt gehören (das ist eine Frage der Validität).</li></ul>
 <p>Konstrukte sind <b>Erklärungszugänge</b>, keine realen Entitäten. Als warnendes Gegenbeispiel zeigt Heine die <b>Phrenologie</b> (19. Jahrhundert), die geistige Eigenschaften an Schädelformen ablesen wollte, als säßen sie als Organe im Kopf.</p>
 <p>Schon das Beschreiben setzt eine <b>Operationalisierung</b> voraus: die Übersetzung eines Konstrukts in beobachtbare bzw. messbare Indikatoren. Beispiel: „Wissensniveau in Psychologie“ wird operationalisiert als Punktzahl in einem fachspezifischen Test.</p>
-<div class="merk"><b>Klausuraufgabe (WiSe 22/23): Lernmotivation operationalisieren</b>Mögliche Indikatoren und erwartete Effekte bei <i>hoher</i> Lernmotivation:<br>
-Aufmerksamkeit und Anstrengung hoch, Latenz (Zeit bis zum Beginn) kurz<br>
-Persistenz (Ausdauer) groß, Präferenz für Lernaufgaben groß<br>
-Verhaltenswahrscheinlichkeit hoch, emotionaler Ausdruck positiv</div>
+<div class="merk"><b>Klausuraufgabe (WiSe 22/23): Lernmotivation operationalisieren</b><p class="mi">Mögliche Indikatoren und was man bei <i>hoher</i> Lernmotivation erwartet:</p>
+<table class="kvq" style="margin:0"><tr><th>Indikator</th><th>bei hoher Motivation</th></tr>
+<tr><td>Aufmerksamkeit</td><td>hoch</td></tr><tr><td>Anstrengung</td><td>hoch</td></tr><tr><td>Latenz (Zeit bis zum Beginn)</td><td>kurz</td></tr>
+<tr><td>Persistenz (Ausdauer)</td><td>groß</td></tr><tr><td>Präferenz für Lernaufgaben</td><td>groß</td></tr>
+<tr><td>Verhaltenswahrscheinlichkeit</td><td>hoch</td></tr><tr><td>emotionaler Ausdruck</td><td>positiv</td></tr></table></div>
 <p>Merkmale lassen sich außerdem nach ihrer Stabilität unterscheiden: <b>Traits</b> sind zeitlich stabile Merkmale (z. B. Intelligenz), <b>States</b> sind situationsabhängige Zustände (z. B. aktuelle Müdigkeit).</p>
 <p><b>Berufspraktische Relevanz:</b> Wer „Intelligenz“ oder „Motivation“ als Konstrukt begreift, behandelt eine Zuschreibung wie „der ist halt faul“ als <i>Hypothese</i> über eine Person in einer Situation. Sie muss über Indikatoren geprüft werden, und zu jedem Konstrukt gibt es unterschiedliche theoretische Zugänge.</p>`,
 check:[
@@ -1408,12 +1491,14 @@ LESSONS[9]=[
 <li>Nicht jedes Lernen zeigt sich sofort im Verhalten. Es kann als <b>Verhaltenspotenzial</b> vorhanden sein, ohne dass es ausgeführt wird. Das ist ein <i>messtheoretisches Problem</i>.</li></ul>
 <p><b>2. Konsistent und dauerhaft.</b> Die Veränderung muss über gleichartige Situationen hinweg und zeitlich stabil sein. Offen bleibt: Was sind „gleichartige“ Situationen, und wie lange ist „dauerhaft“? Eine kurzfristige Motivationsschwankung ist jedenfalls kein Lernen.</p>
 <p><b>3. Erfahrungsbasiert.</b> Lernen hängt von Erfahrung ab, Reifung nicht. Dafür müssen Informationen aufgenommen, verarbeitet und gespeichert werden. Deshalb ist das <b>Gedächtnis</b> so wichtig für das Lernen. Die Abgrenzung zur Reifung ist trotzdem schwierig, weil auch manche Reifungsprozesse umweltabhängig sind (z. B. die frühe Entwicklung des Sehens).</p>
-<div class="merk"><b>Schulbeispiele aus dem Lehrbuch (Urhahne et al., 2019, Kap. 1)</b>
-<i>Erfahrung statt Reifung:</i> Zeigt die Lehrkraft den „Schweigefuchs“, wird die Klasse still. Das Handzeichen hat erst durch frühere Erfahrungen seine Wirkung bekommen. Krabbeln, Laufen und Sprechen beim Kleinkind kommen dagegen mit der Reifung.<br>
-<i>Keine physiologischen Ursachen:</i> Bleibt am Abend vor der Prüfung nichts mehr hängen, kann das an Krankheit, Übermüdung oder Alkohol liegen. Das ist dann kein Lernen und kein Vergessen.<br>
-<i>Verhaltenspotenzial:</i> Auch ein Kind, das stumm im Unterricht sitzt, kann lernen. Ob es gelernt hat, zeigt sich erst, wenn es die Fragen der Lehrkraft beantworten kann.<br>
-<i>Dauerhaft:</i> Wer mit Messer und Gabel essen gelernt hat, kann es bei jeder Gelegenheit. Schulwissen (Wer war Franz Ferdinand?) wirkt weniger stabil, lässt sich aber oft mit passenden Hinweisreizen wieder abrufen. Erst wenn auch das scheitert, war die Veränderung nicht dauerhaft genug.</div>
-<div class="merk"><b>Klausur WiSe 24/25</b>„Jede beobachtbare Veränderung des Verhaltens ist das Ergebnis von Lernprozessen.“ Falsch (Reifung, Ermüdung).<br>„Ein Lernprozess führt nicht unbedingt zu einer unmittelbar beobachtbaren Veränderung des Verhaltens.“ Wahr (Verhaltenspotenzial).</div>`,
+<div class="merk"><b>Schulbeispiele aus dem Lehrbuch (Urhahne et al., 2019, Kap. 1)</b><div class="mrows">
+<div><span class="ml">Erfahrung statt Reifung</span><span>Zeigt die Lehrkraft den „Schweigefuchs“, wird die Klasse still. Das Handzeichen hat erst durch frühere Erfahrungen seine Wirkung bekommen. Krabbeln, Laufen und Sprechen beim Kleinkind kommen dagegen mit der Reifung.</span></div>
+<div><span class="ml">Keine physiologischen Ursachen</span><span>Bleibt am Abend vor der Prüfung nichts mehr hängen, kann das an Krankheit, Übermüdung oder Alkohol liegen. Das ist dann kein Lernen und kein Vergessen.</span></div>
+<div><span class="ml">Verhaltenspotenzial</span><span>Auch ein Kind, das stumm im Unterricht sitzt, kann lernen. Ob es gelernt hat, zeigt sich erst, wenn es die Fragen der Lehrkraft beantworten kann.</span></div>
+<div><span class="ml">Relativ dauerhaft</span><span>Wer mit Messer und Gabel essen gelernt hat, kann es bei jeder Gelegenheit. Schulwissen (Wer war Franz Ferdinand?) wirkt weniger stabil, lässt sich aber oft mit passenden Hinweisreizen wieder abrufen. Erst wenn auch das scheitert, war die Veränderung nicht dauerhaft genug.</span></div></div></div>
+<div class="merk"><b>So stand es in der Klausur WiSe 24/25</b><div class="mrows">
+<div><span class="ml"><span class="vd f">falsch</span></span><span>„Jede beobachtbare Veränderung des Verhaltens ist das Ergebnis von Lernprozessen.“<br><span class="small muted">Grund: Reifung, Ermüdung</span></span></div>
+<div><span class="ml"><span class="vd t">wahr</span></span><span>„Ein Lernprozess führt nicht unbedingt zu einer unmittelbar beobachtbaren Veränderung des Verhaltens.“<br><span class="small muted">Grund: Verhaltenspotenzial</span></span></div></div></div>`,
 check:[
  {q:"Ein Kind kann nach den Ferien plötzlich höher springen. Warum ist das nicht automatisch Lernen?", o:["Weil Springen kein Verhalten ist","Weil die Veränderung auch auf Reifung, also körperlichem Wachstum, beruhen kann","Weil Lernen immer bewusst ist","Weil die Veränderung zu dauerhaft ist"], a:1, ex:"Nicht jede beobachtbare Verhaltensänderung ist Lernen. Reifung ist nicht erfahrungsbasiert."},
  {q:"Eine Schülerin hat eine Rechenstrategie verstanden, wendet sie in der Arbeit aber vor Aufregung nicht an. Was liegt vor?", o:["Kein Lernen","Lernen auf der Ebene des Verhaltenspotenzials","Habituation","Reifung"], a:1, ex:"Gelernt ist gelernt, auch wenn es sich (noch) nicht im Verhalten zeigt. Deshalb spricht Definition 3 von Verhalten bzw. Verhaltenspotenzial."}
@@ -1428,7 +1513,9 @@ check:[
 <tr><td>Habituation, Sensitivierung</td><td>klassische Konditionierung (S1 → S2)</td></tr>
 <tr><td>Lernen durch wiederholte Reizdarbietung: perzeptuelles Lernen, Priming, „mere exposure“</td><td>operante Konditionierung (R → S)</td></tr></table>
 <p class="small muted">S = Stimulus (Reiz), R = Response (Reaktion). Weitere Formen auf Heines Übersicht: Diskriminationstraining, räumliches Lernen.</p>
-<div class="merk"><b>Merksatz</b>Nichtassoziativ: ein Reiz, oft wiederholt, die Reaktion ändert sich. Assoziativ: zwei Ereignisse, die zusammen auftreten, werden verknüpft.</div>`,
+<div class="merk"><b>Merksatz</b><div class="mrows">
+<div><span class="ml">Nichtassoziativ</span><span>ein Reiz, oft wiederholt, die Reaktion ändert sich</span></div>
+<div><span class="ml">Assoziativ</span><span>zwei Ereignisse, die zusammen auftreten, werden verknüpft</span></div></div></div>`,
 check:[
  {q:"Was wird beim assoziativen Lernen gelernt?", o:["Reaktionen auf einen einzigen wiederholten Reiz","Kontingenzen, also das gemeinsame Auftreten von Ereignissen","Reflexe","Reifungsprozesse"], a:1, ex:"Zum Beispiel, dass auf einen Ton Futter folgt (klassisch) oder dass auf ein Verhalten Lob folgt (operant)."},
  {q:"Welche Form gehört zum nichtassoziativen Lernen?", o:["Klassische Konditionierung","Operante Konditionierung","Habituation","Lernen am Modell"], a:2, ex:"Habituation und Sensitivierung sind die beiden basalen nichtassoziativen Lernprozesse."}
@@ -1475,7 +1562,7 @@ CARDS[9]=[
  {id:"c9-02", f:"Die drei Lerndefinitionen und ihr Fokus", b:"1. Veränderung als Folge der Auseinandersetzung mit der Umwelt (eher unspezifisch)\n2. Biologischer Prozess der Anpassung an die Umwelt (eher evolutionär)\n3. Erfahrungsbedingte, konsistente, relativ dauerhafte Änderung von Verhalten bzw. Verhaltenspotenzial (Art und Qualität der Veränderung)"},
  {id:"c9-03", f:"Warum ist nicht jede Verhaltensänderung Lernen?", b:"Sie kann auch auf Reifung (langfristig, z. B. Wachstum) oder Ermüdung (kurzfristig) beruhen. Auch Krankheit, Alkohol oder Drogen erzeugen Veränderungen, die kein Lernen sind (Lehrbuch Kap. 1)."},
  {id:"c9-04", f:"Warum zeigt sich nicht jedes Lernen im Verhalten?", b:"Gelerntes kann als Verhaltenspotenzial vorhanden sein, ohne ausgeführt zu werden, weil die tatsächliche Ausführung von vielen Faktoren abhängt (z. B. Motivation, Aufregung). Ein messtheoretisches Problem."},
- {id:"c9-05", f:"Lernen vs. Reifung", b:"Lernen ist erfahrungsabhängig: Informationen werden aufgenommen, verarbeitet und gespeichert (daher die Bedeutung des Gedächtnisses).\nReifung ist es nicht. Abgrenzung schwierig, weil auch manche Reifung umweltabhängig ist (frühe Entwicklung des Sehens)."},
+ {id:"c9-05", f:"Lernen vs. Reifung", b:"Lernen: erfahrungsabhängig. Informationen werden aufgenommen, verarbeitet und gespeichert (daher die Bedeutung des Gedächtnisses).\nReifung: nicht erfahrungsabhängig (z. B. Krabbeln, Laufen beim Kleinkind).\nProblem: Die Abgrenzung ist schwierig, weil auch manche Reifung umweltabhängig ist (frühe Entwicklung des Sehens)."},
  {id:"c9-06", f:"Nichtassoziatives vs. assoziatives Lernen", b:"Nichtassoziativ: Stärke oder Art einer Reaktion auf einen Reiz ändert sich durch wiederholte Darbietung (Habituation, Sensitivierung).\nAssoziativ: Lernen von Kontingenzen (gemeinsamem Auftreten) von Ereignissen, S → S (klassisch) oder R → S (operant)."},
  {id:"c9-07", f:"Kontingenz", b:"Das zeitliche Zusammenfallen bzw. die regelhafte Verknüpfung von Ereignissen, etwa Verhalten und Konsequenz."},
  {id:"c9-08", f:"Drei Eigenschaften von Reflexen", b:"unwillkürlich\ninvariant (stereotyp, immer gleich)\nschnell"},

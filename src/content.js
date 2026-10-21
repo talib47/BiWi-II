@@ -69,7 +69,10 @@ check:[
 <tr><td>C-Skala</td><td>5</td><td>2</td><td>5 + 2 · z</td></tr></table>
 <p>Die IQ-Umrechnung heißt <b>Abweichungs-IQ</b> und geht auf David Wechsler (1939) zurück:</p>
 <div class="eq">AIQ = 100 + 15 · (x − μ) / σ</div>
-<div class="merk"><b>Klausurbeispiel</b>Testrohwert 500 in einem Test mit μ = 460 und σ = 50.<br>z = (500 − 460) / 50 = 0,8<br>IQ = 100 + 15 · 0,8 = 112, also durchschnittlich.</div>
+<div class="merk"><b>Klausurbeispiel</b><p class="mi">Testrohwert 500 in einem Test mit μ = 460 und σ = 50.</p>
+<ol class="msteps"><li><span class="ml">z-Wert</span><span class="eq">z = (500 − 460) / 50 = 0,8</span></li>
+<li><span class="ml">IQ-Wert</span><span class="eq">IQ = 100 + 15 · 0,8 = 112</span></li>
+<li><span class="ml">Einordnung</span><span>durchschnittlich (85 bis 115)</span></li></ol></div>
 <p>Früher wurde der IQ anders berechnet: Binet führte das <b>Intelligenzalter</b> (mentale Alter) ein, Stern teilte es durch das Lebensalter: <span style="font-family:var(--mono)">IQ = Intelligenzalter / Lebensalter · 100</span>. Das funktioniert bei Kindern, aber nicht bei Erwachsenen, deren Intelligenz nicht mehr jedes Jahr wächst. Deshalb setzte sich Wechslers Abweichungs-IQ durch.</p>`,
 check:[
  {q:"Ein Testrohwert liegt 18 Punkte unter dem Mittelwert, die Standardabweichung beträgt 12. Welcher IQ ergibt sich?", o:["82","77,5","122,5","85"], a:1, ex:"z = −18 / 12 = −1,5. IQ = 100 + 15 · (−1,5) = 77,5. Achtung aufs Vorzeichen, sonst kommt 122,5 heraus."},
@@ -83,7 +86,11 @@ check:[
 <ul><li><b>Sortieren:</b> alle Werte der Größe nach ordnen.</li>
 <li><b>cumf bestimmen:</b> zählen, wie viele Werte kleiner oder gleich dem gesuchten Wert sind.</li>
 <li><b>N bestimmen</b> und in die Formel einsetzen.</li></ul>
-<div class="merk"><b>Klausurbeispiel (WiSe 22/23)</b>Werte: 21; 18; 19; 12; 13; 16; 13; 12; 25; 10; 13; 16. Gesucht: PR von 18.<br>Sortiert: 10, 12, 12, 13, 13, 13, 16, 16, <b>18</b>, 19, 21, 25<br>cumf = 9, N = 12, PR = 9/12 · 100 = 75</div>
+<div class="merk"><b>Klausurbeispiel (WiSe 22/23)</b><p class="mi">Gesucht ist der Prozentrang des Testwerts 18 in dieser Verteilung:<br><span class="eq">21; 18; 19; 12; 13; 16; 13; 12; 25; 10; 13; 16</span></p>
+<ol class="msteps"><li><span class="ml">Sortieren</span><span class="eq">10, 12, 12, 13, 13, 13, 16, 16, <b>18</b>, 19, 21, 25</span></li>
+<li><span class="ml">cumf zählen</span><span>9 Werte sind kleiner oder gleich 18, also cumf = 9</span></li>
+<li><span class="ml">N zählen</span><span>12 Werte insgesamt, also N = 12</span></li>
+<li><span class="ml">Einsetzen</span><span class="eq">PR = 9 / 12 · 100 = 75</span></li></ol></div>
 <p><b>Interpretation:</b> Ein Prozentrang von 75 heißt, dass 75 % der Gruppe gleich gut oder schlechter abgeschnitten haben, also 25 % besser. Ein Prozentrang von 25 heißt umgekehrt: 75 % waren besser.</p>
 <p>Prozentrang und z-Wert hängen über die Normalverteilung zusammen: Der Mittelwert (z = 0) hat PR 50, z = +1 entspricht PR 84,1, z = −2 entspricht PR 2,3.</p>`,
 check:[
@@ -92,12 +99,12 @@ check:[
 ]},
 {id:"10-4", t:"Standardisieren in der Praxis", html:`
 <p>Rohwerte aus <b>verschiedenen Tests</b> lassen sich nicht direkt vergleichen. Wer in Test A und Test B je 36 Punkte hat, kann ganz unterschiedlich gut sein, weil die Tests unterschiedlich schwer sind und anders streuen. Erst die Umrechnung in Standardwerte (z, IQ, T) macht sie vergleichbar.</p>
-<div class="merk"><b>Klausuraufgabe (WiSe 22/23)</b>Drei Viertklässlerinnen, drei verschiedene Lesetests, ein Platz im Lesetraining für die Schwächste.
+<div class="merk"><b>Klausuraufgabe (WiSe 22/23)</b><p class="mi">Drei Viertklässlerinnen, drei verschiedene Lesetests, ein Platz im Lesetraining für die Schwächste.</p>
 <table class="kvq" style="margin-top:6px"><tr><th></th><th>Rohwert</th><th>M</th><th>SD</th><th>z</th><th>IQ-Skala</th></tr>
 <tr><td>A</td><td>36</td><td>42</td><td>3</td><td>−2</td><td>70</td></tr>
 <tr><td>B</td><td>36</td><td>39</td><td>6</td><td>−0,5</td><td>92,5</td></tr>
 <tr><td>C</td><td>36</td><td>42</td><td>6</td><td>−1</td><td>85</td></tr></table>
-Alle haben 36 Punkte, aber Schülerin A liegt zwei Standardabweichungen unter ihrer Referenzgruppe. Sie bekommt den Platz.</div>
+<p class="mi" style="margin:0">Alle haben 36 Punkte, aber Schülerin A liegt zwei Standardabweichungen unter ihrer Referenzgruppe. <b>Sie bekommt den Platz.</b></p></div>
 <p>Damit Standardwerte stimmen, müssen die Normen selbst gut sein. Die <b>Normierung</b> ist ein Nebengütekriterium: Die Normen sollen <b>aktuell</b> und an einer <b>repräsentativen</b> Stichprobe gewonnen sein. Drei typische Probleme, gerade in extremen Leistungsbereichen wie der Hochbegabungsdiagnostik:</p>
 <ul><li><b>Deckeneffekt:</b> Der Test ist zu leicht, sehr gute Personen lösen fast alles. Er kann oben nicht mehr unterscheiden (Messfehler durch Überschreiten des Messbereichs).</li>
 <li><b>Größerer Messfehler</b> an den Rändern der Verteilung, weil es dort nur wenige Aufgaben und Vergleichspersonen gibt.</li>
@@ -114,7 +121,7 @@ CARDS[16]=[
  {id:"c10-03", f:"Flächenanteile der Normalverteilung", b:"Mittelwert bis ±1 SD: je 34,13 % (zusammen 68,26 %)\n1 bis 2 SD: je 13,59 %\n2 bis 3 SD: je 2,14 %\njenseits von 3 SD: je 0,13 %"},
  {id:"c10-04", f:"Deskriptive Einordnung von IQ-Werten", b:"unter 70: weit unterdurchschnittlich (z. B. geistige Behinderung)\n70–85: unterdurchschnittlich\n85–115: durchschnittlich\n115–130: überdurchschnittlich\nüber 130: weit überdurchschnittlich (z. B. Hochbegabung)"},
  {id:"c10-05", f:"Formel des z-Werts und Bedeutung der Variablen", b:"z = (x − μ) / σ\nx: Rohwert der Person\nμ: Mittelwert der Referenzgruppe\nσ: Standardabweichung (Streuung) der Referenzgruppe\nz sagt, um wie viele Standardabweichungen der Wert vom Mittel abweicht."},
- {id:"c10-06", f:"Abweichungs-IQ: Formel und Urheber", b:"AIQ = 100 + 15 · (x − μ) / σ, also 100 + 15 · z.\nEingeführt von David Wechsler (1939)."},
+ {id:"c10-06", f:"Abweichungs-IQ: Formel und Urheber", b:"AIQ = 100 + 15 · (x − μ) / σ\nKurz: 100 + 15 · z\nUrheber: David Wechsler (1939)"},
  {id:"c10-07", f:"Mittelwert und SD der Standardskalen", b:"z-Skala: 0 und 1\nIQ-Skala: 100 und 15\nT-Skala: 50 und 10\nC-Skala: 5 und 2\nUmrechnung immer: Mittelwert + SD · z"},
  {id:"c10-08", f:"IQ nach Stern", b:"IQ = Intelligenzalter / Lebensalter · 100.\nDas Intelligenzalter (mentale Alter, z. B. „löst Aufgaben wie ein Achtjähriger“) geht auf Binet zurück. Für Erwachsene ungeeignet, deshalb abgelöst vom Abweichungs-IQ."},
  {id:"c10-09", f:"Formel des Prozentrangs und Bedeutung der Variablen", b:"PR = cumf / N · 100\ncumf: kumulierte Häufigkeit, also Anzahl der Werte bis einschließlich des gesuchten Werts\nN: Gesamtzahl der Werte (Probanden)"},

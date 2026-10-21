@@ -7,7 +7,10 @@ LESSONS[1]=[
 <ul><li><b>beobachtbare Verhaltensweisen</b> (was genau soll man sehen können?),</li>
 <li><b>Bedingungen</b>, unter denen das Verhalten überprüft wird (worauf reagieren, in welcher Zeit …),</li>
 <li>einen <b>Bewertungsmaßstab</b>, an dem man ablesen kann, ob das Ziel erreicht ist.</li></ul>
-<div class="merk"><b>Beispiel</b>Nicht operationalisiert: „Die Schüler verstehen Brüche.“<br>Operationalisiert: „Die Schüler kürzen in 10 Minuten ohne Hilfsmittel mindestens 8 von 10 Brüchen richtig.“ Verhalten (kürzen), Bedingung (10 Minuten, ohne Hilfsmittel), Maßstab (8 von 10).</div>
+<div class="merk"><b>Beispiel</b><div class="mrows">
+<div><span class="ml">Nicht operationalisiert</span><span>„Die Schüler verstehen Brüche.“</span></div>
+<div><span class="ml">Operationalisiert</span><span>„Die Schüler kürzen in 10 Minuten ohne Hilfsmittel mindestens 8 von 10 Brüchen richtig.“</span></div></div>
+<table class="kvq" style="margin:8px 0 0"><tr><td>Verhalten</td><td>kürzen</td></tr><tr><td>Bedingung</td><td>10 Minuten, ohne Hilfsmittel</td></tr><tr><td>Maßstab</td><td>8 von 10 richtig</td></tr></table></div>
 <p><b>Bloom (1956)</b> hat in seiner „Taxonomy of Educational Objectives“ kognitive Lernziele nach Komplexität geordnet, von einfach nach schwer:</p>
 <table class="kvq"><tr><th>Stufe</th><th>englisch</th><th>Beispielverb</th></tr>
 <tr><td>1. Wissen / Erinnerung</td><td>Remembering</td><td>nennen, benennen</td></tr>
@@ -67,10 +70,11 @@ check:[
 <li><b>Proximale Merkmale</b>: beobachtbare und messbare <b>Indikatoren</b>, aus denen man auf das Konstrukt schließt. Wer misst, muss wissen, welche Indikatoren wirklich zum Konstrukt gehören (das ist eine Frage der Validität).</li></ul>
 <p>Konstrukte sind <b>Erklärungszugänge</b>, keine realen Entitäten. Als warnendes Gegenbeispiel zeigt Heine die <b>Phrenologie</b> (19. Jahrhundert), die geistige Eigenschaften an Schädelformen ablesen wollte, als säßen sie als Organe im Kopf.</p>
 <p>Schon das Beschreiben setzt eine <b>Operationalisierung</b> voraus: die Übersetzung eines Konstrukts in beobachtbare bzw. messbare Indikatoren. Beispiel: „Wissensniveau in Psychologie“ wird operationalisiert als Punktzahl in einem fachspezifischen Test.</p>
-<div class="merk"><b>Klausuraufgabe (WiSe 22/23): Lernmotivation operationalisieren</b>Mögliche Indikatoren und erwartete Effekte bei <i>hoher</i> Lernmotivation:<br>
-Aufmerksamkeit und Anstrengung hoch, Latenz (Zeit bis zum Beginn) kurz<br>
-Persistenz (Ausdauer) groß, Präferenz für Lernaufgaben groß<br>
-Verhaltenswahrscheinlichkeit hoch, emotionaler Ausdruck positiv</div>
+<div class="merk"><b>Klausuraufgabe (WiSe 22/23): Lernmotivation operationalisieren</b><p class="mi">Mögliche Indikatoren und was man bei <i>hoher</i> Lernmotivation erwartet:</p>
+<table class="kvq" style="margin:0"><tr><th>Indikator</th><th>bei hoher Motivation</th></tr>
+<tr><td>Aufmerksamkeit</td><td>hoch</td></tr><tr><td>Anstrengung</td><td>hoch</td></tr><tr><td>Latenz (Zeit bis zum Beginn)</td><td>kurz</td></tr>
+<tr><td>Persistenz (Ausdauer)</td><td>groß</td></tr><tr><td>Präferenz für Lernaufgaben</td><td>groß</td></tr>
+<tr><td>Verhaltenswahrscheinlichkeit</td><td>hoch</td></tr><tr><td>emotionaler Ausdruck</td><td>positiv</td></tr></table></div>
 <p>Merkmale lassen sich außerdem nach ihrer Stabilität unterscheiden: <b>Traits</b> sind zeitlich stabile Merkmale (z. B. Intelligenz), <b>States</b> sind situationsabhängige Zustände (z. B. aktuelle Müdigkeit).</p>
 <p><b>Berufspraktische Relevanz:</b> Wer „Intelligenz“ oder „Motivation“ als Konstrukt begreift, behandelt eine Zuschreibung wie „der ist halt faul“ als <i>Hypothese</i> über eine Person in einer Situation. Sie muss über Indikatoren geprüft werden, und zu jedem Konstrukt gibt es unterschiedliche theoretische Zugänge.</p>`,
 check:[

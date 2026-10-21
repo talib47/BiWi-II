@@ -155,7 +155,7 @@ nav button[aria-current="page"]{background:var(--accent-soft);color:var(--ink)}
 .lesson ul{padding-left:1.2em;margin:0 0 .8em}
 .lesson li{margin:.2em 0}
 .merk{border-left:4px solid var(--gold);background:var(--bg);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0}
-.merk b:first-child{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.merk>b:first-child{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
 .kv{width:100%;border-collapse:collapse;font-size:.9rem;margin:6px 0 10px}
 .kv td{border-top:1px solid var(--line);padding:6px 4px;vertical-align:top}
 .kv td:first-child{font-weight:600;white-space:nowrap;padding-right:10px}
@@ -167,7 +167,45 @@ nav button[aria-current="page"]{background:var(--accent-soft);color:var(--ink)}
 .ex{font-size:.9rem;margin-top:8px}
 .card{min-height:12rem;display:flex;flex-direction:column;justify-content:center;gap:10px}
 .card .front{font-family:var(--serif);font-size:1.25rem;font-weight:600;text-wrap:balance}
-.card .back{border-top:1px solid var(--line);padding-top:10px;white-space:pre-line}
+.card .back{border-top:1px solid var(--line);padding-top:10px}
+.card.tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.card.tap:active{transform:scale(.995)}
+.card .tapnote{align-self:flex-end;font-size:.75rem;color:var(--muted);margin-top:-2px}
+/* Kartenrückseite: Absätze, Listen, Begriffspaare, Vergleichstabelle */
+.cb p{margin:0 0 8px} .cb p:last-child{margin-bottom:0}
+.cb-dl{margin:0;display:flex;flex-direction:column}
+.cb-dl>div{padding:7px 0;border-top:1px solid var(--line)}
+.cb-dl>div:first-child{border-top:0;padding-top:0}
+.cb-dl dt{font-weight:600}
+.cb-dl dd{margin:1px 0 0}
+.cb-ul,.cb-ol{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:5px}
+.cb-ul li{position:relative;padding-left:1.05rem}
+.cb-ul li::before{content:"";position:absolute;left:.15rem;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.75}
+.cb-ol{counter-reset:n}
+.cb-ol li{display:grid;grid-template-columns:1.5rem 1fr;gap:8px;align-items:start}
+.cb-ol li::before{counter-increment:n;content:counter(n);width:1.4rem;height:1.4rem;border-radius:50%;border:1px solid var(--line);background:var(--bg);font:600 .74rem/1.35rem var(--sans);text-align:center;color:var(--muted);margin-top:.1rem}
+.cb-tbl{width:100%;border-collapse:collapse;table-layout:fixed}
+.cb .pd{color:var(--muted)}
+.cb-tbl th{font-weight:600;text-align:left;padding:0 10px 4px 0;font-family:var(--serif);font-size:1rem}
+.cb-tbl td{padding:1px 10px 7px 0;vertical-align:top}
+.cb-tbl tr.lab td{border-top:1px solid var(--line);padding:7px 0 1px;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.cb .eq{margin:0 0 8px}
+/* Kästen in Lektionen */
+.merk .mi{margin:0 0 8px}
+.merk .eq{background:var(--surface);display:inline-block;max-width:100%;margin-top:4px}
+.merk .kvq{background:transparent}
+.mrows{display:flex;flex-direction:column}
+.mrows>div{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-top:1px solid var(--line)}
+.mrows>div:first-child{border-top:0;padding-top:2px}
+.mrows>div:last-child{padding-bottom:0}
+.ml{font-weight:600;font-size:.92rem}
+.msteps{list-style:none;margin:0;padding:0;counter-reset:s;display:flex;flex-direction:column;gap:10px}
+.msteps li{display:grid;grid-template-columns:1.5rem 1fr;column-gap:10px;row-gap:3px;align-items:start}
+.msteps li::before{counter-increment:s;content:counter(s);grid-row:1 / span 2;width:1.4rem;height:1.4rem;border-radius:50%;border:1px solid var(--gold);color:var(--gold);font:600 .74rem/1.3rem var(--sans);text-align:center;margin-top:.05rem}
+.msteps .eq{margin:0;display:block}
+.vd{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 8px;border-radius:999px}
+.vd.t{color:var(--good);background:var(--good-soft)} .vd.f{color:var(--bad);background:var(--bad-soft)}
+.sol-ol{margin:6px 0 0;padding-left:1.2em} .sol-ol li{margin:.25em 0}
 .dots{display:flex;gap:4px}
 .dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
 .dots i.on{background:var(--good)}

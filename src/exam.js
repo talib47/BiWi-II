@@ -25,6 +25,16 @@ const OPEN=[
 const TEILE={1:{t:"Einführung in die Psychologie",kz:5,op:10},2:{t:"Lehr-/Lernpsychologie",kz:5,op:10},3:{t:"Pädagogisch-psychologische Diagnostik",kz:5,op:10},4:{t:"Inklusion",kz:4,op:14}};
 const teilOf=ch=>(CHAPTERS.find(c=>c.n===ch)||{}).teil;
 
+/* ---------- Musterlösung: „1) … 2) … 3) …“ als Liste setzen ---------- */
+function solHTML(m){
+  const parts=m.split(/(?:^|\s)(?=\d\)\s)/);
+  if(parts.length<3) return `<p style="margin:0">${m}</p>`;
+  const intro=/^\d\)\s/.test(parts[0])?"":parts.shift(), items=parts.map(p=>p.replace(/^\d\)\s/,""));
+  const last=items[items.length-1], cut=last.search(/\.\s+(Bei|Weitere|Insgesamt|Fazit)/);
+  let tail=""; if(cut>0){ tail=last.slice(cut+2); items[items.length-1]=last.slice(0,cut+1); }
+  return `${intro?`<p style="margin:0 0 6px">${intro}</p>`:""}<ol class="sol-ol">${items.map(i=>`<li>${i.replace(/^([^:.]{2,30}):/,"<b>$1:</b>")}</li>`).join("")}</ol>${tail?`<p style="margin:8px 0 0">${tail}</p>`:""}`;
+}
+
 /* ---------- Schreiben üben ---------- */
 const kurzOf=n=>n? KURZ.filter(x=>x.ch===n) : KURZ.filter(x=>LESSONS[x.ch]);
 function kurzScore(id){ return (state.kurz||{})[id]; }
@@ -33,6 +43,7 @@ function openKurz(n){ n=n||0; cur.kzn=n; cur.kz=pickKurz(n); cur.kzph="schreiben
 function renderKurz(){
   const x=cur.kz, n=cur.kzn, L=kurzOf(n), done=L.filter(y=>kurzScore(y.id)).length;
   const back=n?"Kapitel "+n:"Üben", backFn=()=>{ if(n){ cur.ch=n; go("chapter"); } else go("practice"); };
+  if(!x){ $("#app").innerHTML=`${backTo(back)}<h1>Noch keine Aufgaben</h1><p class="muted">Für diesen Bereich gibt es noch keine offenen Aufgaben.</p>`; bindCrumb(backFn); return; }
   const per=x.pts/x.k.length, pts=()=>Math.round(x.k.filter((_,j)=>cur.kzc[j]).length*per*2)/2;
   $("#app").innerHTML=`${backTo(back)}
     <p class="eyebrow">Offene Aufgabe · ${x.pts} Punkte · ${done} von ${L.length} bearbeitet${x.klausur?" · "+x.klausur:""}</p>
@@ -45,7 +56,7 @@ function renderKurz(){
         <p class="pts" id="kp">${pts()} von ${x.pts} Punkten</p>
         <div class="row"><button class="btn" id="ks">Speichern und weiter</button><button class="btn ghost" id="kcl">Für Claude kopieren</button><button class="btn ghost" id="kn">Ohne Speichern weiter</button></div><div id="kcopy"></div></div>
       ${cur.kzt?`<div class="block"><h3>Deine Antwort</h3><p style="white-space:pre-wrap;margin:0">${esc(cur.kzt)}</p></div>`:""}
-      <div class="block lesson"><h3>Musterlösung</h3><p style="margin:0">${x.m}</p></div>`}
+      <div class="block lesson"><h3>Musterlösung</h3>${solHTML(x.m)}</div>`}
     </div>`;
   bindCrumb(backFn);
   if($("#kd")) $("#kd").onclick=()=>{ cur.kzt=$("#kt").value; cur.kzph="bewerten"; renderKurz(); window.scrollTo(0,0); };
@@ -142,7 +153,7 @@ function openGrade(o,pi,no){
     return `<div class="block"><p style="margin:0 0 6px"><b>${no}. ${o.title}</b> <span class="small muted">(${o.pts} P.)</span></p><p class="small" style="margin:0 0 6px">${x.q}</p>
       <p class="small" style="white-space:pre-wrap;background:var(--bg);border-radius:8px;padding:8px">${esc(o.ans)||'<span class="muted">keine Antwort</span>'}</p>
       ${x.k.map((k,j)=>`<label class="check"><input type="checkbox" data-g="${pi}_${j}" ${state.examRun.grade[pi+"_"+j]?"checked":""}><span>${k}</span></label>`).join("")}
-      <details><summary class="small">Musterlösung</summary><p class="small">${x.m}</p></details>
+      <details><summary class="small">Musterlösung</summary><div class="small">${solHTML(x.m)}</div></details>
       <div class="row" style="margin-top:6px"><button class="btn ghost small" data-cl="${pi}">Für Claude kopieren</button></div><div id="cl${pi}"></div></div>`; }
   const c=calcPts(o), S=o.data.steps;
   return `<div class="block"><div class="row between"><p style="margin:0"><b>${no}. ${o.title}</b></p><span class="pbadge">${String(c.p).replace(".",",")}/${o.pts}</span></div>
