@@ -1,26 +1,26 @@
 /* ================= Offene Aufgaben (Schreiben) und Probeklausur ================= */
 const KURZ=[
- /* Kapitel 10 */
- {id:"k10-1", ch:10, pts:5, klausur:"WiSe 22/23, Aufgabe 2a",
+ /* Kapitel 16: Normwerte */
+ {id:"k10-1", ch:16, pts:5, klausur:"WiSe 22/23, Aufgabe 2a",
   q:"Ein ermittelter Testrohwert kann durch Angabe eines Prozentrangs in Bezug zu einer Referenzgruppe beschrieben werden. Geben Sie die Formel zur Ermittlung des Prozentrangs an und erläutern Sie kurz, was die Variablen bedeuten.",
   k:["Formel: PR = cumf / N · 100","PR: Prozentrang, Anteil der Referenzgruppe mit gleichem oder schlechterem Ergebnis","cumf: kumulierte Häufigkeit, Anzahl der Werte bis einschließlich des betrachteten Werts","N: Gesamtzahl der Werte bzw. Probanden","· 100: Umrechnung des Anteils in Prozent"],
   m:"PR = cumf / N · 100. PR ist der Prozentrang, also der Anteil der Referenzgruppe in Prozent, der gleich gut oder schlechter abgeschnitten hat. cumf ist die kumulierte Häufigkeit: die Anzahl aller Werte bis einschließlich des betrachteten Werts in der sortierten Verteilung. N ist die Gesamtzahl der Werte (Probanden). Die Multiplikation mit 100 macht aus dem Anteil eine Prozentangabe."},
- {id:"k10-2", ch:10, pts:4,
+ {id:"k10-2", ch:16, pts:4,
   q:"Drei Schulen haben die Lesekompetenz ihrer Schülerinnen mit unterschiedlichen standardisierten Lesetests erhoben. Alle drei Schülerinnen haben denselben Rohwert. Erläutern Sie, warum man daraus nicht auf gleiche Lesekompetenz schließen darf und wie man stattdessen vorgeht.",
   k:["Tests unterscheiden sich in Schwierigkeit (Mittelwert) und Streuung (Standardabweichung) ihrer Referenzgruppen","Rohwerte haben daher in jedem Test eine andere Bedeutung","Umrechnung in Standardwerte, z. B. z = (x − M) / SD oder IQ-Skala","Vergleich über die Position relativ zur jeweiligen Referenzgruppe (niedrigster z-Wert = schwächste Leistung)"],
   m:"Ein Rohwert ist nur im Vergleich zur Referenzgruppe des jeweiligen Tests interpretierbar. Die drei Tests haben unterschiedliche Mittelwerte und Standardabweichungen; derselbe Rohwert kann also in einem schweren Test gut und in einem leichten schwach sein. Deshalb rechnet man jeden Rohwert mit z = (x − M) / SD in einen Standardwert um (gegebenenfalls weiter in die IQ-Skala). Der z-Wert zeigt, um wie viele Standardabweichungen die Schülerin von ihrer Referenzgruppe abweicht; die Schülerin mit dem niedrigsten z-Wert hat die schwächste Leistung."},
- {id:"k10-3", ch:10, pts:6, klausur:"Fragenkatalog Heine, Frage 47",
+ {id:"k10-3", ch:16, pts:6, klausur:"Fragenkatalog Heine, Frage 47",
   q:"Nennen Sie drei potenzielle Probleme unausgereifter diagnostischer Zugänge in der Hochbegabungsdiagnostik und erläutern Sie jeweils kurz.",
   k:["Deckeneffekt genannt","Deckeneffekt erläutert: im extremen Leistungsbereich keine Unterscheidung mehr möglich","Messfehler genannt","Messfehler erläutert: größere Ungenauigkeit im Extrembereich","Flynn-Effekt genannt","Flynn-Effekt erläutert: veraltete Normen überschätzen die Leistung, im Extrembereich besonders problematisch"],
   m:"Erstens Deckeneffekte: Ist ein Test für sehr leistungsstarke Personen zu leicht, lösen sie fast alle Aufgaben, und der Test kann im oberen Bereich nicht mehr zwischen ihnen unterscheiden. Zweitens Messfehler: Im Extrembereich gibt es wenige passende Aufgaben und Vergleichspersonen, die Messung ist ungenauer. Drittens der Flynn-Effekt: Die durchschnittlichen Testleistungen steigen über die Jahrzehnte; veraltete Normen überschätzen deshalb die Intelligenz, was gerade an der Grenze zur Hochbegabung (IQ 130) zu Fehldiagnosen führen kann."}
 ];
 /* Offene Aufgaben für die Probeklausur: Schreibaufgaben (kurz) oder Rechenaufgaben (calc), je Klausurteil */
 const OPEN=[
- {id:"o10-iq", ch:10, kind:"calc", t:"iq", pts:10, title:"Intelligenzmessung"},
- {id:"o10-vg", ch:10, kind:"calc", t:"vergleich", pts:10, title:"Standardisierung von Messwerten"},
- {id:"o10-pr", ch:10, kind:"calc", t:"pr", pts:10, title:"Prozentränge"},
- {id:"o10-k1", ch:10, kind:"kurz", k:"k10-1", pts:10, title:"Normwerte in Leistungstests"},
- {id:"o10-k3", ch:10, kind:"kurz", k:"k10-3", pts:10, title:"Hochbegabungsdiagnostik"}
+ {id:"o10-iq", ch:16, kind:"calc", t:"iq", pts:10, title:"Intelligenzmessung"},
+ {id:"o10-vg", ch:16, kind:"calc", t:"vergleich", pts:10, title:"Standardisierung von Messwerten"},
+ {id:"o10-pr", ch:16, kind:"calc", t:"pr", pts:10, title:"Prozentränge"},
+ {id:"o10-k1", ch:16, kind:"kurz", k:"k10-1", pts:10, title:"Normwerte in Leistungstests"},
+ {id:"o10-k3", ch:16, kind:"kurz", k:"k10-3", pts:10, title:"Hochbegabungsdiagnostik"}
 ];
 const TEILE={1:{t:"Einführung in die Psychologie",kz:5,op:10},2:{t:"Lehr-/Lernpsychologie",kz:5,op:10},3:{t:"Pädagogisch-psychologische Diagnostik",kz:5,op:10},4:{t:"Inklusion",kz:4,op:14}};
 const teilOf=ch=>(CHAPTERS.find(c=>c.n===ch)||{}).teil;

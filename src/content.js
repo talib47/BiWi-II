@@ -1,32 +1,37 @@
 /* ================= Inhalte =================
-   Grundlage bisher: Altklausuren Heine (WiSe 17/18, 18/19, 22/23, 24/25) und der Fragenkatalog „Fragen Heine“.
-   Sobald Folien vorliegen, werden die Kapitel daran abgeglichen und ergänzt.
-   vl: 1 = Einführung in die Psychologie / Lehr-Lernpsychologie (Mi 8–10), 2 = Päd.-psych. Diagnostik & Inklusion (Mi 10–12)
-   teil: Klausurteil (1 Einführung, 2 Lehr-Lernpsychologie, 3 Diagnostik, 4 Inklusion) */
-const VL={1:"Einführung in die Psychologie · Lehr-Lernpsychologie", 2:"Pädagogisch-psychologische Diagnostik · Inklusion"};
+   Grundlage: Folien Heine WiSe 26/27 (ab Sitzung 1), Altklausuren (WiSe 17/18, 18/19, 22/23, 24/25), Fragenkatalog „Fragen Heine“.
+   Gliederung nach Heines vier Schwerpunkten (Folie Sitzung 1, „Aufschlag Schwerpunktsetzung“). teil = Schwerpunkt = Klausurteil.
+   n ist die Kapitelnummer in der App; Lektions-, Karten- und Aufgaben-IDs bleiben stabil, auch wenn Kapitel umnummeriert werden. */
+const VL={1:"Einführung in die Psychologie", 2:"Lehr-/Lernpsychologie", 3:"Pädagogisch-psychologische Diagnostik", 4:"Inklusion"};
 const CHAPTERS=[
-  {n:1,  vl:1, teil:1, title:"Gedächtnis", teaser:"Mehrspeichermodell, Arbeitsgedächtnis, Chunking, explizites und implizites Langzeitgedächtnis, Netzwerkmodell."},
-  {n:2,  vl:1, teil:1, title:"Vergessen und Abruf", teaser:"Verarbeitungstiefe, Enkodierungsspezifität, Interferenz, Kontextfluktuation, Gedächtnis als Rekonstruktion."},
-  {n:3,  vl:1, teil:1, title:"Motivation", teaser:"Intrinsisch und extrinsisch, Erwartungs-Wert-Modell nach Atkinson, Attribution und Feedback."},
-  {n:4,  vl:1, teil:1, title:"Emotion", teaser:"Circumplexmodell nach Russell (Valenz und Erregung) und Strategien der Emotionsregulation."},
-  {n:5,  vl:1, teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Habituation und Sensitivierung."},
-  {n:6,  vl:1, teil:2, title:"Klassische Konditionierung", teaser:"Reflexe, neutrale und konditionierte Reize, Generalisierung, Konditionierung höherer Ordnung."},
-  {n:7,  vl:1, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen nach Skinner und ihre Wirkung auf künftiges Verhalten."},
-  {n:8,  vl:1, teil:2, title:"Lernen am Modell", teaser:"Beobachtungslernen nach Bandura, stellvertretende Verstärkung, Selbstwirksamkeit."},
-  {n:9,  vl:2, teil:3, title:"Psychologie als empirische Wissenschaft", teaser:"Konstrukte und Merkmale, Operationalisierung, Messen, Skalenniveaus."},
-  {n:10, vl:2, teil:3, title:"Normwerte und Standardisierung", teaser:"Normalverteilung, z-Wert, Abweichungs-IQ, T-Wert, Prozentrang und warum man Rohwerte standardisiert."},
-  {n:11, vl:2, teil:3, title:"Gütekriterien", teaser:"Objektivität, Reliabilität, Validität, Nebengütekriterien und Facettentheorie."},
-  {n:12, vl:2, teil:3, title:"Diagnostischer Prozess und Urteilsbildung", teaser:"Messzugänge, klinische und statistische Urteile, Verknüpfungsregeln, Urteilsfehler, Bezugsnormen."},
-  {n:13, vl:2, teil:3, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
-  {n:14, vl:2, teil:4, title:"Hochbegabung und Underachievement", teaser:"Kompetenz- und Performanzdefinition, Befunde zur Asynchronität, Probleme der Diagnostik."},
-  {n:15, vl:2, teil:4, title:"Aufmerksamkeitsstörungen", teaser:"Kernsymptome, ICD-10 F90, Ätiologie, Komorbidität und multimodale Intervention."},
-  {n:16, vl:2, teil:4, title:"Lese-Rechtschreibstörung", teaser:"Schriftspracherwerb nach Frith, Dual-Route-Modell, phonologische Bewusstheit, Diagnose nach F81."},
-  {n:17, vl:2, teil:4, title:"Rechenstörung", teaser:"Numerische Kognition, Kernsymptome, Diagnoseverfahren und Diagnose nach F81.2."}
-];
+  {n:1,  teil:1, title:"Psychologie als Wissenschaft", teaser:"Lernziele nach Bloom, Kompetenz nach Weinert, die vier Ziele der Psychologie, Konstrukte und Operationalisierung."},
+  {n:2,  teil:1, title:"Gedächtnis", teaser:"Mehrspeichermodell, Arbeitsgedächtnis, Chunking, explizites und implizites Langzeitgedächtnis, Netzwerkmodell."},
+  {n:3,  teil:1, title:"Vergessen und Abruf", teaser:"Verarbeitungstiefe, Enkodierungsspezifität, Interferenz, Kontextfluktuation, abrufinduziertes Vergessen."},
+  {n:4,  teil:1, title:"Emotion", teaser:"Circumplexmodell nach Russell (Valenz und Erregung) und Strategien der Emotionsregulation."},
+  {n:5,  teil:1, title:"Motivation", teaser:"Intrinsisch und extrinsisch, Erwartungs-Wert-Modell nach Atkinson, Attribution und Feedback."},
+  {n:6,  teil:1, title:"Volition und Selbststeuerung", teaser:"Exekutive Funktionen (Inhibition, Updating, Shifting) und selbstreguliertes Lernen."},
+  {n:7,  teil:1, title:"Aufmerksamkeit", teaser:"Selektive und geteilte Aufmerksamkeit, Aufmerksamkeitssteuerung."},
+  {n:8,  teil:1, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
+  {n:9,  teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Reflexe, Habituation und Sensitivierung."},
+  {n:10, teil:2, title:"Klassische Konditionierung", teaser:"Neutrale und konditionierte Reize, Generalisierung, Konditionierung höherer Ordnung."},
+  {n:11, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen nach Skinner, Verstärkerpläne und ihre Wirkung auf künftiges Verhalten."},
+  {n:12, teil:2, title:"Lernen am Modell", teaser:"Beobachtungslernen nach Bandura, stellvertretende Verstärkung, Selbstwirksamkeit."},
+  {n:13, teil:2, title:"Wissenserwerb", teaser:"Wie Wissen im Unterricht aufgebaut wird."},
+  {n:14, teil:2, title:"Leistungsmessung in der Schule", teaser:"Funktionen schulischer Leistungsbeurteilung, Bezugsnormen, Beurteilungsfehler."},
+  {n:15, teil:3, title:"Messen und Skalenniveaus", teaser:"Quantifizierung von Merkmalen, diskrete und stetige Merkmale, Nominal- bis Verhältnisskala."},
+  {n:16, teil:3, title:"Normwerte und Standardisierung", teaser:"Normalverteilung, z-Wert, Abweichungs-IQ, T-Wert, Prozentrang und warum man Rohwerte standardisiert."},
+  {n:17, teil:3, title:"Gütekriterien", teaser:"Objektivität, Reliabilität, Validität, Nebengütekriterien und Facettentheorie."},
+  {n:18, teil:3, title:"Diagnostische Systeme und Urteilsbildung", teaser:"Messzugänge, ICD-10, klinische und statistische Urteile, Verknüpfungsregeln, Urteilsfehler."},
+  {n:19, teil:4, title:"Hochbegabung und Underachievement", teaser:"Kompetenz- und Performanzdefinition, Befunde zur Asynchronität, Probleme der Diagnostik."},
+  {n:20, teil:4, title:"Lese-Rechtschreibstörung", teaser:"Schriftspracherwerb nach Frith, Dual-Route-Modell, phonologische Bewusstheit, Diagnose nach F81."},
+  {n:21, teil:4, title:"Rechenstörung", teaser:"Numerische Kognition, Kernsymptome, Diagnoseverfahren und Diagnose nach F81.2."},
+  {n:22, teil:4, title:"Aufmerksamkeitsstörungen", teaser:"Kernsymptome, ICD-10 F90, Ätiologie, Komorbidität und multimodale Intervention."},
+  {n:23, teil:4, title:"Auffälligkeiten im Erleben und Sozialverhalten", teaser:"Emotionale und Verhaltensauffälligkeiten im schulischen Kontext."}
+].map(c=>Object.assign(c,{vl:c.teil}));
 const LESSONS={}, CARDS={}, ESSAYS={}, GRAPHS={}, CALC={};
 
-/* ================= Kapitel 10: Normwerte und Standardisierung ================= */
-LESSONS[10]=[
+/* ================= Kapitel 16: Normwerte und Standardisierung ================= */
+LESSONS[16]=[
 {id:"10-1", t:"Warum ein Rohwert allein nichts sagt", html:`
 <p>Ein Kind löst in einem Lesetest 36 Aufgaben. Ist das gut? Das lässt sich erst beurteilen, wenn man weiß, wie andere Kinder <i>desselben Alters im selben Test</i> abgeschnitten haben. Die Zahl der gelösten Aufgaben heißt <b>Testrohwert</b>. Er bekommt seine Bedeutung erst durch den Vergleich mit einer <b>Referenzgruppe</b>, der sogenannten <b>Normstichprobe</b>.</p>
 <p>Viele psychologische Merkmale, etwa die Intelligenz, sind in der Bevölkerung annähernd <b>normalverteilt</b>: Die meisten Menschen liegen nahe am Mittelwert, nach außen hin werden es symmetrisch immer weniger. Beschrieben wird so eine Verteilung durch zwei Kennwerte:</p>
@@ -103,7 +108,7 @@ check:[
 ]}
 ];
 
-CARDS[10]=[
+CARDS[16]=[
  {id:"c10-01", f:"Testrohwert und Normstichprobe", b:"Testrohwert: das unmittelbare Testergebnis, etwa die Zahl gelöster Aufgaben.\nNormstichprobe (Referenzgruppe): eine große, möglichst repräsentative Vergleichsgruppe, an der der Test erprobt wurde. Erst der Vergleich mit ihr macht den Rohwert interpretierbar."},
  {id:"c10-02", f:"Mittelwert und Standardabweichung der IQ-Skala", b:"Mittelwert 100, Standardabweichung 15. Der IQ ist in der Bevölkerung annähernd normalverteilt."},
  {id:"c10-03", f:"Flächenanteile der Normalverteilung", b:"Mittelwert bis ±1 SD: je 34,13 % (zusammen 68,26 %)\n1 bis 2 SD: je 13,59 %\n2 bis 3 SD: je 2,14 %\njenseits von 3 SD: je 0,13 %"},
@@ -122,4 +127,4 @@ CARDS[10]=[
  {id:"c10-16", f:"Drei Probleme unausgereifter Zugänge in der Hochbegabungsdiagnostik", b:"Deckeneffekte: im extremen Leistungsbereich kann nicht mehr unterschieden werden\nMessfehler: größere Ungenauigkeit im Extrembereich\nFlynn-Effekt: veraltete Normen sind dort besonders problematisch"},
  {id:"c10-17", f:"Normierung als Nebengütekriterium", b:"Für den Test liegen aktuelle und an einer repräsentativen Stichprobe ermittelte Normen vor."}
 ];
-CALC[10]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];
+CALC[16]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];

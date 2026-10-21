@@ -2,8 +2,8 @@
 
 Live: https://talib47.github.io/BiWi-II/
 
-Modul BiWi II (UDE, Lehramt GyGe), beide Vorlesungen bei Prof. Heine:
-„Einführung in die Psychologie / Lehr-Lernpsychologie“ (Mi 8–10) und „Pädagogisch-psychologische Diagnostik / Inklusion“ (Mi 10–12).
+Modul BiWi II (UDE, Lehramt GyGe), Vorlesung „Psychologie im Lehramt“ bei Prof. Heine (Mi 8.15–11.45) mit vier Schwerpunkten:
+Einführung in die Psychologie, Lehr-/Lernpsychologie, Pädagogisch-psychologische Diagnostik, Inklusion. Klausur: 17.02.2027, digital.
 
 Eine Datei (`index.html`, Vanilla-JS, kein Framework), gebaut aus den Modulen in `src/`:
 
@@ -22,7 +22,8 @@ Jeder Teil: Kreuzaufgaben (drei Aussagen wahr/falsch, je richtiges Kreuz 1 P., a
 |---|---|
 | `head.html` | Kopf, Icons, Manifest, CSS (Farben als Tokens, Dunkelmodus, Akzent Pflaume), Zoom |
 | `core.js` | Speicher (`localStorage`), Geräte-Abgleich über GitHub, Hilfsfunktionen, `judge()` |
-| `content.js` | Kapitel (mit Vorlesung `vl` und Klausurteil `teil`), Lektionen, Karten, Rechentypen je Kapitel |
+| `content.js` | Kapitelliste nach Heines vier Schwerpunkten (`teil` = Klausurteil), Kapitel 16 Normwerte |
+| `content1.js`, `content2.js` | Kapitel 1 (Psychologie als Wissenschaft) und 9 (Lernen, nicht-assoziatives Lernen), je mit Karten, Kreuz- und offenen Aufgaben |
 | `cardinfo.js` | Kontextzeile (Vorderseite) und dezente i-Infos (Rückseite) je Karte |
 | `diag.js` | Rechentrainer Diagnostik: z-Wert, Abweichungs-IQ, Normskalen, Normalverteilung, Prozentrang, Testvergleich |
 | `gfx.js` | SVG-Grafiken (Normalverteilung) |
@@ -39,5 +40,5 @@ Jeder Teil: Kreuzaufgaben (drei Aussagen wahr/falsch, je richtiges Kreuz 1 P., a
 
 ## Stand der Inhalte
 
-Grundlage bisher: Altklausuren (WiSe 17/18, 18/19, 22/23, 24/25) und der Fragenkatalog „Fragen Heine“. Folien folgen.
-Fertig: Kapitel 10 (Normwerte und Standardisierung) als Muster. Übrige Kapitel stehen im Lernpfad als „folgt“.
+Grundlage: Folien Heine WiSe 26/27, Altklausuren (WiSe 17/18, 18/19, 22/23, 24/25), Fragenkatalog „Fragen Heine“. Studentische Unterlagen nur nach Prüfung.
+Fertig: Kapitel 1 und 9 (Sitzungen 1–2) sowie Kapitel 16 (Normwerte). Übrige Kapitel stehen im Lernpfad als „folgt“.

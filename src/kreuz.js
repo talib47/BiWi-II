@@ -2,32 +2,32 @@
    Je Aufgabe ein Satzanfang und drei Aussagen, jede wahr oder falsch.
    Bewertung wie in der Klausur: je richtiges Kreuz 1 Punkt, alle drei richtig +1 Zusatzpunkt (max. 4). Keine Minuspunkte. */
 const KREUZ=[
- /* Kapitel 10 */
- {id:"x10-01", ch:10, stem:"Für die Verteilung des IQ in der Bevölkerung gilt:", s:[
+ /* Kapitel 16: Normwerte */
+ {id:"x10-01", ch:16, stem:"Für die Verteilung des IQ in der Bevölkerung gilt:", s:[
   ["Etwa zwei Drittel der Bevölkerung haben einen IQ zwischen 85 und 115.", true, "Zwischen −1 und +1 Standardabweichung liegen 68,26 %."],
   ["Einen IQ von 130 oder mehr haben etwa 13,6 % der Bevölkerung.", false, "Über +2 SD liegen nur 2,14 % + 0,13 % = <b>2,27 %</b>. 13,59 % liegen zwischen 115 und 130."],
   ["Eine Person mit einem IQ von 70 liegt zwei Standardabweichungen unter dem Mittelwert.", true, "(70 − 100) / 15 = −2."]]},
- {id:"x10-02", ch:10, stem:"Für den z-Wert gilt:", s:[
+ {id:"x10-02", ch:16, stem:"Für den z-Wert gilt:", s:[
   ["Ein z-Wert von 0 entspricht genau dem Mittelwert der Referenzgruppe.", true, "Der Abstand x − μ ist dann null."],
   ["Der z-Wert gibt an, wie viel Prozent der Referenzgruppe schlechter abgeschnitten haben.", false, "Das ist der <b>Prozentrang</b>. Der z-Wert gibt den Abstand zum Mittel in Standardabweichungen an."],
   ["Ein Rohwert von 500 in einem Test mit μ = 460 und σ = 50 entspricht einem IQ von 112.", true, "z = 40 / 50 = 0,8; IQ = 100 + 15 · 0,8 = 112 (Klausur WiSe 17/18)."]]},
- {id:"x10-03", ch:10, stem:"Für den Prozentrang gilt:", s:[
+ {id:"x10-03", ch:16, stem:"Für den Prozentrang gilt:", s:[
   ["Ein Prozentrang von 25 bedeutet, dass 25 % der Referenzgruppe besser abgeschnitten haben.", false, "Umgekehrt: 25 % haben gleich gut oder schlechter abgeschnitten, <b>75 % besser</b>."],
   ["Um einen Prozentrang bestimmen zu können, muss das Merkmal normalverteilt sein.", false, "Der Prozentrang braucht nur eine Rangfolge: PR = cumf / N · 100."],
   ["Bei einem normalverteilten Merkmal entspricht ein z-Wert von 0 einem Prozentrang von 50.", true, "Genau die Hälfte liegt unter dem Mittelwert."]]},
- {id:"x10-04", ch:10, stem:"Für Normskalen gilt:", s:[
+ {id:"x10-04", ch:16, stem:"Für Normskalen gilt:", s:[
   ["Die T-Skala hat einen Mittelwert von 50 und eine Standardabweichung von 10.", true, "T = 50 + 10 · z."],
   ["Ein IQ von 85 und ein T-Wert von 40 beschreiben dieselbe relative Position in der Referenzgruppe.", true, "Beide entsprechen z = −1."],
   ["Der Abweichungs-IQ wird als Quotient aus Intelligenzalter und Lebensalter berechnet.", false, "Das ist der IQ nach <b>Stern</b>. Der Abweichungs-IQ (Wechsler) ist 100 + 15 · z."]]},
- {id:"x10-05", ch:10, stem:"Für die Standardisierung von Testergebnissen gilt:", s:[
+ {id:"x10-05", ch:16, stem:"Für die Standardisierung von Testergebnissen gilt:", s:[
   ["Gleiche Rohwerte in zwei verschiedenen Tests bedeuten die gleiche Leistung.", false, "Die Tests können unterschiedlich schwer sein und anders streuen. Erst Standardwerte zeigen die Position."],
   ["Standardwerte machen Ergebnisse aus unterschiedlichen Tests vergleichbar.", true, "Klausur WiSe 22/23: drei Schülerinnen, drei Lesetests, gleicher Rohwert, verschiedene z-Werte."],
   ["Je kleiner die Standardabweichung der Referenzgruppe, desto größer ist bei gleichem Abstand zum Mittelwert der Betrag des z-Werts.", true, "z = (x − μ) / σ: Ein kleinerer Nenner macht den Bruch größer. 6 Punkte Abstand sind bei σ = 3 schon z = −2."]]},
- {id:"x10-06", ch:10, stem:"Für die Normierung von Tests gilt:", s:[
+ {id:"x10-06", ch:16, stem:"Für die Normierung von Tests gilt:", s:[
   ["Veraltete Normen führen wegen des Flynn-Effekts eher zu einer Überschätzung der Intelligenz.", true, "Die alte Normstichprobe war im Schnitt schwächer als die heutige Bevölkerung."],
   ["Ein Deckeneffekt liegt vor, wenn ein Test für leistungsschwache Personen zu schwer ist.", false, "Das wäre ein Bodeneffekt. Beim <b>Deckeneffekt</b> ist der Test für sehr Leistungsstarke zu leicht."],
   ["Im extremen Leistungsbereich ist die Messung typischerweise ungenauer als im mittleren Bereich.", true, "Dort gibt es weniger passende Aufgaben und Vergleichspersonen, der Messfehler ist größer."]]},
- {id:"x10-07", ch:10, stem:"Für die deskriptive Einordnung von IQ-Werten gilt:", s:[
+ {id:"x10-07", ch:16, stem:"Für die deskriptive Einordnung von IQ-Werten gilt:", s:[
   ["Ein IQ von 90 liegt im durchschnittlichen Bereich.", true, "Durchschnittlich ist 85 bis 115."],
   ["Ein IQ von 80 gilt als weit unterdurchschnittlich.", false, "80 liegt zwischen 70 und 85, also <b>unterdurchschnittlich</b>. Weit unterdurchschnittlich ist unter 70."],
   ["Ab einem IQ über 130 spricht man von einer weit überdurchschnittlichen Intelligenzleistung.", true, "Mehr als zwei Standardabweichungen über dem Mittel."]]}
@@ -66,7 +66,7 @@ function renderKreuz(){
   const item=KREUZ.find(x=>x.id===K.items[K.i]), all=[0,1,2].every(j=>K.ans[j]!==undefined), ch=CHAPTERS.find(c=>c.n===item.ch);
   if(!K.shown) K.prev=kzStat(item.id);
   $("#app").innerHTML=`${backTo(back)}
-    <div class="row between"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}</p>${K.prev?`<span class="chip">zuletzt ${K.prev.p}/4</span>`:""}</div>
+    <div class="row between"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}</p>${K.prev?`<span class="chip">zuletzt ${K.prev.p}/4</span>`:""}</div>
     <div class="block" style="margin-top:8px"><h3 style="margin:0 0 4px">${item.stem}</h3>${kzBlock(item,K.ans,K.shown,"s")}</div>
     ${K.shown?`<div class="row between"><span class="pbadge">${K.pts[K.i]} von 4 Punkten</span><button class="btn" id="nx">${K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button></div>`
       :`<button class="btn" id="ev" style="width:100%" ${all?"":"disabled"}>Auswerten</button><p class="small muted" style="margin-top:8px">${all?"":"Kreuze bei jeder Aussage wahr oder falsch an. "}In der Klausur gibt es keine Minuspunkte, also im Zweifel immer ankreuzen.</p>`}`;

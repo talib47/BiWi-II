@@ -376,34 +376,39 @@ function judge(step,raw){
 }
 
 /* ================= Inhalte =================
-   Grundlage bisher: Altklausuren Heine (WiSe 17/18, 18/19, 22/23, 24/25) und der Fragenkatalog „Fragen Heine“.
-   Sobald Folien vorliegen, werden die Kapitel daran abgeglichen und ergänzt.
-   vl: 1 = Einführung in die Psychologie / Lehr-Lernpsychologie (Mi 8–10), 2 = Päd.-psych. Diagnostik & Inklusion (Mi 10–12)
-   teil: Klausurteil (1 Einführung, 2 Lehr-Lernpsychologie, 3 Diagnostik, 4 Inklusion) */
-const VL={1:"Einführung in die Psychologie · Lehr-Lernpsychologie", 2:"Pädagogisch-psychologische Diagnostik · Inklusion"};
+   Grundlage: Folien Heine WiSe 26/27 (ab Sitzung 1), Altklausuren (WiSe 17/18, 18/19, 22/23, 24/25), Fragenkatalog „Fragen Heine“.
+   Gliederung nach Heines vier Schwerpunkten (Folie Sitzung 1, „Aufschlag Schwerpunktsetzung“). teil = Schwerpunkt = Klausurteil.
+   n ist die Kapitelnummer in der App; Lektions-, Karten- und Aufgaben-IDs bleiben stabil, auch wenn Kapitel umnummeriert werden. */
+const VL={1:"Einführung in die Psychologie", 2:"Lehr-/Lernpsychologie", 3:"Pädagogisch-psychologische Diagnostik", 4:"Inklusion"};
 const CHAPTERS=[
-  {n:1,  vl:1, teil:1, title:"Gedächtnis", teaser:"Mehrspeichermodell, Arbeitsgedächtnis, Chunking, explizites und implizites Langzeitgedächtnis, Netzwerkmodell."},
-  {n:2,  vl:1, teil:1, title:"Vergessen und Abruf", teaser:"Verarbeitungstiefe, Enkodierungsspezifität, Interferenz, Kontextfluktuation, Gedächtnis als Rekonstruktion."},
-  {n:3,  vl:1, teil:1, title:"Motivation", teaser:"Intrinsisch und extrinsisch, Erwartungs-Wert-Modell nach Atkinson, Attribution und Feedback."},
-  {n:4,  vl:1, teil:1, title:"Emotion", teaser:"Circumplexmodell nach Russell (Valenz und Erregung) und Strategien der Emotionsregulation."},
-  {n:5,  vl:1, teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Habituation und Sensitivierung."},
-  {n:6,  vl:1, teil:2, title:"Klassische Konditionierung", teaser:"Reflexe, neutrale und konditionierte Reize, Generalisierung, Konditionierung höherer Ordnung."},
-  {n:7,  vl:1, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen nach Skinner und ihre Wirkung auf künftiges Verhalten."},
-  {n:8,  vl:1, teil:2, title:"Lernen am Modell", teaser:"Beobachtungslernen nach Bandura, stellvertretende Verstärkung, Selbstwirksamkeit."},
-  {n:9,  vl:2, teil:3, title:"Psychologie als empirische Wissenschaft", teaser:"Konstrukte und Merkmale, Operationalisierung, Messen, Skalenniveaus."},
-  {n:10, vl:2, teil:3, title:"Normwerte und Standardisierung", teaser:"Normalverteilung, z-Wert, Abweichungs-IQ, T-Wert, Prozentrang und warum man Rohwerte standardisiert."},
-  {n:11, vl:2, teil:3, title:"Gütekriterien", teaser:"Objektivität, Reliabilität, Validität, Nebengütekriterien und Facettentheorie."},
-  {n:12, vl:2, teil:3, title:"Diagnostischer Prozess und Urteilsbildung", teaser:"Messzugänge, klinische und statistische Urteile, Verknüpfungsregeln, Urteilsfehler, Bezugsnormen."},
-  {n:13, vl:2, teil:3, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
-  {n:14, vl:2, teil:4, title:"Hochbegabung und Underachievement", teaser:"Kompetenz- und Performanzdefinition, Befunde zur Asynchronität, Probleme der Diagnostik."},
-  {n:15, vl:2, teil:4, title:"Aufmerksamkeitsstörungen", teaser:"Kernsymptome, ICD-10 F90, Ätiologie, Komorbidität und multimodale Intervention."},
-  {n:16, vl:2, teil:4, title:"Lese-Rechtschreibstörung", teaser:"Schriftspracherwerb nach Frith, Dual-Route-Modell, phonologische Bewusstheit, Diagnose nach F81."},
-  {n:17, vl:2, teil:4, title:"Rechenstörung", teaser:"Numerische Kognition, Kernsymptome, Diagnoseverfahren und Diagnose nach F81.2."}
-];
+  {n:1,  teil:1, title:"Psychologie als Wissenschaft", teaser:"Lernziele nach Bloom, Kompetenz nach Weinert, die vier Ziele der Psychologie, Konstrukte und Operationalisierung."},
+  {n:2,  teil:1, title:"Gedächtnis", teaser:"Mehrspeichermodell, Arbeitsgedächtnis, Chunking, explizites und implizites Langzeitgedächtnis, Netzwerkmodell."},
+  {n:3,  teil:1, title:"Vergessen und Abruf", teaser:"Verarbeitungstiefe, Enkodierungsspezifität, Interferenz, Kontextfluktuation, abrufinduziertes Vergessen."},
+  {n:4,  teil:1, title:"Emotion", teaser:"Circumplexmodell nach Russell (Valenz und Erregung) und Strategien der Emotionsregulation."},
+  {n:5,  teil:1, title:"Motivation", teaser:"Intrinsisch und extrinsisch, Erwartungs-Wert-Modell nach Atkinson, Attribution und Feedback."},
+  {n:6,  teil:1, title:"Volition und Selbststeuerung", teaser:"Exekutive Funktionen (Inhibition, Updating, Shifting) und selbstreguliertes Lernen."},
+  {n:7,  teil:1, title:"Aufmerksamkeit", teaser:"Selektive und geteilte Aufmerksamkeit, Aufmerksamkeitssteuerung."},
+  {n:8,  teil:1, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
+  {n:9,  teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Reflexe, Habituation und Sensitivierung."},
+  {n:10, teil:2, title:"Klassische Konditionierung", teaser:"Neutrale und konditionierte Reize, Generalisierung, Konditionierung höherer Ordnung."},
+  {n:11, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen nach Skinner, Verstärkerpläne und ihre Wirkung auf künftiges Verhalten."},
+  {n:12, teil:2, title:"Lernen am Modell", teaser:"Beobachtungslernen nach Bandura, stellvertretende Verstärkung, Selbstwirksamkeit."},
+  {n:13, teil:2, title:"Wissenserwerb", teaser:"Wie Wissen im Unterricht aufgebaut wird."},
+  {n:14, teil:2, title:"Leistungsmessung in der Schule", teaser:"Funktionen schulischer Leistungsbeurteilung, Bezugsnormen, Beurteilungsfehler."},
+  {n:15, teil:3, title:"Messen und Skalenniveaus", teaser:"Quantifizierung von Merkmalen, diskrete und stetige Merkmale, Nominal- bis Verhältnisskala."},
+  {n:16, teil:3, title:"Normwerte und Standardisierung", teaser:"Normalverteilung, z-Wert, Abweichungs-IQ, T-Wert, Prozentrang und warum man Rohwerte standardisiert."},
+  {n:17, teil:3, title:"Gütekriterien", teaser:"Objektivität, Reliabilität, Validität, Nebengütekriterien und Facettentheorie."},
+  {n:18, teil:3, title:"Diagnostische Systeme und Urteilsbildung", teaser:"Messzugänge, ICD-10, klinische und statistische Urteile, Verknüpfungsregeln, Urteilsfehler."},
+  {n:19, teil:4, title:"Hochbegabung und Underachievement", teaser:"Kompetenz- und Performanzdefinition, Befunde zur Asynchronität, Probleme der Diagnostik."},
+  {n:20, teil:4, title:"Lese-Rechtschreibstörung", teaser:"Schriftspracherwerb nach Frith, Dual-Route-Modell, phonologische Bewusstheit, Diagnose nach F81."},
+  {n:21, teil:4, title:"Rechenstörung", teaser:"Numerische Kognition, Kernsymptome, Diagnoseverfahren und Diagnose nach F81.2."},
+  {n:22, teil:4, title:"Aufmerksamkeitsstörungen", teaser:"Kernsymptome, ICD-10 F90, Ätiologie, Komorbidität und multimodale Intervention."},
+  {n:23, teil:4, title:"Auffälligkeiten im Erleben und Sozialverhalten", teaser:"Emotionale und Verhaltensauffälligkeiten im schulischen Kontext."}
+].map(c=>Object.assign(c,{vl:c.teil}));
 const LESSONS={}, CARDS={}, ESSAYS={}, GRAPHS={}, CALC={};
 
-/* ================= Kapitel 10: Normwerte und Standardisierung ================= */
-LESSONS[10]=[
+/* ================= Kapitel 16: Normwerte und Standardisierung ================= */
+LESSONS[16]=[
 {id:"10-1", t:"Warum ein Rohwert allein nichts sagt", html:`
 <p>Ein Kind löst in einem Lesetest 36 Aufgaben. Ist das gut? Das lässt sich erst beurteilen, wenn man weiß, wie andere Kinder <i>desselben Alters im selben Test</i> abgeschnitten haben. Die Zahl der gelösten Aufgaben heißt <b>Testrohwert</b>. Er bekommt seine Bedeutung erst durch den Vergleich mit einer <b>Referenzgruppe</b>, der sogenannten <b>Normstichprobe</b>.</p>
 <p>Viele psychologische Merkmale, etwa die Intelligenz, sind in der Bevölkerung annähernd <b>normalverteilt</b>: Die meisten Menschen liegen nahe am Mittelwert, nach außen hin werden es symmetrisch immer weniger. Beschrieben wird so eine Verteilung durch zwei Kennwerte:</p>
@@ -480,7 +485,7 @@ check:[
 ]}
 ];
 
-CARDS[10]=[
+CARDS[16]=[
  {id:"c10-01", f:"Testrohwert und Normstichprobe", b:"Testrohwert: das unmittelbare Testergebnis, etwa die Zahl gelöster Aufgaben.\nNormstichprobe (Referenzgruppe): eine große, möglichst repräsentative Vergleichsgruppe, an der der Test erprobt wurde. Erst der Vergleich mit ihr macht den Rohwert interpretierbar."},
  {id:"c10-02", f:"Mittelwert und Standardabweichung der IQ-Skala", b:"Mittelwert 100, Standardabweichung 15. Der IQ ist in der Bevölkerung annähernd normalverteilt."},
  {id:"c10-03", f:"Flächenanteile der Normalverteilung", b:"Mittelwert bis ±1 SD: je 34,13 % (zusammen 68,26 %)\n1 bis 2 SD: je 13,59 %\n2 bis 3 SD: je 2,14 %\njenseits von 3 SD: je 0,13 %"},
@@ -499,12 +504,12 @@ CARDS[10]=[
  {id:"c10-16", f:"Drei Probleme unausgereifter Zugänge in der Hochbegabungsdiagnostik", b:"Deckeneffekte: im extremen Leistungsbereich kann nicht mehr unterschieden werden\nMessfehler: größere Ungenauigkeit im Extrembereich\nFlynn-Effekt: veraltete Normen sind dort besonders problematisch"},
  {id:"c10-17", f:"Normierung als Nebengütekriterium", b:"Für den Test liegen aktuelle und an einer repräsentativen Stichprobe ermittelte Normen vor."}
 ];
-CALC[10]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];
+CALC[16]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];
 
 /* ================= Kleine Erklärhilfen zu Karten =================
    Jede Zeile ein Begriff. „Begriff: Erklärung“ wird als fetter Begriff dargestellt. */
 const CARD_INFO={
- /* Kapitel 10 */
+ /* Kapitel 16: Normwerte */
  "c10-01":"Norm: von lateinisch norma, „Richtschnur“.\nRepräsentativ: die Stichprobe bildet die Zielgruppe im Kleinen ab, etwa nach Alter, Geschlecht und Schulform.",
  "c10-02":"Eselsbrücke: „Hundert und eine Fünfzehn“, jede SD sind 15 IQ-Punkte.",
  "c10-03":"Eselsbrücke: 34 – 14 – 2 (gerundet), von innen nach außen.\nGauß: Die Glockenkurve heißt nach Carl Friedrich Gauß auch Gauß-Kurve.",
@@ -517,7 +522,7 @@ const CARD_INFO={
  "c10-12":"Rechenweg: 50 % liegen über 100, davon 34,13 % bis 115 und 13,59 % bis 130. Bleibt 50 − 34,13 − 13,59 = 2,28 (≈ 2,27 wegen Rundung).",
  "c10-14":"Gegenstück: Bodeneffekt, wenn ein Test zu schwer ist und unten nicht mehr unterscheidet.",
  "c10-15":"Flynn: James R. Flynn, neuseeländischer Politikwissenschaftler, beschrieb den Effekt 1984.",
- "c10-17":"Nebengütekriterien: Fairness, Ökonomie, Nützlichkeit, Akzeptanz, Normierung (mehr dazu in Kapitel 11)."
+ "c10-17":"Nebengütekriterien: Fairness, Ökonomie, Nützlichkeit, Akzeptanz, Normierung (mehr dazu im Kapitel Gütekriterien)."
 };
 function cardInfoHTML(id){
   const t=CARD_INFO[id]; if(!t) return "";
@@ -741,11 +746,11 @@ function renderHome(){
       <h2>${nx.title}</h2>
       <button class="btn" id="goNext">Weiter lernen</button>
     </div>
-    ${[1,2].map(v=>`<p class="sect"><span>${VL[v]}</span><span>Mi ${v===1?"8–10":"10–12"}</span></p>
+    ${[1,2,3,4].map(v=>`<p class="sect"><span>${VL[v]}</span><span>Klausurteil ${v}</span></p>
       <div class="block"><div class="tlist">${CHAPTERS.filter(c=>c.vl===v).map(chapRow).join("")}</div></div>`).join("")}
     <div class="block">
       <h2>So ist die Klausur gebaut</h2>
-      <p class="small muted">Modulklausur WiSe 24/25: vier Teile mit je 30 Punkten, zusammen 120. Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe.</p>
+      <p class="small muted">Termin laut Heine: <b style="color:var(--ink)">17. Februar 2027, erstmals digital</b>. Bisher, zuletzt WiSe 24/25: vier Teile mit je 30 Punkten, passend zu den vier Schwerpunkten. Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe. Wie das digitale Format genau aussieht, ist noch offen.</p>
       <div class="partlist">
         <span>Teil 1</span><span>Einführung: 5 Kreuzaufgaben, offene Aufgabe (2024: Emotion nach Russell)</span><b>30 P.</b>
         <span>Teil 2</span><span>Lehr-Lernpsychologie: 5 Kreuzaufgaben, offene Aufgabe (2024: operante Konditionierung)</span><b>30 P.</b>
@@ -984,32 +989,32 @@ function renderStats(){
    Je Aufgabe ein Satzanfang und drei Aussagen, jede wahr oder falsch.
    Bewertung wie in der Klausur: je richtiges Kreuz 1 Punkt, alle drei richtig +1 Zusatzpunkt (max. 4). Keine Minuspunkte. */
 const KREUZ=[
- /* Kapitel 10 */
- {id:"x10-01", ch:10, stem:"Für die Verteilung des IQ in der Bevölkerung gilt:", s:[
+ /* Kapitel 16: Normwerte */
+ {id:"x10-01", ch:16, stem:"Für die Verteilung des IQ in der Bevölkerung gilt:", s:[
   ["Etwa zwei Drittel der Bevölkerung haben einen IQ zwischen 85 und 115.", true, "Zwischen −1 und +1 Standardabweichung liegen 68,26 %."],
   ["Einen IQ von 130 oder mehr haben etwa 13,6 % der Bevölkerung.", false, "Über +2 SD liegen nur 2,14 % + 0,13 % = <b>2,27 %</b>. 13,59 % liegen zwischen 115 und 130."],
   ["Eine Person mit einem IQ von 70 liegt zwei Standardabweichungen unter dem Mittelwert.", true, "(70 − 100) / 15 = −2."]]},
- {id:"x10-02", ch:10, stem:"Für den z-Wert gilt:", s:[
+ {id:"x10-02", ch:16, stem:"Für den z-Wert gilt:", s:[
   ["Ein z-Wert von 0 entspricht genau dem Mittelwert der Referenzgruppe.", true, "Der Abstand x − μ ist dann null."],
   ["Der z-Wert gibt an, wie viel Prozent der Referenzgruppe schlechter abgeschnitten haben.", false, "Das ist der <b>Prozentrang</b>. Der z-Wert gibt den Abstand zum Mittel in Standardabweichungen an."],
   ["Ein Rohwert von 500 in einem Test mit μ = 460 und σ = 50 entspricht einem IQ von 112.", true, "z = 40 / 50 = 0,8; IQ = 100 + 15 · 0,8 = 112 (Klausur WiSe 17/18)."]]},
- {id:"x10-03", ch:10, stem:"Für den Prozentrang gilt:", s:[
+ {id:"x10-03", ch:16, stem:"Für den Prozentrang gilt:", s:[
   ["Ein Prozentrang von 25 bedeutet, dass 25 % der Referenzgruppe besser abgeschnitten haben.", false, "Umgekehrt: 25 % haben gleich gut oder schlechter abgeschnitten, <b>75 % besser</b>."],
   ["Um einen Prozentrang bestimmen zu können, muss das Merkmal normalverteilt sein.", false, "Der Prozentrang braucht nur eine Rangfolge: PR = cumf / N · 100."],
   ["Bei einem normalverteilten Merkmal entspricht ein z-Wert von 0 einem Prozentrang von 50.", true, "Genau die Hälfte liegt unter dem Mittelwert."]]},
- {id:"x10-04", ch:10, stem:"Für Normskalen gilt:", s:[
+ {id:"x10-04", ch:16, stem:"Für Normskalen gilt:", s:[
   ["Die T-Skala hat einen Mittelwert von 50 und eine Standardabweichung von 10.", true, "T = 50 + 10 · z."],
   ["Ein IQ von 85 und ein T-Wert von 40 beschreiben dieselbe relative Position in der Referenzgruppe.", true, "Beide entsprechen z = −1."],
   ["Der Abweichungs-IQ wird als Quotient aus Intelligenzalter und Lebensalter berechnet.", false, "Das ist der IQ nach <b>Stern</b>. Der Abweichungs-IQ (Wechsler) ist 100 + 15 · z."]]},
- {id:"x10-05", ch:10, stem:"Für die Standardisierung von Testergebnissen gilt:", s:[
+ {id:"x10-05", ch:16, stem:"Für die Standardisierung von Testergebnissen gilt:", s:[
   ["Gleiche Rohwerte in zwei verschiedenen Tests bedeuten die gleiche Leistung.", false, "Die Tests können unterschiedlich schwer sein und anders streuen. Erst Standardwerte zeigen die Position."],
   ["Standardwerte machen Ergebnisse aus unterschiedlichen Tests vergleichbar.", true, "Klausur WiSe 22/23: drei Schülerinnen, drei Lesetests, gleicher Rohwert, verschiedene z-Werte."],
   ["Je kleiner die Standardabweichung der Referenzgruppe, desto größer ist bei gleichem Abstand zum Mittelwert der Betrag des z-Werts.", true, "z = (x − μ) / σ: Ein kleinerer Nenner macht den Bruch größer. 6 Punkte Abstand sind bei σ = 3 schon z = −2."]]},
- {id:"x10-06", ch:10, stem:"Für die Normierung von Tests gilt:", s:[
+ {id:"x10-06", ch:16, stem:"Für die Normierung von Tests gilt:", s:[
   ["Veraltete Normen führen wegen des Flynn-Effekts eher zu einer Überschätzung der Intelligenz.", true, "Die alte Normstichprobe war im Schnitt schwächer als die heutige Bevölkerung."],
   ["Ein Deckeneffekt liegt vor, wenn ein Test für leistungsschwache Personen zu schwer ist.", false, "Das wäre ein Bodeneffekt. Beim <b>Deckeneffekt</b> ist der Test für sehr Leistungsstarke zu leicht."],
   ["Im extremen Leistungsbereich ist die Messung typischerweise ungenauer als im mittleren Bereich.", true, "Dort gibt es weniger passende Aufgaben und Vergleichspersonen, der Messfehler ist größer."]]},
- {id:"x10-07", ch:10, stem:"Für die deskriptive Einordnung von IQ-Werten gilt:", s:[
+ {id:"x10-07", ch:16, stem:"Für die deskriptive Einordnung von IQ-Werten gilt:", s:[
   ["Ein IQ von 90 liegt im durchschnittlichen Bereich.", true, "Durchschnittlich ist 85 bis 115."],
   ["Ein IQ von 80 gilt als weit unterdurchschnittlich.", false, "80 liegt zwischen 70 und 85, also <b>unterdurchschnittlich</b>. Weit unterdurchschnittlich ist unter 70."],
   ["Ab einem IQ über 130 spricht man von einer weit überdurchschnittlichen Intelligenzleistung.", true, "Mehr als zwei Standardabweichungen über dem Mittel."]]}
@@ -1048,7 +1053,7 @@ function renderKreuz(){
   const item=KREUZ.find(x=>x.id===K.items[K.i]), all=[0,1,2].every(j=>K.ans[j]!==undefined), ch=CHAPTERS.find(c=>c.n===item.ch);
   if(!K.shown) K.prev=kzStat(item.id);
   $("#app").innerHTML=`${backTo(back)}
-    <div class="row between"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}</p>${K.prev?`<span class="chip">zuletzt ${K.prev.p}/4</span>`:""}</div>
+    <div class="row between"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}</p>${K.prev?`<span class="chip">zuletzt ${K.prev.p}/4</span>`:""}</div>
     <div class="block" style="margin-top:8px"><h3 style="margin:0 0 4px">${item.stem}</h3>${kzBlock(item,K.ans,K.shown,"s")}</div>
     ${K.shown?`<div class="row between"><span class="pbadge">${K.pts[K.i]} von 4 Punkten</span><button class="btn" id="nx">${K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button></div>`
       :`<button class="btn" id="ev" style="width:100%" ${all?"":"disabled"}>Auswerten</button><p class="small muted" style="margin-top:8px">${all?"":"Kreuze bei jeder Aussage wahr oder falsch an. "}In der Klausur gibt es keine Minuspunkte, also im Zweifel immer ankreuzen.</p>`}`;
@@ -1061,27 +1066,27 @@ function renderKreuz(){
 
 /* ================= Offene Aufgaben (Schreiben) und Probeklausur ================= */
 const KURZ=[
- /* Kapitel 10 */
- {id:"k10-1", ch:10, pts:5, klausur:"WiSe 22/23, Aufgabe 2a",
+ /* Kapitel 16: Normwerte */
+ {id:"k10-1", ch:16, pts:5, klausur:"WiSe 22/23, Aufgabe 2a",
   q:"Ein ermittelter Testrohwert kann durch Angabe eines Prozentrangs in Bezug zu einer Referenzgruppe beschrieben werden. Geben Sie die Formel zur Ermittlung des Prozentrangs an und erläutern Sie kurz, was die Variablen bedeuten.",
   k:["Formel: PR = cumf / N · 100","PR: Prozentrang, Anteil der Referenzgruppe mit gleichem oder schlechterem Ergebnis","cumf: kumulierte Häufigkeit, Anzahl der Werte bis einschließlich des betrachteten Werts","N: Gesamtzahl der Werte bzw. Probanden","· 100: Umrechnung des Anteils in Prozent"],
   m:"PR = cumf / N · 100. PR ist der Prozentrang, also der Anteil der Referenzgruppe in Prozent, der gleich gut oder schlechter abgeschnitten hat. cumf ist die kumulierte Häufigkeit: die Anzahl aller Werte bis einschließlich des betrachteten Werts in der sortierten Verteilung. N ist die Gesamtzahl der Werte (Probanden). Die Multiplikation mit 100 macht aus dem Anteil eine Prozentangabe."},
- {id:"k10-2", ch:10, pts:4,
+ {id:"k10-2", ch:16, pts:4,
   q:"Drei Schulen haben die Lesekompetenz ihrer Schülerinnen mit unterschiedlichen standardisierten Lesetests erhoben. Alle drei Schülerinnen haben denselben Rohwert. Erläutern Sie, warum man daraus nicht auf gleiche Lesekompetenz schließen darf und wie man stattdessen vorgeht.",
   k:["Tests unterscheiden sich in Schwierigkeit (Mittelwert) und Streuung (Standardabweichung) ihrer Referenzgruppen","Rohwerte haben daher in jedem Test eine andere Bedeutung","Umrechnung in Standardwerte, z. B. z = (x − M) / SD oder IQ-Skala","Vergleich über die Position relativ zur jeweiligen Referenzgruppe (niedrigster z-Wert = schwächste Leistung)"],
   m:"Ein Rohwert ist nur im Vergleich zur Referenzgruppe des jeweiligen Tests interpretierbar. Die drei Tests haben unterschiedliche Mittelwerte und Standardabweichungen; derselbe Rohwert kann also in einem schweren Test gut und in einem leichten schwach sein. Deshalb rechnet man jeden Rohwert mit z = (x − M) / SD in einen Standardwert um (gegebenenfalls weiter in die IQ-Skala). Der z-Wert zeigt, um wie viele Standardabweichungen die Schülerin von ihrer Referenzgruppe abweicht; die Schülerin mit dem niedrigsten z-Wert hat die schwächste Leistung."},
- {id:"k10-3", ch:10, pts:6, klausur:"Fragenkatalog Heine, Frage 47",
+ {id:"k10-3", ch:16, pts:6, klausur:"Fragenkatalog Heine, Frage 47",
   q:"Nennen Sie drei potenzielle Probleme unausgereifter diagnostischer Zugänge in der Hochbegabungsdiagnostik und erläutern Sie jeweils kurz.",
   k:["Deckeneffekt genannt","Deckeneffekt erläutert: im extremen Leistungsbereich keine Unterscheidung mehr möglich","Messfehler genannt","Messfehler erläutert: größere Ungenauigkeit im Extrembereich","Flynn-Effekt genannt","Flynn-Effekt erläutert: veraltete Normen überschätzen die Leistung, im Extrembereich besonders problematisch"],
   m:"Erstens Deckeneffekte: Ist ein Test für sehr leistungsstarke Personen zu leicht, lösen sie fast alle Aufgaben, und der Test kann im oberen Bereich nicht mehr zwischen ihnen unterscheiden. Zweitens Messfehler: Im Extrembereich gibt es wenige passende Aufgaben und Vergleichspersonen, die Messung ist ungenauer. Drittens der Flynn-Effekt: Die durchschnittlichen Testleistungen steigen über die Jahrzehnte; veraltete Normen überschätzen deshalb die Intelligenz, was gerade an der Grenze zur Hochbegabung (IQ 130) zu Fehldiagnosen führen kann."}
 ];
 /* Offene Aufgaben für die Probeklausur: Schreibaufgaben (kurz) oder Rechenaufgaben (calc), je Klausurteil */
 const OPEN=[
- {id:"o10-iq", ch:10, kind:"calc", t:"iq", pts:10, title:"Intelligenzmessung"},
- {id:"o10-vg", ch:10, kind:"calc", t:"vergleich", pts:10, title:"Standardisierung von Messwerten"},
- {id:"o10-pr", ch:10, kind:"calc", t:"pr", pts:10, title:"Prozentränge"},
- {id:"o10-k1", ch:10, kind:"kurz", k:"k10-1", pts:10, title:"Normwerte in Leistungstests"},
- {id:"o10-k3", ch:10, kind:"kurz", k:"k10-3", pts:10, title:"Hochbegabungsdiagnostik"}
+ {id:"o10-iq", ch:16, kind:"calc", t:"iq", pts:10, title:"Intelligenzmessung"},
+ {id:"o10-vg", ch:16, kind:"calc", t:"vergleich", pts:10, title:"Standardisierung von Messwerten"},
+ {id:"o10-pr", ch:16, kind:"calc", t:"pr", pts:10, title:"Prozentränge"},
+ {id:"o10-k1", ch:16, kind:"kurz", k:"k10-1", pts:10, title:"Normwerte in Leistungstests"},
+ {id:"o10-k3", ch:16, kind:"kurz", k:"k10-3", pts:10, title:"Hochbegabungsdiagnostik"}
 ];
 const TEILE={1:{t:"Einführung in die Psychologie",kz:5,op:10},2:{t:"Lehr-/Lernpsychologie",kz:5,op:10},3:{t:"Pädagogisch-psychologische Diagnostik",kz:5,op:10},4:{t:"Inklusion",kz:4,op:14}};
 const teilOf=ch=>(CHAPTERS.find(c=>c.n===ch)||{}).teil;
@@ -1210,6 +1215,334 @@ function openGrade(o,pi,no){
     ${S.map((s,i)=>s.final?`<p class="res ${judge(s,o.ans[i]||"")?"good":"bad"}" style="margin:4px 0">${s.lab}: ${esc(o.ans[i]||"–")}${judge(s,o.ans[i]||"")?"":" · richtig: "+fmt(s.ans)}</p>`:"").join("")}
     <div class="stack" style="margin-top:6px">${S.map(s=>`<div><div class="small" style="font-weight:600">${s.lab}</div><div class="eq">${esc(s.calc)}</div></div>`).join("")}</div></div>`;
 }
+
+/* ================= Kapitel 1: Psychologie als Wissenschaft =================
+   Grundlage: Folien Sitzung 1 und 2 (WiSe 26/27), dazu Klausur WiSe 22/23 (Aufgabe 1) und 24/25 (Diagnostik, Aufgabe 1) */
+LESSONS[1]=[
+{id:"1-1", t:"Lernziele und die Stufen nach Bloom", html:`
+<p>Heine beginnt jede Sitzung mit <b>kognitiven Lernzielen</b>. Das ist kein Zufall: Lernziele sind selbst ein Thema der Vorlesung.</p>
+<p>Nach Ingenkamp und Lissmann (2008) beschreiben <b>operationalisierte Lernziele</b> das beabsichtigte Verhalten, das Lernende nach Abschluss des Lernprozesses zeigen sollen. Ein angemessen operationalisiertes Lernziel enthält drei Dinge:</p>
+<ul><li><b>beobachtbare Verhaltensweisen</b> (was genau soll man sehen können?),</li>
+<li><b>Bedingungen</b>, unter denen das Verhalten überprüft wird (worauf reagieren, in welcher Zeit …),</li>
+<li>einen <b>Bewertungsmaßstab</b>, an dem man ablesen kann, ob das Ziel erreicht ist.</li></ul>
+<div class="merk"><b>Beispiel</b>Nicht operationalisiert: „Die Schüler verstehen Brüche.“<br>Operationalisiert: „Die Schüler kürzen in 10 Minuten ohne Hilfsmittel mindestens 8 von 10 Brüchen richtig.“ Verhalten (kürzen), Bedingung (10 Minuten, ohne Hilfsmittel), Maßstab (8 von 10).</div>
+<p><b>Bloom (1956)</b> hat in seiner „Taxonomy of Educational Objectives“ kognitive Lernziele nach Komplexität geordnet, von einfach nach schwer:</p>
+<table class="kvq"><tr><th>Stufe</th><th>englisch</th><th>Beispielverb</th></tr>
+<tr><td>1. Wissen / Erinnerung</td><td>Remembering</td><td>nennen, benennen</td></tr>
+<tr><td>2. Verständnis</td><td>Comprehending</td><td>erklären, unterscheiden</td></tr>
+<tr><td>3. Anwendung</td><td>Applying</td><td>berechnen, übertragen</td></tr>
+<tr><td>4. Analyse</td><td>Analyzing</td><td>zerlegen, vergleichen</td></tr>
+<tr><td>5. Synthese</td><td>Synthesizing</td><td>entwerfen, zusammenführen</td></tr>
+<tr><td>6. Bewertung</td><td>Evaluating</td><td>beurteilen, begründen</td></tr></table>
+<p>Laut Heine sind in einer Vorlesung vor allem die unteren Stufen erreichbar: Wissen und Verstehen sehr stark, Anwenden und Analysieren etwas. Für die Klausur heißt das: Begriffe sicher <i>benennen</i> und <i>erklären</i> können, dazu einfache Anwendungen.</p>`,
+check:[
+ {q:"Welche Stufe steht bei Bloom über der Anwendung?", o:["Verständnis","Analyse","Synthese","Wissen"], a:1, ex:"Reihenfolge: Wissen, Verständnis, Anwendung, Analyse, Synthese, Bewertung."},
+ {q:"Was fehlt dem Lernziel „Die Schüler können Vokabeln“?", o:["Nur der Bewertungsmaßstab","Beobachtbares Verhalten, Bedingungen und Maßstab","Nur die Bedingungen","Nichts, es ist operationalisiert"], a:1, ex:"„Können“ ist nicht beobachtbar, und weder Bedingungen (z. B. 20 Vokabeln, 5 Minuten) noch ein Maßstab (z. B. 18 richtig) sind genannt."}
+]},
+{id:"1-2", t:"Kompetenz und Handlungskompetenz", html:`
+<p>Der bekannteste Kompetenzbegriff stammt von <b>Weinert (2001)</b>. Sinngemäß: Kompetenzen sind die verfügbaren oder erlernbaren <b>kognitiven Fähigkeiten und Fertigkeiten</b>, um bestimmte Probleme zu lösen, zusammen mit den <b>motivationalen, volitionalen und sozialen Bereitschaften</b>, diese Lösungen in wechselnden Situationen erfolgreich und verantwortungsvoll zu nutzen.</p>
+<p>Kompetenz umfasst also drei Bestandteile:</p>
+<ul><li><b>Wissen</b> (verstehen),</li><li><b>Fertigkeiten</b> (können),</li><li><b>motivationale Orientierungen und Emotionen</b> (wollen).</li></ul>
+<p>Wichtig ist die Abgrenzung: Kompetenz ist die <b>Voraussetzung</b> für Handeln, also eine Disposition. Das tatsächlich gezeigte Handeln heißt <b>Performanz</b>. Wer kompetent ist, zeigt nicht automatisch gute Leistung, etwa bei Müdigkeit oder Prüfungsangst.</p>
+<p>Die Kultusministerkonferenz (KMK, 1999) beschreibt <b>Handlungskompetenz</b> als die Fähigkeit, sich in beruflichen, gesellschaftlichen und privaten Situationen sachgerecht, durchdacht und verantwortlich zu verhalten. Sie setzt sich aus vier Kompetenzen zusammen:</p>
+<table class="kvq"><tr><th>Kompetenz</th><th>Beispiele</th></tr>
+<tr><td>Sachkompetenz</td><td>Grundlagen- und Fachwissen, Kenntnis wissenschaftlicher Methoden</td></tr>
+<tr><td>Methodenkompetenz</td><td>selbstständig arbeiten, Transfer, eigene Wissenslücken erkennen und schließen, reflektieren</td></tr>
+<tr><td>Sozialkompetenz</td><td>kommunizieren, Fachsprache, Perspektivwechsel</td></tr>
+<tr><td>Selbstkompetenz</td><td>Verantwortung übernehmen, Selbstkritik, ethisches Bewusstsein (Berufsethos)</td></tr></table>
+<p>Ziel der Vorlesung ist die professionelle Unterrichtswahrnehmung nach <b>Seidel (2022)</b>:</p>
+<ul><li><b>Noticing:</b> Auf Basis von Fachwissen die Aufmerksamkeit gezielt auf Ereignisse im Klassenraum richten, die für das Lernen wichtig sind.</li>
+<li><b>Reasoning:</b> Das Wahrgenommene mithilfe dieses Wissens deuten und erklären.</li></ul>
+<div class="merk"><b>Wozu das Ganze?</b>Die Vorlesung will, dass du schulische Situationen mit psychologischen Modellen verstehst (Noticing und Reasoning) und daraus sinnvolle Handlungsmöglichkeiten ableitest.</div>`,
+check:[
+ {q:"Welche drei Bestandteile umfasst Kompetenz nach Weinert?", o:["Wissen, Fertigkeiten, motivationale Orientierungen und Emotionen","Sach-, Methoden- und Sozialkompetenz","Noticing, Reasoning, Handeln","Wissen, Verstehen, Anwenden"], a:0, ex:"Verstehen, Können, Wollen. Sach-, Methoden-, Sozial- und Selbstkompetenz sind die vier Teile der Handlungskompetenz nach KMK."},
+ {q:"Was bezeichnet Seidel als „Noticing“?", o:["Das Mitschreiben im Unterricht","Die gezielte Wahrnehmung lernrelevanter Ereignisse im Klassenraum","Das Deuten beobachteter Ereignisse","Die Notengebung"], a:1, ex:"Das Deuten ist Reasoning. Noticing ist die selektive Aufmerksamkeit auf das, was für Lehr-Lern-Prozesse wichtig ist."}
+]},
+{id:"1-3", t:"Die vier Ziele der Psychologie", html:`
+<p>Im Fokus der Psychologie steht die Untersuchung menschlichen <b>Erlebens und Verhaltens</b>. Sie will es</p>
+<table class="kvq"><tr><th>Ziel</th><th>Fachbegriff</th><th>Leitfrage</th></tr>
+<tr><td>beschreiben</td><td>Deskription</td><td>Was ist da, und was hängt zusammen?</td></tr>
+<tr><td>erklären</td><td>Explikation</td><td>Was bedingt was?</td></tr>
+<tr><td>vorhersagen</td><td>Prognose</td><td>Was wird passieren?</td></tr>
+<tr><td>ggf. verändern</td><td>Intervention</td><td>Wie lässt es sich beeinflussen?</td></tr></table>
+<p>Psychologie ist eine <b>empirische Wissenschaft</b>: Sie formuliert mögliche Antworten als <b>Hypothesen</b> und konfrontiert sie systematisch mit der Realität, durch Beobachtung und Messung.</p>
+<p><b>Beschreiben</b> heißt: ein Phänomen benennen und definieren, ordnen und klassifizieren, Art und Intensität angeben und <b>Zusammenhänge</b> darstellen. Beispiel: Wissen in einem Fach und die Motivation, sich damit zu beschäftigen, <i>korrelieren</i>. Über Ursache und Wirkung sagt das noch nichts.</p>
+<p><b>Erklären</b> heißt: Bedingungsverhältnisse angeben, also <i>A bedingt B</i>. Das setzt die Beschreibung voraus. Beispiel (Dollard et al.): Frustration führt zu Aggression. Die Ursache heißt <b>unabhängiger Indikator</b>, die Wirkung <b>abhängiger Indikator</b>.</p>
+<p><b>Vorhersagen</b> heißt: Variablen mit Erklärungswert nutzen, um Prognosemodelle zu bauen. Die Vorhersagevariablen heißen <b>Prädiktoren</b>, das Vorhergesagte heißt <b>Kriterium</b>. Beispiel (Elbro, 1996): Phonologische Bewusstheit und Wortschatz bei der Einschulung sagen den späteren Schriftspracherwerb voraus.</p>
+<p><b>Verändern</b> heißt: gezielt auf Sachverhalte einwirken, und zwar als</p>
+<ul><li><b>Korrektur</b> (einen negativen Ausgangszustand ausgleichen),</li>
+<li><b>Förderung</b> (einen Sachverhalt allgemein verbessern),</li>
+<li><b>Prävention</b> (eine Verschlechterung verhindern).</li></ul>
+<p>Beispiel: das Vorschulprogramm „Hören, lauschen, lernen“ (Küspert) zur Förderung der phonologischen Bewusstheit.</p>
+<div class="merk"><b>Klausurfalle</b>Beim Erklären bedingt der <i>unabhängige</i> Indikator den <i>abhängigen</i>, nie umgekehrt. Achte in Kreuzaufgaben genau auf die Reihenfolge.</div>`,
+check:[
+ {q:"„Phonologische Bewusstheit in der Kita sagt den späteren Leseerfolg voraus.“ Welche Rolle hat die phonologische Bewusstheit?", o:["Kriterium","Prädiktor","Abhängiger Indikator","Intervention"], a:1, ex:"Die Variable, mit der vorhergesagt wird, ist der Prädiktor. Der Leseerfolg ist das Kriterium."},
+ {q:"Ein Förderprogramm soll verhindern, dass sich die Lesefähigkeit verschlechtert. Welche Form der Veränderung ist das?", o:["Korrektur","Förderung","Prävention","Explikation"], a:2, ex:"Prävention verhindert eine Verschlechterung. Korrektur gleicht einen schon negativen Zustand aus."}
+]},
+{id:"1-4", t:"Konstrukte und Operationalisierung", html:`
+<p>Begriffe wie Intelligenz, Konzentrationsfähigkeit, Motivation oder soziale Kompetenz bezeichnen keine Dinge, die man anfassen oder direkt sehen kann. Sie sind <b>psychologische Konstrukte</b>: angenommene Eigenschaften von Personen, mit denen man beobachtbares Verhalten erklärt.</p>
+<ul><li><b>Distale Merkmale</b> (Brunswik, 1956): die Konstrukte selbst. Sie sind der direkten Beobachtung <i>nicht</i> zugänglich.</li>
+<li><b>Proximale Merkmale</b>: beobachtbare und messbare <b>Indikatoren</b>, aus denen man auf das Konstrukt schließt. Wer misst, muss wissen, welche Indikatoren wirklich zum Konstrukt gehören (das ist eine Frage der Validität).</li></ul>
+<p>Konstrukte sind <b>Erklärungszugänge</b>, keine realen Entitäten. Als warnendes Gegenbeispiel zeigt Heine die <b>Phrenologie</b> (19. Jahrhundert), die geistige Eigenschaften an Schädelformen ablesen wollte, als säßen sie als Organe im Kopf.</p>
+<p>Schon das Beschreiben setzt eine <b>Operationalisierung</b> voraus: die Übersetzung eines Konstrukts in beobachtbare bzw. messbare Indikatoren. Beispiel: „Wissensniveau in Psychologie“ wird operationalisiert als Punktzahl in einem fachspezifischen Test.</p>
+<div class="merk"><b>Klausuraufgabe (WiSe 22/23): Lernmotivation operationalisieren</b>Mögliche Indikatoren und erwartete Effekte bei <i>hoher</i> Lernmotivation:<br>
+Aufmerksamkeit und Anstrengung hoch, Latenz (Zeit bis zum Beginn) kurz<br>
+Persistenz (Ausdauer) groß, Präferenz für Lernaufgaben groß<br>
+Verhaltenswahrscheinlichkeit hoch, emotionaler Ausdruck positiv</div>
+<p>Merkmale lassen sich außerdem nach ihrer Stabilität unterscheiden: <b>Traits</b> sind zeitlich stabile Merkmale (z. B. Intelligenz), <b>States</b> sind situationsabhängige Zustände (z. B. aktuelle Müdigkeit).</p>
+<p><b>Berufspraktische Relevanz:</b> Wer „Intelligenz“ oder „Motivation“ als Konstrukt begreift, behandelt eine Zuschreibung wie „der ist halt faul“ als <i>Hypothese</i> über eine Person in einer Situation. Sie muss über Indikatoren geprüft werden, und zu jedem Konstrukt gibt es unterschiedliche theoretische Zugänge.</p>`,
+check:[
+ {q:"Was sind distale Merkmale?", o:["Messbare Indikatoren wie Testpunkte","Konstrukte, die der direkten Beobachtung nicht zugänglich sind","Merkmale, die weit in der Vergangenheit liegen","Situationsabhängige Zustände"], a:1, ex:"Distal (fern) ist das Konstrukt, proximal (nah) sind die beobachtbaren Indikatoren."},
+ {q:"Was versteht man unter Operationalisierung?", o:["Die statistische Auswertung","Die Übersetzung eines Konstrukts in beobachtbare bzw. messbare Indikatoren","Die Durchführung eines Tests","Die Wahl einer Stichprobe"], a:1, ex:"Beispiel: Lernmotivation wird über Persistenz, Anstrengung oder Latenz messbar gemacht."}
+]}
+];
+
+CARDS[1]=[
+ {id:"c1-01", f:"Was beschreiben operationalisierte Lernziele?", b:"Das beabsichtigte Verhalten, das Lernende nach Abschluss des Lernprozesses zeigen sollen (Ingenkamp & Lissmann, 2008)."},
+ {id:"c1-02", f:"Drei Bestandteile eines operationalisierten Lernziels", b:"beobachtbare Verhaltensweisen\nBedingungen, unter denen das Verhalten überprüft wird (worauf, in welcher Zeit …)\nBewertungsmaßstab für die Zielerreichung"},
+ {id:"c1-03", f:"Die sechs Lernzielstufen nach Bloom (1956)", b:"1. Wissen / Erinnerung (Remembering)\n2. Verständnis (Comprehending)\n3. Anwendung (Applying)\n4. Analyse (Analyzing)\n5. Synthese (Synthesizing)\n6. Bewertung (Evaluating)"},
+ {id:"c1-04", f:"Kompetenz nach Weinert (2001)", b:"Verfügbare oder erlernbare kognitive Fähigkeiten und Fertigkeiten, um Probleme zu lösen, samt motivationaler, volitionaler (willensbezogener) und sozialer Bereitschaft, die Lösungen in variablen Situationen erfolgreich und verantwortungsvoll zu nutzen."},
+ {id:"c1-05", f:"Drei Bestandteile von Kompetenz", b:"Wissen (verstehen)\nFertigkeiten (können)\nmotivationale Orientierungen und Emotionen (wollen)"},
+ {id:"c1-06", f:"Kompetenz vs. Performanz", b:"Kompetenz: die Voraussetzung (Disposition) für Handeln.\nPerformanz: das tatsächlich gezeigte Handeln (z. B. die Klausurleistung an einem bestimmten Tag)."},
+ {id:"c1-07", f:"Vier Teile der Handlungskompetenz (KMK, 1999)", b:"Sachkompetenz (Fachwissen, Methodenkenntnis)\nMethodenkompetenz (selbstständig arbeiten, Transfer, Wissenslücken erkennen)\nSozialkompetenz (kommunizieren, Perspektivwechsel)\nSelbstkompetenz (Verantwortung, Selbstkritik, Berufsethos)"},
+ {id:"c1-08", f:"Noticing und Reasoning (Seidel, 2022)", b:"Noticing: Aufmerksamkeit gezielt auf lernrelevante Ereignisse im Klassenraum richten.\nReasoning: das Wahrgenommene auf Basis von Fachwissen deuten und erklären."},
+ {id:"c1-09", f:"Gegenstand der Psychologie", b:"Menschliches Erleben und Verhalten."},
+ {id:"c1-10", f:"Die vier Ziele der Psychologie", b:"beschreiben (Deskription)\nerklären (Explikation)\nvorhersagen (Prognose)\nggf. verändern (Intervention)"},
+ {id:"c1-11", f:"Was heißt „empirisch“?", b:"Mögliche Antworten auf Fragen werden als Hypothesen formuliert und systematisch mit der Realität konfrontiert (Beobachtung, Messung)."},
+ {id:"c1-12", f:"Beschreiben: was gehört dazu?", b:"Phänomen benennen und definieren\nordnen und klassifizieren\nArt und Intensität angeben\nZusammenhänge (Korrelationen) darstellen, z. B. Fachwissen und Motivation hängen zusammen"},
+ {id:"c1-13", f:"Erklären: unabhängiger und abhängiger Indikator", b:"Erklären heißt, Bedingungsverhältnisse anzugeben: A bedingt B.\nUnabhängiger Indikator: die Ursache (z. B. Frustration)\nAbhängiger Indikator: die Wirkung (z. B. Aggression; Dollard et al.)"},
+ {id:"c1-14", f:"Vorhersagen: Prädiktor und Kriterium", b:"Prädiktoren: Variablen, mit denen vorhergesagt wird (z. B. phonologische Bewusstheit und Wortschatz bei Einschulung)\nKriterium: das Vorhergesagte (z. B. späterer Schriftspracherwerb; Elbro, 1996)"},
+ {id:"c1-15", f:"Drei Formen des Veränderns", b:"Korrektur: negativen Ausgangszustand ausgleichen\nFörderung: Sachverhalt allgemein verbessern\nPrävention: Verschlechterung verhindern\nBeispiel: „Hören, lauschen, lernen“ (Küspert)"},
+ {id:"c1-16", f:"Psychologisches Konstrukt", b:"Eine angenommene, nicht direkt beobachtbare Eigenschaft von Personen (z. B. Intelligenz, Motivation), mit der man beobachtbares Verhalten beschreibt, erklärt oder vorhersagt. Ein Erklärungszugang, keine reale Entität."},
+ {id:"c1-17", f:"Distale vs. proximale Merkmale", b:"Distal: das Konstrukt selbst, der direkten Beobachtung nicht zugänglich (Brunswik, 1956).\nProximal: beobachtbare, messbare Indikatoren, aus denen auf das Konstrukt geschlossen wird."},
+ {id:"c1-18", f:"Operationalisierung", b:"Übersetzung eines Konstrukts in beobachtbare bzw. messbare Indikatoren, die es abbilden können (z. B. Wissensniveau → Punktzahl in einem Fachtest)."},
+ {id:"c1-19", f:"Indikatoren für Lernmotivation", b:"Aufmerksamkeit, Anstrengung, Latenz (Zeit bis zum Beginn), Persistenz (Ausdauer), Präferenz, Verhaltenswahrscheinlichkeit, emotionaler Ausdruck.\nBei hoher Motivation: Latenz kurz, alles andere hoch bzw. positiv."},
+ {id:"c1-20", f:"Traits vs. States", b:"Traits: zeitlich stabile Merkmale von Personen (z. B. Intelligenz).\nStates: situationsabhängige Zustände (z. B. aktuelle Nervosität)."}
+];
+
+Object.assign(CARD_INFO,{
+ "c1-02":"Operationalisieren: von lateinisch operari, „arbeiten“. Etwas so fassen, dass man damit arbeiten, also es prüfen kann.",
+ "c1-03":"Taxonomie: griechisch „Ordnung nach Regeln“.\nEselsbrücke: „Wer Viel Arbeitet, Analysiert Später Besser.“",
+ "c1-04":"Volitional: von lateinisch velle, „wollen“. Die Willenskraft, ein Vorhaben auch umzusetzen.",
+ "c1-06":"Performanz: von englisch to perform, „ausführen“.",
+ "c1-07":"KMK: Kultusministerkonferenz, die Konferenz der Bildungsminister der Länder.",
+ "c1-08":"Seidel: Tina Seidel, Bildungsforscherin an der TU München.",
+ "c1-10":"Deskription: lateinisch describere, „beschreiben“.\nExplikation: lateinisch explicare, „entfalten, erklären“.\nPrognose: griechisch „Vorherwissen“.\nIntervention: lateinisch intervenire, „dazwischentreten“.",
+ "c1-11":"Empirisch: griechisch empeiria, „Erfahrung“.\nHypothese: eine begründete, prüfbare Vermutung.",
+ "c1-12":"Korrelation: statistischer Zusammenhang zweier Größen, sagt nichts über Ursache und Wirkung.",
+ "c1-14":"Prädiktor: lateinisch praedicere, „vorhersagen“.",
+ "c1-15":"Prävention: lateinisch praevenire, „zuvorkommen“.",
+ "c1-16":"Konstrukt: lateinisch construere, „errichten“. Es wird vom Forscher gedanklich gebaut.",
+ "c1-17":"Distal: „fern“, proximal: „nah“, wie in der Anatomie.\nBrunswik: Egon Brunswik, österreichisch-amerikanischer Psychologe (Linsenmodell).",
+ "c1-19":"Latenz: lateinisch latere, „verborgen sein“. Die Zeit, bis eine Reaktion einsetzt.\nPersistenz: lateinisch persistere, „verharren“.",
+ "c1-20":"Trait: englisch „Wesenszug“.\nState: englisch „Zustand“."
+});
+Object.assign(CARD_CTX,{
+ "c1-01":"Lernziele formulieren, Grundlage jeder Unterrichtsplanung","c1-02":"Lernziele formulieren","c1-03":"Lernziele nach Schwierigkeit ordnen",
+ "c1-04":"Der zentrale Kompetenzbegriff in der Bildungsforschung","c1-05":"Kompetenz zerlegen","c1-06":"Können haben und Können zeigen",
+ "c1-07":"Welche Kompetenzen Lehrkräfte brauchen","c1-08":"Professionelle Unterrichtswahrnehmung","c1-09":"Womit sich Psychologie befasst",
+ "c1-10":"Was Psychologie leisten will","c1-11":"Wie Psychologie zu Wissen kommt","c1-12":"Erstes Ziel der Psychologie","c1-13":"Zweites Ziel der Psychologie",
+ "c1-14":"Drittes Ziel der Psychologie","c1-15":"Viertes Ziel der Psychologie","c1-16":"Grundbegriff für alles, was in der Diagnostik gemessen wird",
+ "c1-17":"Wie Konstrukte und Messung zusammenhängen","c1-18":"Vom Begriff zur Messung","c1-19":"Klausur WiSe 22/23: ein Konstrukt operationalisieren","c1-20":"Stabile und schwankende Merkmale"
+});
+
+KREUZ.push(
+ {id:"x1-01", ch:1, stem:"Für Lernziele gilt:", s:[
+  ["Operationalisierte Lernziele beschreiben das Verhalten, das Lernende nach Abschluss des Lernprozesses zeigen sollen.", true, "Definition nach Ingenkamp und Lissmann (2008)."],
+  ["In Blooms Taxonomie steht die Analyse unterhalb der Anwendung.", false, "Reihenfolge: Wissen, Verständnis, Anwendung, <b>Analyse</b>, Synthese, Bewertung. Die Analyse steht über der Anwendung."],
+  ["Ein operationalisiertes Lernziel enthält einen Bewertungsmaßstab, an dem die Zielerreichung beurteilt werden kann.", true, "Dazu beobachtbares Verhalten und die Bedingungen der Überprüfung."]]},
+ {id:"x1-02", ch:1, stem:"Für den Kompetenzbegriff nach Weinert gilt:", s:[
+  ["Kompetenz umfasst neben Wissen und Fertigkeiten auch motivationale Orientierungen und Emotionen.", true, "Verstehen, Können, Wollen."],
+  ["Kompetenz und Performanz sind zwei Begriffe für dasselbe.", false, "Kompetenz ist die <b>Voraussetzung</b> für Handeln, Performanz das tatsächlich gezeigte Handeln."],
+  ["Kompetenzen können auch erlernbar sein, nicht nur bereits verfügbar.", true, "Weinert spricht von „verfügbaren oder erlernbaren“ Fähigkeiten und Fertigkeiten."]]},
+ {id:"x1-03", ch:1, stem:"Für die Ziele der Psychologie gilt:", s:[
+  ["Beim Beschreiben werden auch Zusammenhänge zwischen Sachverhalten dargestellt.", true, "Zum Beispiel die Korrelation von Fachwissen und Motivation."],
+  ["Erklären ist ohne vorherige Beschreibung der Sachverhalte möglich.", false, "Erklären <b>setzt</b> die Beschreibung voraus."],
+  ["Bei der Vorhersage werden die Variablen, mit denen vorhergesagt wird, als Prädiktoren bezeichnet.", true, "Das Vorhergesagte heißt Kriterium."]]},
+ {id:"x1-04", ch:1, stem:"Für die empirische Untersuchung psychologischer Merkmale gilt:", klausur:"WiSe 24/25", s:[
+  ["Distale Merkmale von Personen sind der Beobachtung nicht direkt zugänglich.", true, "Distale Merkmale sind die Konstrukte selbst; man schließt über proximale Indikatoren auf sie."],
+  ["Erklärungsmodelle formulieren Wirkungszusammenhänge, bei denen die Ausprägung abhängiger Indikatoren durch die Ausprägung unabhängiger Indikatoren bedingt wird.", true, "Unabhängig = Ursache, abhängig = Wirkung (Folie: A bedingt B). Achtung: In der Klausur kann die Reihenfolge absichtlich vertauscht sein, dann ist die Aussage falsch."],
+  ["Als Traits bezeichnet man zeitlich stabile Merkmale von Personen, wie z. B. die Intelligenz.", true, "Gegenstück: States, situationsabhängige Zustände."]]},
+ {id:"x1-05", ch:1, stem:"Für psychologische Konstrukte gilt:", s:[
+  ["Psychologische Konstrukte sind reale Entitäten, die sich im Gehirn genau lokalisieren lassen.", false, "Konstrukte sind <b>Erklärungszugänge</b> für beobachtbares Verhalten, keine realen Dinge. Abschreckendes Beispiel: die Phrenologie."],
+  ["Bereits das Beschreiben eines Sachverhalts setzt eine Operationalisierung voraus.", true, "Man muss festlegen, woran man den Sachverhalt beobachten oder messen will."],
+  ["Eine kürzere Latenz bis zum Arbeitsbeginn kann ein Indikator für hohe Lernmotivation sein.", true, "Latenz ist die Zeit bis zum Beginn; bei hoher Motivation ist sie kurz."]]},
+ {id:"x1-06", ch:1, stem:"In Bezug auf das gezielte Verändern von Sachverhalten gilt:", s:[
+  ["Prävention zielt darauf ab, eine Verschlechterung eines Sachverhalts zu verhindern.", true, "Vorbeugen, bevor ein Problem entsteht."],
+  ["Korrektur bezeichnet die allgemeine Verbesserung eines Sachverhalts.", false, "Das ist <b>Förderung</b>. Korrektur gleicht einen negativen Ausgangszustand aus."],
+  ["Ein Training der phonologischen Bewusstheit im Vorschulalter ist ein Beispiel für Intervention.", true, "Beispiel aus der Vorlesung: „Hören, lauschen, lernen“ (Küspert)."]]}
+);
+
+KURZ.push(
+ {id:"k1-1", ch:1, pts:4, klausur:"WiSe 22/23, Aufgabe 1a",
+  q:"Wir beschreiben und erklären menschliches Erleben und Verhalten unter Bezugnahme auf sogenannte psychologische Konstrukte. Bitte erläutern Sie diesen Begriff unter Bezugnahme auf den Begriff des Merkmals von Personen.",
+  k:["Konstrukte sind hypothetische/angenommene Eigenschaften von Personen","Sie sind distale Merkmale, der direkten Beobachtung nicht zugänglich","Erschlossen werden sie über beobachtbare/messbare Indikatoren (proximale Merkmale)","Der Zusammenhang Indikator–Konstrukt beruht auf theoretischen oder empirischen Zugängen"],
+  m:"Psychologische Konstrukte sind hypothetische, angenommene Eigenschaften von Personen, sogenannte distale Merkmale, die der direkten Beobachtung nicht zugänglich sind (z. B. Intelligenz). Erschlossen werden sie über beobachtbare bzw. messbare Indikatoren, die proximalen Merkmale, von denen man auf Basis theoretischer oder empirischer Zugänge annimmt, dass sie mit dem Konstrukt zusammenhängen."},
+ {id:"k1-2", ch:1, pts:3, klausur:"WiSe 22/23, Aufgabe 1b; WiSe 18/19, Aufgabe 2",
+  q:"Bitte erläutern Sie, was der Begriff Operationalisierung in diesem Zusammenhang bedeutet.",
+  k:["Übersetzung psychologischer Konstrukte","in beobachtbare bzw. messbare Indikatoren","die das Konstrukt abbilden können (Beispiel genannt)"],
+  m:"Operationalisierung ist die Übersetzung psychologischer Konstrukte in beobachtbare bzw. messbare Indikatoren, die das Konstrukt abbilden können. Beispiel: Das Wissensniveau in Psychologie wird als Punktzahl in einem fachspezifischen Test erfasst."},
+ {id:"k1-3", ch:1, pts:9, klausur:"WiSe 22/23, Aufgabe 1c",
+  q:"Wie lässt sich Lernmotivation operationalisieren? Nennen Sie drei unterschiedliche Möglichkeiten der Operationalisierung und führen Sie kurz aus, welche Effekte hoher bzw. niedriger Lernmotivation Sie jeweils annehmen („Ich erwarte, dass eine Person mit hoher Lernmotivation …“).",
+  k:["Erster Indikator genannt (z. B. Persistenz/Ausdauer)","Erwarteter Effekt dazu richtig (z. B. arbeitet länger an schwierigen Aufgaben)","Zweiter Indikator genannt (z. B. Latenz)","Erwarteter Effekt dazu richtig (z. B. beginnt schneller)","Dritter Indikator genannt (z. B. Anstrengung, Aufmerksamkeit, Präferenz, emotionaler Ausdruck)","Erwarteter Effekt dazu richtig, jeweils als Erwartung formuliert"],
+  m:"1) Persistenz: Ich erwarte, dass eine Person mit hoher Lernmotivation länger und ausdauernder an einer Aufgabe arbeitet, auch bei Schwierigkeiten. 2) Latenz: Ich erwarte, dass sie schneller mit dem Lernen beginnt, die Zeit bis zum Arbeitsbeginn also kurz ist. 3) Präferenz: Ich erwarte, dass sie Lernaufgaben bei freier Wahl häufiger anderen Tätigkeiten vorzieht. Bei niedriger Lernmotivation jeweils umgekehrt. Weitere mögliche Indikatoren: Anstrengung, Aufmerksamkeit, emotionaler Ausdruck."},
+ {id:"k1-4", ch:1, pts:4,
+  q:"Erläutern Sie, welche berufspraktische Relevanz es für Lehrkräfte hat, Intelligenz, Motivation oder Selbstkontrolle als psychologische Konstrukte zu begreifen.",
+  k:["Konstrukte sind Erklärungszugänge für Verhalten, keine festen Eigenschaften/Dinge","Zuschreibungen (z. B. „faul“, „unbegabt“) werden zu prüfbaren Hypothesen über eine Person in einer Situation","Prüfung braucht Operationalisierung über beobachtbare Indikatoren","Zu jedem Konstrukt gibt es unterschiedliche theoretische Zugänge, daher Vorsicht bei vorschnellen Urteilen"],
+  m:"Wer Intelligenz oder Motivation als Konstrukt versteht, behandelt sie als Erklärungszugang für beobachtbares Verhalten, nicht als feste Eigenschaft. Eine Einschätzung wie „der Schüler ist unmotiviert“ wird so zur Hypothese über eine Person in einer bestimmten Situation. Diese Hypothese muss über beobachtbare Indikatoren (z. B. Persistenz, Latenz) geprüft werden. Weil es zu jedem Konstrukt verschiedene theoretische Zugänge gibt, schützt diese Sicht vor vorschnellen, stigmatisierenden Urteilen und eröffnet Handlungsmöglichkeiten."}
+);
+OPEN.push({id:"o1-k3", ch:1, kind:"kurz", k:"k1-3", pts:10, title:"Psychologie als empirische Wissenschaft"});
+
+/* ================= Kapitel 9: Lernen und nicht-assoziatives Lernen =================
+   Grundlage: Folien Sitzung 2 (WiSe 26/27), Klausur WiSe 24/25 (Lehr-Lernpsychologie, Aufgaben 1 und 2) */
+LESSONS[9]=[
+{id:"9-1", t:"Was ist Lernen?", html:`
+<p>Heine stellt drei Definitionen von Lernen gegenüber:</p>
+<table class="kvq"><tr><th></th><th>Definition</th><th>Fokus</th></tr>
+<tr><td>1</td><td>Eine Veränderung als Folge der Auseinandersetzung mit der Umwelt</td><td>eher unspezifisch</td></tr>
+<tr><td>2</td><td>Ein biologischer Prozess, der die Anpassung an die Umwelt bewirkt</td><td>eher evolutionär, auf das Ziel gerichtet</td></tr>
+<tr><td>3</td><td>Ein Veränderungsprozess, durch den sich <b>Verhalten bzw. Verhaltenspotenzial</b> in Abhängigkeit von <b>Erfahrung konsistent und relativ dauerhaft</b> ändert</td><td>auf Art und Qualität der Veränderung</td></tr></table>
+<p>Mit Definition 3 wird gearbeitet. Ihre drei Bausteine haben jeweils einen Haken:</p>
+<p><b>1. Verhalten vs. Verhaltenspotenzial.</b> Lernen wird sichtbar, wenn sich das Verhalten ändert (tatsächliche <b>Performanz</b>). Aber:</p>
+<ul><li>Nicht jede beobachtbare Verhaltensänderung ist Lernen. Sie kann auch auf <b>Reifung</b> (langfristig) oder <b>Ermüdung</b> (kurzfristig) beruhen.</li>
+<li>Nicht jedes Lernen zeigt sich sofort im Verhalten. Es kann als <b>Verhaltenspotenzial</b> vorhanden sein, ohne dass es ausgeführt wird. Das ist ein <i>messtheoretisches Problem</i>.</li></ul>
+<p><b>2. Konsistent und dauerhaft.</b> Die Veränderung muss über gleichartige Situationen hinweg und zeitlich stabil sein. Offen bleibt: Was sind „gleichartige“ Situationen, und wie lange ist „dauerhaft“? Eine kurzfristige Motivationsschwankung ist jedenfalls kein Lernen.</p>
+<p><b>3. Erfahrungsbasiert.</b> Lernen hängt von Erfahrung ab, Reifung nicht. Dafür müssen Informationen aufgenommen, verarbeitet und gespeichert werden. Deshalb ist das <b>Gedächtnis</b> so wichtig für das Lernen. Die Abgrenzung zur Reifung ist trotzdem schwierig, weil auch manche Reifungsprozesse umweltabhängig sind (z. B. die frühe Entwicklung des Sehens).</p>
+<div class="merk"><b>Klausur WiSe 24/25</b>„Jede beobachtbare Veränderung des Verhaltens ist das Ergebnis von Lernprozessen.“ Falsch (Reifung, Ermüdung).<br>„Ein Lernprozess führt nicht unbedingt zu einer unmittelbar beobachtbaren Veränderung des Verhaltens.“ Wahr (Verhaltenspotenzial).</div>`,
+check:[
+ {q:"Ein Kind kann nach den Ferien plötzlich höher springen. Warum ist das nicht automatisch Lernen?", o:["Weil Springen kein Verhalten ist","Weil die Veränderung auch auf Reifung, also körperlichem Wachstum, beruhen kann","Weil Lernen immer bewusst ist","Weil die Veränderung zu dauerhaft ist"], a:1, ex:"Nicht jede beobachtbare Verhaltensänderung ist Lernen. Reifung ist nicht erfahrungsbasiert."},
+ {q:"Eine Schülerin hat eine Rechenstrategie verstanden, wendet sie in der Arbeit aber vor Aufregung nicht an. Was liegt vor?", o:["Kein Lernen","Lernen auf der Ebene des Verhaltenspotenzials","Habituation","Reifung"], a:1, ex:"Gelernt ist gelernt, auch wenn es sich (noch) nicht im Verhalten zeigt. Deshalb spricht Definition 3 von Verhalten bzw. Verhaltenspotenzial."}
+]},
+{id:"9-2", t:"Arten des Lernens im Überblick", html:`
+<p>Grundsätzlich unterscheidet man zwei Typen:</p>
+<ul><li><b>Nichtassoziatives Lernen:</b> Die Stärke oder Art einer Reaktion auf einen Reiz verändert sich, weil der Reiz <i>wiederholt</i> auftritt. Es wird nichts verknüpft.</li>
+<li><b>Assoziatives Lernen:</b> Gelernt werden <b>Kontingenzen</b>, also das zeitliche Zusammenfallen von Ereignissen. Es entstehen Verknüpfungen (Assoziationen)
+ <ul><li>zwischen zwei Reizen, S → S: <b>klassische Konditionierung</b>,</li>
+ <li>zwischen einer Reaktion und einem Reiz, R → S: <b>operante Konditionierung</b>.</li></ul></li></ul>
+<table class="kvq"><tr><th>Nichtassoziativ</th><th>Assoziativ</th></tr>
+<tr><td>Habituation, Sensitivierung</td><td>klassische Konditionierung (S1 → S2)</td></tr>
+<tr><td>Lernen durch wiederholte Reizdarbietung: perzeptuelles Lernen, Priming, „mere exposure“</td><td>operante Konditionierung (R → S)</td></tr></table>
+<p class="small muted">S = Stimulus (Reiz), R = Response (Reaktion). Weitere Formen auf Heines Übersicht: Diskriminationstraining, räumliches Lernen.</p>
+<div class="merk"><b>Merksatz</b>Nichtassoziativ: ein Reiz, oft wiederholt, die Reaktion ändert sich. Assoziativ: zwei Ereignisse, die zusammen auftreten, werden verknüpft.</div>`,
+check:[
+ {q:"Was wird beim assoziativen Lernen gelernt?", o:["Reaktionen auf einen einzigen wiederholten Reiz","Kontingenzen, also das gemeinsame Auftreten von Ereignissen","Reflexe","Reifungsprozesse"], a:1, ex:"Zum Beispiel, dass auf einen Ton Futter folgt (klassisch) oder dass auf ein Verhalten Lob folgt (operant)."},
+ {q:"Welche Form gehört zum nichtassoziativen Lernen?", o:["Klassische Konditionierung","Operante Konditionierung","Habituation","Lernen am Modell"], a:2, ex:"Habituation und Sensitivierung sind die beiden basalen nichtassoziativen Lernprozesse."}
+]},
+{id:"9-3", t:"Reflexe und Habituation", html:`
+<p>Betrachtet werden die einfachsten Reaktionen auf Reize, die angeborenen <b>Reflexe</b>. Reflexe sind <b>unwillkürlich</b>, <b>invariant</b> (immer gleich ablaufend) und <b>schnell</b>. Drei Arten:</p>
+<table class="kvq"><tr><th>Reflex</th><th>Beispiel</th><th>durch Lernen veränderbar?</th></tr>
+<tr><td>Eigenreflex (Reizort = Effektort)</td><td>Kniesehnenreflex (Patellarreflex)</td><td>nein</td></tr>
+<tr><td>Fremdreflex (Reizort ≠ Effektort)</td><td>Lidschlussreflex</td><td>ja</td></tr>
+<tr><td>koordinierte, komplexe Reflexbewegung</td><td>Schreckreflex</td><td>ja</td></tr></table>
+<p><b>Habituation</b> ist die Abschwächung einer Reflexreaktion (Stärke, Häufigkeit) auf einen Reiz, der wiederholt auftritt. Man gewöhnt sich daran, etwa an das Ticken einer Uhr. Habituation ist ein Lernprozess, der die Anpassung an eine bestimmte Umwelt erlaubt.</p>
+<p>Wie schnell und stark habituiert wird, hängt ab von</p>
+<ul><li>der <b>Intensität</b> des Reizes (schwache Reize: leichter),</li><li>der <b>Regelmäßigkeit</b> des Auftretens,</li><li>dem <b>Intervall</b> zwischen den Reizen,</li><li>dem <b>tonischen Zustand</b> des Organismus, also dem allgemeinen Erregungsniveau (<b>Arousal</b>).</li></ul>
+<p>Weitere Eigenschaften:</p>
+<ul><li><b>Reversibel:</b> Nach einer Pause kehrt die Reaktion teilweise zurück (<b>Spontanerholung</b>). Eine erneute Habituation geht dann aber schneller, denn es wurde etwas gelernt.</li>
+<li>Der Effekt ist <b>anfangs stark</b> (steiler Abfall der Reaktion) und flacht dann ab.</li>
+<li><b>Stimulusspezifisch:</b> Bei einem neuen, unbekannten Reiz ist die ursprüngliche Reaktion sofort wieder da (<b>Dishabituation</b>).</li></ul>`,
+check:[
+ {q:"Welcher Reflex ist durch Lernen nicht veränderbar?", o:["Lidschlussreflex","Schreckreflex","Patellarreflex","Alle sind veränderbar"], a:2, ex:"Beim Eigenreflex sind Reiz- und Effektort gleich; laut Folie ist keine lernbedingte Veränderung möglich."},
+ {q:"Eine Klasse hat sich an das Brummen des Beamers gewöhnt. Plötzlich piept der Rauchmelder, und alle schrecken hoch. Welche Eigenschaft der Habituation zeigt sich?", o:["Spontanerholung","Stimulusspezifität (Dishabituation)","Sensitivierung","Reversibilität"], a:1, ex:"Die Habituation gilt nur für den gewohnten Reiz. Ein neuer Reiz löst die volle Reaktion aus."}
+]},
+{id:"9-4", t:"Sensitivierung und der Schulalltag", html:`
+<p><b>Sensitivierung</b> ist das Gegenstück zur Habituation: Die Reflexreaktion auf einen Reiz wird bei wiederholter Darbietung <b>stärker</b> (Reaktionsstärke, Häufigkeit).</p>
+<p>Eigenschaften:</p>
+<ul><li>Auslöser sind eine <b>hohe Reizintensität</b> und ein <b>hohes allgemeines Erregungsniveau</b>.</li>
+<li>Es braucht <b>nur wenige Darbietungen</b>.</li>
+<li><b>Weniger stimulusspezifisch</b> als Habituation: Sensitivierung gegenüber Reiz 1 kann auch die Reaktion auf Reiz 2 verstärken, weil das allgemeine Erregungsniveau steigt.</li>
+<li>Die <b>„Failure-to-habituate“-Theorie</b> erklärt damit z. B. Symptome bei posttraumatischer Belastungsstörung (PTBS): Die Betroffenen gewöhnen sich nicht an Reize, sondern reagieren immer stärker.</li></ul>
+<table class="kvq"><tr><th></th><th>Habituation</th><th>Sensitivierung</th></tr>
+<tr><td>Reaktion</td><td>wird schwächer</td><td>wird stärker</td></tr>
+<tr><td>Reizintensität</td><td>eher gering</td><td>hoch</td></tr>
+<tr><td>Erregungsniveau</td><td>eher niedrig</td><td>hoch</td></tr>
+<tr><td>Spezifität</td><td>stimulusspezifisch</td><td>weniger spezifisch</td></tr></table>
+<div class="merk"><b>Beispiel aus der Vorlesung</b>Im normalen Lernalltag stört das Schniefen des Sitznachbarn nicht (Habituation). In der Klausur ist das Erregungsniveau hoch: Man nimmt das Geräusch plötzlich wahr, kann es nicht mehr ausblenden, und es wirkt immer lauter (Sensitivierung).</div>
+<p><b>Schulbezug:</b> In ersten Klassen wurden im Unterricht durchschnittlich 60 bis 85 dB gemessen (Schönwälder et al., 2004), eine Bohrmaschine liegt bei etwa 90 dB. Lärm und Prüfungsstress erhöhen das Erregungsniveau und begünstigen damit Sensitivierung. Für Lehrkräfte heißt das: Lärm senken und eine ruhige Atmosphäre schaffen, besonders in Prüfungen.</p>`,
+check:[
+ {q:"Unter welchen Bedingungen ist Sensitivierung besonders wahrscheinlich?", o:["Geringe Reizintensität, niedriges Erregungsniveau","Hohe Reizintensität, hohes Erregungsniveau","Viele regelmäßige Wiederholungen eines schwachen Reizes","Wenn der Reiz neu ist"], a:1, ex:"Bei schwachen, regelmäßigen Reizen und niedrigem Arousal tritt eher Habituation auf."},
+ {q:"Nach einem lauten Knall zuckt man auch bei einer zufallenden Tür stark zusammen. Welche Eigenschaft der Sensitivierung zeigt sich?", o:["Stimulusspezifität","Sie ist weniger stimulusspezifisch","Spontanerholung","Dishabituation"], a:1, ex:"Das allgemeine Erregungsniveau ist gestiegen, deshalb wirkt sich die Sensitivierung auch auf andere Reize aus."}
+]}
+];
+
+CARDS[9]=[
+ {id:"c9-01", f:"Lernen: Arbeitsdefinition (Definition 3)", b:"Ein Veränderungsprozess, durch den sich Verhalten bzw. Verhaltenspotenzial in Abhängigkeit von Erfahrung konsistent und relativ dauerhaft ändert."},
+ {id:"c9-02", f:"Die drei Lerndefinitionen und ihr Fokus", b:"1. Veränderung als Folge der Auseinandersetzung mit der Umwelt (eher unspezifisch)\n2. Biologischer Prozess der Anpassung an die Umwelt (eher evolutionär)\n3. Erfahrungsbedingte, konsistente, relativ dauerhafte Änderung von Verhalten bzw. Verhaltenspotenzial (Art und Qualität der Veränderung)"},
+ {id:"c9-03", f:"Warum ist nicht jede Verhaltensänderung Lernen?", b:"Sie kann auch auf Reifung (langfristig, z. B. Wachstum) oder Ermüdung (kurzfristig) beruhen."},
+ {id:"c9-04", f:"Warum zeigt sich nicht jedes Lernen im Verhalten?", b:"Gelerntes kann als Verhaltenspotenzial vorhanden sein, ohne ausgeführt zu werden, weil die tatsächliche Ausführung von vielen Faktoren abhängt (z. B. Motivation, Aufregung). Ein messtheoretisches Problem."},
+ {id:"c9-05", f:"Lernen vs. Reifung", b:"Lernen ist erfahrungsabhängig: Informationen werden aufgenommen, verarbeitet und gespeichert (daher die Bedeutung des Gedächtnisses).\nReifung ist es nicht. Abgrenzung schwierig, weil auch manche Reifung umweltabhängig ist (frühe Entwicklung des Sehens)."},
+ {id:"c9-06", f:"Nichtassoziatives vs. assoziatives Lernen", b:"Nichtassoziativ: Stärke oder Art einer Reaktion auf einen Reiz ändert sich durch wiederholte Darbietung (Habituation, Sensitivierung).\nAssoziativ: Lernen von Kontingenzen (gemeinsamem Auftreten) von Ereignissen, S → S (klassisch) oder R → S (operant)."},
+ {id:"c9-07", f:"Kontingenz", b:"Das zeitliche Zusammenfallen bzw. die regelhafte Verknüpfung von Ereignissen, etwa Verhalten und Konsequenz."},
+ {id:"c9-08", f:"Drei Eigenschaften von Reflexen", b:"unwillkürlich\ninvariant (stereotyp, immer gleich)\nschnell"},
+ {id:"c9-09", f:"Eigenreflex, Fremdreflex, koordinierter Reflex", b:"Eigenreflex: Reizort = Effektort, z. B. Patellarreflex, nicht lernbar veränderbar\nFremdreflex: Reizort ≠ Effektort, z. B. Lidschlussreflex, veränderbar\nKoordinierte Reflexbewegung: z. B. Schreckreflex, veränderbar"},
+ {id:"c9-10", f:"Habituation", b:"Abschwächung einer Reflexreaktion (Stärke, Häufigkeit) auf einen Reiz bei wiederholter Darbietung. Ermöglicht die Anpassung an eine bestimmte Umwelt (z. B. Gewöhnung an Straßenlärm)."},
+ {id:"c9-11", f:"Vier Determinanten des Habituationsverlaufs", b:"Intensität des Reizes\nRegelmäßigkeit des Auftretens\nAuftretensintervall\ntonischer Zustand des Organismus (allgemeines Erregungsniveau, Arousal)"},
+ {id:"c9-12", f:"Spontanerholung", b:"Nach einer Pause kehrt die habituierte Reaktion teilweise zurück. Die erneute Habituation erfolgt dann schneller, ein Hinweis darauf, dass gelernt wurde."},
+ {id:"c9-13", f:"Dishabituation", b:"Weil Habituation stimulusspezifisch ist, zeigt sich bei einem neuen, unbekannten Reiz wieder die ursprüngliche volle Reaktion."},
+ {id:"c9-14", f:"Sensitivierung", b:"Verstärkung einer Reflexreaktion (Stärke, Häufigkeit) auf einen Reiz bei wiederholter Darbietung."},
+ {id:"c9-15", f:"Eigenschaften der Sensitivierung", b:"hohe Reizintensität und hohes allgemeines Erregungsniveau als Determinante\nnur geringe Expositionsraten nötig\nweniger stimulusspezifisch (S1 kann Reaktion auf S2 verstärken)\n„Failure-to-habituate“-Theorie, z. B. bei PTBS"},
+ {id:"c9-16", f:"Habituation vs. Sensitivierung im Vergleich", b:"Reaktion: wird schwächer / wird stärker\nReizintensität: eher gering / hoch\nErregungsniveau: eher niedrig / hoch\nSpezifität: stimulusspezifisch / weniger spezifisch"},
+ {id:"c9-17", f:"Sensitivierung in der Klausursituation", b:"Hohes Erregungsniveau (Stress) begünstigt Sensitivierung: Geräusche, die man sonst nicht bemerkt (Schniefen, Tüte), werden wahrgenommen, nicht mehr ausgeblendet und wirken immer lauter.\nSchulbezug: Unterrichtslärm von 60–85 dB in ersten Klassen (Schönwälder et al., 2004)."}
+];
+
+Object.assign(CARD_INFO,{
+ "c9-02":"Evolutionär: auf die Anpassung einer Art an ihre Umwelt bezogen (Darwin).",
+ "c9-04":"Performanz: das tatsächlich gezeigte Verhalten, im Unterschied zum Potenzial.",
+ "c9-06":"Assoziation: lateinisch associare, „verbinden“.\nS: Stimulus, Reiz.\nR: Response, Reaktion.",
+ "c9-07":"Kontingenz: lateinisch contingere, „berühren, zusammentreffen“.",
+ "c9-08":"Invariant: lateinisch „unveränderlich“.\nStereotyp: immer nach demselben Muster.",
+ "c9-09":"Patellarreflex: Schlag unter die Kniescheibe (lateinisch patella) lässt das Bein nach vorn schnellen.",
+ "c9-10":"Habituation: lateinisch habituari, „sich gewöhnen“.",
+ "c9-11":"Tonisch: dauerhaft anhaltend, im Gegensatz zu kurzfristig (phasisch).\nArousal: englisch „Erregung“.",
+ "c9-14":"Sensitivierung: von lateinisch sentire, „fühlen“. Man wird empfindlicher.",
+ "c9-15":"PTBS: posttraumatische Belastungsstörung, anhaltende Reaktion nach einem traumatischen Erlebnis.\nExposition: lateinisch „Aussetzen“, hier: dem Reiz ausgesetzt sein.",
+ "c9-17":"dB: Dezibel, Maß für Lautstärke. +10 dB werden etwa als doppelt so laut empfunden."
+});
+Object.assign(CARD_CTX,{
+ "c9-01":"Womit die Lehr-Lernpsychologie arbeitet","c9-02":"Drei Blickwinkel auf Lernen","c9-03":"Erster Haken an der Lerndefinition","c9-04":"Zweiter Haken an der Lerndefinition",
+ "c9-05":"Dritter Haken an der Lerndefinition","c9-06":"Die zwei Grundtypen des Lernens","c9-07":"Was beim assoziativen Lernen gelernt wird","c9-08":"Die einfachsten Reaktionen auf Reize",
+ "c9-09":"Welche Reflexe sich durch Lernen ändern","c9-10":"Erster nichtassoziativer Lernprozess","c9-11":"Wovon Gewöhnung abhängt","c9-12":"Eigenschaft der Habituation",
+ "c9-13":"Eigenschaft der Habituation","c9-14":"Zweiter nichtassoziativer Lernprozess","c9-15":"Wann Reaktionen stärker statt schwächer werden","c9-16":"Die beiden Prozesse gegenübergestellt","c9-17":"Anwendung auf Schule und Prüfungen"
+});
+
+KREUZ.push(
+ {id:"x9-01", ch:9, stem:"In Bezug auf das menschliche Lernen gilt:", klausur:"WiSe 24/25", s:[
+  ["Jede beobachtbare Veränderung auf der Ebene des Verhaltens ist das Ergebnis von Lernprozessen.", false, "Verhaltensänderungen können auch auf <b>Reifung</b> oder <b>Ermüdung</b> beruhen."],
+  ["Hat ein Lernprozess stattgefunden, so führt das nicht unbedingt zu einer unmittelbar beobachtbaren Veränderung des Verhaltens.", true, "Gelerntes kann als Verhaltenspotenzial vorliegen."],
+  ["Lernen führt dazu, dass sich das Verhalten oder Verhaltenspotenzial in Situationen dauerhaft ändert, die mit der Lernsituation vergleichbar sind.", true, "Konsistent über gleichartige Situationen und relativ dauerhaft."]]},
+ {id:"x9-02", ch:9, stem:"Für nicht-assoziatives Lernen gilt:", klausur:"WiSe 24/25", s:[
+  ["Je geringer die Reizintensität, desto wahrscheinlicher ist es, dass der Organismus sensitiviert.", false, "Umgekehrt: <b>Hohe</b> Reizintensität begünstigt Sensitivierung, geringe eher Habituation."],
+  ["Die Habituation ist stimulusspezifisch.", true, "Bei einem neuen Reiz kehrt die volle Reaktion zurück (Dishabituation)."],
+  ["Je höher der allgemeine Erregtheitszustand des Organismus ist, desto wahrscheinlicher ist es, dass Sensitivierungsprozesse stattfinden.", true, "Hohes Arousal ist neben hoher Reizintensität die Determinante der Sensitivierung."]]},
+ {id:"x9-03", ch:9, stem:"Für Reflexe gilt:", s:[
+  ["Reflexe sind unwillkürliche, invariante und schnelle Reaktionen auf spezifische Reize.", true, "So definiert auf der Folie."],
+  ["Der Patellarreflex kann durch Lernprozesse verändert werden.", false, "Als <b>Eigenreflex</b> (Reizort = Effektort) ist er laut Folie nicht lernbedingt veränderbar."],
+  ["Der Lidschlussreflex ist ein Fremdreflex.", true, "Reizort (z. B. Luftstoß aufs Auge) und Effektort (Lidmuskel) sind verschieden. Fremdreflexe sind lernbar veränderbar."]]},
+ {id:"x9-04", ch:9, stem:"Für die Habituation gilt:", s:[
+  ["Habituation ist reversibel.", true, "Nach einer Pause zeigt sich Spontanerholung."],
+  ["Nach einer Spontanerholung erfolgt die erneute Habituation langsamer als beim ersten Mal.", false, "Sie erfolgt <b>schneller</b>, ein Zeichen dafür, dass gelernt wurde."],
+  ["Der Habituationseffekt ist anfangs stark und schwächt sich im Verlauf der Exposition ab.", true, "Steiler Abfall der Reaktion zu Beginn, dann flacher."]]},
+ {id:"x9-05", ch:9, stem:"Für die Sensitivierung gilt:", s:[
+  ["Für eine Sensitivierung sind meist viele Darbietungen des Reizes nötig.", false, "Es reichen <b>geringe Expositionsraten</b>."],
+  ["Sensitivierung ist weniger stimulusspezifisch als Habituation.", true, "Sensitivierung gegenüber S1 kann die Reaktion auf S2 verstärken."],
+  ["Die „Failure-to-habituate“-Theorie wird z. B. zur Erklärung von Symptomen bei PTBS herangezogen.", true, "Betroffene gewöhnen sich nicht an Reize, sondern reagieren verstärkt."]]},
+ {id:"x9-06", ch:9, stem:"Für die Unterscheidung von Lernformen gilt:", s:[
+  ["Beim assoziativen Lernen werden Kontingenzen von Ereignissen gelernt.", true, "Also das gemeinsame Auftreten, z. B. Reiz und Reiz oder Reaktion und Reiz."],
+  ["Bei der operanten Konditionierung wird eine Verbindung zwischen zwei Reizen (S → S) gelernt.", false, "S → S ist die <b>klassische</b> Konditionierung. Operant wird R → S gelernt."],
+  ["Priming und „mere exposure“ gehören zum Lernen infolge wiederholter Reizdarbietung.", true, "So geordnet in Heines Übersicht, neben Habituation und Sensitivierung."]]}
+);
+
+KURZ.push(
+ {id:"k9-1", ch:9, pts:6,
+  q:"Erläutern Sie die Definition von Lernen als „Veränderungsprozess, der dazu führt, dass sich Verhalten bzw. Verhaltenspotenzial in Abhängigkeit von Erfahrung konsistent und relativ dauerhaft ändert“. Gehen Sie auf je ein Problem der drei Bestandteile ein.",
+  k:["Verhalten vs. Verhaltenspotenzial erläutert (Performanz)","Problem: nicht jede Verhaltensänderung ist Lernen (Reifung, Ermüdung) bzw. nicht jedes Lernen ist sichtbar","Konsistent und dauerhaft: stabil über gleichartige Situationen und über die Zeit","Problem: unklar, was gleichartige Situationen sind und wie lange dauerhaft ist","Erfahrungsbasiert: Information wird aufgenommen, verarbeitet, gespeichert (Gedächtnis)","Problem: Abgrenzung zur Reifung, da auch Reifung umweltabhängig sein kann"],
+  m:"Lernen zeigt sich in Verhaltensänderungen, also in der Performanz. Allerdings ist nicht jede Verhaltensänderung Lernen (Reifung, Ermüdung), und nicht jedes Lernen ist sofort sichtbar, weil es als Verhaltenspotenzial vorliegen kann. Die Veränderung muss konsistent über gleichartige Situationen und relativ dauerhaft sein; offen bleibt, was gleichartige Situationen sind und wie dauerhaft eine Änderung sein muss. Schließlich ist Lernen erfahrungsbasiert: Informationen werden aufgenommen, verarbeitet und gespeichert, weshalb das Gedächtnis zentral ist. Die Abgrenzung zur Reifung bleibt schwierig, da auch Reifungsprozesse umweltabhängig sein können, etwa die frühe Entwicklung des visuellen Systems."},
+ {id:"k9-2", ch:9, pts:6,
+  q:"Ein Schüler bemerkt im Unterricht das Ticken der Wanduhr nicht. In der Klassenarbeit stört ihn dasselbe Ticken so sehr, dass er sich nicht konzentrieren kann. Erklären Sie beide Beobachtungen mit nichtassoziativen Lernprozessen und leiten Sie eine Handlungsmöglichkeit für die Lehrkraft ab.",
+  k:["Unterricht: Habituation, Abschwächung der Reaktion bei wiederholtem Reiz","Bedingungen: schwacher, regelmäßiger Reiz, niedriges Erregungsniveau","Klassenarbeit: Sensitivierung, Verstärkung der Reaktion","Bedingung: hohes allgemeines Erregungsniveau (Prüfungsstress)","Weniger stimulusspezifisch: auch andere Geräusche stören stärker","Handlungsmöglichkeit, z. B. Störquellen beseitigen, Lärm senken, Stress reduzieren"],
+  m:"Im Unterricht habituiert der Schüler: Das Ticken ist ein schwacher, regelmäßiger Reiz, sein Erregungsniveau ist niedrig, die Reaktion auf den Reiz schwächt sich ab. In der Klassenarbeit ist sein allgemeines Erregungsniveau durch den Prüfungsstress hoch. Das begünstigt Sensitivierung: Die Reaktion auf denselben Reiz wird stärker, er nimmt das Ticken wahr und kann es nicht mehr ausblenden. Da Sensitivierung weniger stimulusspezifisch ist, stören ihn auch andere Geräusche stärker. Die Lehrkraft kann Störquellen wie die Uhr entfernen, für eine ruhige Prüfungsatmosphäre sorgen und das Stressniveau senken, etwa durch klare Ansagen und einen ruhigen Einstieg."}
+);
+OPEN.push({id:"o9-k2", ch:9, kind:"kurz", k:"k9-2", pts:10, title:"Nichtassoziatives Lernen"});
 
 /* ================= Aufgabe ================= */
 function startTask(t,mix){

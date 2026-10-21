@@ -77,11 +77,11 @@ function renderHome(){
       <h2>${nx.title}</h2>
       <button class="btn" id="goNext">Weiter lernen</button>
     </div>
-    ${[1,2].map(v=>`<p class="sect"><span>${VL[v]}</span><span>Mi ${v===1?"8–10":"10–12"}</span></p>
+    ${[1,2,3,4].map(v=>`<p class="sect"><span>${VL[v]}</span><span>Klausurteil ${v}</span></p>
       <div class="block"><div class="tlist">${CHAPTERS.filter(c=>c.vl===v).map(chapRow).join("")}</div></div>`).join("")}
     <div class="block">
       <h2>So ist die Klausur gebaut</h2>
-      <p class="small muted">Modulklausur WiSe 24/25: vier Teile mit je 30 Punkten, zusammen 120. Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe.</p>
+      <p class="small muted">Termin laut Heine: <b style="color:var(--ink)">17. Februar 2027, erstmals digital</b>. Bisher, zuletzt WiSe 24/25: vier Teile mit je 30 Punkten, passend zu den vier Schwerpunkten. Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe. Wie das digitale Format genau aussieht, ist noch offen.</p>
       <div class="partlist">
         <span>Teil 1</span><span>Einführung: 5 Kreuzaufgaben, offene Aufgabe (2024: Emotion nach Russell)</span><b>30 P.</b>
         <span>Teil 2</span><span>Lehr-Lernpsychologie: 5 Kreuzaufgaben, offene Aufgabe (2024: operante Konditionierung)</span><b>30 P.</b>

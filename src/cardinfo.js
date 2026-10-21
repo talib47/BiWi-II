@@ -1,7 +1,7 @@
 /* ================= Kleine Erklärhilfen zu Karten =================
    Jede Zeile ein Begriff. „Begriff: Erklärung“ wird als fetter Begriff dargestellt. */
 const CARD_INFO={
- /* Kapitel 10 */
+ /* Kapitel 16: Normwerte */
  "c10-01":"Norm: von lateinisch norma, „Richtschnur“.\nRepräsentativ: die Stichprobe bildet die Zielgruppe im Kleinen ab, etwa nach Alter, Geschlecht und Schulform.",
  "c10-02":"Eselsbrücke: „Hundert und eine Fünfzehn“, jede SD sind 15 IQ-Punkte.",
  "c10-03":"Eselsbrücke: 34 – 14 – 2 (gerundet), von innen nach außen.\nGauß: Die Glockenkurve heißt nach Carl Friedrich Gauß auch Gauß-Kurve.",
@@ -14,7 +14,7 @@ const CARD_INFO={
  "c10-12":"Rechenweg: 50 % liegen über 100, davon 34,13 % bis 115 und 13,59 % bis 130. Bleibt 50 − 34,13 − 13,59 = 2,28 (≈ 2,27 wegen Rundung).",
  "c10-14":"Gegenstück: Bodeneffekt, wenn ein Test zu schwer ist und unten nicht mehr unterscheidet.",
  "c10-15":"Flynn: James R. Flynn, neuseeländischer Politikwissenschaftler, beschrieb den Effekt 1984.",
- "c10-17":"Nebengütekriterien: Fairness, Ökonomie, Nützlichkeit, Akzeptanz, Normierung (mehr dazu in Kapitel 11)."
+ "c10-17":"Nebengütekriterien: Fairness, Ökonomie, Nützlichkeit, Akzeptanz, Normierung (mehr dazu im Kapitel Gütekriterien)."
 };
 function cardInfoHTML(id){
   const t=CARD_INFO[id]; if(!t) return "";
