@@ -3,7 +3,7 @@
 Live: https://talib47.github.io/BiWi-II/
 
 Modul BiWi II (UDE, Lehramt GyGe), Vorlesung „Psychologie im Lehramt“ bei Prof. Heine (Mi 8.15–11.45) mit vier Schwerpunkten:
-Einführung in die Psychologie, Lehr-/Lernpsychologie, Pädagogisch-psychologische Diagnostik, Inklusion. Klausur: 17.02.2027, digital.
+Einführung in die Psychologie, Lehr-/Lernpsychologie, Pädagogisch-psychologische Diagnostik, Inklusion. Klausur: 17.02.2027 am PC im PC-Raum, Aufgaben laut Heine wie bisher.
 
 Eine Datei (`index.html`, Vanilla-JS, kein Framework), gebaut aus den Modulen in `src/`:
 

@@ -94,7 +94,7 @@ function renderExam(){
   if(!e){
     const hist=(state.exams||[]).slice(-6).reverse(), ready=[1,2,3,4].filter(teilReady);
     $("#app").innerHTML=`${backTo("Üben")}<p class="eyebrow">Format wie die Klausur WiSe 24/25</p><h1>Probeklausur</h1>
-      <div class="block"><p>Die Modulklausur hat vier Teile mit je 30 Punkten, zusammen 120. In jedem Teil kommen zuerst Kreuzaufgaben (je drei Aussagen wahr oder falsch, bis zu 4 Punkte), danach eine offene Aufgabe: Fallbeispiel, Rechnung oder Grafik.</p>
+      <div class="block"><p>Die Modulklausur (17.02.2027, am PC) hat vier Teile mit je 30 Punkten, zusammen 120. In jedem Teil kommen zuerst Kreuzaufgaben (je drei Aussagen wahr oder falsch, bis zu 4 Punkte), danach eine offene Aufgabe: Fallbeispiel, Rechnung oder Grafik.</p>
       <div class="partlist">${[1,2,3,4].map(t=>`<span>Teil ${t}</span><span>${TEILE[t].t}${ready.includes(t)?"":' <span class="chip soon">folgt</span>'}</span><b>30 P.</b>`).join("")}</div>
       <p class="small muted" style="margin-top:10px">Wie lange die Klausur dauert, steht in den Unterlagen nicht. Für einen Teil sind 30 Minuten ein guter Richtwert. Aufgenommen werden nur Kapitel, die schon in der App stehen.</p>
       <div class="row">${ready.length>1?`<button class="btn" id="xall">Alle fertigen Teile (${ready.length*30} Min.)</button>`:""}${ready.map(t=>`<button class="btn${ready.length>1?" ghost":""}" data-t="${t}">Teil ${t} (30 Min.)</button>`).join("")}</div></div>

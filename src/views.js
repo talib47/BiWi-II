@@ -81,7 +81,7 @@ function renderHome(){
       <div class="block"><div class="tlist">${CHAPTERS.filter(c=>c.vl===v).map(chapRow).join("")}</div></div>`).join("")}
     <div class="block">
       <h2>So ist die Klausur gebaut</h2>
-      <p class="small muted">Termin laut Heine: <b style="color:var(--ink)">17. Februar 2027, erstmals digital</b>. Bisher, zuletzt WiSe 24/25: vier Teile mit je 30 Punkten, passend zu den vier Schwerpunkten. Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe. Wie das digitale Format genau aussieht, ist noch offen.</p>
+      <p class="small muted">Termin: <b style="color:var(--ink)">17. Februar 2027 am PC</b> im PC-Raum. Laut Heine bleiben die Aufgaben dieselben wie bisher, nur am Rechner statt auf Papier. Aufbau wie WiSe 24/25: vier Teile mit je 30 Punkten, passend zu den vier Schwerpunkten. Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe, die du tippst.</p>
       <div class="partlist">
         <span>Teil 1</span><span>Einführung: 5 Kreuzaufgaben, offene Aufgabe (2024: Emotion nach Russell)</span><b>30 P.</b>
         <span>Teil 2</span><span>Lehr-Lernpsychologie: 5 Kreuzaufgaben, offene Aufgabe (2024: operante Konditionierung)</span><b>30 P.</b>
