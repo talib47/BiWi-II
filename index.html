@@ -499,7 +499,7 @@ CARDS[10]=[
  {id:"c10-16", f:"Drei Probleme unausgereifter Zugänge in der Hochbegabungsdiagnostik", b:"Deckeneffekte: im extremen Leistungsbereich kann nicht mehr unterschieden werden\nMessfehler: größere Ungenauigkeit im Extrembereich\nFlynn-Effekt: veraltete Normen sind dort besonders problematisch"},
  {id:"c10-17", f:"Normierung als Nebengütekriterium", b:"Für den Test liegen aktuelle und an einer repräsentativen Stichprobe ermittelte Normen vor."}
 ];
-CALC[10]=["zwert","iq","skalen","nv","pr","vergleich"];
+CALC[10]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];
 
 /* ================= Kleine Erklärhilfen zu Karten =================
    Jede Zeile ein Begriff. „Begriff: Erklärung“ wird als fetter Begriff dargestellt. */
@@ -606,6 +606,17 @@ const TYPES={
           {lab:"cumf: Anzahl der Werte ≤ "+x, why:"Werte sortieren und zählen, wie viele kleiner oder gleich dem Testwert sind. Gleiche Werte zählen mit.", f:"cumf = Anzahl Werte ≤ x", calc:`${sorted.map(v=>v<=x?v:"·").join(" ").replace(/( ·)+$/,"")} → cumf = ${cumf}`, ans:cumf, tol:0},
           {lab:"N: Anzahl aller Werte", why:"Alle Werte der Verteilung zählen.", f:"N", calc:`N = ${N}`, ans:N, tol:0},
           {lab:"Prozentrang PR", why:"Anteil der Werte bis einschließlich des Testwerts in Prozent.", f:"PR = cumf / N · 100", calc:`PR = ${cumf} / ${N} · 100 = ${fmt(pr)}  →  ${fmt(pr)} % haben gleich gut oder schlechter abgeschnitten, ${fmt(r(100-pr))} % besser.`, ans:pr, final:true, tol:.06}
+        ]};
+    }
+  }},
+  prrev:{name:"Prozentrang rückwärts: welcher Testwert?", short:"PR rückwärts", desc:"Prozentrang gegeben, Testwert gesucht: Formel nach cumf auflösen, dann in der sortierten Verteilung abzählen.", gen(){
+    for(;;){ const N=pick([10,12,16,20]), vals=[...Array(N)].map(()=>rint(8,40)), sorted=vals.slice().sort((a,b)=>a-b);
+      const cumf=rint(2,N-1), pr=r(cumf/N*100), x=sorted[cumf-1];
+      if(!nice(pr,2)||sorted[cumf]===x) continue;
+      return {intro:"Gegeben ist die folgende Werteverteilung einer Referenzgruppe.", table:`<div class="eq" style="white-space:normal;margin-top:8px">${vals.join("; ")}</div>`, q:`Welcher Testwert hat in dieser Verteilung den Prozentrang ${fmt(pr)}?`,
+        steps:[
+          {lab:"cumf aus dem Prozentrang", why:"Formel nach cumf auflösen: durch 100 teilen, mit N malnehmen.", f:"cumf = PR / 100 · N", calc:`cumf = ${fmt(pr)} / 100 · ${N} = ${cumf}`, ans:cumf, tol:0},
+          {lab:"Gesuchter Testwert", why:"Werte sortieren und bis zur Stelle cumf abzählen. Der Wert an dieser Stelle hat den Prozentrang.", f:"Wert an Stelle cumf", calc:`${sorted.map((v,i)=>i===cumf-1?"["+v+"]":v).join(" ")} → Stelle ${cumf}: Testwert ${x}`, ans:x, final:true, tol:0}
         ]};
     }
   }},

@@ -122,4 +122,4 @@ CARDS[10]=[
  {id:"c10-16", f:"Drei Probleme unausgereifter Zugänge in der Hochbegabungsdiagnostik", b:"Deckeneffekte: im extremen Leistungsbereich kann nicht mehr unterschieden werden\nMessfehler: größere Ungenauigkeit im Extrembereich\nFlynn-Effekt: veraltete Normen sind dort besonders problematisch"},
  {id:"c10-17", f:"Normierung als Nebengütekriterium", b:"Für den Test liegen aktuelle und an einer repräsentativen Stichprobe ermittelte Normen vor."}
 ];
-CALC[10]=["zwert","iq","skalen","nv","pr","vergleich"];
+CALC[10]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];

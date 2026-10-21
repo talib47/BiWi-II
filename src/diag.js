@@ -61,6 +61,17 @@ const TYPES={
         ]};
     }
   }},
+  prrev:{name:"Prozentrang rückwärts: welcher Testwert?", short:"PR rückwärts", desc:"Prozentrang gegeben, Testwert gesucht: Formel nach cumf auflösen, dann in der sortierten Verteilung abzählen.", gen(){
+    for(;;){ const N=pick([10,12,16,20]), vals=[...Array(N)].map(()=>rint(8,40)), sorted=vals.slice().sort((a,b)=>a-b);
+      const cumf=rint(2,N-1), pr=r(cumf/N*100), x=sorted[cumf-1];
+      if(!nice(pr,2)||sorted[cumf]===x) continue;
+      return {intro:"Gegeben ist die folgende Werteverteilung einer Referenzgruppe.", table:`<div class="eq" style="white-space:normal;margin-top:8px">${vals.join("; ")}</div>`, q:`Welcher Testwert hat in dieser Verteilung den Prozentrang ${fmt(pr)}?`,
+        steps:[
+          {lab:"cumf aus dem Prozentrang", why:"Formel nach cumf auflösen: durch 100 teilen, mit N malnehmen.", f:"cumf = PR / 100 · N", calc:`cumf = ${fmt(pr)} / 100 · ${N} = ${cumf}`, ans:cumf, tol:0},
+          {lab:"Gesuchter Testwert", why:"Werte sortieren und bis zur Stelle cumf abzählen. Der Wert an dieser Stelle hat den Prozentrang.", f:"Wert an Stelle cumf", calc:`${sorted.map((v,i)=>i===cumf-1?"["+v+"]":v).join(" ")} → Stelle ${cumf}: Testwert ${x}`, ans:x, final:true, tol:0}
+        ]};
+    }
+  }},
   vergleich:{name:"Ergebnisse aus verschiedenen Tests vergleichen", short:"Vergleich", desc:"Klausur WiSe 22/23 (14 P.): drei Schülerinnen, drei Lesetests. Rohwerte standardisieren und begründet auswählen.", gen(){
     for(;;){ const x=rint(25,45), M=[0,1,2].map(()=>x+pick([-3,-2,-1,1,2,3,4,5,6,8])), S=[0,1,2].map(()=>pick([2,3,4,5,6,8]));
       const Z=M.map((m,i)=>r((x-m)/S[i])); if(!Z.every(z=>nice(z,2))||new Set(Z).size<3) continue;
