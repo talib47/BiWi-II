@@ -327,8 +327,9 @@ function renderStats(){
   const ready=CHAPTERS.filter(c=>LESSONS[c.n]);
   $("#app").innerHTML=`<h1>Statistik</h1>
     <div class="block"><h2>Letzte 7 Tage</h2>
-      <div class="week">${days.map(([d,n])=>`<div style="height:${Math.round(n/mx*100)}%" title="${n} Schritte"></div>`).join("")}</div>
-      <div class="weekl">${days.map(([d,n])=>`<span>${wd[d.getDay()]}<br>${n}</span>`).join("")}</div></div>
+      <p class="small muted" style="margin:0">Zahl unter dem Datum: wie viele Aktionen (Karten, Aufgaben, Lektionen) du an dem Tag gemacht hast.</p>
+      <div class="week">${days.map(([d,n],i)=>`<div class="${i===6?"today":""}" style="height:${Math.round(n/mx*100)}%" title="${n} Aktionen"></div>`).join("")}</div>
+      <div class="weekl">${days.map(([d,n],i)=>`<span class="${i===6?"today":""}"><b>${i===6?"Heute":wd[d.getDay()]}</b>${d.getDate()}.${d.getMonth()+1}.<span class="n">${n?n+" Akt.":"–"}</span></span>`).join("")}</div></div>
     <div class="block"><h2>Nach Kapitel</h2>${ready.map(c=>{ const p=chapterProgress(c.n);
       return `<div class="srow"><span>Kap. ${c.n}</span><span class="small muted">${[["Theorie",p.l,1],["Karten",p.k,(CARDS[c.n]||[]).length],["Kreuzen",p.x,kreuzOf(c.n).length],["Rechnen",p.c,(CALC[c.n]||[]).length]].filter(x=>x[2]).map(x=>x[0]+" "+Math.round(x[1]*100)).join(" · ")}</span><span class="pts">${p.total} %</span></div>`;}).join("")}</div>
     <div class="block"><h2>Rechenaufgaben</h2>${calcTypes(0).map(t=>{ const h=state.hist[t]; return `<div class="srow"><span>${TYPES[t].short}</span><span class="chip l${lvlOf(t)}">${LVL[lvlOf(t)]}</span><span>${h&&h.n?`${h.r}/${h.n}`:"–"}</span></div>`;}).join("")}</div>
