@@ -54,7 +54,7 @@ function renderKurz(){
       <div class="row" style="margin-top:10px"><button class="btn" id="kd">Antwort prüfen</button><button class="btn ghost" id="kn0">Andere Aufgabe</button></div>`:`
       <div class="block"><h3>Erwartungshorizont</h3><p class="small muted">Hake ab, was in deiner Antwort klar vorkommt.</p>${x.k.map((k,j)=>`<label class="check"><input type="checkbox" id="q${j}" ${cur.kzc[j]?"checked":""}><span>${k}</span></label>`).join("")}
         <p class="pts" id="kp">${pts()} von ${x.pts} Punkten</p>
-        <div class="row"><button class="btn" id="ks">Speichern und weiter</button><button class="btn ghost" id="kcl">Für Claude kopieren</button><button class="btn ghost" id="kn">Ohne Speichern weiter</button></div><div id="kcopy"></div></div>
+        <div class="row"><button class="btn" id="ks">${sess?"Speichern, nächster Schritt":"Speichern und weiter"}</button><button class="btn ghost" id="kcl">Für Claude kopieren</button><button class="btn ghost" id="kn">Ohne Speichern weiter</button></div><div id="kcopy"></div></div>
       ${cur.kzt?`<div class="block"><h3>Deine Antwort</h3><p style="white-space:pre-wrap;margin:0">${esc(cur.kzt)}</p></div>`:""}
       <div class="block lesson"><h3>Musterlösung</h3>${solHTML(x.m)}</div>`}
     </div>`;
@@ -62,8 +62,8 @@ function renderKurz(){
   if($("#kd")) $("#kd").onclick=()=>{ cur.kzt=$("#kt").value; cur.kzph="bewerten"; renderKurz(); window.scrollTo(0,0); };
   if($("#kn0")) $("#kn0").onclick=()=>openKurz(n);
   document.querySelectorAll(".check input").forEach(c=>c.onchange=()=>{ cur.kzc[+c.id.slice(1)]=c.checked; $("#kp").textContent=`${pts()} von ${x.pts} Punkten`; });
-  if($("#ks")) $("#ks").onclick=()=>{ state.kurz=state.kurz||{}; const p=pts(); state.kurz[x.id]={p,max:x.pts,t:Date.now()}; logDay(); save(); toast(`${String(p).replace(".",",")} von ${x.pts} Punkten gespeichert`); openKurz(n); };
-  if($("#kn")) $("#kn").onclick=()=>openKurz(n);
+  if($("#ks")) $("#ks").onclick=()=>{ state.kurz=state.kurz||{}; const p=pts(); state.kurz[x.id]={p,max:x.pts,t:Date.now()}; logDay(); save(); toast(`${String(p).replace(".",",")} von ${x.pts} Punkten gespeichert`); sess?sessNext():openKurz(n); };
+  if($("#kn")) $("#kn").onclick=()=>sess?sessNext():openKurz(n);
   if($("#kcl")) $("#kcl").onclick=()=>copyForClaude(`Bewerte bitte meine Antwort auf eine Klausuraufgabe im Modul Bildungswissenschaften II (UDE, Prof. Heine, Pädagogische Psychologie).\n\nAufgabe (${x.pts} Punkte):\n${x.q}\n\nErwartungshorizont:\n${x.k.map(k=>"- "+k).join("\n")}\n\nMeine Antwort:\n${cur.kzt}\n\nGib mir: Punktzahl mit Begründung je Kriterium, was fehlt oder fachlich ungenau ist, und eine verbesserte Formulierung.`,"#kcopy");
 }
 async function copyForClaude(prompt,box){

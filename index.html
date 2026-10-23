@@ -261,10 +261,99 @@ svg .fillA{fill:var(--accent-soft);stroke:none}
 svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .kvq .nw{white-space:nowrap}
 .chip.flag{color:var(--gold);border-color:var(--gold)}
+/* ===== Aus Wirtschaft II: Rückmeldungen, Beispielboxen, Tageseinheit, Zeichen, Statistik ===== */
+/* ===== Strukturierte Inhalte: Begriffslisten, Gegenüberstellungen, Beispielboxen, Formeln ===== */
+.eq{white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:visible;line-height:1.55}
+.pz{color:var(--muted);font-size:.9em}
+.dlist{display:grid;grid-template-columns:fit-content(42%) 1fr;margin:4px 0 8px}
+.dlist>b,.dlist>span{padding:6px 0;border-top:1px solid var(--line);min-width:0;overflow-wrap:break-word}
+.dlist>b{padding-right:14px;font-weight:600;hyphens:auto;-webkit-hyphens:auto}
+.dlist>b:first-child,.dlist>b:first-child+span{border-top:0}
+.dlist .eq{margin:4px 0 2px}
+.cmp{width:100%;border-collapse:collapse;font-size:.92rem;margin:6px 0 10px}
+.cmp th,.cmp td{border-top:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+.cmp thead th{border-top:0;font-size:.78rem;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.cmp tbody th{font-weight:600;padding-left:0}
+.cmp td{overflow-wrap:break-word}
+@media (max-width:560px){
+  .cmp:not(.tight) thead{display:none}
+  .cmp:not(.tight),.cmp:not(.tight) tbody,.cmp:not(.tight) tr,.cmp:not(.tight) th,.cmp:not(.tight) td{display:block;width:100%}
+  .cmp:not(.tight) tr{border-top:1px solid var(--line);padding:6px 0}
+  .cmp:not(.tight) tr:first-child{border-top:0}
+  .cmp:not(.tight) tbody th,.cmp:not(.tight) td{border:0;padding:2px 0}
+  .cmp:not(.tight) td{display:grid;grid-template-columns:fit-content(45%) 1fr;gap:10px}
+  .cmp:not(.tight) td::before{content:attr(data-l);color:var(--muted);font-size:.8rem;padding-top:1px}
+}
+.bsp{border:1px solid var(--line);border-radius:12px;padding:10px 14px 4px;margin:12px 0;background:var(--bg)}
+.bsp .bh,.lesson .bsp .bh{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 2px}
+.bsp .dlist{margin:0}
+.lesson ol.steps{padding-left:1.3em;margin:0 0 .8em}
+.lesson ol.steps li{margin:.35em 0}
+.card{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.card .cctx{margin:0;font-size:.8rem;color:var(--muted);letter-spacing:.01em}
+.card .back>:last-child{margin-bottom:0}
+.ml ol,.ml ul{padding-left:1.25em;margin:0 0 .5em} .ml li{margin:.25em 0} .ml p{margin:0 0 .5em}
+.grade{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.grade .btn{padding:12px 6px}
+.cardpad{margin:0 0 12px}
+.cardpad canvas{height:170px}
+.fb{margin-top:10px;border-left:3px solid var(--line);padding:2px 0 2px 12px;font-size:.92rem}
+.fb.good{border-color:var(--good)} .fb.bad{border-color:var(--bad)} .fb.idk{border-color:var(--gold)}
+.fb .fh{margin:0 0 2px;font-weight:600}
+.fb.good .fh{color:var(--good)} .fb.bad .fh{color:var(--bad)} .fb.idk .fh{color:var(--gold)}
+.fb .dlist{margin:0}
+.unc{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chip.unk{color:var(--gold);border-color:var(--gold)}
+.copybox{width:100%;min-height:8rem;margin-top:8px;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:8px;font-size:.85rem}
+.week7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:10px}
+.week7 .d{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}
+.week7 .bw{height:80px;width:100%;display:flex;align-items:flex-end;justify-content:center}
+.week7 .bw i{display:block;width:70%;max-width:2.2rem;background:var(--accent);opacity:.55;border-radius:4px 4px 0 0;min-height:2px}
+.week7 .wd{font-size:.78rem;font-weight:600;margin-top:6px}
+.week7 .dt{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.week7 .n{font-size:.85rem;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
+.week7 .u{font-size:.6rem;color:var(--muted);max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.week7 .d.today .bw i{opacity:1}
+.week7 .d.today .wd{color:var(--accent)}
+.week7 .d.today{background:var(--accent-soft);border-radius:8px;padding-bottom:4px}
+.klist{display:grid;grid-template-columns:fit-content(40%) 1fr;font-size:.92rem;margin:4px 0 10px}
+.klist>b,.klist>span{padding:6px 0;border-top:1px solid var(--line)}
+.klist>b{padding-right:14px;font-weight:600}
+.klist>b:first-child,.klist>b:first-child+span{border-top:0}
+#sessbar{position:sticky;top:0;z-index:7;background:var(--surface);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+#sessbar .sbin{max-width:42rem;margin:0 auto;display:flex;gap:8px;align-items:center;padding:8px max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px))}
+#sessbar .sbt{flex:1;min-width:0;font-size:.88rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.plan{margin:6px 0 12px;padding-left:1.3em}
+.plan li{margin:.35em 0}
+.plan li span{display:block;font-size:.84rem;color:var(--muted)}
+.who{font-family:var(--serif);font-size:1.2rem;font-weight:600;line-height:1.35;margin:0 0 6px}
+.weak{margin:4px 0 8px;padding-left:1.2em;font-size:.92rem}
+.weak li{margin:.2em 0}
+.dateinp{padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;font-size:.92rem}
+.card .front .symin{display:block;font-size:.9rem;font-family:var(--sans);font-weight:400;color:var(--muted);margin-top:6px}
+.card .front.symf{font-size:2.2rem;font-family:var(--serif);text-align:center;padding:.3em 0}
+.lex>b.sy{font-family:var(--serif);font-size:1.15rem;font-weight:600;color:var(--accent);min-width:3.2rem}
+.lex>span>span{display:block;margin-top:2px}
+.lex .lexeq{margin:4px 0;font-size:.85rem}
+.lexwarn{color:var(--bad)}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:20;display:flex;justify-content:center;align-items:flex-end}
+.sheetin{background:var(--bg);width:100%;max-width:42rem;max-height:88vh;overflow-y:auto;border-radius:16px 16px 0 0;padding:16px max(16px, env(safe-area-inset-left, 0px)) calc(20px + env(safe-area-inset-bottom, 0px))}
+.card .cctx{margin:0 0 2px}
+.bsp .bl{display:block}
+.bsp .eq{margin:0 0 6px;padding:4px 8px;background:var(--surface);display:block}
+.bsp .eq:last-child{margin-bottom:0}
+.bsp .eq:first-child{margin-top:0}
+.fb .fbw{display:block;margin-top:2px;color:var(--muted);font-size:.9em}
+.kz .why b.okc{color:var(--good)}
+.kz .fb{margin-top:8px}
+.srow.ch{grid-template-columns:1fr auto}
+.srow.ch .small{grid-column:1/-1;grid-row:2}
+h1,h2,h3,.card .front{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px)}</style>
 </head>
 <body>
+<div id="sessbar" hidden></div>
 <main id="app"></main>
 <nav id="nav"></nav>
 <div class="zoom" role="group" aria-label="Schriftgröße"><button id="zIn" aria-label="Größer">+</button><button id="zOut" aria-label="Kleiner">−</button></div>
@@ -279,7 +368,7 @@ function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
 let state;
 try{ state=JSON.parse(lsGet(KEY)||"null"); }catch(e){ state=null; }
 if(!state||typeof state!=="object") state={};
-function norm(){ for(const k of ["lvl","streak","hist","days","lessons","box","graphs","essays","drafts","kreuz","unclear"]) if(!state[k]||typeof state[k]!=="object") state[k]={}; }
+function norm(){ for(const k of ["lvl","streak","hist","days","lessons","box","graphs","essays","drafts","kreuz","unclear","qbox","qlapses","lapses","who","sessions"]) if(!state[k]||typeof state[k]!=="object") state[k]={}; }
 norm();
 function save(){ state.updated=Date.now(); lsSet(KEY,JSON.stringify(state)); schedulePush(); }
 
@@ -348,7 +437,7 @@ async function syncFromRemote(){
   return false;
 }
 async function autoPull(){
-  if(!ghToken||document.visibilityState!=="visible"||["task","exam","essay","graph","kurz","lesson","cards","kreuz"].includes(view)||pushTimer||pushing) return;
+  if(!ghToken||document.visibilityState!=="visible"||["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who"].includes(view)||pushTimer||pushing) return;
   if(await syncFromRemote()) render();
 }
 document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") flushPush(); else autoPull(); });
@@ -417,6 +506,53 @@ function judge(step,raw){
   return close(v,step.ans);
 }
 
+/* ================= Textformat: Karten, Rückmeldungen, Beispielboxen (aus Wirtschaft II übernommen) =================
+   - **fett**; Zahl und Einheit bleiben zusammen (34,13 %)
+   - Klammern mit Wörtern werden leiser gesetzt: „Gewöhnung (Habituation)“
+   - richText(): "- " Aufzählung, "1. " Schritte, "Begriff: Erklärung", "$ Formel", "| A | B" Gegenüberstellung */
+const nb=s=>String(s).replace(/(\d) (%|Prozent|Punkte|P\.|Tage|Minuten|SD|dB)(?![a-zäöüß])/g,"$1&nbsp;$2");
+const quietParens=s=>s.replace(/\(([^()]{2,})\)/g,(m,x)=>/^[A-Za-zÄÖÜäöüß„]/.test(x)&&/[A-Za-zÄÖÜäöüß]{3,}/.test(x)&&!/[=+−·<>\/]/.test(x)?`<span class="pz">(${x})</span>`:m);
+const inl=s=>quietParens(nb(String(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")));
+const fx=s=>nb(s);
+const TERM=/^([^:=⇒]{1,42}): (.+)$/;
+function cmp(rows){
+  const h=rows[0], body=rows.slice(1);
+  const tight=rows.every(r=>r.every(c=>String(c).replace(/\*\*/g,"").length<=18));
+  return `<table class="cmp${tight?" tight":""}"><thead><tr>${h.map(x=>`<th>${inl(x)}</th>`).join("")}</tr></thead><tbody>${body.map(r=>`<tr><th scope="row">${inl(r[0])}</th>${r.slice(1).map((c,j)=>`<td data-l="${esc(String(h[j+1]).replace(/\*\*/g,""))}"><span>${inl(c)}</span></td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+function richText(b){
+  const L=String(b).split("\n"); let out="", kind=null, items=[];
+  const flush=()=>{ if(!kind) return;
+    if(kind==="dl") out+=`<div class="dlist">${items.join("")}</div>`;
+    else out+=`<${kind}>${items.map(x=>`<li>${x}</li>`).join("")}</${kind}>`;
+    kind=null; items=[]; };
+  const open=k=>{ if(kind!==k){ flush(); kind=k; } };
+  for(let i=0;i<L.length;i++){ const l=L[i].trim(); let m;
+    if(!l){ flush(); continue; }
+    if((m=l.match(/^\$ ?(.*)$/))){ const box=`<div class="eq">${fx(m[1])}</div>`;
+      if((kind==="ol"||kind==="ul")&&items.length) items[items.length-1]+=box; else { flush(); out+=box; } continue; }
+    if(l.startsWith("|")){ flush(); const rows=[];
+      while(i<L.length&&L[i].trim().startsWith("|")){ rows.push(L[i].trim().replace(/^\||\|$/g,"").split("|").map(x=>x.trim())); i++; }
+      i--; out+=cmp(rows); continue; }
+    if((m=l.match(/^[-•] (.*)$/))){ open("ul"); items.push(termInline(m[1])); continue; }
+    if((m=l.match(/^\d+[.)] (.*)$/))){ open("ol"); items.push(termInline(m[1])); continue; }
+    if((m=l.match(TERM))){ open("dl"); items.push(`<b>${inl(m[1])}</b><span>${inl(m[2])}</span>`); continue; }
+    flush(); out+=`<p>${inl(l)}</p>`;
+  }
+  flush(); return out;
+}
+function termInline(s){ const m=s.match(TERM); return m? `<b>${inl(m[1])}:</b> ${inl(m[2])}` : inl(s); }
+/* Beispielbox für Lektionen: links Label (Gegeben, Formel, Einsetzen, Ergebnis, Deutung), rechts Inhalt.
+   Zeilen, die mit "$" beginnen, werden Formelbox. */
+function bsp(title,rows){
+  const cell=v=>v.split("\n").map(x=>x.startsWith("$")?`<div class="eq">${fx(x.replace(/^\$ ?/,""))}</div>`:`<span class="bl">${inl(x)}</span>`).join("");
+  return `<div class="bsp"><p class="bh">${title}</p><div class="dlist">${rows.map(([k,v])=>`<b>${k}</b><span>${cell(v)}</span>`).join("")}</div></div>`; }
+/* Text kopieren, sonst zum Markieren anzeigen */
+async function copyText(text,holder){
+  try{ await navigator.clipboard.writeText(text); toast("Kopiert. In den Claude-Chat einfügen."); return true; }
+  catch(x){ const h=$(holder); if(h){ h.innerHTML=`<textarea class="copybox" readonly>${esc(text)}</textarea>`; const t=h.querySelector("textarea"); t.focus(); t.select(); } toast("Text markiert, jetzt kopieren"); return false; }
+}
+
 /* ================= Inhalte =================
    Grundlage: Folien Heine WiSe 26/27 (ab Sitzung 1), Altklausuren (WiSe 17/18, 18/19, 22/23, 24/25), Fragenkatalog „Fragen Heine“.
    Gliederung nach Heines vier Schwerpunkten (Folie Sitzung 1, „Aufschlag Schwerpunktsetzung“). teil = Schwerpunkt = Klausurteil.
@@ -472,8 +608,8 @@ LESSONS[16]=[
 <tr><td class="nw">über 130</td><td>weit überdurchschnittlich (z. B. Hochbegabung)</td></tr></table>
 <div class="merk"><b>Merksatz</b>Zwei Drittel (68,26 %) liegen innerhalb von einer Standardabweichung um den Mittelwert. Jenseits von zwei Standardabweichungen liegen auf jeder Seite nur 2,27 % (2,14 + 0,13).</div>`,
 check:[
- {q:"Wie viel Prozent der Bevölkerung haben einen IQ von 130 oder mehr?", o:["0,13 %","2,27 %","13,59 %","15,87 %"], a:1, ex:"130 liegt zwei Standardabweichungen über dem Mittelwert. Darüber liegen 2,14 % + 0,13 % = 2,27 %."},
- {q:"Eine Schülerin hat einen IQ von 117. Wie ordnen Sie das deskriptiv ein?", o:["Durchschnittlich","Überdurchschnittlich","Weit überdurchschnittlich","Hochbegabt"], a:1, ex:"117 liegt zwischen 115 und 130, also zwischen einer und zwei Standardabweichungen über dem Mittelwert."}
+ {q:"Wie viel Prozent der Bevölkerung haben einen IQ von 130 oder mehr?", o:["0,13 %","2,27 %","13,59 %","15,87 %"], a:1, ex:"130 liegt zwei Standardabweichungen über dem Mittelwert. Darüber liegen 2,14 % + 0,13 % = 2,27 %.", w:["0,13 % liegen erst jenseits von 3 SD, also über 145. Du hast nur den äußersten Abschnitt genommen.",null,"13,59 % liegen zwischen 115 und 130, nicht darüber. Das ist der Abschnitt zwischen 1 und 2 SD.","15,87 % liegen über 115 (13,59 + 2,14 + 0,13). Gefragt ist ab 130."]},
+ {q:"Eine Schülerin hat einen IQ von 117. Wie ordnen Sie das deskriptiv ein?", o:["Durchschnittlich","Überdurchschnittlich","Weit überdurchschnittlich","Hochbegabt"], a:1, ex:"117 liegt zwischen 115 und 130, also zwischen einer und zwei Standardabweichungen über dem Mittelwert.", w:["Durchschnittlich reicht nur bis 115.",null,"Weit überdurchschnittlich beginnt erst über 130.","Von Hochbegabung spricht man erst über 130 (weit überdurchschnittlich)."]}
 ]},
 {id:"10-2", t:"z-Wert und Abweichungs-IQ", html:`
 <p>Um einen Rohwert einzuordnen, rechnet man ihn zuerst in einen <b>z-Wert</b> um. Der z-Wert sagt, um wie viele Standardabweichungen ein Wert über oder unter dem Mittelwert liegt:</p>
@@ -488,14 +624,11 @@ check:[
 <tr><td>C-Skala</td><td>5</td><td>2</td><td>5 + 2 · z</td></tr></table>
 <p>Die IQ-Umrechnung heißt <b>Abweichungs-IQ</b> und geht auf David Wechsler (1939) zurück:</p>
 <div class="eq">AIQ = 100 + 15 · (x − μ) / σ</div>
-<div class="merk"><b>Klausurbeispiel</b><p class="mi">Testrohwert 500 in einem Test mit μ = 460 und σ = 50.</p>
-<ol class="msteps"><li><span class="ml">z-Wert</span><span class="eq">z = (500 − 460) / 50 = 0,8</span></li>
-<li><span class="ml">IQ-Wert</span><span class="eq">IQ = 100 + 15 · 0,8 = 112</span></li>
-<li><span class="ml">Einordnung</span><span>durchschnittlich (85 bis 115)</span></li></ol></div>
+${bsp("Klausurbeispiel (WiSe 17/18)",[["Gegeben","Testrohwert x = 500, Mittelwert μ = 460, Standardabweichung σ = 50"],["Formel","$z = (x − μ) / σ\n$IQ = 100 + 15 · z"],["Einsetzen","$z = (500 − 460) / 50 = 0,8\n$IQ = 100 + 15 · 0,8 = 112"],["Ergebnis","z = 0,8 und IQ = 112"],["Deutung","0,8 Standardabweichungen über dem Mittel: **durchschnittlich** (85 bis 115)"]])}
 <p>Früher wurde der IQ anders berechnet: Binet führte das <b>Intelligenzalter</b> (mentale Alter) ein, Stern teilte es durch das Lebensalter: <span style="font-family:var(--mono)">IQ = Intelligenzalter / Lebensalter · 100</span>. Das funktioniert bei Kindern, aber nicht bei Erwachsenen, deren Intelligenz nicht mehr jedes Jahr wächst. Deshalb setzte sich Wechslers Abweichungs-IQ durch.</p>`,
 check:[
- {q:"Ein Testrohwert liegt 18 Punkte unter dem Mittelwert, die Standardabweichung beträgt 12. Welcher IQ ergibt sich?", o:["82","77,5","122,5","85"], a:1, ex:"z = −18 / 12 = −1,5. IQ = 100 + 15 · (−1,5) = 77,5. Achtung aufs Vorzeichen, sonst kommt 122,5 heraus."},
- {q:"Welchen Mittelwert und welche Standardabweichung hat die T-Skala?", o:["100 und 15","50 und 10","5 und 2","0 und 1"], a:1, ex:"T = 50 + 10 · z. Ein IQ von 115 entspricht z = 1 und damit T = 60."}
+ {q:"Ein Testrohwert liegt 18 Punkte unter dem Mittelwert, die Standardabweichung beträgt 12. Welcher IQ ergibt sich?", o:["82","77,5","122,5","85"], a:1, ex:"z = −18 / 12 = −1,5. IQ = 100 + 15 · (−1,5) = 77,5. Achtung aufs Vorzeichen, sonst kommt 122,5 heraus.", w:["82 entsteht, wenn man die 18 Rohwertpunkte direkt von 100 abzieht. Erst muss der Abstand in Standardabweichungen umgerechnet werden: z = −18 / 12.",null,"Vorzeichen vergessen: Der Rohwert liegt unter dem Mittel, z ist also negativ.","85 wäre z = −1. Hier ist z = −1,5."]},
+ {q:"Welchen Mittelwert und welche Standardabweichung hat die T-Skala?", o:["100 und 15","50 und 10","5 und 2","0 und 1"], a:1, ex:"T = 50 + 10 · z. Ein IQ von 115 entspricht z = 1 und damit T = 60.", w:["Das ist die IQ-Skala.",null,"Das ist die C-Skala.","Das ist die z-Skala."]}
 ]},
 {id:"10-3", t:"Der Prozentrang", html:`
 <p>Der <b>Prozentrang</b> (PR) beschreibt ein Ergebnis anders als der z-Wert: Er gibt an, wie viel Prozent der Referenzgruppe <b>gleich gut oder schlechter</b> abgeschnitten haben. Er braucht keine Normalverteilung, sondern nur eine Reihenfolge der Werte.</p>
@@ -505,16 +638,12 @@ check:[
 <ul><li><b>Sortieren:</b> alle Werte der Größe nach ordnen.</li>
 <li><b>cumf bestimmen:</b> zählen, wie viele Werte kleiner oder gleich dem gesuchten Wert sind.</li>
 <li><b>N bestimmen</b> und in die Formel einsetzen.</li></ul>
-<div class="merk"><b>Klausurbeispiel (WiSe 22/23)</b><p class="mi">Gesucht ist der Prozentrang des Testwerts 18 in dieser Verteilung:<br><span class="eq">21; 18; 19; 12; 13; 16; 13; 12; 25; 10; 13; 16</span></p>
-<ol class="msteps"><li><span class="ml">Sortieren</span><span class="eq">10, 12, 12, 13, 13, 13, 16, 16, <b>18</b>, 19, 21, 25</span></li>
-<li><span class="ml">cumf zählen</span><span>9 Werte sind kleiner oder gleich 18, also cumf = 9</span></li>
-<li><span class="ml">N zählen</span><span>12 Werte insgesamt, also N = 12</span></li>
-<li><span class="ml">Einsetzen</span><span class="eq">PR = 9 / 12 · 100 = 75</span></li></ol></div>
+${bsp("Klausurbeispiel (WiSe 22/23)",[["Gegeben","Testwert 18 in dieser Verteilung:\n21; 18; 19; 12; 13; 16; 13; 12; 25; 10; 13; 16"],["Formel","$PR = cumf / N · 100"],["Sortieren","10, 12, 12, 13, 13, 13, 16, 16, **18**, 19, 21, 25"],["Zählen","cumf = 9 (Werte bis einschließlich 18)\nN = 12 (alle Werte)"],["Einsetzen","$PR = 9 / 12 · 100 = 75"],["Deutung","75 % der Gruppe haben gleich gut oder schlechter abgeschnitten, **25 % besser**."]])}
 <p><b>Interpretation:</b> Ein Prozentrang von 75 heißt, dass 75 % der Gruppe gleich gut oder schlechter abgeschnitten haben, also 25 % besser. Ein Prozentrang von 25 heißt umgekehrt: 75 % waren besser.</p>
 <p>Prozentrang und z-Wert hängen über die Normalverteilung zusammen: Der Mittelwert (z = 0) hat PR 50, z = +1 entspricht PR 84,1, z = −2 entspricht PR 2,3.</p>`,
 check:[
- {q:"Ein Student hat in einer Klausur den Prozentrang 25. Was bedeutet das?", o:["Er hat 25 % der Punkte erreicht","25 % haben besser abgeschnitten","75 % haben besser abgeschnitten","Er liegt eine Standardabweichung unter dem Mittel"], a:2, ex:"25 % haben gleich gut oder schlechter abgeschnitten, also 75 % besser. Mit der Punktzahl hat der Prozentrang nichts zu tun."},
- {q:"In einer Verteilung von 20 Werten sind 14 Werte kleiner oder gleich dem gesuchten Wert. Wie hoch ist der Prozentrang?", o:["14","70","30","65"], a:1, ex:"PR = 14 / 20 · 100 = 70."}
+ {q:"Ein Student hat in einer Klausur den Prozentrang 25. Was bedeutet das?", o:["Er hat 25 % der Punkte erreicht","25 % haben besser abgeschnitten","75 % haben besser abgeschnitten","Er liegt eine Standardabweichung unter dem Mittel"], a:2, ex:"25 % haben gleich gut oder schlechter abgeschnitten, also 75 % besser. Mit der Punktzahl hat der Prozentrang nichts zu tun.", w:["Der Prozentrang sagt nichts über die Punktzahl, nur über die Position in der Gruppe.","Umgedreht: Der Prozentrang zählt, wer gleich gut oder schlechter war, nicht wer besser war.",null,"Eine SD unter dem Mittel wäre bei Normalverteilung etwa PR 16. Der Prozentrang braucht aber gar keine Normalverteilung."]},
+ {q:"In einer Verteilung von 20 Werten sind 14 Werte kleiner oder gleich dem gesuchten Wert. Wie hoch ist der Prozentrang?", o:["14","70","30","65"], a:1, ex:"PR = 14 / 20 · 100 = 70.", w:["14 ist cumf, also erst der Zähler. Er muss noch durch N geteilt und mit 100 malgenommen werden.",null,"30 % ist der Anteil derer, die besser waren: 100 − 70.","Nachrechnen: 14 / 20 = 0,7, also 70."]}
 ]},
 {id:"10-4", t:"Standardisieren in der Praxis", html:`
 <p>Rohwerte aus <b>verschiedenen Tests</b> lassen sich nicht direkt vergleichen. Wer in Test A und Test B je 36 Punkte hat, kann ganz unterschiedlich gut sein, weil die Tests unterschiedlich schwer sind und anders streuen. Erst die Umrechnung in Standardwerte (z, IQ, T) macht sie vergleichbar.</p>
@@ -529,8 +658,8 @@ check:[
 <li><b>Größerer Messfehler</b> an den Rändern der Verteilung, weil es dort nur wenige Aufgaben und Vergleichspersonen gibt.</li>
 <li><b>Flynn-Effekt:</b> Die durchschnittlichen Testleistungen sind über Jahrzehnte gestiegen. Mit veralteten Normen wirkt eine Person deshalb besser, als sie im Vergleich zu heute ist.</li></ul>`,
 check:[
- {q:"Warum lässt man in der Aufgabe nicht einfach die Rohwerte entscheiden?", o:["Weil alle drei gleich sind","Weil die Tests unterschiedliche Mittelwerte und Streuungen haben","Weil Rohwerte immer ungenau sind","Weil nur IQ-Werte zulässig sind"], a:1, ex:"Gleiche Rohwerte bedeuten in unterschiedlich schweren Tests Unterschiedliches. Erst z-Werte zeigen die Position in der jeweiligen Referenzgruppe."},
- {q:"Ein Intelligenztest wurde vor 30 Jahren normiert. Was ist zu erwarten?", o:["Die IQ-Werte fallen zu niedrig aus","Die IQ-Werte fallen zu hoch aus","Es gibt keinen Unterschied","Der Test wird reliabler"], a:1, ex:"Wegen des Flynn-Effekts war die alte Normstichprobe im Schnitt schwächer. Im Vergleich zu ihr schneidet man heute besser ab, der IQ wird überschätzt."}
+ {q:"Warum lässt man in der Aufgabe nicht einfach die Rohwerte entscheiden?", o:["Weil alle drei gleich sind","Weil die Tests unterschiedliche Mittelwerte und Streuungen haben","Weil Rohwerte immer ungenau sind","Weil nur IQ-Werte zulässig sind"], a:1, ex:"Gleiche Rohwerte bedeuten in unterschiedlich schweren Tests Unterschiedliches. Erst z-Werte zeigen die Position in der jeweiligen Referenzgruppe.", w:["Gleich sind nur die Rohwerte. Genau das ist das Problem: Sie stammen aus verschiedenen Tests.",null,"Ungenauigkeit (Messfehler) ist ein anderes Thema. Hier fehlt die gemeinsame Vergleichsbasis.","Es geht nicht um die Skala, sondern um die Umrechnung. z-Werte reichen schon."]},
+ {q:"Ein Intelligenztest wurde vor 30 Jahren normiert. Was ist zu erwarten?", o:["Die IQ-Werte fallen zu niedrig aus","Die IQ-Werte fallen zu hoch aus","Es gibt keinen Unterschied","Der Test wird reliabler"], a:1, ex:"Wegen des Flynn-Effekts war die alte Normstichprobe im Schnitt schwächer. Im Vergleich zu ihr schneidet man heute besser ab, der IQ wird überschätzt.", w:["Umgekehrt: Die Leistungen sind über die Jahrzehnte gestiegen. Wer heute mit der schwächeren alten Gruppe verglichen wird, wirkt besser.",null,"Der Flynn-Effekt zeigt gerade, dass sich der Durchschnitt über die Jahrzehnte verschiebt.","Reliabilität (Messgenauigkeit) hängt nicht vom Alter der Normen ab. Betroffen ist die Normierung."]}
 ]}
 ];
 
@@ -600,7 +729,7 @@ const CARD_CTX={
  "c10-17":"Gütekriterien von Tests"
 };
 
-/* ================= Rechentrainer Diagnostik (Kapitel 10) =================
+/* ================= Rechentrainer Diagnostik (Kapitel 16) =================
    Jede Aufgabe liefert Schritte {lab, why, f, calc, ans, final?}; Stufen wie in Wirtschaft II: vorgerechnet, geführt, frei. */
 const ZS=[-2.5,-2,-1.75,-1.5,-1.25,-1,-.8,-.75,-.6,-.5,-.4,-.25,.25,.4,.5,.6,.75,.8,1,1.25,1.5,1.75,2,2.5];
 function rawCase(){
@@ -612,6 +741,8 @@ const zSteps=(c,lab="")=>[
   {lab:`Abstand zum Mittelwert x − μ${lab}`, why:"Erst schauen, wie weit der Rohwert vom Mittelwert der Referenzgruppe entfernt ist. Liegt er darunter, wird es negativ.", f:"x − μ", calc:`${fmt(c.x)} − ${fmt(c.mu)} = ${fmt(c.x-c.mu)}`, ans:c.x-c.mu, sign:true},
   {lab:`z-Wert${lab}`, why:"Den Abstand durch die Standardabweichung teilen: So viele Standardabweichungen liegt die Person vom Mittel entfernt.", f:"z = (x − μ) / σ", calc:`z = ${par(c.x-c.mu)} / ${fmt(c.sd)} = ${fmt(c.z)}`, ans:c.z, final:true, sign:true}
 ];
+const posTxt=(z,ref)=>`Die Person liegt ${fmt(Math.abs(z))} ${Math.abs(z)===1?"Standardabweichung":"Standardabweichungen"} ${z<0?"unter":"über"} ${ref}.`;
+const iqBand=iq=>iq<70?"unter 70":iq<85?"70 bis 85":iq<=115?"85 bis 115":iq<=130?"115 bis 130":"über 130";
 const iqLabel=iq=>iq<70?"weit unterdurchschnittlich":iq<85?"unterdurchschnittlich":iq<=115?"durchschnittlich":iq<=130?"überdurchschnittlich":"weit überdurchschnittlich";
 /* Flächen unter der Normalverteilung nach Heines Tabelle (in %) */
 const NV_SEG=[[-99,-3,.13],[-3,-2,2.14],[-2,-1,13.59],[-1,0,34.13],[0,1,34.13],[1,2,13.59],[2,3,2.14],[3,99,.13]];
@@ -621,11 +752,12 @@ const SCALES={z:{n:"z-Wert",m:0,s:1},IQ:{n:"IQ",m:100,s:15},T:{n:"T-Wert",m:50,s
 const TYPES={
   zwert:{name:"z-Wert berechnen", short:"z-Wert", desc:"Rohwert, Mittelwert und Standardabweichung gegeben: Wie viele Standardabweichungen liegt die Person vom Mittel entfernt?", gen(){
     const c=rawCase();
-    return {intro:"Eine Person hat in einem standardisierten Leistungstest folgenden Testrohwert erzielt. Für die Normstichprobe sind Mittelwert und Standardabweichung angegeben.", table:tblRow(["Rohwert x","Mittelwert μ","Standardabw. σ"],[c.x,c.mu,c.sd]), q:"Berechnen Sie den z-Wert (exakt).", steps:zSteps(c)};
+    return {intro:"Eine Person hat in einem standardisierten Leistungstest folgenden Testrohwert erzielt. Für die Normstichprobe sind Mittelwert und Standardabweichung angegeben.", table:tblRow(["Rohwert x","Mittelwert μ","Standardabw. σ"],[c.x,c.mu,c.sd]), q:"Berechnen Sie den z-Wert (exakt).", steps:zSteps(c), deut:posTxt(c.z,"dem Mittelwert der Normstichprobe")};
   }},
   iq:{name:"Vom Rohwert zum IQ", short:"Rohwert → IQ", desc:"Klausurklassiker (WiSe 17/18, 18/19): z-Wert berechnen, in den Abweichungs-IQ umrechnen, deskriptiv einordnen.", gen(){
     const c=rawCase(), iq=r(100+15*c.z);
     return {intro:`Eine Person hat bei einem standardisierten Intelligenztest (μ = ${fmt(c.mu)}, σ = ${fmt(c.sd)}) einen Testrohwert von ${fmt(c.x)} erzielt.`, table:"", q:"Berechnen Sie den z-Wert und den IQ-Wert (jeweils exakt) und ordnen Sie das Ergebnis deskriptiv ein.",
+      deut:`IQ ${fmt(iq)}: ${iqLabel(iq)} (${iqBand(iq)}). ${posTxt(c.z,"dem Durchschnitt")}`,
       steps:[...zSteps(c),{lab:"IQ-Wert (Abweichungs-IQ)", why:"Die IQ-Skala hat Mittelwert 100 und Standardabweichung 15: 100 plus 15 mal z.", f:"IQ = 100 + 15 · z", calc:`IQ = 100 + 15 · ${par(c.z)} = ${fmt(iq)}  →  ${iqLabel(iq)}`, ans:iq, final:true}]};
   }},
   skalen:{name:"Zwischen Normskalen umrechnen", short:"Skalen", desc:"IQ, T-Wert, C-Wert und z-Wert ineinander umrechnen: immer erst zurück zu z.", gen(){
@@ -634,7 +766,7 @@ const TYPES={
       const steps=[];
       if(from!=="z") steps.push({lab:"Zurück zum z-Wert", why:`Die ${A.n}-Skala hat Mittelwert ${A.m} und Standardabweichung ${A.s}. Abstand zum Mittel durch die Standardabweichung teilen.`, f:`z = (Wert − ${A.m}) / ${A.s}`, calc:`z = (${fmt(v)} − ${A.m}) / ${A.s} = ${fmt(z)}`, ans:z, sign:true, final:to==="z"});
       if(to!=="z") steps.push({lab:`${B.n}`, why:`Die ${B.n}-Skala hat Mittelwert ${B.m} und Standardabweichung ${B.s}: Mittelwert plus Standardabweichung mal z.`, f:`${B.n} = ${B.m} + ${B.s} · z`, calc:`${B.m} + ${B.s} · ${par(z)} = ${fmt(w)}`, ans:w, final:true});
-      return {intro:`Ein Kind hat in einem Test ${from==="z"?"einen z-Wert":from==="IQ"?"einen IQ":"einen "+A.n} von ${fmt(v)} erreicht.`, table:"", q:`Welcher ${B.n} entspricht diesem Ergebnis?`, steps};
+      return {intro:`Ein Kind hat in einem Test ${from==="z"?"einen z-Wert":from==="IQ"?"einen IQ":"einen "+A.n} von ${fmt(v)} erreicht.`, table:"", q:`Welcher ${B.n} entspricht diesem Ergebnis?`, steps, deut:`${from==="z"?"z":A.n} ${fmt(v)} und ${to==="z"?"z":B.n} ${fmt(w)} beschreiben dieselbe Position in der Referenzgruppe. ${posTxt(z,"dem Mittel")}`};
     }
   }},
   nv:{name:"Anteile unter der Normalverteilung", short:"Anteile", desc:"Wie viel Prozent der Bevölkerung haben einen IQ in einem bestimmten Bereich? Mit Heines Tabelle 34,13 / 13,59 / 2,14 / 0,13.", gen(){
@@ -649,13 +781,13 @@ const TYPES={
     if(b!=null) steps.push({lab:`Grenze ${b} als z-Wert`, why:"Jede Grenze in Standardabweichungen ausdrücken.", f:"z = (IQ − 100) / 15", calc:`z = (${b} − 100) / 15 = ${fmt(zb)}`, ans:zb, sign:true});
     const parts=NV_SEG.filter(([lo,hi])=>lo>=za&&hi<=zb).map(x=>String(x[2]).replace(".",","));
     steps.push({lab:"Anteil in Prozent", why:"Die Abschnitte zwischen den Grenzen aufaddieren: 34,13 innen, 13,59 zwischen 1 und 2 SD, 2,14 zwischen 2 und 3 SD, 0,13 außen.", f:"Summe der Abschnitte", calc:`${parts.join(" + ")} = ${fmt(p)} %`, ans:p, final:true, tol:.06});
-    return {intro:"Der IQ ist normalverteilt mit Mittelwert 100 und Standardabweichung 15.", table:"", q:`Wie viel Prozent der Bevölkerung haben einen IQ ${txt}?`, steps};
+    return {intro:"Der IQ ist normalverteilt mit Mittelwert 100 und Standardabweichung 15.", table:"", q:`Wie viel Prozent der Bevölkerung haben einen IQ ${txt}?`, steps, deut:`Etwa ${fmt(p)} % der Bevölkerung haben einen IQ ${txt}. Zum Vergleich: Zwei Drittel (68,26 %) liegen zwischen 85 und 115.`};
   }},
   pr:{name:"Prozentrang aus einer Werteverteilung", short:"Prozentrang", desc:"Klausur WiSe 18/19 und 22/23: Werte sortieren, cumf zählen, PR = cumf / N · 100.", gen(){
     for(;;){ const N=pick([10,12,15,16,20]), vals=[...Array(N)].map(()=>rint(8,40)); const x=pick(vals);
       const sorted=vals.slice().sort((a,b)=>a-b), cumf=sorted.filter(v=>v<=x).length, pr=r(cumf/N*100);
       if(cumf===N||cumf<3||!nice(pr,2)) continue;
-      return {intro:"Gegeben ist die folgende Werteverteilung einer Referenzgruppe.", table:`<div class="eq" style="white-space:normal;margin-top:8px">${vals.join("; ")}</div>`, q:`Ermitteln Sie den Prozentrang des Testwerts ${x} und interpretieren Sie ihn.`,
+      return {intro:"Gegeben ist die folgende Werteverteilung einer Referenzgruppe.", table:`<div class="eq" style="white-space:normal;margin-top:8px">${vals.join("; ")}</div>`, q:`Ermitteln Sie den Prozentrang des Testwerts ${x} und interpretieren Sie ihn.`, deut:`Prozentrang ${fmt(pr)}: ${fmt(pr)} % der Referenzgruppe haben gleich gut oder schlechter abgeschnitten, ${fmt(r(100-pr))} % besser.`,
         steps:[
           {lab:"cumf: Anzahl der Werte ≤ "+x, why:"Werte sortieren und zählen, wie viele kleiner oder gleich dem Testwert sind. Gleiche Werte zählen mit.", f:"cumf = Anzahl Werte ≤ x", calc:`${sorted.map(v=>v<=x?v:"·").join(" ").replace(/( ·)+$/,"")} → cumf = ${cumf}`, ans:cumf, tol:0},
           {lab:"N: Anzahl aller Werte", why:"Alle Werte der Verteilung zählen.", f:"N", calc:`N = ${N}`, ans:N, tol:0},
@@ -667,7 +799,7 @@ const TYPES={
     for(;;){ const N=pick([10,12,16,20]), vals=[...Array(N)].map(()=>rint(8,40)), sorted=vals.slice().sort((a,b)=>a-b);
       const cumf=rint(2,N-1), pr=r(cumf/N*100), x=sorted[cumf-1];
       if(!nice(pr,2)||sorted[cumf]===x) continue;
-      return {intro:"Gegeben ist die folgende Werteverteilung einer Referenzgruppe.", table:`<div class="eq" style="white-space:normal;margin-top:8px">${vals.join("; ")}</div>`, q:`Welcher Testwert hat in dieser Verteilung den Prozentrang ${fmt(pr)}?`,
+      return {intro:"Gegeben ist die folgende Werteverteilung einer Referenzgruppe.", table:`<div class="eq" style="white-space:normal;margin-top:8px">${vals.join("; ")}</div>`, q:`Welcher Testwert hat in dieser Verteilung den Prozentrang ${fmt(pr)}?`, deut:`Der Testwert ${x}: ${cumf} von ${N} Werten sind kleiner oder gleich ${x}, das sind ${fmt(pr)} %.`,
         steps:[
           {lab:"cumf aus dem Prozentrang", why:"Formel nach cumf auflösen: durch 100 teilen, mit N malnehmen.", f:"cumf = PR / 100 · N", calc:`cumf = ${fmt(pr)} / 100 · ${N} = ${cumf}`, ans:cumf, tol:0},
           {lab:"Gesuchter Testwert", why:"Werte sortieren und bis zur Stelle cumf abzählen. Der Wert an dieser Stelle hat den Prozentrang.", f:"Wert an Stelle cumf", calc:`${sorted.map((v,i)=>i===cumf-1?"["+v+"]":v).join(" ")} → Stelle ${cumf}: Testwert ${x}`, ans:x, final:true, tol:0}
@@ -680,7 +812,7 @@ const TYPES={
       const w=Z.indexOf(Math.min(...Z)), N=["A","B","C"];
       return {intro:"Ein letzter Platz in einem Lesetraining für leseschwache Kinder ist zu vergeben. Drei Schulen schlagen je eine Viertklässlerin vor, gemessen mit unterschiedlichen standardisierten Lesetests.",
         table:`<div class="tablewrap"><table class="data"><tr><th></th><th>Rohwert</th><th>M</th><th>SD</th></tr>${N.map((n,i)=>`<tr><th>${n}</th><td>${x}</td><td>${M[i]}</td><td>${S[i]}</td></tr>`).join("")}</table></div>`,
-        q:"Wandeln Sie die Rohwerte in z-Werte um. Welche Schülerin sollte den Platz bekommen? (Antwort als Zahl: A = 1, B = 2, C = 3)",
+        q:"Wandeln Sie die Rohwerte in z-Werte um. Welche Schülerin sollte den Platz bekommen? (Antwort als Zahl: A = 1, B = 2, C = 3)", deut:`Gleicher Rohwert, aber unterschiedliche Tests: Schülerin ${N[w]} liegt mit z = ${fmt(Z[w])} am weitesten unter ihrer Referenzgruppe und bekommt den Platz.`,
         steps:[...N.map((n,i)=>({lab:`z-Wert Schülerin ${n}`, why:"Rohwert minus Mittelwert ihres Tests, geteilt durch die Standardabweichung ihres Tests.", f:"z = (x − M) / SD", calc:`z = (${x} − ${M[i]}) / ${S[i]} = ${fmt(Z[i])}  (IQ-Skala: ${fmt(r(100+15*Z[i]))})`, ans:Z[i], final:true, sign:true})),
           {lab:"Platz für Schülerin (A = 1, B = 2, C = 3)", why:"Gesucht ist die schwächste Leserin, also der niedrigste z-Wert: Sie liegt am weitesten unter ihrer Referenzgruppe.", f:"min(z)", calc:`Schülerin ${N[w]}: Ihre Leistung liegt ${fmt(Math.abs(Z[w]))} Standardabweichungen unter dem Mittel ihrer Referenzgruppe, weiter als bei den anderen.`, ans:w+1, final:true, tol:0}]};
     }
@@ -767,19 +899,19 @@ function nextStep(){
 /* ================= Navigation ================= */
 let view="home", task=null, cur={};
 const TABS=[["home","Lernpfad"],["practice","Üben"],["stats","Statistik"]];
-const TAB_OF={home:"home",chapter:"home",lesson:"home",graph:"home",essay:"home",kreuz:"practice",cards:"practice",calc:"practice",task:"practice",practice:"practice",stats:"stats",exam:"practice",kurz:"practice"};
+const TAB_OF={home:"home",chapter:"home",lesson:"home",graph:"home",essay:"home",kreuz:"practice",cards:"practice",calc:"practice",task:"practice",practice:"practice",stats:"stats",exam:"practice",kurz:"practice",sym:"practice",recall:"practice",who:"practice",sessdone:"home"};
 function renderNav(){
   $("#nav").innerHTML=TABS.map(([k,l])=>`<button data-v="${k}"${TAB_OF[view]===k?' aria-current="page"':""}>${l}</button>`).join("");
   $("#nav").querySelectorAll("button").forEach(b=>b.onclick=()=>go(b.dataset.v));
 }
 function go(v){ view=v; render(); window.scrollTo(0,0); }
-function render(){ renderNav(); ({home:renderHome,chapter:renderChapter,lesson:renderLesson,cards:renderCards,graph:renderGraph,practice:renderPractice,calc:renderCalc,task:renderTask,stats:renderStats,exam:renderExam,kurz:renderKurz,kreuz:renderKreuz})[view](); }
+function render(){ renderNav(); ({home:renderHome,chapter:renderChapter,lesson:renderLesson,cards:renderCards,graph:renderGraph,practice:renderPractice,calc:renderCalc,task:renderTask,stats:renderStats,exam:renderExam,kurz:renderKurz,kreuz:renderKreuz,sym:renderSym,recall:renderRecall,who:renderWho,sessdone:renderHome})[view](); }
 const backTo=(label,fn)=>`<button class="crumb" id="crumb">← ${label}</button>`;
 function bindCrumb(fn){ const b=$("#crumb"); if(b) b.onclick=fn; }
 
 /* ================= Lernpfad ================= */
 function renderHome(){
-  const nx=nextStep(), due=dueCards(0).length;
+  const nx=nextStep(), days=examDaysLeft();
   const chapRow=ch=>{ const p=chapterProgress(ch.n);
     return `<button class="chap${p?"":" off"}" data-n="${ch.n}" ${p?"":"disabled"}>
       <span class="no">${ch.n}</span><span class="t">${ch.title}</span>${p?`<span class="chip ${p.total>=80?"l3":p.total>0?"l2":""}">${p.total} %</span>`:`<span class="chip soon">folgt</span>`}
@@ -789,28 +921,43 @@ function renderHome(){
     <p class="eyebrow">Bildungswissenschaften II · Psychologie · Heine</p>
     <h1>Lernpfad</h1>
     <p class="muted">Alles für die Modulklausur in einer App: Theorie lesen, Karten wiederholen, Kreuzaufgaben üben, rechnen, offene Aufgaben schreiben.</p>
-    ${due?`<div class="block row between"><span><b>Heute fällig: ${due} Karten</b><br><span class="small muted">Zuerst wiederholen, dann Neues lernen.</span></span><button class="btn" id="goDue">Wiederholen</button></div>`:""}
-    <div class="block today">
+    ${todayBlock()}
+    ${homeReview()}
+    <div class="block">
       <p class="eyebrow">Als Nächstes · ${nx.label}</p>
       <h2>${nx.title}</h2>
-      <button class="btn" id="goNext">Weiter lernen</button>
+      <button class="btn ghost" id="goNext">Weiter lernen</button>
     </div>
     ${[1,2,3,4].map(v=>`<p class="sect"><span>${VL[v]}</span><span>Klausurteil ${v}</span></p>
       <div class="block"><div class="tlist">${CHAPTERS.filter(c=>c.vl===v).map(chapRow).join("")}</div></div>`).join("")}
     <div class="block">
       <h2>So ist die Klausur gebaut</h2>
-      <p class="small muted">Termin: <b style="color:var(--ink)">17. Februar 2027 am PC</b> im PC-Raum. Laut Heine bleiben die Aufgaben dieselben wie bisher, nur am Rechner statt auf Papier. Aufbau wie WiSe 24/25: vier Teile mit je 30 Punkten, passend zu den vier Schwerpunkten. Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe, die du tippst.</p>
+      <div class="klist">
+        <b>Termin</b><span>${fmtDate(examDateTs())} ${new Date(examDateTs()).getFullYear()}${days>0?`, noch ${days} Tage`:""}</span>
+        <b>Ort</b><span>am PC im PC-Raum. Laut Heine bleiben die Aufgaben dieselben wie bisher, nur am Rechner statt auf Papier.</span>
+        <b>Aufbau</b><span>wie WiSe 24/25: vier Teile mit je 30 Punkten, passend zu den vier Schwerpunkten</span>
+      </div>
+      <p class="small muted" style="margin:0 0 6px">Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe, die du tippst.</p>
       <div class="partlist">
-        <span>Teil 1</span><span>Einführung: 5 Kreuzaufgaben, offene Aufgabe (2024: Emotion nach Russell)</span><b>30 P.</b>
-        <span>Teil 2</span><span>Lehr-Lernpsychologie: 5 Kreuzaufgaben, offene Aufgabe (2024: operante Konditionierung)</span><b>30 P.</b>
-        <span>Teil 3</span><span>Diagnostik: 5 Kreuzaufgaben, offene Aufgabe (früher: Rechnen, Bezugsnormen, Skalen)</span><b>30 P.</b>
-        <span>Teil 4</span><span>Inklusion: 4 Kreuzaufgaben, Fallanalyse nach ICD-10 F81 (14 P.)</span><b>30 P.</b>
+        <span>Teil 1</span><span>Einführung: 5 Kreuzaufgaben, offene Aufgabe (2024: Emotion nach Russell)</span><b>30&nbsp;P.</b>
+        <span>Teil 2</span><span>Lehr-Lernpsychologie: 5 Kreuzaufgaben, offene Aufgabe (2024: operante Konditionierung)</span><b>30&nbsp;P.</b>
+        <span>Teil 3</span><span>Diagnostik: 5 Kreuzaufgaben, offene Aufgabe (früher: Rechnen, Bezugsnormen, Skalen)</span><b>30&nbsp;P.</b>
+        <span>Teil 4</span><span>Inklusion: 4 Kreuzaufgaben, Fallanalyse nach ICD-10 F81 (14 P.)</span><b>30&nbsp;P.</b>
       </div>
     </div>`;
+  bindReview();
   $("#goNext").onclick=nx.go;
-  if($("#goDue")) $("#goDue").onclick=()=>openCards(0);
+  $("#goSess").onclick=()=>{ if(sess) runStep(); else startSession(); };
   document.querySelectorAll(".chap").forEach(b=>b.onclick=()=>{ if(b.disabled) return; cur.ch=+b.dataset.n; go("chapter"); });
 }
+/* Startseite: als unklar markierte Lektionen */
+function lessonRef(id){ for(const ch of CHAPTERS){ const i=(LESSONS[ch.n]||[]).findIndex(x=>x.id===id); if(i>=0) return {n:ch.n,i,t:LESSONS[ch.n][i].t,ch:ch.title}; } return null; }
+function homeReview(){
+  const unc=Object.keys(state.unclear||{}).map(lessonRef).filter(Boolean);
+  if(!unc.length) return "";
+  return `<div class="block"><h3>Nochmal anschauen</h3><p class="small muted" style="margin:0 0 4px">Als unklar markiert. Tippe in der Lektion auf „Jetzt verstanden“, wenn es sitzt.</p><div class="tlist">${unc.map(r=>`<button class="titem rv" data-n="${r.n}" data-i="${r.i}"><span class="t">${r.t}</span><span class="chip flag">unklar</span><span class="d">${r.ch}</span></button>`).join("")}</div></div>`;
+}
+function bindReview(){ document.querySelectorAll(".rv").forEach(b=>b.onclick=()=>openLesson(+b.dataset.n,+b.dataset.i)); }
 
 /* ================= Kapitel ================= */
 function renderChapter(){
@@ -826,6 +973,8 @@ function renderChapter(){
       <button class="mode" id="mL"><span class="t">Theorie</span><span class="n">${nl}/${L.length}</span><span class="d">${L.length} kurze Lektionen mit Verständnisfragen. Hier fängst du an.</span></button>
       ${K.length?`<button class="mode" id="mK"><span class="t">Karten</span><span class="n">${dueCards(n).length} fällig · ${K.filter(x=>!isSeen(x.id)).length} neu</span><span class="d">Begriffe, Formeln, Aufzählungen. Gewusste Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder.</span></button>`:""}
       ${X.length?`<button class="mode" id="mX"><span class="t">Kreuzen</span><span class="n">${nx}/${X.length} fehlerfrei</span><span class="d">Kreuzaufgaben im Klausurformat: drei Aussagen, je wahr oder falsch, bis zu 4 Punkte.</span></button>`:""}
+      ${SYMBOL_GROUPS.some(g=>g.kap===n)?`<button class="mode" id="mS"><span class="t">Zeichen</span><span class="n">${SYMBOL_GROUPS.filter(g=>g.kap===n).reduce((k,g)=>k+g.items.length,0)} Zeichen</span><span class="d">Erst die Zeichen sicher kennen (z, σ, PR …), dann rechnet es sich leichter. Mit Lexikon.</span></button>`:""}
+      ${Object.values(WHO_SETS).some(S=>S.kap===n)?`<button class="mode" id="mZ"><span class="t">Zuordnen</span><span class="n">${WHO.filter(x=>WHO_SETS[x.set].kap===n).length} Beispiele</span><span class="d">Alltagsbeispiele dem richtigen Begriff zuordnen, wie in Fallaufgaben.</span></button>`:""}
       ${C.length?`<button class="mode" id="mC"><span class="t">Rechnen</span><span class="n">${nc}/${C.length} frei</span><span class="d">Immer neue Zahlen: erst vorgerechnet, dann geführt, dann frei wie in der Klausur.</span></button>`:""}
       ${G.length?`<button class="mode" id="mG"><span class="t">Grafiken</span><span class="n">${ng}/${G.length}</span><span class="d">Mit dem Stift zeichnen, dann die Musterlösung darüberlegen.</span></button>`:""}
       ${W.length?`<button class="mode" id="mW"><span class="t">Schreiben</span><span class="n">${nw}/${W.length}</span><span class="d">Offene Aufgaben: Antwort schreiben, mit dem Erwartungshorizont abhaken, auf Wunsch von Claude bewerten lassen.</span></button>`:""}
@@ -838,37 +987,36 @@ function renderChapter(){
   if($("#mC")) $("#mC").onclick=()=>{ cur.calcCh=n; go("calc"); };
   if($("#mG")) $("#mG").onclick=()=>openGraph(n,Math.max(0,G.findIndex(x=>!(state.graphs||{})[x.id])));
   if($("#mX")) $("#mX").onclick=()=>openKreuz(n);
+  if($("#mS")) $("#mS").onclick=()=>go("sym");
+  if($("#mZ")) $("#mZ").onclick=()=>openWho(8);
   if($("#mW")) $("#mW").onclick=()=>openKurz(n);
   document.querySelectorAll(".titem").forEach(b=>b.onclick=()=>openLesson(n,+b.dataset.i));
 }
 
 /* ================= Lektion ================= */
-function openLesson(n,i){ cur.ch=n; cur.li=i; cur.ans={}; go("lesson"); }
+function openLesson(n,i){ cur.ch=n; cur.li=i; cur.ans={}; cur.shown={}; go("lesson"); }
 function renderLesson(){
   const n=cur.ch, L=LESSONS[n], x=L[cur.li];
-  const html=x.html.replace(/\{\{fig:(\w+)\}\}/g,(_,id)=>figSVG(id,true));
+  const html=nb(x.html).replace(/\{\{fig:(\w+)\}\}/g,(_,id)=>figSVG(id,true));
   const allAns=x.check.every((_,j)=>cur.ans[j]!==undefined);
+  const inSess=sess&&sess.steps[sess.i]&&sess.steps[sess.i].k==="lesson";
   $("#app").innerHTML=`${backTo("Kapitel "+n)}
     <p class="eyebrow">Kapitel ${n} · Lektion ${cur.li+1} von ${L.length} ${tagOf(x.id)}</p>
     <article class="block lesson"><h1>${x.t}</h1>${html}</article>
     ${unclearBox(x)}
-    <div class="block"><h3>Kurz prüfen</h3>${x.check.map((c,j)=>{ const a=cur.ans[j];
-      return `<div style="margin-top:${j?16:4}px"><p style="margin:0"><b>${c.q}</b></p><div class="mc">${c.o.map((o,k)=>{
-        const cls=a===undefined?"":(k===c.a?"r":(k===a?"w":""));
-        return `<button data-j="${j}" data-k="${k}" class="${cls}" ${a!==undefined?"disabled":""}>${o}</button>`;}).join("")}
-        ${a===undefined?`<button data-j="${j}" data-k="-1" class="idk">Weiß ich nicht</button>`:""}</div>
-        ${a!==undefined?`<p class="ex ${a===c.a?"res good":"res bad"}">${a===c.a?"Richtig. ":a===-1?"Gut, dass du ehrlich bist. Die Lektion kommt später wieder. ":"Nicht ganz. "}<span style="color:var(--ink)">${c.ex}</span></p>`:""}</div>`;}).join("")}
-    </div>
+    <div class="block"><h3>Kurz prüfen</h3>${x.check.map((c,j)=>qBlock(c,j,cur.ans[j],cur.shown[j],j===0)).join("")}</div>
     <div class="lnav">
       ${cur.li>0?`<button class="btn ghost" id="prev">← Vorherige</button>`:"<span></span>"}
-      ${allAns?(cur.li<L.length-1?`<button class="btn" id="next">Nächste Lektion →</button>`:`<button class="btn" id="fin">Kapitel-Übersicht</button>`):`<span class="small muted">Beantworte die Fragen, dann geht es weiter.</span>`}
+      ${allAns&&inSess?sessBtn():allAns?(cur.li<L.length-1?`<button class="btn" id="next">Nächste Lektion →</button>`:`<button class="btn" id="fin">Kapitel-Übersicht</button>`):`<span class="small muted">Beantworte die Fragen, dann geht es weiter.</span>`}
     </div>`;
   bindCrumb(()=>go("chapter"));
-  document.querySelectorAll(".mc button").forEach(b=>b.onclick=()=>{
-    const j=+b.dataset.j, k=+b.dataset.k; if(cur.ans[j]!==undefined) return; cur.ans[j]=k;
+  const keep=f=>{ const y=window.scrollY; f(); renderLesson(); window.scrollTo(0,y); };
+  document.querySelectorAll("[data-show]").forEach(b=>b.onclick=()=>keep(()=>{ cur.shown[+b.dataset.show]=true; }));
+  document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{
+    const j=+b.dataset.q, k=+b.dataset.k; if(cur.ans[j]!==undefined) return; cur.ans[j]=k; qGrade(qid(x.id,j),k===x.check[j].a);
     if(x.check.every((_,q)=>cur.ans[q]!==undefined)){ state.lessons=state.lessons||{}; const ok=x.check.every((c,q)=>cur.ans[q]===c.a);
       state.lessons[x.id]={ok, t:Date.now()}; logDay(); save(); }
-    const y=window.scrollY; renderLesson(); window.scrollTo(0,y);
+    keep(()=>{});
   });
   bindUnclear(x);
   if($("#prev")) $("#prev").onclick=()=>openLesson(n,cur.li-1);
@@ -886,7 +1034,7 @@ function unclearBox(x){
 }
 function bindUnclear(x){
   const plain=x.html.replace(/\{\{fig:\w+\}\}/g,"").replace(/<br>/g,"\n").replace(/<\/(p|li|tr|div)>/g,"\n").replace(/<[^>]+>/g," ").replace(/[ \t]+/g," ").replace(/\n\s+/g,"\n").trim();
-  const ask=()=>copyForClaude(`Ich lerne für die Modulklausur Bildungswissenschaften II (UDE, Prof. Heine, Pädagogische Psychologie). Diese Lektion verstehe ich noch nicht richtig. Erkläre sie mir bitte einfacher, mit einem Beispiel aus der Schule, und stell mir danach zwei Kontrollfragen.\n\nLektion „${x.t}“:\n${plain}`,"#ucCopy");
+  const ask=()=>copyForClaude(`Ich lerne für die Modulklausur Bildungswissenschaften II (UDE, Prof. Heine, Pädagogische Psychologie). Diese Lektion verstehe ich noch nicht richtig. Erkläre sie mir bitte einfacher: kurze Sätze, Fachbegriffe kurz erklärt, mit einem Beispiel aus der Schule. Bleib bei den Begriffen und Formeln aus Heines Folien. Stell mir danach zwei Kontrollfragen, die Lösungen bitte erst, wenn ich geantwortet habe.\n\nKapitel: ${CHAPTERS.find(c=>c.n===cur.ch).title}\nLektion „${x.t}“:\n${plain}`,"#ucCopy");
   $("#ucOn").onclick=()=>{ if(state.unclear[x.id]) delete state.unclear[x.id]; else { state.unclear[x.id]=Date.now(); ask(); } save(); const y=window.scrollY; renderLesson(); window.scrollTo(0,y); };
   if($("#ucCl")) $("#ucCl").onclick=ask;
 }
@@ -896,23 +1044,26 @@ function logDay(){ const k=today(); state.days[k]=(state.days[k]||0)+1; }
 /* Rückseite aus Zeilen aufbauen: „Begriff: Text“ wird zum Begriffspaar, „1. …“ zur nummerierten Liste,
    mehrere einfache Zeilen zur Aufzählung, „A vs. B“ mit „Merkmal: a / b“ zur Vergleichstabelle */
 function cardBackHTML(c){
+  if(c.rt) return richText(c.b);
   const lines=c.b.split("\n").map(s=>s.trim()).filter(Boolean);
   const kvRe=/^([^:]{1,38}):\s+(.+)$/, numRe=/^\d+\.\s+(.+)$/;
-  const kind=l=>{ if(numRe.test(l)) return "num"; const m=l.match(kvRe); if(m&&!/,\s|\sheißt/.test(m[1])&&!/[.!?]$/.test(m[1])) return "kv"; if(/ = /.test(l)&&l.length<44) return "eq"; return "plain"; };
-  if(lines.length===1) return `<p>${lines[0]}</p>`;
+  const kind=l=>{ if(/^\$ /.test(l)) return "eq"; if(/^[-•] /.test(l)) return "plain"; if(numRe.test(l)) return "num"; const m=l.match(kvRe); if(m&&!/,\s|\sheißt/.test(m[1])&&!/[.!?]$/.test(m[1])) return "kv"; if(/ = /.test(l)&&l.length<44) return "eq"; return "plain"; };
+  const clean=l=>l.replace(/^[-•$] /,"");
+  if(lines.length===1) return `<p>${inl(clean(lines[0]))}</p>`;
   const vs=c.f.split(/\s+vs\.\s+/);
   if(vs.length===2 && lines.every(l=>kind(l)==="kv"&&l.match(kvRe)[2].includes(" / "))){
     const h=vs.map(x=>x.replace(/\s+im Vergleich$/,"").replace(/[?:]$/,""));
-    return `<table class="cb-tbl"><tr><th>${h[0]}</th><th>${h[1]}</th></tr>${lines.map(l=>{ const m=l.match(kvRe), p=m[2].split(" / "); return `<tr class="lab"><td colspan="2">${m[1]}</td></tr><tr><td>${p[0]}</td><td>${p.slice(1).join(" / ")}</td></tr>`; }).join("")}</table>`;
+    return `<table class="cb-tbl"><tr><th>${inl(h[0])}</th><th>${inl(h[1])}</th></tr>${lines.map(l=>{ const m=l.match(kvRe), p=m[2].split(" / "); return `<tr class="lab"><td colspan="2">${inl(m[1])}</td></tr><tr><td>${inl(p[0])}</td><td>${inl(p.slice(1).join(" / "))}</td></tr>`; }).join("")}</table>`;
   }
-  const nm=l=>{ const m=l.match(/^([^()]{2,40}?) \((.+)\)$/); return m?`<b>${m[1]}</b> <span class="pd">(${m[2]})</span>`:l; };
+  /* „Begriff (Fachbegriff)“ am Zeilenanfang: Begriff fett, Klammer leiser */
+  const nm=l=>{ const m=l.match(/^([^()]{2,40}?) \((.+)\)$/); return m?`<b>${inl(m[1])}</b> <span class="pz">(${m[2]})</span>`:inl(l); };
   const groups=[]; for(const l of lines){ const k=kind(l), g=groups[groups.length-1]; if(g&&g.k===k&&k!=="eq") g.l.push(l); else groups.push({k,l:[l]}); }
-  return groups.map((g,gi)=>{
+  return groups.map(g=>{
     if(g.k==="num") return `<ol class="cb-ol">${g.l.map(l=>`<li><span>${nm(l.match(numRe)[1])}</span></li>`).join("")}</ol>`;
-    if(g.k==="kv") return `<dl class="cb-dl">${g.l.map(l=>{ const m=l.match(kvRe); return `<div><dt>${m[1]}</dt><dd>${m[2]}</dd></div>`; }).join("")}</dl>`;
-    if(g.k==="eq") return `<div class="eq">${g.l[0]}</div>`;
-    if(g.l.length===1) return `<p>${g.l[0]}</p>`;
-    return `<ul class="cb-ul">${g.l.map(l=>`<li>${nm(l)}</li>`).join("")}</ul>`;
+    if(g.k==="kv") return `<dl class="cb-dl">${g.l.map(l=>{ const m=l.match(kvRe); return `<div><dt>${inl(m[1])}</dt><dd>${inl(m[2])}</dd></div>`; }).join("")}</dl>`;
+    if(g.k==="eq") return `<div class="eq">${fx(clean(g.l[0]))}</div>`;
+    if(g.l.length===1) return `<p>${inl(clean(g.l[0]))}</p>`;
+    return `<ul class="cb-ul">${g.l.map(l=>`<li>${nm(clean(l))}</li>`).join("")}</ul>`;
   }).join("");
 }
 function allCards(n){ return n? (CARDS[n]||[]) : Object.values(CARDS).flat(); }
@@ -922,7 +1073,11 @@ const dayStart=(t=Date.now())=>{ const d=new Date(t); d.setHours(0,0,0,0); retur
 const isSeen=id=>!!(state.box||{})[id];
 const isDue=id=>isSeen(id) && ((state.due||{})[id]||0)<=Date.now();
 function dueCards(n){ return allCards(n).filter(x=>isDue(x.id)).sort((a,b)=>((state.due||{})[a.id]||0)-((state.due||{})[b.id]||0)); }
-function openCards(n,free){ cur.cardCh=n; cur.free=!!free; cur.deck=free?buildDeck(n):buildDueDeck(n); cur.ci=0; cur.flip=false; cur.right=0; cur.requeued={}; go("cards"); }
+function openCards(n,free,deck){ cur.cardCh=n; cur.free=!!free; cur.deck=deck?deck.slice():(free?buildDeck(n):buildDueDeck(n)); cur.ci=0; cur.flip=false; cur.right=0; cur.unsure=0; cur.cstrokes=[]; cur.requeued={}; go("cards"); }
+const deckLabel=n=>DECK_NAME[n]?"Zeichen":n?"Kapitel "+n:"Üben";
+const deckBack=n=>DECK_NAME[n]?go("sym"):n?go("chapter"):go("practice");
+let CARD_CH=null;
+function cardChapter(id){ if(!CARD_CH){ CARD_CH={}; CHAPTERS.forEach(ch=>(CARDS[ch.n]||[]).forEach(c=>CARD_CH[c.id]=ch)); } return CARD_CH[id]; }
 function buildDueDeck(n){
   const due=dueCards(n), fresh=n? allCards(n).filter(x=>!isSeen(x.id)) : [];
   return due.concat(fresh).slice(0,Math.max(10,Math.min(due.length,30)));
@@ -941,28 +1096,41 @@ function renderCards(){
     const left=dueCards(n).length+(n?allCards(n).filter(x=>!isSeen(x.id)).length:0);
     const nextDue=allCards(n).filter(x=>isSeen(x.id)&&!isDue(x.id)).map(x=>(state.due||{})[x.id]).sort((a,b)=>a-b)[0];
     const when=nextDue? Math.round((dayStart(nextDue)-dayStart())/864e5) : null;
-    $("#app").innerHTML=`${backTo(n?"Kapitel "+n:"Üben")}<h1>${D.length?(left?"Runde geschafft":"Für heute erledigt"):"Nichts fällig"}</h1>
-      <div class="block">${D.length?`<p>${cur.right} von ${D.length} Antworten gewusst.</p>`:""}
-      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Kapitels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Gewusste Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, nicht gewusste sofort noch einmal.</p>
-      <div class="row">${left?`<button class="btn" id="again">Weiter</button>`:""}<button class="btn ghost" id="free">Freiwillig weiterüben</button><button class="btn ghost" id="out">Fertig</button></div></div>`;
-    bindCrumb(()=>go(n?"chapter":"practice")); if($("#again")) $("#again").onclick=()=>openCards(n); $("#free").onclick=()=>openCards(n,true); $("#out").onclick=()=>go(n?"chapter":"practice"); return;
+    $("#app").innerHTML=`${backTo(deckLabel(n))}<h1>${D.length?(left?"Runde geschafft":"Für heute erledigt"):"Nichts fällig"}</h1>
+      <div class="block">${D.length?`<p>${cur.right} sicher, ${cur.unsure||0} unsicher, ${D.length-cur.right-(cur.unsure||0)} nicht gewusst.</p>`:""}
+      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Stapels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Sichere Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, unsichere morgen, nicht gewusste sofort noch einmal.</p>
+      <div class="row">${sess?sessBtn():`${left?`<button class="btn" id="again">Weiter</button>`:""}<button class="btn ghost" id="free">Freiwillig weiterüben</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
+    bindCrumb(()=>deckBack(n)); if($("#again")) $("#again").onclick=()=>openCards(n); if($("#free")) $("#free").onclick=()=>openCards(n,true); if($("#out")) $("#out").onclick=()=>deckBack(n); return;
   }
-  const c=D[cur.ci], b=cardBox(c.id);
-  $("#app").innerHTML=`${backTo(n?"Kapitel "+n:"Üben")}
+  const c=D[cur.ci], b=cardBox(c.id), ch=cardChapter(c.id), sym=/^[sr]-/.test(c.id);
+  const ctx=CARD_CTX[c.id]||(ch?ch.title:"");
+  $("#app").innerHTML=`${backTo(deckLabel(n))}
     <div class="row between"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?" · fällig":" · neu"}</p><span class="dots" aria-label="Fach ${b} von 5">${[1,2,3,4,5].map(i=>`<i class="${i<=b?"on":""}"></i>`).join("")}</span></div>
-    <div class="block card${cur.flip?"":" tap"}" id="theCard" style="margin-top:8px"><div class="front">${c.f}</div>${CARD_CTX[c.id]?`<p class="cctx">${CARD_CTX[c.id]}</p>`:""}${cur.flip?`<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div>
-    ${cur.flip?`<div class="row"><button class="btn" id="yes" style="flex:1">Gewusst</button><button class="btn warn" id="no" style="flex:1">Nicht gewusst</button></div>`
-      :`<button class="btn" id="flip" style="width:100%">Antwort zeigen</button><p class="small muted" style="margin-top:8px">Erst im Kopf oder auf dem Schmierzettel antworten, dann aufdecken.</p>`}`;
-  bindCrumb(()=>go(n?"chapter":"practice"));
+    <div class="block card" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen">
+      ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
+      <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}</div>
+      ${cur.flip?`<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div>
+    ${cur.pad?`<div class="pad cardpad"><span class="ph">Hier hinschreiben</span><canvas id="cpad" aria-label="Schreibfeld für die Antwort"></canvas><div class="tools"><button id="cpU">Zurück</button><button id="cpX">Leeren</button></div></div>`:""}
+    ${cur.flip?`<div class="grade"><button class="btn warn" id="no">Nicht gewusst</button><button class="btn ghost" id="mid">Unsicher</button><button class="btn" id="yes">Sicher</button></div>`
+      :`<div class="row"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button><button class="btn ghost" id="padT">${cur.pad?"Schreibfeld aus":"Schreibfeld"}</button></div><p class="small muted" style="margin-top:8px">Erst antworten, im Kopf oder im Schreibfeld, dann aufdecken. Ehrlich bewerten: „Unsicher“, wenn du es nur ungefähr wusstest.</p>`}`;
+  bindCrumb(()=>deckBack(n));
   if($("#flip")) $("#flip").onclick=()=>{ cur.flip=true; renderCards(); };
-  if(!cur.flip) $("#theCard").onclick=()=>{ cur.flip=true; renderCards(); };
-  const grade=ok=>{ state.box=state.box||{}; state.due=state.due||{}; const b0=cardBox(c.id), b1=ok?Math.min(5,Math.max(b0,1)+1):1;
-    state.box[c.id]=b1;
-    if(!cur.free||!ok||b1<b0){ const days=ok?(b0===5?35:INTERVAL[b1]):0; state.due[c.id]= ok? dayStart()+days*864e5 : Date.now(); }
-    if(ok) cur.right++; else if((cur.requeued[c.id]||0)<2){ cur.requeued[c.id]=(cur.requeued[c.id]||0)+1; D.push(c); }
-    logDay(); save(); cur.ci++; cur.flip=false; renderCards(); };
-  if($("#yes")) $("#yes").onclick=()=>grade(true);
-  if($("#no")) $("#no").onclick=()=>grade(false);
+  const cd=$("#theCard"); cd.onclick=e=>{ if(e.target.closest("a")) return; cur.flip=!cur.flip; renderCards(); };
+  cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } };
+  if(cur.pad){ const sf=drawSurface($("#cpad"),cur.cstrokes); $("#cpU").onclick=()=>sf.undo(); $("#cpX").onclick=()=>sf.clear(); }
+  if($("#padT")) $("#padT").onclick=()=>{ cur.pad=!cur.pad; renderCards(); };
+  /* Bewertung: 2 sicher (nächstes Fach), 1 unsicher (Fach bleibt, morgen wieder), 0 nicht gewusst (Fach 1, gleich nochmal) */
+  const grade=lv=>{ state.box=state.box||{}; state.due=state.due||{}; const b0=cardBox(c.id), old=state.due[c.id]||0;
+    const b1= lv===2? Math.min(5,Math.max(b0,1)+1) : lv===1? Math.max(1,b0) : 1;
+    const nd= lv===2? dayStart()+(b0===5?35:INTERVAL[b1])*864e5 : lv===1? dayStart()+864e5 : Date.now();
+    if(!cur.free){ state.box[c.id]=b1; state.due[c.id]=nd; }
+    else if(lv<2){ state.box[c.id]=Math.min(b0||1,b1); state.due[c.id]=Math.min(old||nd,nd); }
+    if(lv===2) cur.right++; else if(lv===1) cur.unsure=(cur.unsure||0)+1;
+    else { state.lapses=state.lapses||{}; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if((cur.requeued[c.id]||0)<2){ cur.requeued[c.id]=(cur.requeued[c.id]||0)+1; D.push(c); } }
+    logDay(); save(); cur.ci++; cur.flip=false; cur.cstrokes=[]; renderCards(); };
+  if($("#yes")) $("#yes").onclick=()=>grade(2);
+  if($("#mid")) $("#mid").onclick=()=>grade(1);
+  if($("#no")) $("#no").onclick=()=>grade(0);
 }
 
 /* ================= Grafiken ================= */
@@ -1002,15 +1170,21 @@ function renderPractice(){
   $("#app").innerHTML=`<p class="eyebrow">Wiederholen</p><h1>Üben</h1>
     <p class="muted">Gemischt aus allen fertigen Kapiteln (${ready.join(", ")}). Gemischtes Üben ist anstrengender als blockweises, bleibt aber deutlich besser hängen.</p>
     <div class="block"><div class="modes">
-      <button class="mode" id="pK"><span class="t">Fällige Karten</span><span class="n">${dueCards(0).length} fällig</span><span class="d">Alle Karten aus allen Kapiteln, die heute dran sind. Neue Karten lernst du im jeweiligen Kapitel.</span></button>
-      <button class="mode" id="pKr"><span class="t">Kreuzaufgaben gemischt</span><span class="n">${KREUZ.filter(x=>LESSONS[x.ch]&&(kzStat(x.id)||{}).best===4).length}/${kreuzOf(0).length} fehlerfrei</span><span class="d">Fünf Aufgaben wie ein Klausurblock, bevorzugt neue und solche mit Fehlern.</span></button>
+      <button class="mode" id="pK"><span class="t">Fällige Karten</span><span class="n">${dueCards(0).length} fällig</span><span class="d">Alle Karten, die heute dran sind. Neue Karten lernst du im jeweiligen Kapitel.</span></button>
+      <button class="mode" id="pR"><span class="t">Verständnisfragen</span><span class="n">${qDue().length} fällig</span><span class="d">Die Fragen aus den Lektionen kommen mit wachsendem Abstand wieder. Erst selbst überlegen, dann die Auswahl.</span></button>
+      <button class="mode" id="pKr"><span class="t">Kreuzaufgaben gemischt</span><span class="n">${kzDue().length} fällig · ${kreuzOf(0).filter(x=>(kzStat(x.id)||{}).best===4).length}/${kreuzOf(0).length} fehlerfrei</span><span class="d">Fünf Aufgaben wie ein Klausurblock, bevorzugt fällige und solche mit Fehlern.</span></button>
+      <button class="mode" id="pW"><span class="t">Zuordnen</span><span class="d">Beispiele aus Schule und Alltag der richtigen Lernform zuordnen. Verwechselte kommen öfter.</span></button>
+      <button class="mode" id="pS"><span class="t">Zeichen und Formeln</span><span class="n">${dueCards("sym").length+dueCards("symr").length} fällig</span><span class="d">Was bedeuten z, σ, PR oder cumf? Mit Mini-Beispielen und Lexikon zum Nachschlagen.</span></button>
       <button class="mode" id="pC"><span class="t">Rechnen gemischt</span><span class="d">Wechselnde Aufgabentypen, bevorzugt was dir schwerfällt.</span></button>
       <button class="mode" id="pL"><span class="t">Alle Rechenaufgaben</span><span class="d">Einzelne Typen gezielt üben.</span></button>
-      <button class="mode" id="pKz"><span class="t">Offene Aufgaben schreiben</span><span class="n">${kurzOf(0).filter(x=>kurzScore(x.id)).length}/${kurzOf(0).length}</span><span class="d">Antwort schreiben, mit dem Erwartungshorizont vergleichen.</span></button>
+      <button class="mode" id="pKz"><span class="t">Offene Aufgaben schreiben</span><span class="n">${kurzOf(0).filter(x=>kurzScore(x.id)).length}/${kurzOf(0).length}</span><span class="d">Antwort tippen wie am PC in der Klausur, mit dem Erwartungshorizont vergleichen.</span></button>
       <button class="mode" id="pX"><span class="t">Probeklausur</span><span class="n">${state.examRun?"läuft":(state.exams||[]).length+"×"}</span><span class="d">Im Format der Klausur WiSe 24/25 mit Timer, jedes Mal neu zusammengestellt.</span></button>
     </div></div>`;
   $("#pK").onclick=()=>openCards(0);
+  $("#pR").onclick=()=>openRecall();
   $("#pKr").onclick=()=>openKreuz(0);
+  $("#pW").onclick=()=>openWho(8);
+  $("#pS").onclick=()=>go("sym");
   $("#pC").onclick=()=>startTask(recommend(),true);
   $("#pL").onclick=()=>{ cur.calcCh=0; go("calc"); };
   $("#pKz").onclick=()=>openKurz(0);
@@ -1045,16 +1219,20 @@ function renderStats(){
   const ready=CHAPTERS.filter(c=>LESSONS[c.n]);
   $("#app").innerHTML=`<h1>Statistik</h1>
     <div class="block"><h2>Letzte 7 Tage</h2>
-      <p class="small muted" style="margin:0">Zahl unter dem Datum: wie viele Aktionen (Karten, Aufgaben, Lektionen) du an dem Tag gemacht hast.</p>
-      <div class="week">${days.map(([d,n],i)=>`<div class="${i===6?"today":""}" style="height:${Math.round(n/mx*100)}%" title="${n} Aktionen"></div>`).join("")}</div>
-      <div class="weekl">${days.map(([d,n],i)=>`<span class="${i===6?"today":""}"><b>${i===6?"Heute":wd[d.getDay()]}</b>${d.getDate()}.${d.getMonth()+1}.<span class="n">${n?n+" Akt.":"–"}</span></span>`).join("")}</div></div>
+      <p class="small muted" style="margin:0">Aktionen pro Tag: jede beantwortete Karte, Frage, Kreuz- oder Rechenaufgabe zählt.</p>
+      <div class="week7">${days.map(([d,n],i)=>`<div class="d${i===6?" today":""}" title="${n===1?"1 Aktion":n+" Aktionen"}">
+        <div class="bw"><i style="height:${n?Math.max(4,Math.round(n/mx*100)):0}%"></i></div>
+        <span class="wd">${wd[d.getDay()]}</span><span class="dt">${d.getDate()}.${d.getMonth()+1}.</span>
+        <span class="n">${n||"–"}</span><span class="u">${n?(n===1?"Aktion":"Aktionen"):""}</span></div>`).join("")}</div></div>
+    ${examPlanBlock()}
+    ${weakBlock()}
     <div class="block"><h2>Nach Kapitel</h2>${ready.map(c=>{ const p=chapterProgress(c.n);
-      return `<div class="srow"><span>Kap. ${c.n}</span><span class="small muted">${[["Theorie",p.l,1],["Karten",p.k,(CARDS[c.n]||[]).length],["Kreuzen",p.x,kreuzOf(c.n).length],["Rechnen",p.c,(CALC[c.n]||[]).length]].filter(x=>x[2]).map(x=>x[0]+" "+Math.round(x[1]*100)).join(" · ")}</span><span class="pts">${p.total} %</span></div>`;}).join("")}</div>
+      return `<div class="srow ch"><span>${c.n} · ${c.title}</span><span class="small muted">${[["Theorie",p.l,1],["Karten",p.k,(CARDS[c.n]||[]).length],["Kreuzen",p.x,kreuzOf(c.n).length],["Rechnen",p.c,(CALC[c.n]||[]).length]].filter(x=>x[2]).map(x=>x[0]+" "+Math.round(x[1]*100)).join(" · ")}</span><span class="pts">${p.total} %</span></div>`;}).join("")}</div>
     <div class="block"><h2>Rechenaufgaben</h2>${calcTypes(0).map(t=>{ const h=state.hist[t]; return `<div class="srow"><span>${TYPES[t].short}</span><span class="chip l${lvlOf(t)}">${LVL[lvlOf(t)]}</span><span>${h&&h.n?`${h.r}/${h.n}`:"–"}</span></div>`;}).join("")}</div>
     ${syncBox()}
     <div class="block"><h3>Fortschritt zurücksetzen</h3><p class="small muted">Löscht deinen gesamten Lernstand, auch auf den verbundenen Geräten.</p>
       <button class="btn warn" id="rst">${statsArmed?"Wirklich zurücksetzen":"Zurücksetzen"}</button></div>`;
-  bindSync();
+  bindSync(); bindExamPlan(); bindWeak();
   $("#rst").onclick=()=>{ if(!statsArmed){ statsArmed=true; renderStats(); return; } state={}; norm(); save(); flushPush(); statsArmed=false; toast("Zurückgesetzt"); renderStats(); };
 }
 
@@ -1095,22 +1273,26 @@ const KREUZ=[
 const kreuzOf=n=>n? KREUZ.filter(x=>x.ch===n) : KREUZ.filter(x=>LESSONS[x.ch]);
 const kzStat=id=>(state.kreuz||{})[id];
 function kzPoints(item,ans){ const right=item.s.filter((st,j)=>ans[j]===st[1]).length; return right+(right===3?1:0); }
+/* Wiederholung mit Abstand: 4 Punkte schiebt die Aufgabe weiter nach hinten (1, 3, 7, 16, 35 Tage), sonst morgen wieder */
+function kzDueAt(id){ const s=kzStat(id); if(!s) return null; return s.due||dayStart(s.t)+(s.p===4?3:1)*864e5; }
+const kzDue=()=>kreuzOf(0).filter(x=>{ const d=kzDueAt(x.id); return d!=null&&d<=Date.now(); });
 function pickKreuz(n,k){
-  const pool=kreuzOf(n).slice(), out=[];
+  const pool=kreuzOf(n).slice(), out=[], now=Date.now();
   while(out.length<Math.min(k,pool.length)){
-    const w=pool.map(x=>{ const s=kzStat(x.id); return !s?5:(s.p<4?4:(Date.now()-s.t>3*864e5?2:1)); });
-    let r=Math.random()*w.reduce((a,b)=>a+b,0), i=0; for(;i<pool.length;i++){ r-=w[i]; if(r<=0) break; }
+    const w=pool.map(x=>{ const s=kzStat(x.id); if(!s) return 5; const due=kzDueAt(x.id)<=now; return s.p<4?(due?7:3):(due?5:.5); });
+    let q=Math.random()*w.reduce((a,b)=>a+b,0), i=0; for(;i<pool.length;i++){ q-=w[i]; if(q<=0) break; }
     out.push(pool.splice(Math.min(i,pool.length-1),1)[0]);
   }
   return out;
 }
-function openKreuz(n){ cur.kr={n, items:pickKreuz(n,5).map(x=>x.id), i:0, ans:{}, shown:false, pts:[]}; go("kreuz"); }
+function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, ans:{}, shown:false, pts:[]}; go("kreuz"); }
 function kzBlock(item,ans,shown,key){
   return item.s.map((st,j)=>{ const a=ans[j];
     const cls=v=>shown?(st[1]===v?"r":(a===v?"w":"")):"";
     return `<div class="kz"><p class="st"><i class="no">${"abc"[j]})</i>${st[0]}</p>
       <div class="wf" role="group" aria-label="Aussage ${"abc"[j]}"><button data-kz="${key}:${j}" data-v="1" aria-pressed="${a===true}" class="${cls(true)}" ${shown?"disabled":""}>wahr</button><button data-kz="${key}:${j}" data-v="0" aria-pressed="${a===false}" class="${cls(false)}" ${shown?"disabled":""}>falsch</button></div>
-      ${shown?`<p class="why">${a===st[1]?"":a===undefined?'<b>Nicht angekreuzt. </b>':'<b>Nicht richtig. </b>'}${st[2]}</p>`:""}</div>`; }).join("");
+      ${!shown?"":a===st[1]?`<p class="why"><b class="okc">Richtig.</b> ${st[2]}</p>`
+        :`<div class="fb ${a===undefined?"idk":"bad"}"><p class="fh">${a===undefined?"Nicht angekreuzt.":`Du hast „${a?"wahr":"falsch"}“ gewählt.`} Die Aussage ist ${st[1]?"wahr":"falsch"}.</p><p style="margin:0">${st[2]}</p></div>`}</div>`; }).join("");
 }
 function renderKreuz(){
   const K=cur.kr, back=K.n?"Kapitel "+K.n:"Üben", backFn=()=>{ if(K.n){ cur.ch=K.n; go("chapter"); } else go("practice"); };
@@ -1120,8 +1302,8 @@ function renderKreuz(){
     $("#app").innerHTML=`${backTo(back)}<h1>Runde geschafft</h1>
       <div class="block"><p class="pbadge">${sum} von ${max} Punkten</p>
       <p class="small muted">So wird auch in der Klausur gezählt: je richtiges Kreuz ein Punkt, alle drei Aussagen einer Aufgabe richtig ein Zusatzpunkt. Aufgaben mit Fehlern kommen bevorzugt wieder.</p>
-      <div class="row"><button class="btn" id="again">Neue Runde</button><button class="btn ghost" id="out">Fertig</button></div></div>`;
-    bindCrumb(backFn); $("#again").onclick=()=>openKreuz(K.n); $("#out").onclick=backFn; return;
+      <div class="row">${sess?sessBtn():`<button class="btn" id="again">Neue Runde</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
+    bindCrumb(backFn); if($("#again")) $("#again").onclick=()=>openKreuz(K.n); if($("#out")) $("#out").onclick=backFn; return;
   }
   const item=KREUZ.find(x=>x.id===K.items[K.i]), all=[0,1,2].every(j=>K.ans[j]!==undefined), ch=CHAPTERS.find(c=>c.n===item.ch);
   if(!K.shown) K.prev=kzStat(item.id);
@@ -1133,7 +1315,8 @@ function renderKreuz(){
   bindCrumb(backFn);
   document.querySelectorAll("[data-kz]").forEach(b=>b.onclick=()=>{ K.ans[+b.dataset.kz.split(":").pop()]=b.dataset.v==="1"; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
   if($("#ev")) $("#ev").onclick=()=>{ const p=kzPoints(item,K.ans); K.pts[K.i]=p; K.shown=true;
-    const s=kzStat(item.id)||{n:0,best:0}; state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now()}; logDay(); save(); renderKreuz(); };
+    const s=kzStat(item.id)||{n:0,best:0}, b=p===4?Math.min(5,(s.b||1)+1):1;
+    state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now(),b,due:dayStart()+(p===4?(s.b===5?35:INTERVAL[b]):1)*864e5}; logDay(); save(); renderKreuz(); };
   if($("#nx")) $("#nx").onclick=()=>{ K.i++; K.ans={}; K.shown=false; renderKreuz(); window.scrollTo(0,0); };
 }
 
@@ -1193,7 +1376,7 @@ function renderKurz(){
       <div class="row" style="margin-top:10px"><button class="btn" id="kd">Antwort prüfen</button><button class="btn ghost" id="kn0">Andere Aufgabe</button></div>`:`
       <div class="block"><h3>Erwartungshorizont</h3><p class="small muted">Hake ab, was in deiner Antwort klar vorkommt.</p>${x.k.map((k,j)=>`<label class="check"><input type="checkbox" id="q${j}" ${cur.kzc[j]?"checked":""}><span>${k}</span></label>`).join("")}
         <p class="pts" id="kp">${pts()} von ${x.pts} Punkten</p>
-        <div class="row"><button class="btn" id="ks">Speichern und weiter</button><button class="btn ghost" id="kcl">Für Claude kopieren</button><button class="btn ghost" id="kn">Ohne Speichern weiter</button></div><div id="kcopy"></div></div>
+        <div class="row"><button class="btn" id="ks">${sess?"Speichern, nächster Schritt":"Speichern und weiter"}</button><button class="btn ghost" id="kcl">Für Claude kopieren</button><button class="btn ghost" id="kn">Ohne Speichern weiter</button></div><div id="kcopy"></div></div>
       ${cur.kzt?`<div class="block"><h3>Deine Antwort</h3><p style="white-space:pre-wrap;margin:0">${esc(cur.kzt)}</p></div>`:""}
       <div class="block lesson"><h3>Musterlösung</h3>${solHTML(x.m)}</div>`}
     </div>`;
@@ -1201,8 +1384,8 @@ function renderKurz(){
   if($("#kd")) $("#kd").onclick=()=>{ cur.kzt=$("#kt").value; cur.kzph="bewerten"; renderKurz(); window.scrollTo(0,0); };
   if($("#kn0")) $("#kn0").onclick=()=>openKurz(n);
   document.querySelectorAll(".check input").forEach(c=>c.onchange=()=>{ cur.kzc[+c.id.slice(1)]=c.checked; $("#kp").textContent=`${pts()} von ${x.pts} Punkten`; });
-  if($("#ks")) $("#ks").onclick=()=>{ state.kurz=state.kurz||{}; const p=pts(); state.kurz[x.id]={p,max:x.pts,t:Date.now()}; logDay(); save(); toast(`${String(p).replace(".",",")} von ${x.pts} Punkten gespeichert`); openKurz(n); };
-  if($("#kn")) $("#kn").onclick=()=>openKurz(n);
+  if($("#ks")) $("#ks").onclick=()=>{ state.kurz=state.kurz||{}; const p=pts(); state.kurz[x.id]={p,max:x.pts,t:Date.now()}; logDay(); save(); toast(`${String(p).replace(".",",")} von ${x.pts} Punkten gespeichert`); sess?sessNext():openKurz(n); };
+  if($("#kn")) $("#kn").onclick=()=>sess?sessNext():openKurz(n);
   if($("#kcl")) $("#kcl").onclick=()=>copyForClaude(`Bewerte bitte meine Antwort auf eine Klausuraufgabe im Modul Bildungswissenschaften II (UDE, Prof. Heine, Pädagogische Psychologie).\n\nAufgabe (${x.pts} Punkte):\n${x.q}\n\nErwartungshorizont:\n${x.k.map(k=>"- "+k).join("\n")}\n\nMeine Antwort:\n${cur.kzt}\n\nGib mir: Punktzahl mit Begründung je Kriterium, was fehlt oder fachlich ungenau ist, und eine verbesserte Formulierung.`,"#kcopy");
 }
 async function copyForClaude(prompt,box){
@@ -1641,6 +1824,353 @@ KURZ.push(
 );
 OPEN.push({id:"o9-k2", ch:9, kind:"kurz", k:"k9-2", pts:10, title:"Nichtassoziatives Lernen"});
 
+/* ================= Zeichen der Diagnostik-Statistik =================
+   Jedes Zeichen aus Heines Folien und den Altklausuren einmal erklärt: Bedeutung, wofür, Mini-Beispiel, wo es vorkommt,
+   typische Verwechslung. Daraus entstehen zwei Kartenstapel (Zeichen → Bedeutung und Bedeutung → Zeichen) und das Lexikon.
+   Nur was im Material schon vorkommt. Reliabilität, Konfidenzintervall usw. kommen mit den Folien zu den Gütekriterien.
+   Felder: id (bleibt fest, sonst geht der Lernstand verloren), s Zeichen, n Bedeutung kurz,
+   bed, wof, bsp, wo, merk (Merkhilfe), falle (typische Verwechslung), formel */
+const SYMBOL_GROUPS=[
+ {id:"norm", t:"Normwerte und Standardisierung", kap:16, items:[
+  {id:"x", s:"x", n:"Testrohwert der Person",
+   bed:"das **unmittelbare Testergebnis**, z. B. die Zahl der gelösten Aufgaben",
+   wof:"Ausgangspunkt jeder Umrechnung in z, IQ, T oder Prozentrang",
+   bsp:"Ein Kind löst 36 Aufgaben im Lesetest: x = 36.", wo:"z-Formel, Abweichungs-IQ",
+   falle:"Ein Rohwert allein sagt nichts. Erst der Vergleich mit der Normstichprobe macht ihn deutbar."},
+  {id:"mu", s:"μ", n:"Mittelwert der Normstichprobe",
+   bed:"der **Durchschnitt** der Referenzgruppe. In Klausuren auch x̄ (x quer) oder M",
+   wof:"zeigt, wo die Mitte der Verteilung liegt",
+   bsp:"μ = 460: Gleichaltrige erreichen im Schnitt 460 Punkte.", wo:"z = (x − μ) / σ, Tabellen mit M und SD",
+   merk:"μ, griechisch „mü“, wie Mittelwert"},
+  {id:"sigma", s:"σ", n:"Standardabweichung der Normstichprobe",
+   bed:"wie weit die Werte **typischerweise um den Mittelwert streuen**. Auch sd oder SD",
+   wof:"Maßeinheit für Abstände: „eine Standardabweichung über dem Mittel“",
+   bsp:"Bei μ = 460 und σ = 50 liegt ein Rohwert von 510 genau eine Standardabweichung über dem Mittel.", wo:"Nenner der z-Formel",
+   merk:"σ, griechisch „sigma“, wie Streuung",
+   falle:"Nicht mit dem Mittelwert verwechseln: Auf der IQ-Skala ist 100 der Mittelwert und 15 die Standardabweichung."},
+  {id:"z", s:"z", n:"z-Wert: Abstand zum Mittel in Standardabweichungen",
+   bed:"um **wie viele Standardabweichungen** ein Wert über oder unter dem Mittelwert liegt. Mittelwert 0, Standardabweichung 1",
+   wof:"macht Ergebnisse aus verschiedenen Tests vergleichbar und ist der Zwischenschritt zu jeder Normskala",
+   bsp:"z = (500 − 460) / 50 = 0,8", wo:"Lektion z-Wert, alle Umrechnungen",
+   falle:"Vorzeichen beachten: Liegt x unter μ, wird z negativ.", formel:"z = (x − μ) / σ"},
+  {id:"iq", s:"IQ", n:"Abweichungs-IQ",
+   bed:"Normskala mit **Mittelwert 100** und **Standardabweichung 15**, nach Wechsler (1939). Auch AIQ",
+   wof:"übliche Skala in der Intelligenzdiagnostik, mit deskriptiver Einordnung (85 bis 115 durchschnittlich)",
+   bsp:"z = 0,8 → IQ = 100 + 15 · 0,8 = 112", wo:"Klausuraufgaben „Vom Rohwert zum IQ“",
+   falle:"Nicht der IQ nach Stern: Intelligenzalter / Lebensalter · 100.", formel:"IQ = 100 + 15 · z"},
+  {id:"t", s:"T", n:"T-Wert",
+   bed:"Normskala mit **Mittelwert 50** und **Standardabweichung 10**",
+   wof:"in Schulleistungstests verbreitet",
+   bsp:"z = −1 → T = 50 + 10 · (−1) = 40, dieselbe Position wie IQ 85", wo:"Umrechnen zwischen Normskalen",
+   formel:"T = 50 + 10 · z"},
+  {id:"c", s:"C", n:"C-Wert",
+   bed:"grobe Normskala mit **Mittelwert 5** und **Standardabweichung 2**, nur 11 Stufen (0 bis 10)",
+   wof:"für grobe Einstufungen",
+   bsp:"z = 1,5 → C = 5 + 2 · 1,5 = 8", wo:"Umrechnen zwischen Normskalen",
+   merk:"C von „Centil“", formel:"C = 5 + 2 · z"},
+  {id:"pr", s:"PR", n:"Prozentrang",
+   bed:"Anteil der Referenzgruppe in Prozent, der **gleich gut oder schlechter** abgeschnitten hat. Braucht keine Normalverteilung",
+   wof:"Position in einer beliebigen Werteverteilung beschreiben",
+   bsp:"PR = 75: 75 % gleich gut oder schlechter, 25 % besser.", wo:"Klausuraufgaben mit Werteverteilung (WiSe 18/19, 22/23)",
+   falle:"PR 25 heißt weder „25 % der Punkte“ noch „25 % waren besser“. Es waren 75 % besser.", formel:"PR = cumf / N · 100"},
+  {id:"cumf", s:"cumf", n:"kumulierte Häufigkeit",
+   bed:"Anzahl der Werte **bis einschließlich** des betrachteten Werts in der sortierten Verteilung",
+   wof:"Zähler der Prozentrang-Formel",
+   bsp:"10, 12, 12, 13, 13, 13, 16, 16, 18, 19, 21, 25: Für den Wert 18 ist cumf = 9.", wo:"Prozentrang",
+   merk:"cumulative frequency, „aufgehäufte Häufigkeit“",
+   falle:"Gleiche Werte zählen mit: kleiner oder gleich, nicht nur kleiner."},
+  {id:"n", s:"N", n:"Anzahl aller Werte (Probanden)",
+   bed:"die **Gesamtzahl** der Werte in der Verteilung",
+   wof:"Nenner der Prozentrang-Formel",
+   bsp:"12 Werte in der Verteilung: N = 12", wo:"Prozentrang"}
+ ]}
+];
+const isFormula=f=>!!f;
+const SYMBOLS=SYMBOL_GROUPS.flatMap(g=>g.items.map(x=>Object.assign({g:g.id, gt:g.t},x)));
+function symBack(x){
+  return [x.formel?`$ ${x.formel}`:"", `Bedeutung: ${x.bed}`, `Wofür: ${x.wof}`, `Beispiel: ${x.bsp}`, `Kommt vor: ${x.wo}`, x.falle?`Achtung: ${x.falle}`:""].filter(Boolean).join("\n");
+}
+function symBackRev(x){ return [`$ ${x.formel?x.formel:x.s}`, x.formel&&!x.formel.startsWith(x.s+" ")?`Zeichen: ${x.s}`:"", `Beispiel: ${x.bsp}`, x.falle?`Achtung: ${x.falle}`:""].filter(Boolean).join("\n"); }
+CARDS.sym=SYMBOLS.map(x=>({id:"s-"+x.id, f:x.s, b:symBack(x), rt:true}));
+CARDS.symr=SYMBOLS.map(x=>({id:"r-"+x.id, f:x.n, b:symBackRev(x), rt:true}));
+SYMBOLS.forEach(x=>{ CARD_CTX["s-"+x.id]="Zeichen · "+x.gt+" · Was bedeutet es?"; CARD_CTX["r-"+x.id]="Zeichen · "+x.gt+" · Wie schreibt man es?"; if(x.merk) CARD_INFO["s-"+x.id]=CARD_INFO["r-"+x.id]="Merkhilfe: "+x.merk; });
+const DECK_NAME={sym:"Zeichen", symr:"Zeichen umgekehrt"};
+
+/* Lexikon: alle Zeichen nach Themen */
+function lexiconHTML(){
+  return SYMBOL_GROUPS.map(g=>`<div class="block"><h3>${g.t}</h3><div class="dlist lex">${g.items.map(x=>`<b class="sy">${x.s}</b><span>${inl(x.n)}${x.formel?`<span class="eq lexeq">${fx(x.formel)}</span>`:""}<span class="small muted">${inl(x.bsp)}</span>${x.falle?`<span class="small lexwarn">${inl(x.falle)}</span>`:""}</span>`).join("")}</div></div>`).join("");
+}
+function renderSym(){
+  const st=n=>{ const A=allCards(n); return `${dueCards(n).length} fällig · ${A.filter(x=>!isSeen(x.id)).length} neu`; };
+  $("#app").innerHTML=`${backTo("Üben")}<p class="eyebrow">Grundlage für die Rechenaufgaben in Teil 3</p><h1>Zeichen und Formeln</h1>
+    <p class="muted">Jedes Zeichen der Diagnostik-Statistik mit Bedeutung, Mini-Beispiel und typischer Verwechslung. Gewusste Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, wie die anderen Karten.</p>
+    <div class="block"><div class="modes">
+      <button class="mode" id="sy1"><span class="t">Zeichen → Bedeutung</span><span class="n">${st("sym")}</span><span class="d">Vorne steht das Zeichen, z. B. σ. Sag, was es bedeutet.</span></button>
+      <button class="mode" id="sy2"><span class="t">Bedeutung → Zeichen</span><span class="n">${st("symr")}</span><span class="d">Vorne steht die Bedeutung. Schreib Zeichen und Formel auf, wie in der Klausur.</span></button>
+    </div></div>
+    <h2 style="margin-top:18px">Lexikon</h2>${lexiconHTML()}`;
+  bindCrumb(()=>go("practice"));
+  $("#sy1").onclick=()=>openCards("sym"); $("#sy2").onclick=()=>openCards("symr");
+}
+/* Lexikon als Blatt über einer Aufgabe, ohne sie zu verlassen */
+function showLexicon(){
+  const d=document.createElement("div"); d.className="sheet"; d.setAttribute("role","dialog"); d.setAttribute("aria-label","Lexikon der Zeichen");
+  d.innerHTML=`<div class="sheetin"><div class="row between" style="margin-bottom:8px"><h2 style="margin:0">Zeichen</h2><button class="btn ghost small" id="lexX">Schließen</button></div>${lexiconHTML()}</div>`;
+  document.body.appendChild(d); document.body.style.overflow="hidden";
+  const close=()=>{ d.remove(); document.body.style.overflow=""; };
+  d.querySelector("#lexX").onclick=close; d.onclick=e=>{ if(e.target===d) close(); };
+}
+
+/* ================= Verständnisfragen: erst selbst abrufen, dann Auswahl; Wiederholung mit Abstand =================
+   Jede Frage aus den Lektionen bekommt ein eigenes Fach wie eine Karteikarte (state.qbox).
+   Ältere Antworten (vor dieser Funktion) werden aus state.lessons abgeleitet, ohne etwas zu speichern.
+   Frage-Felder: q, o (Optionen), a (richtig), ex (Erklärung), w (optional: je falscher Option, warum sie falsch ist) */
+const qid=(lid,j)=>lid+"#"+j;
+function allQuestions(){ const out=[]; for(const ch of CHAPTERS) for(const L of (LESSONS[ch.n]||[])) L.check.forEach((c,j)=>out.push({id:qid(L.id,j), lid:L.id, n:ch.n, c, lt:L.t, li:(LESSONS[ch.n]||[]).indexOf(L)})); return out; }
+function qInfo(id){
+  const s=(state.qbox||{})[id]; if(s) return s;
+  const ls=(state.lessons||{})[id.split("#")[0]]; if(!ls) return null;
+  return ls.ok? {b:2, due:dayStart(ls.t)+3*864e5} : {b:1, due:dayStart(ls.t)+864e5};
+}
+function qDue(){ const now=Date.now(); return allQuestions().filter(q=>{ const s=qInfo(q.id); return s&&s.due<=now; }).sort((a,b)=>qInfo(a.id).due-qInfo(b.id).due); }
+function qGrade(id,ok){
+  state.qbox=state.qbox||{}; const s=qInfo(id)||{b:0};
+  const b1= ok? Math.min(5,Math.max(s.b,1)+1) : 1;
+  state.qbox[id]={b:b1, due:dayStart()+(ok?(s.b===5?35:INTERVAL[b1]):1)*864e5};
+  if(!ok){ state.qlapses=state.qlapses||{}; state.qlapses[id]=(state.qlapses[id]||0)+1; }
+  save();
+}
+/* Rückmeldung: bei falscher Wahl erst, warum genau diese Wahl nicht passt, dann das Richtige und der Unterschied */
+function feedback(c,a){
+  const right=`<b>Richtig</b><span>${inl(c.o[c.a])}</span>`;
+  if(a===c.a) return `<div class="fb good"><p class="fh">Richtig.</p><p style="margin:0">${inl(c.ex)}</p></div>`;
+  if(a===-1) return `<div class="fb idk"><p class="fh">Kein Problem, die Frage kommt morgen noch einmal.</p><div class="dlist">${right}<b>Warum</b><span>${inl(c.ex)}</span></div></div>`;
+  const why=c.w&&c.w[a];
+  return `<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist"><b>Deine Wahl</b><span>${inl(c.o[a])}${why?`<span class="fbw">${inl(why)}</span>`:""}</span>${right}<b>${why?"Der Unterschied":"Warum"}</b><span>${inl(c.ex)}</span></div></div>`;
+}
+/* Eine Frage: erst nur die Frage, dann auf Wunsch die Auswahl */
+function qBlock(c,key,a,shown,first){
+  const opts= a!==undefined || shown;
+  return `<div class="qb" style="margin-top:${first?4:18}px"><p style="margin:0"><b>${inl(c.q)}</b></p>
+    ${opts?`<div class="mc">${c.o.map((o,k)=>{ const cls=a===undefined?"":(k===c.a?"r":(k===a?"w":""));
+        return `<button data-q="${key}" data-k="${k}" class="${cls}" ${a!==undefined?"disabled":""}>${inl(o)}</button>`; }).join("")}
+        ${a===undefined?`<button data-q="${key}" data-k="-1" class="idk">Weiß ich nicht</button>`:""}</div>`
+      :`<p class="small muted" style="margin:6px 0 8px">Erst selbst überlegen, am besten in einem Satz. Dann die Auswahl zeigen.</p>
+        <div class="row"><button class="btn small" data-show="${key}">Auswahl zeigen</button><button class="btn ghost small" data-q="${key}" data-k="-1">Weiß ich nicht</button></div>`}
+    ${a!==undefined?feedback(c,a):""}</div>`;
+}
+/* Übungsmodus: fällige Verständnisfragen aus allen Lektionen */
+function openRecall(list){ const L=list||qDue().slice(0,8); cur.rq={list:L, i:0, ans:undefined, shown:false, right:0}; go("recall"); }
+function renderRecall(){
+  const R=cur.rq, L=R.list;
+  if(R.i>=L.length){
+    const left=qDue().length;
+    $("#app").innerHTML=`${backTo("Üben")}<h1>${L.length?"Runde geschafft":"Nichts fällig"}</h1><div class="block">
+      ${L.length?`<p>${R.right} von ${L.length} richtig.</p>`:`<p>Gerade ist keine Verständnisfrage fällig. Neue Fragen kommen mit jeder Lektion dazu.</p>`}
+      <p class="small muted">Richtige Fragen kommen nach 1, 3, 7, 16 und 35 Tagen wieder, falsche schon morgen. ${left?`Noch ${left} fällig.`:""}</p>
+      <div class="row">${sess?sessBtn():`${left?`<button class="btn" id="rAgain">Weiter</button>`:""}<button class="btn ghost" id="rOut">Fertig</button>`}</div></div>`;
+    bindCrumb(()=>go("practice")); if($("#rAgain")) $("#rAgain").onclick=()=>openRecall(); if($("#rOut")) $("#rOut").onclick=()=>go("practice"); return;
+  }
+  const q=L[R.i], ch=CHAPTERS.find(c=>c.n===q.n);
+  $("#app").innerHTML=`${backTo("Üben")}
+    <p class="eyebrow">Verständnisfrage ${R.i+1} von ${L.length}</p>
+    <div class="block"><p class="small muted" style="margin:0 0 2px">${ch.title} · ${q.lt}</p>${qBlock(q.c,"r",R.ans,R.shown,true)}</div>
+    ${R.ans!==undefined?`<div class="row"><button class="btn" id="rNext">Weiter</button><button class="btn ghost" id="rLes">Zur Lektion</button></div>`:""}`;
+  bindCrumb(()=>go("practice"));
+  document.querySelectorAll("[data-show]").forEach(b=>b.onclick=()=>{ R.shown=true; renderRecall(); });
+  document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{ if(R.ans!==undefined) return; const k=+b.dataset.k; R.ans=k; const ok=k===q.c.a; if(ok) R.right++; logDay(); qGrade(q.id,ok); renderRecall(); });
+  if($("#rNext")) $("#rNext").onclick=()=>{ R.i++; R.ans=undefined; R.shown=false; renderRecall(); window.scrollTo(0,0); };
+  if($("#rLes")) $("#rLes").onclick=()=>openLesson(q.n,q.li);
+}
+
+/* ================= Zuordnen: Beispiele dem richtigen Begriff zuordnen =================
+   Trainiert das Unterscheiden ähnlicher Begriffe, wie es die Kreuzaufgaben und Fallbeispiele verlangen.
+   Nur Kategorien, die in Heines Folien schon vorkommen. Weitere Sätze (z. B. Lerntheorien) kommen mit den Folien dazu.
+   Je Satz: t Titel, q Frage, hint Tipp, cats Kategorien. Je Beispiel: id (bleibt fest), set, t Text, s richtige Kategorie,
+   alt ähnliche Kategorien, die nicht als falsche Antwort angeboten werden, ex Begründung, kap Kapitel */
+const WHO_SETS={
+  lern:{t:"Welche Lernform?", kap:9, q:"Was steckt hinter dieser Beobachtung?",
+    hint:"Wird die Reaktion schwächer oder stärker? Werden zwei Ereignisse verknüpft? Oder steckt Reifung oder Müdigkeit dahinter?",
+    cats:{hab:"Habituation", sens:"Sensitivierung", kk:"Klassische Konditionierung (S → S)", ok:"Operante Konditionierung (R → S)", kein:"Kein Lernen (Reifung, Ermüdung)"}}
+};
+const WHO=[
+ {id:"l01", set:"lern", t:"Nach zwei Wochen im neuen Klassenraum bemerkt Ayla das Rauschen der Lüftung nicht mehr.", s:"hab", ex:"Ein schwacher, regelmäßiger Reiz wird wiederholt dargeboten, die Reaktion wird schwächer."},
+ {id:"l02", set:"lern", t:"Während der Klassenarbeit wirkt das Schniefen des Sitznachbarn immer lauter. Tom kann es nicht mehr ausblenden.", s:"sens", ex:"Beispiel aus der Vorlesung: Das hohe Erregungsniveau in der Prüfung macht die Reaktion auf denselben Reiz stärker."},
+ {id:"l03", set:"lern", t:"Nach einem lauten Knall auf dem Flur zuckt die ganze Klasse auch beim Zufallen eines Mäppchens stark zusammen.", s:"sens", ex:"Sensitivierung ist weniger stimulusspezifisch: Die Erregung durch Reiz 1 verstärkt auch die Reaktion auf Reiz 2."},
+ {id:"l04", set:"lern", t:"Ein Erstklässler springt im Sommer deutlich höher als im Winter davor.", s:"kein", ex:"Das kann Reifung sein, also körperliches Wachstum. Reifung hängt nicht von Erfahrung ab und ist deshalb kein Lernen."},
+ {id:"l05", set:"lern", t:"In der sechsten Stunde macht Lena beim Kopfrechnen viel mehr Fehler als am Morgen.", s:"kein", ex:"Ermüdung: eine kurzfristige Verhaltensänderung, nicht konsistent und nicht dauerhaft."},
+ {id:"l06", set:"lern", t:"Die Klasse hört das Brummen des Beamers nicht mehr. Als der Rauchmelder piept, schrecken alle hoch.", s:"hab", alt:["sens"], ex:"Habituation ist stimulusspezifisch: An den Beamer haben sich alle gewöhnt, ein neuer Reiz löst die volle Reaktion aus (Dishabituation)."},
+ {id:"l07", set:"lern", t:"Ben meldet sich viel häufiger, seit die Lehrkraft jede Meldung mit einem Lob beantwortet.", s:"ok", ex:"Verknüpft werden ein Verhalten (R: melden) und seine Konsequenz (S: Lob)."},
+ {id:"l08", set:"lern", t:"Auf ein bestimmtes Klingelzeichen folgte mehrmals eine sehr laute Durchsage. Inzwischen zuckt Mia schon beim Klingelzeichen zusammen.", s:"kk", ex:"Verknüpft werden zwei Reize (S → S): Klingelzeichen und laute Durchsage. Das eigene Verhalten spielt dabei keine Rolle."},
+ {id:"l09", set:"lern", t:"Nach den Ferien hört Jonas das Ticken der Uhr zuerst wieder. Nach ein paar Minuten ist es aber schneller „weg“ als im September.", s:"hab", ex:"Spontanerholung nach der Pause, dann erneute Habituation, die schneller geht. Ein Zeichen, dass gelernt wurde."},
+ {id:"l10", set:"lern", t:"Eine Schülerin stört seltener, seit sie danach jedes Mal die Pause im Klassenraum verbringen muss.", s:"ok", ex:"Auf ihr Verhalten (R: stören) folgt eine Konsequenz (S: Pause verpasst). Gelernt wird diese Verknüpfung."},
+ {id:"l11", set:"lern", t:"Ein Kleinkind fängt an zu laufen, ohne dass es jemand gezielt geübt hat.", s:"kein", ex:"Laufen und Krabbeln sind Beispiele für Reifung auf Heines Folie: nicht erfahrungsabhängig."},
+ {id:"l12", set:"lern", t:"Ein Jugendlicher reagiert nach einem belastenden Erlebnis auf laute Geräusche nicht ruhiger, sondern jedes Mal heftiger.", s:"sens", ex:"„Failure to habituate“: Statt Gewöhnung tritt eine immer stärkere Reaktion auf. So erklärt man z. B. Symptome bei PTBS."},
+ {id:"l13", set:"lern", t:"Mit Fieber bleibt am Abend vor der Prüfung kaum etwas hängen.", s:"kein", ex:"Eine körperliche Ursache wie Krankheit ist weder Lernen noch Vergessen (Lehrbuch Kap. 1)."},
+ {id:"l14", set:"lern", t:"Neu an der Schule an der Hauptstraße, stört Elif der Verkehrslärm. Nach einigen Wochen nimmt sie ihn kaum noch wahr.", s:"hab", ex:"Gewöhnung an einen wiederholten Reiz ermöglicht die Anpassung an eine bestimmte Umwelt."}
+];
+const whoCats=x=>WHO_SETS[x.set].cats;
+function whoOptions(x){
+  const C=whoCats(x), pool=Object.keys(C).filter(k=>k!==x.s&&!(x.alt||[]).includes(k));
+  return shuffle([x.s].concat(shuffle(pool).slice(0,3)));
+}
+/* Auswahl: neue Beispiele und verwechselte kommen öfter */
+function whoPick(n){
+  const st=state.who||{}, pool=WHO.filter(x=>LESSONS[WHO_SETS[x.set].kap]), out=[];
+  const w=pool.map(x=>{ const h=st[x.id]; return !h?3 : h.last?1:4; });
+  while(out.length<Math.min(n,pool.length)){ let q=Math.random()*w.reduce((a,b)=>a+b,0), i=0; for(;i<pool.length;i++){ q-=w[i]; if(q<=0) break; } i=Math.min(i,pool.length-1); out.push(pool.splice(i,1)[0]); w.splice(i,1); }
+  return out;
+}
+function openWho(n){ cur.wh={list:whoPick(n||8).map(x=>({x,o:whoOptions(x)})), i:0, a:null, right:0}; go("who"); }
+function renderWho(){
+  const W=cur.wh, L=W.list;
+  if(W.i>=L.length){
+    $("#app").innerHTML=`${backTo("Üben")}<h1>Runde geschafft</h1><div class="block"><p>${W.right} von ${L.length} richtig zugeordnet.</p>
+      <p class="small muted">Falsch zugeordnete Beispiele kommen in den nächsten Runden häufiger.</p>
+      <div class="row">${sess?sessBtn():`<button class="btn" id="wAgain">Neue Runde</button><button class="btn ghost" id="wOut">Fertig</button>`}</div></div>`;
+    bindCrumb(()=>go("practice")); if($("#wAgain")) $("#wAgain").onclick=()=>openWho(8); if($("#wOut")) $("#wOut").onclick=()=>go("practice"); return;
+  }
+  const {x,o}=L[W.i], S=WHO_SETS[x.set], C=S.cats;
+  $("#app").innerHTML=`${backTo("Üben")}
+    <p class="eyebrow">Zuordnen · ${S.t} · ${W.i+1} von ${L.length}</p>
+    <div class="block"><p class="small muted" style="margin:0 0 6px">${S.q}</p><p class="who">${inl(x.t)}</p>
+      <div class="mc">${o.map(k=>{ const cls=W.a===null?"":(k===x.s?"r":(k===W.a?"w":"")); return `<button data-s="${k}" class="${cls}" ${W.a!==null?"disabled":""}>${C[k]}</button>`; }).join("")}</div>
+      ${W.a===null?"":W.a===x.s?`<div class="fb good"><p class="fh">Richtig.</p><p style="margin:0">${inl(x.ex)}</p></div>`
+        :`<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist"><b>Deine Wahl</b><span>${C[W.a]}</span><b>Richtig</b><span>${C[x.s]}</span><b>Warum</b><span>${inl(x.ex)}</span></div></div>`}</div>
+    ${W.a!==null?`<button class="btn" id="wNext">Weiter</button>`:`<p class="small muted">Tipp: ${S.hint}</p>`}`;
+  bindCrumb(()=>go("practice"));
+  document.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{ if(W.a!==null) return; W.a=b.dataset.s; const ok=W.a===x.s; if(ok) W.right++;
+    state.who=state.who||{}; const h=state.who[x.id]||{n:0,r:0}; h.n++; if(ok) h.r++; h.last=ok; if(!ok) h.conf=W.a; state.who[x.id]=h; logDay(); save(); renderWho(); });
+  if($("#wNext")) $("#wNext").onclick=()=>{ W.i++; W.a=null; renderWho(); window.scrollTo(0,0); };
+}
+
+/* ================= Tägliche Einheit „Heute“ =================
+   Mischt, was heute dran ist: fällige Karten, fällige Verständnisfragen, Kreuzaufgaben wie in der Klausur,
+   abwechselnd eine Rechenaufgabe, eine offene Aufgabe oder „Zuordnen“, dazu die nächste neue Lektion.
+   Gemischtes Üben (Interleaving) und Abstände (Spacing), ohne dass du selbst planen musst. */
+let sess=null;
+const dayIndex=()=>Math.floor(dayStart()/864e5);
+function freshChapter(){ for(const ch of CHAPTERS){ const L=LESSONS[ch.n]||[]; if(L.some(x=>lessonState(x.id)) && (CARDS[ch.n]||[]).some(x=>!isSeen(x.id))) return ch.n; } return 0; }
+function planToday(){
+  const S=[], dc=dueCards(0).length, dq=qDue().length, kd=kzDue().length;
+  if(dc) S.push({k:"cards", t:"Karten wiederholen", d:`${Math.min(dc,20)} fällige Karten`, min:Math.max(2,Math.round(Math.min(dc,20)*.4))});
+  else { const n=freshChapter(); if(n) S.push({k:"newcards", n, t:"Neue Karten", d:`5 neue Karten: ${CHAPTERS.find(c=>c.n===n).title}`, min:3}); }
+  if(dq) S.push({k:"recall", t:"Verständnisfragen", d:`${Math.min(dq,6)} fällige Fragen aus den Lektionen`, min:3});
+  if(kreuzOf(0).length) S.push({k:"kreuz", t:"Kreuzaufgaben", d:kd?`3 Aufgaben wie in der Klausur, ${Math.min(kd,3)} davon fällig`:"3 Aufgaben wie in der Klausur", min:4});
+  const rot=["calc","who","kurz"][dayIndex()%3];
+  if(rot==="calc"&&calcTypes(0).length) S.push({k:"calc", t:"Eine Rechenaufgabe", d:"Diagnostik, bevorzugt was dir schwerfällt", min:5});
+  else if(rot==="kurz"&&kurzOf(0).length) S.push({k:"kurz", t:"Eine offene Aufgabe", d:"tippen wie in der Klausur am PC", min:6});
+  else if(whoPick(1).length) S.push({k:"who", t:"Zuordnen", d:"5 Beispiele der richtigen Lernform zuordnen", min:3});
+  const nx=nextStep(); if(/Theorie/.test(nx.label)) S.push({k:"lesson", t:"Neu lernen", d:nx.title, min:5, go:nx.go});
+  return S;
+}
+function startSession(){ sess={steps:planToday(), i:0, t0:Date.now()}; runStep(); }
+function runStep(){
+  if(!sess) return; const s=sess.steps[sess.i]; updateSessBar();
+  if(!s){ return finishSession(); }
+  ({cards:()=>openCards(0,false,dueCards(0).slice(0,20)),
+    newcards:()=>openCards(s.n,false,allCards(s.n).filter(x=>!isSeen(x.id)).slice(0,5)),
+    recall:()=>openRecall(qDue().slice(0,6)),
+    kreuz:()=>openKreuz(0,3),
+    calc:()=>startTask(recommend(),false),
+    who:()=>openWho(5),
+    kurz:()=>openKurz(0),
+    lesson:()=>s.go()})[s.k]();
+  window.scrollTo(0,0);
+}
+function sessNext(){ if(!sess) return; sess.i++; runStep(); }
+function endSession(){ sess=null; updateSessBar(); go("home"); }
+function finishSession(){
+  const min=Math.max(1,Math.round((Date.now()-sess.t0)/60000)); state.sessions=state.sessions||{}; state.sessions[today()]=min; save();
+  sess=null; updateSessBar(); view="sessdone"; renderNav();
+  $("#app").innerHTML=`<p class="eyebrow">Heute</p><h1>Geschafft</h1><div class="block"><p>Deine Einheit ist fertig, etwa ${min} Minuten.</p>
+    <p class="small muted">Morgen stellt die App eine neue Einheit zusammen. Was du heute nicht sicher wusstest, ist dann wieder dabei.</p>
+    <div class="row"><button class="btn" id="sdHome">Zum Lernpfad</button></div></div>`;
+  $("#sdHome").onclick=()=>go("home"); window.scrollTo(0,0);
+}
+function updateSessBar(){
+  const b=$("#sessbar"); if(!b) return;
+  if(!sess||!sess.steps[sess.i]){ b.hidden=true; b.innerHTML=""; return; }
+  const s=sess.steps[sess.i];
+  b.hidden=false;
+  b.innerHTML=`<div class="sbin"><span class="sbt"><b>Heute ${sess.i+1}/${sess.steps.length}</b> · ${s.t}</span><button class="btn small" id="sbNext">${sess.i<sess.steps.length-1?"Nächster Schritt":"Abschließen"}</button><button class="btn ghost small" id="sbEnd" aria-label="Einheit beenden">✕</button></div>`;
+  $("#sbNext").onclick=sessNext; $("#sbEnd").onclick=endSession;
+}
+const sessBtn=()=>`<button class="btn" id="sessGo">${sess&&sess.i<sess.steps.length-1?"Weiter zum nächsten Schritt":"Einheit abschließen"}</button>`;
+document.addEventListener("click",e=>{ if(e.target.closest("#sessGo")) sessNext(); });
+/* Block auf der Startseite */
+function todayBlock(){
+  const done=(state.sessions||{})[today()], S=planToday(), min=S.reduce((a,s)=>a+s.min,0);
+  const plan=examPlanToday();
+  if(sess) return `<div class="block today"><p class="eyebrow">Heute</p><h2>Einheit läuft</h2><p class="small muted" style="margin-top:0">Schritt ${sess.i+1} von ${sess.steps.length}: ${sess.steps[sess.i]?sess.steps[sess.i].t:""}</p><button class="btn" id="goSess">Fortsetzen</button></div>`;
+  return `<div class="block today"><p class="eyebrow">Heute · etwa ${min} Minuten</p><h2>${done?"Für heute erledigt":"Deine Lerneinheit"}</h2>
+    ${done?`<p class="small muted" style="margin-top:0">Du hast heute schon gelernt. Eine zweite Runde schadet nicht, morgen geht es mit neuen Abständen weiter.</p>`:""}
+    <ol class="plan">${S.map(s=>`<li><b>${s.t}</b><span>${inl(s.d)}</span></li>`).join("")}</ol>
+    ${plan?`<p class="small" style="margin:0 0 10px"><b>Probeklausur:</b> ${plan}</p>`:""}
+    <button class="btn" id="goSess">${done?"Noch eine Runde":"Starten"}</button></div>`;
+}
+
+/* ================= Klausurtermin, Probeklausur-Plan und Schwachstellen ================= */
+const EXAM_DEFAULT="2027-02-17";   // laut Unterlagen: Modulklausur am PC im PC-Raum; änderbar unter Statistik
+const fmtDate=t=>{ const d=new Date(t); return ["So","Mo","Di","Mi","Do","Fr","Sa"][d.getDay()]+" "+d.getDate()+"."+(d.getMonth()+1)+"."; };
+const examDateTs=()=>{ const s=state.examDate||EXAM_DEFAULT; const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d).getTime(); };
+const examDaysLeft=()=>Math.ceil((examDateTs()-dayStart())/864e5);
+/* Plan: eine Probeklausur früh als Standortbestimmung, dann 21, 14 und 7 Tage vor dem Termin */
+function examPlan(){
+  const T=examDateTs(), ex=(state.exams||[]).map(e=>e.t).sort((a,b)=>a-b);
+  const P=[{lab:"Standortbestimmung", when:null}];
+  [21,14,7].forEach(d=>P.push({lab:`${d} Tage vor der Klausur`, when:T-d*864e5}));
+  const used=new Set();
+  P.forEach(p=>{ const i=ex.findIndex((t,k)=>!used.has(k)&&(p.when==null||t>=p.when-3*864e5)); if(i>=0){ used.add(i); p.done=ex[i]; } });
+  return P;
+}
+function examPlanToday(){
+  const P=examPlan(), now=Date.now(), open=P.find(p=>!p.done);
+  if(!open) return "";
+  if(open.when==null) return "Schreib bald eine als Standortbestimmung (unter Üben).";
+  if(open.when-now<=864e5) return `Laut Plan ist jetzt die nächste dran (${open.lab}).`;
+  return "";
+}
+function examPlanBlock(){
+  const days=examDaysLeft(), P=examPlan(), own=!!state.examDate;
+  return `<div class="block"><h2>Klausur und Probeklausuren</h2>
+    <div class="row" style="margin-bottom:8px"><label class="small" for="exD">Klausurtermin</label><input type="date" id="exD" value="${state.examDate||EXAM_DEFAULT}" class="dateinp"><button class="btn ghost small" id="exS">Speichern</button></div>
+    <p class="small" style="margin:0 0 6px">${days>0?`Noch <b>${days} Tage</b> bis zur Klausur.`:days===0?"<b>Heute ist Klausur.</b> Viel Erfolg!":"Der Termin liegt in der Vergangenheit."}${own?"":` <span class="muted">Termin laut deinen Unterlagen (17.02.2027). Ändert er sich, trag ihn hier neu ein.</span>`}</p>
+    <div class="klist">${P.map(p=>`<b>${p.done?"✓ ":""}${p.lab}</b><span>${p.done?`geschrieben am ${fmtDate(p.done)}`:p.when?fmtDate(p.when):"so bald wie möglich"}</span>`).join("")}</div></div>`;
+}
+function bindExamPlan(){ if($("#exS")) $("#exS").onclick=()=>{ const v=$("#exD").value; state.examDate=v||null; save(); toast(v?"Termin gespeichert":"Termin zurückgesetzt"); render(); }; }
+
+/* Schwachstellen aus allen Übungsformen */
+function weakData(){
+  const byId=Object.fromEntries(Object.values(CARDS).flat().map(c=>[c.id,c]));
+  const weakCards=Object.entries(state.lapses||{}).filter(([,n])=>n>=2).sort((a,b)=>b[1]-a[1]).map(([id])=>byId[id]).filter(Boolean);
+  const qById=Object.fromEntries(allQuestions().map(q=>[q.id,q]));
+  const weakQ=Object.entries(state.qlapses||{}).filter(([id,n])=>n>=1&&qById[id]&&((state.qbox||{})[id]||{}).b<=2).sort((a,b)=>b[1]-a[1]).map(([id])=>qById[id]);
+  const weakK=kreuzOf(0).filter(x=>{ const s=kzStat(x.id); return s&&s.p<4; }).sort((a,b)=>kzStat(a.id).p-kzStat(b.id).p);
+  const weakCalc=calcTypes(0).filter(t=>{ const h=state.hist[t]; return h&&h.n>=2&&h.r/h.n<.7; }).sort((a,b)=>acc(a)-acc(b));
+  const conf={}; Object.entries(state.who||{}).forEach(([id,h])=>{ if(h.conf&&!h.last){ const x=WHO.find(w=>w.id===id); if(x){ const C=whoCats(x), k=C[x.s]+" ↔ "+C[h.conf]; conf[k]=(conf[k]||0)+1; } } });
+  return {weakCards,weakQ,weakK,weakCalc,confL:Object.entries(conf).sort((a,b)=>b[1]-a[1]).slice(0,3)};
+}
+function weakBlock(){
+  const {weakCards,weakQ,weakK,weakCalc,confL}=weakData();
+  const none=!weakCards.length&&!weakQ.length&&!weakK.length&&!weakCalc.length&&!confL.length;
+  return `<div class="block"><h2>Deine Schwachstellen</h2>${none?`<p class="small muted" style="margin:0">Noch nichts Auffälliges. Die Übersicht füllt sich, sobald du übst: Karten, die du mehrmals nicht wusstest, falsche Verständnisfragen, Kreuzaufgaben unter 4 Punkten, Rechenaufgaben unter 70 % und verwechselte Begriffe.</p>`:""}
+    ${weakCards.length?`<h3>Karten, die du mehrmals nicht wusstest</h3><ul class="weak">${weakCards.slice(0,5).map(c=>`<li>${inl(c.f)}</li>`).join("")}</ul><button class="btn ghost small" id="wkC">Diese ${Math.min(weakCards.length,15)} Karten üben</button>`:""}
+    ${weakQ.length?`<h3 style="margin-top:14px">Verständnisfragen mit Fehlern</h3><ul class="weak">${weakQ.slice(0,5).map(q=>`<li>${inl(q.c.q)}</li>`).join("")}</ul><button class="btn ghost small" id="wkQ">Diese Fragen üben</button>`:""}
+    ${weakK.length?`<h3 style="margin-top:14px">Kreuzaufgaben unter 4 Punkten</h3><ul class="weak">${weakK.slice(0,5).map(x=>`<li>${inl(x.stem.replace(/:$/,""))} <span class="muted">(zuletzt ${kzStat(x.id).p}/4)</span></li>`).join("")}</ul><button class="btn ghost small" id="wkK">Diese Kreuzaufgaben üben</button>`:""}
+    ${weakCalc.length?`<h3 style="margin-top:14px">Rechenaufgaben unter 70 %</h3>${weakCalc.map(t=>`<div class="srow"><span>${TYPES[t].short}</span><span class="small muted">${Math.round(acc(t)*100)} %</span><button class="btn ghost small" data-wt="${t}">Üben</button></div>`).join("")}`:""}
+    ${confL.length?`<h3 style="margin-top:14px">Oft verwechselt</h3><ul class="weak">${confL.map(([k,n])=>`<li>${k} (${n}×)</li>`).join("")}</ul><button class="btn ghost small" id="wkW">Zuordnen üben</button>`:""}
+  </div>`;
+}
+function bindWeak(){
+  const W=weakData();
+  if($("#wkC")) $("#wkC").onclick=()=>openCards(0,true,W.weakCards.slice(0,15));
+  if($("#wkQ")) $("#wkQ").onclick=()=>openRecall(W.weakQ.slice(0,8));
+  if($("#wkK")) $("#wkK").onclick=()=>openKreuz(0,5,W.weakK.slice(0,5).map(x=>x.id));
+  document.querySelectorAll("[data-wt]").forEach(b=>b.onclick=()=>startTask(b.dataset.wt,false));
+  if($("#wkW")) $("#wkW").onclick=()=>openWho(8);
+}
+
 /* ================= Aufgabe ================= */
 function startTask(t,mix){
   task={t,mix,lvl:lvlOf(t),data:TYPES[t].gen(),cur:0,shown:0,first:{},done:false,checks:{}};
@@ -1664,7 +2194,7 @@ function head(){
       <button class="btn ghost small" id="back">← Liste</button>
       <div class="seg" role="group" aria-label="Stufe">${[1,2,3].map(l=>`<button data-l="${l}" aria-pressed="${task.lvl===l}">${LVL[l]}</button>`).join("")}</div>
     </div>
-    <p class="eyebrow">${task.mix?"Gemischt · ":""}${T.name}</p>
+    <div class="row between" style="margin:0 0 .3em"><p class="eyebrow" style="margin:0">${task.mix?"Gemischt · ":""}${T.name}</p><button class="btn ghost small" id="lex">Zeichen</button></div>
     <div class="block">
       <p class="small">${d.intro}</p>
       ${d.table}
@@ -1673,6 +2203,7 @@ function head(){
 }
 function bindHead(){
   $("#back").onclick=()=>go("calc");
+  $("#lex").onclick=showLexicon;
   document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{ const l=+b.dataset.l; state.lvl[task.t]=l; state.streak[task.t]=0; save(); task.lvl=l; task.cur=0; task.shown=0; task.first={}; task.done=false; task.checks={}; render(); });
 }
 function renderTask(){
@@ -1683,13 +2214,17 @@ function renderTask(){
   return renderFree();
 }
 const eqLine=s=>`<div class="eq">${esc(s.calc)}</div>`;
+/* Lösungsschritt: Formel, Einsetzen, Begründung; am Ende Ergebnis und Deutung */
+const stepRows=s=>`<div class="dlist">${s.f?`<b>Formel</b><span><span class="eq" style="display:block">${esc(s.f)}</span></span>`:""}<b>Einsetzen</b><span><span class="eq" style="display:block">${esc(s.calc)}</span></span>${s.why?`<b>Warum</b><span>${s.why}</span>`:""}</div>`;
+const deutBox=d=>{ const t=d.deut||(TYPES[task.t]||{}).deut; return t?`<div class="bsp"><p class="bh">Deutung</p><p style="margin:0 0 8px">${t}</p></div>`:""; };
 
 /* Stufe 1: vorgerechnet, Schritt für Schritt aufdecken */
 function renderWorked(){
   const S=task.data.steps, n=task.shown;
   $("#app").innerHTML=head()+`
     <div class="stack">${S.slice(0,n+1).map((s,i)=>`<div class="step">
-      <div class="lab">${i+1}. ${s.lab}</div><div class="why">${s.why}</div>${eqLine(s)}</div>`).join("")}</div>
+      <div class="lab">${i+1}. ${s.lab}</div>${stepRows(s)}</div>`).join("")}</div>
+    ${n>=S.length-1?deutBox(task.data):""}
     <div class="row" style="margin-top:14px">${n<S.length-1?`<button class="btn" id="more">Nächster Schritt</button>`:`<button class="btn" id="self">Jetzt selbst rechnen</button>`}</div>`;
   bindHead();
   if($("#more")) $("#more").onclick=()=>{ task.shown++; renderWorked(); };
@@ -1707,7 +2242,7 @@ function renderGuided(){
       <div id="out"></div></div>`;
   }).join("");
   $("#app").innerHTML=head()+`<div class="stack">${html}</div>
-    ${task.done?finishBox():padHTML()}`;
+    ${task.done?deutBox(task.data)+finishBox():padHTML()}`;
   bindHead(); bindPad();
   if(task.done){ bindFinish(); return; }
   const inp=$("#in"); inp.focus({preventScroll:true});
@@ -1745,7 +2280,7 @@ function renderFree(){
     F.forEach(([s,i])=>{ const el=$("#f"+i), res=judge(s,el.value); if(!res) all=false;
       el.disabled=true; $("#o"+i).innerHTML=`<p class="res ${res?"good":"bad"}">${res?"Richtig":"Richtig wäre "+fmt(s.ans)+(s.rate?" (= "+fmt(s.ans*100)+" Prozentpunkte)":"")+(s.pct?" %":"")}</p>`; });
     task.done=true; record(all); $("#chkAll").remove();
-    $("#sol").innerHTML=`<div class="block"><h3>Lösungsweg</h3><div class="stack">${S.map((s,i)=>`<div><div class="small" style="font-weight:600">${i+1}. ${s.lab}</div>${eqLine(s)}</div>`).join("")}</div></div>`+finishBox(all);
+    $("#sol").innerHTML=`<div class="block"><h3>Lösungsweg</h3><div class="stack">${S.map((s,i)=>`<div><div class="small" style="font-weight:600">${i+1}. ${s.lab}</div>${stepRows(s)}</div>`).join("")}</div>${deutBox(task.data)}</div>`+finishBox(all);
     bindFinish();
   };
 }
@@ -1780,7 +2315,7 @@ function finishBox(ok){
   return `<div class="block" style="margin-top:14px">
     <h3>${ok?"Fehlerfrei":"Geschafft, mit Fehlern"}</h3>
     <p class="small muted">${ok?"Gut so.":"Schau dir den markierten Schritt nochmal an, die nächste Aufgabe hat neue Zahlen."} Stufe jetzt: ${LVL[l]}.</p>
-    <div class="row"><button class="btn" id="next">${task.mix?"Nächste Aufgabe":"Neue Zahlen"}</button><button class="btn ghost" id="list">Zur Liste</button></div></div>`;
+    <div class="row">${sess?sessBtn():`<button class="btn" id="next">${task.mix?"Nächste Aufgabe":"Neue Zahlen"}</button><button class="btn ghost" id="list">Zur Liste</button>`}</div></div>`;
 }
 function bindFinish(){ if($("#next")) $("#next").onclick=nextTask; if($("#list")) $("#list").onclick=()=>go("calc"); }
 
@@ -1813,7 +2348,7 @@ function bindPad(){
 })();
 initToken();
 render();
-syncFromRemote().then(changed=>{ if(changed&&!["task","essay","graph","lesson","cards","kreuz","exam","kurz"].includes(view)) render(); });
+syncFromRemote().then(changed=>{ if(changed&&!["task","essay","graph","lesson","cards","kreuz","exam","kurz","recall","who"].includes(view)) render(); });
 
 </script>
 </body>

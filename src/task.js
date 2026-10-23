@@ -21,7 +21,7 @@ function head(){
       <button class="btn ghost small" id="back">← Liste</button>
       <div class="seg" role="group" aria-label="Stufe">${[1,2,3].map(l=>`<button data-l="${l}" aria-pressed="${task.lvl===l}">${LVL[l]}</button>`).join("")}</div>
     </div>
-    <p class="eyebrow">${task.mix?"Gemischt · ":""}${T.name}</p>
+    <div class="row between" style="margin:0 0 .3em"><p class="eyebrow" style="margin:0">${task.mix?"Gemischt · ":""}${T.name}</p><button class="btn ghost small" id="lex">Zeichen</button></div>
     <div class="block">
       <p class="small">${d.intro}</p>
       ${d.table}
@@ -30,6 +30,7 @@ function head(){
 }
 function bindHead(){
   $("#back").onclick=()=>go("calc");
+  $("#lex").onclick=showLexicon;
   document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{ const l=+b.dataset.l; state.lvl[task.t]=l; state.streak[task.t]=0; save(); task.lvl=l; task.cur=0; task.shown=0; task.first={}; task.done=false; task.checks={}; render(); });
 }
 function renderTask(){
@@ -40,13 +41,17 @@ function renderTask(){
   return renderFree();
 }
 const eqLine=s=>`<div class="eq">${esc(s.calc)}</div>`;
+/* Lösungsschritt: Formel, Einsetzen, Begründung; am Ende Ergebnis und Deutung */
+const stepRows=s=>`<div class="dlist">${s.f?`<b>Formel</b><span><span class="eq" style="display:block">${esc(s.f)}</span></span>`:""}<b>Einsetzen</b><span><span class="eq" style="display:block">${esc(s.calc)}</span></span>${s.why?`<b>Warum</b><span>${s.why}</span>`:""}</div>`;
+const deutBox=d=>{ const t=d.deut||(TYPES[task.t]||{}).deut; return t?`<div class="bsp"><p class="bh">Deutung</p><p style="margin:0 0 8px">${t}</p></div>`:""; };
 
 /* Stufe 1: vorgerechnet, Schritt für Schritt aufdecken */
 function renderWorked(){
   const S=task.data.steps, n=task.shown;
   $("#app").innerHTML=head()+`
     <div class="stack">${S.slice(0,n+1).map((s,i)=>`<div class="step">
-      <div class="lab">${i+1}. ${s.lab}</div><div class="why">${s.why}</div>${eqLine(s)}</div>`).join("")}</div>
+      <div class="lab">${i+1}. ${s.lab}</div>${stepRows(s)}</div>`).join("")}</div>
+    ${n>=S.length-1?deutBox(task.data):""}
     <div class="row" style="margin-top:14px">${n<S.length-1?`<button class="btn" id="more">Nächster Schritt</button>`:`<button class="btn" id="self">Jetzt selbst rechnen</button>`}</div>`;
   bindHead();
   if($("#more")) $("#more").onclick=()=>{ task.shown++; renderWorked(); };
@@ -64,7 +69,7 @@ function renderGuided(){
       <div id="out"></div></div>`;
   }).join("");
   $("#app").innerHTML=head()+`<div class="stack">${html}</div>
-    ${task.done?finishBox():padHTML()}`;
+    ${task.done?deutBox(task.data)+finishBox():padHTML()}`;
   bindHead(); bindPad();
   if(task.done){ bindFinish(); return; }
   const inp=$("#in"); inp.focus({preventScroll:true});
@@ -102,7 +107,7 @@ function renderFree(){
     F.forEach(([s,i])=>{ const el=$("#f"+i), res=judge(s,el.value); if(!res) all=false;
       el.disabled=true; $("#o"+i).innerHTML=`<p class="res ${res?"good":"bad"}">${res?"Richtig":"Richtig wäre "+fmt(s.ans)+(s.rate?" (= "+fmt(s.ans*100)+" Prozentpunkte)":"")+(s.pct?" %":"")}</p>`; });
     task.done=true; record(all); $("#chkAll").remove();
-    $("#sol").innerHTML=`<div class="block"><h3>Lösungsweg</h3><div class="stack">${S.map((s,i)=>`<div><div class="small" style="font-weight:600">${i+1}. ${s.lab}</div>${eqLine(s)}</div>`).join("")}</div></div>`+finishBox(all);
+    $("#sol").innerHTML=`<div class="block"><h3>Lösungsweg</h3><div class="stack">${S.map((s,i)=>`<div><div class="small" style="font-weight:600">${i+1}. ${s.lab}</div>${stepRows(s)}</div>`).join("")}</div>${deutBox(task.data)}</div>`+finishBox(all);
     bindFinish();
   };
 }
@@ -137,7 +142,7 @@ function finishBox(ok){
   return `<div class="block" style="margin-top:14px">
     <h3>${ok?"Fehlerfrei":"Geschafft, mit Fehlern"}</h3>
     <p class="small muted">${ok?"Gut so.":"Schau dir den markierten Schritt nochmal an, die nächste Aufgabe hat neue Zahlen."} Stufe jetzt: ${LVL[l]}.</p>
-    <div class="row"><button class="btn" id="next">${task.mix?"Nächste Aufgabe":"Neue Zahlen"}</button><button class="btn ghost" id="list">Zur Liste</button></div></div>`;
+    <div class="row">${sess?sessBtn():`<button class="btn" id="next">${task.mix?"Nächste Aufgabe":"Neue Zahlen"}</button><button class="btn ghost" id="list">Zur Liste</button>`}</div></div>`;
 }
 function bindFinish(){ if($("#next")) $("#next").onclick=nextTask; if($("#list")) $("#list").onclick=()=>go("calc"); }
 

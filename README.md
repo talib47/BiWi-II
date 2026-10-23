@@ -22,13 +22,19 @@ Jeder Teil: Kreuzaufgaben (drei Aussagen wahr/falsch, je richtiges Kreuz 1 P., a
 |---|---|
 | `head.html` | Kopf, Icons, Manifest, CSS (Farben als Tokens, Dunkelmodus, Akzent Pflaume), Zoom |
 | `core.js` | Speicher (`localStorage`), Geräte-Abgleich über GitHub, Hilfsfunktionen, `judge()` |
+| `format.js` | Textformat aus Wirtschaft II: leise Klammern, Formelboxen, Beispielboxen (`bsp`), Kopierhilfe |
 | `content.js` | Kapitelliste nach Heines vier Schwerpunkten (`teil` = Klausurteil), Kapitel 16 Normwerte |
 | `content1.js`, `content2.js` | Kapitel 1 (Psychologie als Wissenschaft) und 9 (Lernen, nicht-assoziatives Lernen), je mit Karten, Kreuz- und offenen Aufgaben |
 | `cardinfo.js` | Kontextzeile (Vorderseite) und dezente i-Infos (Rückseite) je Karte |
 | `diag.js` | Rechentrainer Diagnostik: z-Wert, Abweichungs-IQ, Normskalen, Normalverteilung, Prozentrang, Testvergleich |
 | `gfx.js` | SVG-Grafiken (Normalverteilung) |
 | `views.js` | Lernpfad, Kapitel, Lektionen mit „Verstehe ich nicht“, Karten mit Wiederholungsplan, Grafiken, Üben, Statistik |
-| `kreuz.js` | Kreuzaufgaben im Klausurformat |
+| `kreuz.js` | Kreuzaufgaben im Klausurformat, mit Wiederholungsplan und Rückmeldung je Aussage |
+| `symbols.js` | Zeichen der Diagnostik-Statistik: Karten in beide Richtungen und Lexikon |
+| `recall.js` | Verständnisfragen: erst abrufen, dann Auswahl; Rückmeldung je falscher Option (`w`); eigener Wiederholungsplan (`state.qbox`) |
+| `who.js` | Zuordnen: Beispiele dem richtigen Begriff zuordnen (zuerst Lernformen aus Sitzung 2) |
+| `session.js` | Tägliche Einheit „Heute“ mit Schrittleiste |
+| `plan.js` | Klausurtermin (Vorgabe 17.02.2027), Probeklausur-Plan, Schwachstellen |
 | `exam.js` | Offene Aufgaben (Schreiben mit Erwartungshorizont) und Probeklausur mit Timer |
 | `task.js`, `start.js` | Aufgabenansicht (vorgerechnet, geführt, frei), Start, Zoom, Token aus dem Link |
 

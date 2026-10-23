@@ -8,4 +8,4 @@
 })();
 initToken();
 render();
-syncFromRemote().then(changed=>{ if(changed&&!["task","essay","graph","lesson","cards","kreuz","exam","kurz"].includes(view)) render(); });
+syncFromRemote().then(changed=>{ if(changed&&!["task","essay","graph","lesson","cards","kreuz","exam","kurz","recall","who"].includes(view)) render(); });

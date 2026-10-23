@@ -53,8 +53,8 @@ LESSONS[16]=[
 <tr><td class="nw">über 130</td><td>weit überdurchschnittlich (z. B. Hochbegabung)</td></tr></table>
 <div class="merk"><b>Merksatz</b>Zwei Drittel (68,26 %) liegen innerhalb von einer Standardabweichung um den Mittelwert. Jenseits von zwei Standardabweichungen liegen auf jeder Seite nur 2,27 % (2,14 + 0,13).</div>`,
 check:[
- {q:"Wie viel Prozent der Bevölkerung haben einen IQ von 130 oder mehr?", o:["0,13 %","2,27 %","13,59 %","15,87 %"], a:1, ex:"130 liegt zwei Standardabweichungen über dem Mittelwert. Darüber liegen 2,14 % + 0,13 % = 2,27 %."},
- {q:"Eine Schülerin hat einen IQ von 117. Wie ordnen Sie das deskriptiv ein?", o:["Durchschnittlich","Überdurchschnittlich","Weit überdurchschnittlich","Hochbegabt"], a:1, ex:"117 liegt zwischen 115 und 130, also zwischen einer und zwei Standardabweichungen über dem Mittelwert."}
+ {q:"Wie viel Prozent der Bevölkerung haben einen IQ von 130 oder mehr?", o:["0,13 %","2,27 %","13,59 %","15,87 %"], a:1, ex:"130 liegt zwei Standardabweichungen über dem Mittelwert. Darüber liegen 2,14 % + 0,13 % = 2,27 %.", w:["0,13 % liegen erst jenseits von 3 SD, also über 145. Du hast nur den äußersten Abschnitt genommen.",null,"13,59 % liegen zwischen 115 und 130, nicht darüber. Das ist der Abschnitt zwischen 1 und 2 SD.","15,87 % liegen über 115 (13,59 + 2,14 + 0,13). Gefragt ist ab 130."]},
+ {q:"Eine Schülerin hat einen IQ von 117. Wie ordnen Sie das deskriptiv ein?", o:["Durchschnittlich","Überdurchschnittlich","Weit überdurchschnittlich","Hochbegabt"], a:1, ex:"117 liegt zwischen 115 und 130, also zwischen einer und zwei Standardabweichungen über dem Mittelwert.", w:["Durchschnittlich reicht nur bis 115.",null,"Weit überdurchschnittlich beginnt erst über 130.","Von Hochbegabung spricht man erst über 130 (weit überdurchschnittlich)."]}
 ]},
 {id:"10-2", t:"z-Wert und Abweichungs-IQ", html:`
 <p>Um einen Rohwert einzuordnen, rechnet man ihn zuerst in einen <b>z-Wert</b> um. Der z-Wert sagt, um wie viele Standardabweichungen ein Wert über oder unter dem Mittelwert liegt:</p>
@@ -69,14 +69,11 @@ check:[
 <tr><td>C-Skala</td><td>5</td><td>2</td><td>5 + 2 · z</td></tr></table>
 <p>Die IQ-Umrechnung heißt <b>Abweichungs-IQ</b> und geht auf David Wechsler (1939) zurück:</p>
 <div class="eq">AIQ = 100 + 15 · (x − μ) / σ</div>
-<div class="merk"><b>Klausurbeispiel</b><p class="mi">Testrohwert 500 in einem Test mit μ = 460 und σ = 50.</p>
-<ol class="msteps"><li><span class="ml">z-Wert</span><span class="eq">z = (500 − 460) / 50 = 0,8</span></li>
-<li><span class="ml">IQ-Wert</span><span class="eq">IQ = 100 + 15 · 0,8 = 112</span></li>
-<li><span class="ml">Einordnung</span><span>durchschnittlich (85 bis 115)</span></li></ol></div>
+${bsp("Klausurbeispiel (WiSe 17/18)",[["Gegeben","Testrohwert x = 500, Mittelwert μ = 460, Standardabweichung σ = 50"],["Formel","$z = (x − μ) / σ\n$IQ = 100 + 15 · z"],["Einsetzen","$z = (500 − 460) / 50 = 0,8\n$IQ = 100 + 15 · 0,8 = 112"],["Ergebnis","z = 0,8 und IQ = 112"],["Deutung","0,8 Standardabweichungen über dem Mittel: **durchschnittlich** (85 bis 115)"]])}
 <p>Früher wurde der IQ anders berechnet: Binet führte das <b>Intelligenzalter</b> (mentale Alter) ein, Stern teilte es durch das Lebensalter: <span style="font-family:var(--mono)">IQ = Intelligenzalter / Lebensalter · 100</span>. Das funktioniert bei Kindern, aber nicht bei Erwachsenen, deren Intelligenz nicht mehr jedes Jahr wächst. Deshalb setzte sich Wechslers Abweichungs-IQ durch.</p>`,
 check:[
- {q:"Ein Testrohwert liegt 18 Punkte unter dem Mittelwert, die Standardabweichung beträgt 12. Welcher IQ ergibt sich?", o:["82","77,5","122,5","85"], a:1, ex:"z = −18 / 12 = −1,5. IQ = 100 + 15 · (−1,5) = 77,5. Achtung aufs Vorzeichen, sonst kommt 122,5 heraus."},
- {q:"Welchen Mittelwert und welche Standardabweichung hat die T-Skala?", o:["100 und 15","50 und 10","5 und 2","0 und 1"], a:1, ex:"T = 50 + 10 · z. Ein IQ von 115 entspricht z = 1 und damit T = 60."}
+ {q:"Ein Testrohwert liegt 18 Punkte unter dem Mittelwert, die Standardabweichung beträgt 12. Welcher IQ ergibt sich?", o:["82","77,5","122,5","85"], a:1, ex:"z = −18 / 12 = −1,5. IQ = 100 + 15 · (−1,5) = 77,5. Achtung aufs Vorzeichen, sonst kommt 122,5 heraus.", w:["82 entsteht, wenn man die 18 Rohwertpunkte direkt von 100 abzieht. Erst muss der Abstand in Standardabweichungen umgerechnet werden: z = −18 / 12.",null,"Vorzeichen vergessen: Der Rohwert liegt unter dem Mittel, z ist also negativ.","85 wäre z = −1. Hier ist z = −1,5."]},
+ {q:"Welchen Mittelwert und welche Standardabweichung hat die T-Skala?", o:["100 und 15","50 und 10","5 und 2","0 und 1"], a:1, ex:"T = 50 + 10 · z. Ein IQ von 115 entspricht z = 1 und damit T = 60.", w:["Das ist die IQ-Skala.",null,"Das ist die C-Skala.","Das ist die z-Skala."]}
 ]},
 {id:"10-3", t:"Der Prozentrang", html:`
 <p>Der <b>Prozentrang</b> (PR) beschreibt ein Ergebnis anders als der z-Wert: Er gibt an, wie viel Prozent der Referenzgruppe <b>gleich gut oder schlechter</b> abgeschnitten haben. Er braucht keine Normalverteilung, sondern nur eine Reihenfolge der Werte.</p>
@@ -86,16 +83,12 @@ check:[
 <ul><li><b>Sortieren:</b> alle Werte der Größe nach ordnen.</li>
 <li><b>cumf bestimmen:</b> zählen, wie viele Werte kleiner oder gleich dem gesuchten Wert sind.</li>
 <li><b>N bestimmen</b> und in die Formel einsetzen.</li></ul>
-<div class="merk"><b>Klausurbeispiel (WiSe 22/23)</b><p class="mi">Gesucht ist der Prozentrang des Testwerts 18 in dieser Verteilung:<br><span class="eq">21; 18; 19; 12; 13; 16; 13; 12; 25; 10; 13; 16</span></p>
-<ol class="msteps"><li><span class="ml">Sortieren</span><span class="eq">10, 12, 12, 13, 13, 13, 16, 16, <b>18</b>, 19, 21, 25</span></li>
-<li><span class="ml">cumf zählen</span><span>9 Werte sind kleiner oder gleich 18, also cumf = 9</span></li>
-<li><span class="ml">N zählen</span><span>12 Werte insgesamt, also N = 12</span></li>
-<li><span class="ml">Einsetzen</span><span class="eq">PR = 9 / 12 · 100 = 75</span></li></ol></div>
+${bsp("Klausurbeispiel (WiSe 22/23)",[["Gegeben","Testwert 18 in dieser Verteilung:\n21; 18; 19; 12; 13; 16; 13; 12; 25; 10; 13; 16"],["Formel","$PR = cumf / N · 100"],["Sortieren","10, 12, 12, 13, 13, 13, 16, 16, **18**, 19, 21, 25"],["Zählen","cumf = 9 (Werte bis einschließlich 18)\nN = 12 (alle Werte)"],["Einsetzen","$PR = 9 / 12 · 100 = 75"],["Deutung","75 % der Gruppe haben gleich gut oder schlechter abgeschnitten, **25 % besser**."]])}
 <p><b>Interpretation:</b> Ein Prozentrang von 75 heißt, dass 75 % der Gruppe gleich gut oder schlechter abgeschnitten haben, also 25 % besser. Ein Prozentrang von 25 heißt umgekehrt: 75 % waren besser.</p>
 <p>Prozentrang und z-Wert hängen über die Normalverteilung zusammen: Der Mittelwert (z = 0) hat PR 50, z = +1 entspricht PR 84,1, z = −2 entspricht PR 2,3.</p>`,
 check:[
- {q:"Ein Student hat in einer Klausur den Prozentrang 25. Was bedeutet das?", o:["Er hat 25 % der Punkte erreicht","25 % haben besser abgeschnitten","75 % haben besser abgeschnitten","Er liegt eine Standardabweichung unter dem Mittel"], a:2, ex:"25 % haben gleich gut oder schlechter abgeschnitten, also 75 % besser. Mit der Punktzahl hat der Prozentrang nichts zu tun."},
- {q:"In einer Verteilung von 20 Werten sind 14 Werte kleiner oder gleich dem gesuchten Wert. Wie hoch ist der Prozentrang?", o:["14","70","30","65"], a:1, ex:"PR = 14 / 20 · 100 = 70."}
+ {q:"Ein Student hat in einer Klausur den Prozentrang 25. Was bedeutet das?", o:["Er hat 25 % der Punkte erreicht","25 % haben besser abgeschnitten","75 % haben besser abgeschnitten","Er liegt eine Standardabweichung unter dem Mittel"], a:2, ex:"25 % haben gleich gut oder schlechter abgeschnitten, also 75 % besser. Mit der Punktzahl hat der Prozentrang nichts zu tun.", w:["Der Prozentrang sagt nichts über die Punktzahl, nur über die Position in der Gruppe.","Umgedreht: Der Prozentrang zählt, wer gleich gut oder schlechter war, nicht wer besser war.",null,"Eine SD unter dem Mittel wäre bei Normalverteilung etwa PR 16. Der Prozentrang braucht aber gar keine Normalverteilung."]},
+ {q:"In einer Verteilung von 20 Werten sind 14 Werte kleiner oder gleich dem gesuchten Wert. Wie hoch ist der Prozentrang?", o:["14","70","30","65"], a:1, ex:"PR = 14 / 20 · 100 = 70.", w:["14 ist cumf, also erst der Zähler. Er muss noch durch N geteilt und mit 100 malgenommen werden.",null,"30 % ist der Anteil derer, die besser waren: 100 − 70.","Nachrechnen: 14 / 20 = 0,7, also 70."]}
 ]},
 {id:"10-4", t:"Standardisieren in der Praxis", html:`
 <p>Rohwerte aus <b>verschiedenen Tests</b> lassen sich nicht direkt vergleichen. Wer in Test A und Test B je 36 Punkte hat, kann ganz unterschiedlich gut sein, weil die Tests unterschiedlich schwer sind und anders streuen. Erst die Umrechnung in Standardwerte (z, IQ, T) macht sie vergleichbar.</p>
@@ -110,8 +103,8 @@ check:[
 <li><b>Größerer Messfehler</b> an den Rändern der Verteilung, weil es dort nur wenige Aufgaben und Vergleichspersonen gibt.</li>
 <li><b>Flynn-Effekt:</b> Die durchschnittlichen Testleistungen sind über Jahrzehnte gestiegen. Mit veralteten Normen wirkt eine Person deshalb besser, als sie im Vergleich zu heute ist.</li></ul>`,
 check:[
- {q:"Warum lässt man in der Aufgabe nicht einfach die Rohwerte entscheiden?", o:["Weil alle drei gleich sind","Weil die Tests unterschiedliche Mittelwerte und Streuungen haben","Weil Rohwerte immer ungenau sind","Weil nur IQ-Werte zulässig sind"], a:1, ex:"Gleiche Rohwerte bedeuten in unterschiedlich schweren Tests Unterschiedliches. Erst z-Werte zeigen die Position in der jeweiligen Referenzgruppe."},
- {q:"Ein Intelligenztest wurde vor 30 Jahren normiert. Was ist zu erwarten?", o:["Die IQ-Werte fallen zu niedrig aus","Die IQ-Werte fallen zu hoch aus","Es gibt keinen Unterschied","Der Test wird reliabler"], a:1, ex:"Wegen des Flynn-Effekts war die alte Normstichprobe im Schnitt schwächer. Im Vergleich zu ihr schneidet man heute besser ab, der IQ wird überschätzt."}
+ {q:"Warum lässt man in der Aufgabe nicht einfach die Rohwerte entscheiden?", o:["Weil alle drei gleich sind","Weil die Tests unterschiedliche Mittelwerte und Streuungen haben","Weil Rohwerte immer ungenau sind","Weil nur IQ-Werte zulässig sind"], a:1, ex:"Gleiche Rohwerte bedeuten in unterschiedlich schweren Tests Unterschiedliches. Erst z-Werte zeigen die Position in der jeweiligen Referenzgruppe.", w:["Gleich sind nur die Rohwerte. Genau das ist das Problem: Sie stammen aus verschiedenen Tests.",null,"Ungenauigkeit (Messfehler) ist ein anderes Thema. Hier fehlt die gemeinsame Vergleichsbasis.","Es geht nicht um die Skala, sondern um die Umrechnung. z-Werte reichen schon."]},
+ {q:"Ein Intelligenztest wurde vor 30 Jahren normiert. Was ist zu erwarten?", o:["Die IQ-Werte fallen zu niedrig aus","Die IQ-Werte fallen zu hoch aus","Es gibt keinen Unterschied","Der Test wird reliabler"], a:1, ex:"Wegen des Flynn-Effekts war die alte Normstichprobe im Schnitt schwächer. Im Vergleich zu ihr schneidet man heute besser ab, der IQ wird überschätzt.", w:["Umgekehrt: Die Leistungen sind über die Jahrzehnte gestiegen. Wer heute mit der schwächeren alten Gruppe verglichen wird, wirkt besser.",null,"Der Flynn-Effekt zeigt gerade, dass sich der Durchschnitt über die Jahrzehnte verschiebt.","Reliabilität (Messgenauigkeit) hängt nicht vom Alter der Normen ab. Betroffen ist die Normierung."]}
 ]}
 ];
 

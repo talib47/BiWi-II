@@ -35,22 +35,26 @@ const KREUZ=[
 const kreuzOf=n=>n? KREUZ.filter(x=>x.ch===n) : KREUZ.filter(x=>LESSONS[x.ch]);
 const kzStat=id=>(state.kreuz||{})[id];
 function kzPoints(item,ans){ const right=item.s.filter((st,j)=>ans[j]===st[1]).length; return right+(right===3?1:0); }
+/* Wiederholung mit Abstand: 4 Punkte schiebt die Aufgabe weiter nach hinten (1, 3, 7, 16, 35 Tage), sonst morgen wieder */
+function kzDueAt(id){ const s=kzStat(id); if(!s) return null; return s.due||dayStart(s.t)+(s.p===4?3:1)*864e5; }
+const kzDue=()=>kreuzOf(0).filter(x=>{ const d=kzDueAt(x.id); return d!=null&&d<=Date.now(); });
 function pickKreuz(n,k){
-  const pool=kreuzOf(n).slice(), out=[];
+  const pool=kreuzOf(n).slice(), out=[], now=Date.now();
   while(out.length<Math.min(k,pool.length)){
-    const w=pool.map(x=>{ const s=kzStat(x.id); return !s?5:(s.p<4?4:(Date.now()-s.t>3*864e5?2:1)); });
-    let r=Math.random()*w.reduce((a,b)=>a+b,0), i=0; for(;i<pool.length;i++){ r-=w[i]; if(r<=0) break; }
+    const w=pool.map(x=>{ const s=kzStat(x.id); if(!s) return 5; const due=kzDueAt(x.id)<=now; return s.p<4?(due?7:3):(due?5:.5); });
+    let q=Math.random()*w.reduce((a,b)=>a+b,0), i=0; for(;i<pool.length;i++){ q-=w[i]; if(q<=0) break; }
     out.push(pool.splice(Math.min(i,pool.length-1),1)[0]);
   }
   return out;
 }
-function openKreuz(n){ cur.kr={n, items:pickKreuz(n,5).map(x=>x.id), i:0, ans:{}, shown:false, pts:[]}; go("kreuz"); }
+function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, ans:{}, shown:false, pts:[]}; go("kreuz"); }
 function kzBlock(item,ans,shown,key){
   return item.s.map((st,j)=>{ const a=ans[j];
     const cls=v=>shown?(st[1]===v?"r":(a===v?"w":"")):"";
     return `<div class="kz"><p class="st"><i class="no">${"abc"[j]})</i>${st[0]}</p>
       <div class="wf" role="group" aria-label="Aussage ${"abc"[j]}"><button data-kz="${key}:${j}" data-v="1" aria-pressed="${a===true}" class="${cls(true)}" ${shown?"disabled":""}>wahr</button><button data-kz="${key}:${j}" data-v="0" aria-pressed="${a===false}" class="${cls(false)}" ${shown?"disabled":""}>falsch</button></div>
-      ${shown?`<p class="why">${a===st[1]?"":a===undefined?'<b>Nicht angekreuzt. </b>':'<b>Nicht richtig. </b>'}${st[2]}</p>`:""}</div>`; }).join("");
+      ${!shown?"":a===st[1]?`<p class="why"><b class="okc">Richtig.</b> ${st[2]}</p>`
+        :`<div class="fb ${a===undefined?"idk":"bad"}"><p class="fh">${a===undefined?"Nicht angekreuzt.":`Du hast „${a?"wahr":"falsch"}“ gewählt.`} Die Aussage ist ${st[1]?"wahr":"falsch"}.</p><p style="margin:0">${st[2]}</p></div>`}</div>`; }).join("");
 }
 function renderKreuz(){
   const K=cur.kr, back=K.n?"Kapitel "+K.n:"Üben", backFn=()=>{ if(K.n){ cur.ch=K.n; go("chapter"); } else go("practice"); };
@@ -60,8 +64,8 @@ function renderKreuz(){
     $("#app").innerHTML=`${backTo(back)}<h1>Runde geschafft</h1>
       <div class="block"><p class="pbadge">${sum} von ${max} Punkten</p>
       <p class="small muted">So wird auch in der Klausur gezählt: je richtiges Kreuz ein Punkt, alle drei Aussagen einer Aufgabe richtig ein Zusatzpunkt. Aufgaben mit Fehlern kommen bevorzugt wieder.</p>
-      <div class="row"><button class="btn" id="again">Neue Runde</button><button class="btn ghost" id="out">Fertig</button></div></div>`;
-    bindCrumb(backFn); $("#again").onclick=()=>openKreuz(K.n); $("#out").onclick=backFn; return;
+      <div class="row">${sess?sessBtn():`<button class="btn" id="again">Neue Runde</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
+    bindCrumb(backFn); if($("#again")) $("#again").onclick=()=>openKreuz(K.n); if($("#out")) $("#out").onclick=backFn; return;
   }
   const item=KREUZ.find(x=>x.id===K.items[K.i]), all=[0,1,2].every(j=>K.ans[j]!==undefined), ch=CHAPTERS.find(c=>c.n===item.ch);
   if(!K.shown) K.prev=kzStat(item.id);
@@ -73,6 +77,7 @@ function renderKreuz(){
   bindCrumb(backFn);
   document.querySelectorAll("[data-kz]").forEach(b=>b.onclick=()=>{ K.ans[+b.dataset.kz.split(":").pop()]=b.dataset.v==="1"; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
   if($("#ev")) $("#ev").onclick=()=>{ const p=kzPoints(item,K.ans); K.pts[K.i]=p; K.shown=true;
-    const s=kzStat(item.id)||{n:0,best:0}; state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now()}; logDay(); save(); renderKreuz(); };
+    const s=kzStat(item.id)||{n:0,best:0}, b=p===4?Math.min(5,(s.b||1)+1):1;
+    state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now(),b,due:dayStart()+(p===4?(s.b===5?35:INTERVAL[b]):1)*864e5}; logDay(); save(); renderKreuz(); };
   if($("#nx")) $("#nx").onclick=()=>{ K.i++; K.ans={}; K.shown=false; renderKreuz(); window.scrollTo(0,0); };
 }
