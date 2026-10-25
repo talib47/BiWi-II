@@ -48,3 +48,7 @@ Jeder Teil: Kreuzaufgaben (drei Aussagen wahr/falsch, je richtiges Kreuz 1 P., a
 
 Grundlage: Folien Heine WiSe 26/27, Lehrbuch Urhahne/Dresel/Fischer (2019, im Projekt), Altklausuren (WiSe 17/18, 18/19, 22/23, 24/25), Fragenkatalog „Fragen Heine“. Studentische Unterlagen nur nach Prüfung.
 Fertig: Kapitel 1 und 9 (Sitzungen 1–2) sowie Kapitel 16 (Normwerte). Übrige Kapitel stehen im Lernpfad als „folgt“.
+
+## Updates
+
+`build.py` schreibt neben `index.html` auch `version.txt` (Prüfsumme des Inhalts). Die App vergleicht beim Start und beim Zurückkehren ihre Version damit (`src/update.html`): beim Start lädt sie neu, mitten in einer Übung erscheint ein Hinweis zum Antippen. Deshalb immer über `build.py` bauen und `version.txt` mit hochladen.
