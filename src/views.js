@@ -278,7 +278,8 @@ function renderCards(){
   if(cur.flip){ const tint=cd.querySelector(".tint"); let x0=null, y0=0, dx=0, raf=0;
     const paint=()=>{ raf=0; const w=cd.offsetWidth||360, k=Math.min(1,Math.abs(dx)/(w*.35));
       cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/45}deg)`;
-      tint.style.background=dx>0?"var(--good)":"var(--bad)"; tint.style.opacity=(k*.14).toFixed(3); };
+      const col=dx>0?"var(--good)":"var(--bad)"; tint.style.background=col; tint.style.opacity=(k*.08).toFixed(3);
+      cd.style.boxShadow=`0 0 0 2px color-mix(in srgb, ${col} ${Math.round(k*100)}%, transparent)`; };
     cd.onpointerdown=e=>{ if(e.target.closest("a")) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; };
     cd.onpointermove=e=>{ if(x0===null) return; dx=e.clientX-x0;
       if(!moved&&Math.abs(dx)>8&&Math.abs(dx)>Math.abs(e.clientY-y0)){ moved=true; try{cd.setPointerCapture(e.pointerId);}catch(x){} cd.style.transition="none"; tint.style.transition="none"; }
@@ -288,7 +289,7 @@ function renderCards(){
       if(Math.abs(dx)>lim){ const out=(dx>0?1:-1)*(window.innerWidth+100);
         cd.style.transition="transform .32s cubic-bezier(.2,.7,.3,1), opacity .32s ease-out"; cd.style.transform=`translate3d(${out}px,0,0) rotate(${dx>0?12:-12}deg)`; cd.style.opacity="0";
         setTimeout(()=>{ cur.enter=true; grade(dx>0?2:1); },220); }
-      else { cd.style.transition="transform .35s cubic-bezier(.3,1.4,.5,1)"; tint.style.transition="opacity .25s"; cd.style.transform=""; tint.style.opacity="0"; setTimeout(()=>{ moved=false; },0); } };
+      else { cd.style.transition="transform .35s cubic-bezier(.3,1.4,.5,1), box-shadow .25s"; tint.style.transition="opacity .25s"; cd.style.transform=""; cd.style.boxShadow=""; tint.style.opacity="0"; setTimeout(()=>{ moved=false; },0); } };
   }
   /* Bewertung: 2 sicher (nächstes Fach), 1 nicht sicher (ein Fach zurück, morgen wieder, in dieser Runde noch einmal) */
   function grade(lv){ state.box=state.box||{}; state.due=state.due||{}; state.lapses=state.lapses||{};
