@@ -303,7 +303,10 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .swl{left:6px;color:var(--bad)}.swr{right:6px;color:var(--good)}
 .swipewrap.goL .swl,.swipewrap.goR .swr{opacity:1}
 .swipewrap.goL .card{box-shadow:0 0 0 2px var(--bad)}.swipewrap.goR .card{box-shadow:0 0 0 2px var(--good)}
-.cty{display:block;width:100%;box-sizing:border-box;margin:0 0 10px;padding:10px 12px;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:10px;resize:none;min-height:3em}
+.cty{display:block;width:100%;box-sizing:border-box;margin:2px 0 12px;padding:6px 2px;font:inherit;font-size:.95rem;color:var(--ink);background:transparent;border:0;border-bottom:1px dashed var(--line);border-radius:0;resize:none;outline:none}
+.cty:focus{border-bottom-color:var(--muted)}
+.cty::placeholder{color:var(--muted);opacity:.7}
+.tylink{background:transparent;border:0;padding:8px 6px;font:inherit;font-size:.85rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .card .typed{border-top:1px solid var(--line);padding-top:8px}.card .typed p{margin:2px 0 0;white-space:pre-wrap}
 .grade .btn{padding:12px 6px}
 .cardpad{margin:0 0 12px}
