@@ -298,12 +298,12 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .kg:disabled{cursor:default}
 .hint{margin:6px 0 0;font-size:.75rem;color:var(--muted);opacity:.85}
 .grade{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.swipewrap{position:relative}
-.swipewrap .card{touch-action:pan-y;will-change:transform;position:relative;z-index:1}
-.swl,.swr{position:absolute;top:50%;transform:translateY(-50%);font-weight:700;font-size:.9rem;opacity:0;transition:opacity .15s}
-.swl{left:6px;color:var(--bad)}.swr{right:6px;color:var(--good)}
-.swipewrap.goL .swl,.swipewrap.goR .swr{opacity:1}
-.swipewrap.goL .card{box-shadow:0 0 0 2px var(--bad)}.swipewrap.goR .card{box-shadow:0 0 0 2px var(--good)}
+.swipewrap{position:relative;overflow-x:clip;overflow-y:visible;margin:0 -16px;padding:0 16px}
+.swipewrap .card{touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;will-change:transform;position:relative;overflow:hidden}
+.card .tint{position:absolute;inset:0;opacity:0;pointer-events:none;border-radius:inherit}
+.card.enter{animation:cardIn .22s ease-out}
+@keyframes cardIn{from{opacity:0;transform:translate3d(0,8px,0) scale(.985)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.card.enter{animation:none}}
 .cty{display:block;width:100%;box-sizing:border-box;margin:2px 0 12px;padding:6px 2px;font:inherit;font-size:.95rem;color:var(--ink);background:transparent;border:0;border-bottom:1px dashed var(--line);border-radius:0;resize:none;outline:none}
 .cty:focus{border-bottom-color:var(--muted)}
 .cty::placeholder{color:var(--muted);opacity:.7}

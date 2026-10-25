@@ -298,12 +298,12 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .kg:disabled{cursor:default}
 .hint{margin:6px 0 0;font-size:.75rem;color:var(--muted);opacity:.85}
 .grade{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.swipewrap{position:relative}
-.swipewrap .card{touch-action:pan-y;will-change:transform;position:relative;z-index:1}
-.swl,.swr{position:absolute;top:50%;transform:translateY(-50%);font-weight:700;font-size:.9rem;opacity:0;transition:opacity .15s}
-.swl{left:6px;color:var(--bad)}.swr{right:6px;color:var(--good)}
-.swipewrap.goL .swl,.swipewrap.goR .swr{opacity:1}
-.swipewrap.goL .card{box-shadow:0 0 0 2px var(--bad)}.swipewrap.goR .card{box-shadow:0 0 0 2px var(--good)}
+.swipewrap{position:relative;overflow-x:clip;overflow-y:visible;margin:0 -16px;padding:0 16px}
+.swipewrap .card{touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;will-change:transform;position:relative;overflow:hidden}
+.card .tint{position:absolute;inset:0;opacity:0;pointer-events:none;border-radius:inherit}
+.card.enter{animation:cardIn .22s ease-out}
+@keyframes cardIn{from{opacity:0;transform:translate3d(0,8px,0) scale(.985)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.card.enter{animation:none}}
 .cty{display:block;width:100%;box-sizing:border-box;margin:2px 0 12px;padding:6px 2px;font:inherit;font-size:.95rem;color:var(--ink);background:transparent;border:0;border-bottom:1px dashed var(--line);border-radius:0;resize:none;outline:none}
 .cty:focus{border-bottom-color:var(--muted)}
 .cty::placeholder{color:var(--muted);opacity:.7}
@@ -1122,12 +1122,12 @@ function renderCards(){
   const esc=t=>t.replace(/&/g,"&amp;").replace(/</g,"&lt;");
   $("#app").innerHTML=`${backTo(deckLabel(n))}
     <div class="row between"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?" · fällig":" · neu"}</p><span class="dots" aria-label="Fach ${b} von 5">${[1,2,3,4,5].map(i=>`<i class="${i<=b?"on":""}"></i>`).join("")}</span></div>
-    <div class="swipewrap"><span class="swl" aria-hidden="true">Nicht sicher</span><span class="swr" aria-hidden="true">Sicher</span>
-    <div class="block card" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen">
+    <div class="swipewrap">
+    <div class="block card${cur.enter?" enter":""}" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen"><i class="tint" aria-hidden="true"></i>
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
       <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}</div>
       ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div></div>
-    ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid">← Nicht sicher</button><button class="btn" id="yes">Sicher →</button></div><p class="hint">Wischen: ← nicht sicher · sicher →</p>`
+    ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid">← Nicht sicher</button><button class="btn" id="yes">Sicher →</button></div>`
       :`${cur.tyOpen||cur.typed?`<textarea id="cty" class="cty" rows="1" placeholder="Deine Antwort …" aria-label="Antwort tippen">${esc(cur.typed)}</textarea>`:""}
       <div class="row"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button>${cur.tyOpen||cur.typed?"":`<button class="tylink" id="tyO">Tippen</button>`}</div><p class="hint">Erst antworten, dann aufdecken.</p>`}
     ${cur.hist.length?`<button class="btn ghost small" id="cprev" style="margin-top:6px">← Vorherige Karte</button>`:""}`;
@@ -1138,17 +1138,22 @@ function renderCards(){
   const cd=$("#theCard"); let moved=false;
   cd.onclick=e=>{ if(e.target.closest("a")||moved) return; cur.flip=!cur.flip; renderCards(); };
   cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } else if(cur.flip&&e.key==="ArrowRight") grade(2); else if(cur.flip&&e.key==="ArrowLeft") grade(1); };
-  /* Wischen wie bei Dating-Apps, erst nach dem Aufdecken: rechts sicher, links nicht sicher */
-  if(cur.flip){ const wrap=cd.parentNode; let x0=null, y0=0, dx=0;
+  /* Wischen wie bei Dating-Apps, erst nach dem Aufdecken: rechts sicher, links nicht sicher.
+     Die Karte folgt dem Finger, eine leichte Tönung zeigt die Richtung an. */
+  if(cur.flip){ const tint=cd.querySelector(".tint"); let x0=null, y0=0, dx=0, raf=0;
+    const paint=()=>{ raf=0; const w=cd.offsetWidth||360, k=Math.min(1,Math.abs(dx)/(w*.35));
+      cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/45}deg)`;
+      tint.style.background=dx>0?"var(--good)":"var(--bad)"; tint.style.opacity=(k*.14).toFixed(3); };
     cd.onpointerdown=e=>{ if(e.target.closest("a")) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; };
     cd.onpointermove=e=>{ if(x0===null) return; dx=e.clientX-x0;
-      if(!moved&&Math.abs(dx)>10&&Math.abs(dx)>Math.abs(e.clientY-y0)){ moved=true; try{cd.setPointerCapture(e.pointerId);}catch(x){} cd.style.transition="none"; }
-      if(!moved) return; e.preventDefault(); cd.style.transform=`translateX(${dx}px) rotate(${dx/20}deg)`;
-      wrap.classList.toggle("goR",dx>40); wrap.classList.toggle("goL",dx<-40); };
-    cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null;
-      if(!moved) return; const lim=Math.min(110,cd.offsetWidth*.28);
-      if(Math.abs(dx)>lim){ cd.style.transition="transform .2s ease-out, opacity .2s"; cd.style.transform=`translateX(${dx>0?600:-600}px) rotate(${dx>0?25:-25}deg)`; cd.style.opacity="0"; setTimeout(()=>grade(dx>0?2:1),180); }
-      else { cd.style.transition="transform .2s"; cd.style.transform=""; wrap.classList.remove("goR","goL"); setTimeout(()=>{ moved=false; },0); } };
+      if(!moved&&Math.abs(dx)>8&&Math.abs(dx)>Math.abs(e.clientY-y0)){ moved=true; try{cd.setPointerCapture(e.pointerId);}catch(x){} cd.style.transition="none"; tint.style.transition="none"; }
+      if(!moved) return; e.preventDefault(); if(!raf) raf=requestAnimationFrame(paint); };
+    cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null; if(!moved) return;
+      const lim=Math.min(100,cd.offsetWidth*.25);
+      if(Math.abs(dx)>lim){ const out=(dx>0?1:-1)*(window.innerWidth+100);
+        cd.style.transition="transform .32s cubic-bezier(.2,.7,.3,1), opacity .32s ease-out"; cd.style.transform=`translate3d(${out}px,0,0) rotate(${dx>0?12:-12}deg)`; cd.style.opacity="0";
+        setTimeout(()=>{ cur.enter=true; grade(dx>0?2:1); },220); }
+      else { cd.style.transition="transform .35s cubic-bezier(.3,1.4,.5,1)"; tint.style.transition="opacity .25s"; cd.style.transform=""; tint.style.opacity="0"; setTimeout(()=>{ moved=false; },0); } };
   }
   /* Bewertung: 2 sicher (nächstes Fach), 1 nicht sicher (ein Fach zurück, morgen wieder, in dieser Runde noch einmal) */
   function grade(lv){ state.box=state.box||{}; state.due=state.due||{}; state.lapses=state.lapses||{};
@@ -1161,8 +1166,8 @@ function renderCards(){
     if(lv===2) cur.right++;
     else { cur.unsure=(cur.unsure||0)+1; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if(!cur.requeued[c.id]){ cur.requeued[c.id]=1; D.push(c); } }
     logDay(); save(); cur.ci++; cur.flip=false; cur.typed=""; renderCards(); window.scrollTo(0,0); }
-  if($("#yes")) $("#yes").onclick=()=>grade(2);
-  if($("#mid")) $("#mid").onclick=()=>grade(1);
+  if($("#yes")) $("#yes").onclick=()=>{ cur.enter=true; grade(2); };
+  if($("#mid")) $("#mid").onclick=()=>{ cur.enter=true; grade(1); };
   /* Eine Karte zurück: letzte Bewertung rückgängig machen */
   if($("#cprev")) $("#cprev").onclick=()=>{ const h=cur.hist.pop(); if(!h) return;
     const put=(o,k,v)=>{ if(v===undefined) delete o[k]; else o[k]=v; };
