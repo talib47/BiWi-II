@@ -293,7 +293,18 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .card .cctx{margin:0;font-size:.8rem;color:var(--muted);letter-spacing:.01em}
 .card .back>:last-child{margin-bottom:0}
 .ml ol,.ml ul{padding-left:1.25em;margin:0 0 .5em} .ml li{margin:.25em 0} .ml p{margin:0 0 .5em}
-.grade{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.kg{margin-left:8px;vertical-align:middle;background:transparent;border:1px dashed var(--line);border-radius:999px;padding:6px 12px;font-size:.8rem;color:var(--muted)}
+.kg[aria-pressed="true"]{border:1px solid var(--gold);color:var(--gold);font-weight:600}
+.kg:disabled{cursor:default}
+.grade{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.swipewrap{position:relative}
+.swipewrap .card{touch-action:pan-y;will-change:transform;position:relative;z-index:1}
+.swl,.swr{position:absolute;top:50%;transform:translateY(-50%);font-weight:700;font-size:.9rem;opacity:0;transition:opacity .15s}
+.swl{left:6px;color:var(--bad)}.swr{right:6px;color:var(--good)}
+.swipewrap.goL .swl,.swipewrap.goR .swr{opacity:1}
+.swipewrap.goL .card{box-shadow:0 0 0 2px var(--bad)}.swipewrap.goR .card{box-shadow:0 0 0 2px var(--good)}
+.cty{display:block;width:100%;box-sizing:border-box;margin:0 0 10px;padding:10px 12px;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:10px;resize:none;min-height:3em}
+.card .typed{border-top:1px solid var(--line);padding-top:8px}.card .typed p{margin:2px 0 0;white-space:pre-wrap}
 .grade .btn{padding:12px 6px}
 .cardpad{margin:0 0 12px}
 .cardpad canvas{height:170px}
@@ -1073,7 +1084,7 @@ const dayStart=(t=Date.now())=>{ const d=new Date(t); d.setHours(0,0,0,0); retur
 const isSeen=id=>!!(state.box||{})[id];
 const isDue=id=>isSeen(id) && ((state.due||{})[id]||0)<=Date.now();
 function dueCards(n){ return allCards(n).filter(x=>isDue(x.id)).sort((a,b)=>((state.due||{})[a.id]||0)-((state.due||{})[b.id]||0)); }
-function openCards(n,free,deck){ cur.cardCh=n; cur.free=!!free; cur.deck=deck?deck.slice():(free?buildDeck(n):buildDueDeck(n)); cur.ci=0; cur.flip=false; cur.right=0; cur.unsure=0; cur.cstrokes=[]; cur.requeued={}; go("cards"); }
+function openCards(n,free,deck){ cur.cardCh=n; cur.free=!!free; cur.deck=deck?deck.slice():(free?buildDeck(n):buildDueDeck(n)); cur.ci=0; cur.flip=false; cur.right=0; cur.unsure=0; cur.typed=""; cur.hist=[]; cur.requeued={}; go("cards"); }
 const deckLabel=n=>DECK_NAME[n]?"Zeichen":n?"Kapitel "+n:"Üben";
 const deckBack=n=>DECK_NAME[n]?go("sym"):n?go("chapter"):go("practice");
 let CARD_CH=null;
@@ -1097,40 +1108,61 @@ function renderCards(){
     const nextDue=allCards(n).filter(x=>isSeen(x.id)&&!isDue(x.id)).map(x=>(state.due||{})[x.id]).sort((a,b)=>a-b)[0];
     const when=nextDue? Math.round((dayStart(nextDue)-dayStart())/864e5) : null;
     $("#app").innerHTML=`${backTo(deckLabel(n))}<h1>${D.length?(left?"Runde geschafft":"Für heute erledigt"):"Nichts fällig"}</h1>
-      <div class="block">${D.length?`<p>${cur.right} sicher, ${cur.unsure||0} unsicher, ${D.length-cur.right-(cur.unsure||0)} nicht gewusst.</p>`:""}
-      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Stapels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Sichere Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, unsichere morgen, nicht gewusste sofort noch einmal.</p>
+      <div class="block">${D.length?`<p>${cur.right} sicher, ${cur.unsure||0} nicht sicher.</p>`:""}
+      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Stapels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Sichere Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, nicht sichere gleich in dieser Runde und morgen noch einmal.</p>
       <div class="row">${sess?sessBtn():`${left?`<button class="btn" id="again">Weiter</button>`:""}<button class="btn ghost" id="free">Freiwillig weiterüben</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
     bindCrumb(()=>deckBack(n)); if($("#again")) $("#again").onclick=()=>openCards(n); if($("#free")) $("#free").onclick=()=>openCards(n,true); if($("#out")) $("#out").onclick=()=>deckBack(n); return;
   }
   const c=D[cur.ci], b=cardBox(c.id), ch=cardChapter(c.id), sym=/^[sr]-/.test(c.id);
   const ctx=CARD_CTX[c.id]||(ch?ch.title:"");
+  const esc=t=>t.replace(/&/g,"&amp;").replace(/</g,"&lt;");
   $("#app").innerHTML=`${backTo(deckLabel(n))}
     <div class="row between"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?" · fällig":" · neu"}</p><span class="dots" aria-label="Fach ${b} von 5">${[1,2,3,4,5].map(i=>`<i class="${i<=b?"on":""}"></i>`).join("")}</span></div>
+    <div class="swipewrap"><span class="swl" aria-hidden="true">Nicht sicher</span><span class="swr" aria-hidden="true">Sicher</span>
     <div class="block card" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen">
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
       <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}</div>
-      ${cur.flip?`<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div>
-    ${cur.pad?`<div class="pad cardpad"><span class="ph">Hier hinschreiben</span><canvas id="cpad" aria-label="Schreibfeld für die Antwort"></canvas><div class="tools"><button id="cpU">Zurück</button><button id="cpX">Leeren</button></div></div>`:""}
-    ${cur.flip?`<div class="grade"><button class="btn warn" id="no">Nicht gewusst</button><button class="btn ghost" id="mid">Unsicher</button><button class="btn" id="yes">Sicher</button></div>`
-      :`<div class="row"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button><button class="btn ghost" id="padT">${cur.pad?"Schreibfeld aus":"Schreibfeld"}</button></div><p class="small muted" style="margin-top:8px">Erst antworten, im Kopf oder im Schreibfeld, dann aufdecken. Ehrlich bewerten: „Unsicher“, wenn du es nur ungefähr wusstest.</p>`}`;
+      ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div></div>
+    ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid">← Nicht sicher</button><button class="btn" id="yes">Sicher →</button></div><p class="small muted" style="margin-top:8px">Oder die Karte wischen: nach links nicht sicher, nach rechts sicher.</p>`
+      :`<textarea id="cty" class="cty" rows="2" placeholder="Antwort tippen (optional)" aria-label="Antwort tippen">${esc(cur.typed)}</textarea>
+      <button class="btn" id="flip" style="width:100%">Antwort zeigen</button><p class="small muted" style="margin-top:8px">Erst antworten, im Kopf oder getippt, dann aufdecken. Ehrlich bewerten: „Sicher“ nur, wenn du es wirklich wusstest.</p>`}
+    ${cur.hist.length?`<button class="btn ghost small" id="cprev" style="margin-top:6px">← Vorherige Karte</button>`:""}`;
   bindCrumb(()=>deckBack(n));
+  const ta=$("#cty"); if(ta){ const fit=()=>{ ta.style.height="auto"; ta.style.height=ta.scrollHeight+"px"; }; fit(); ta.oninput=()=>{ cur.typed=ta.value; fit(); }; }
   if($("#flip")) $("#flip").onclick=()=>{ cur.flip=true; renderCards(); };
-  const cd=$("#theCard"); cd.onclick=e=>{ if(e.target.closest("a")) return; cur.flip=!cur.flip; renderCards(); };
-  cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } };
-  if(cur.pad){ const sf=drawSurface($("#cpad"),cur.cstrokes); $("#cpU").onclick=()=>sf.undo(); $("#cpX").onclick=()=>sf.clear(); }
-  if($("#padT")) $("#padT").onclick=()=>{ cur.pad=!cur.pad; renderCards(); };
-  /* Bewertung: 2 sicher (nächstes Fach), 1 unsicher (Fach bleibt, morgen wieder), 0 nicht gewusst (Fach 1, gleich nochmal) */
-  const grade=lv=>{ state.box=state.box||{}; state.due=state.due||{}; const b0=cardBox(c.id), old=state.due[c.id]||0;
-    const b1= lv===2? Math.min(5,Math.max(b0,1)+1) : lv===1? Math.max(1,b0) : 1;
-    const nd= lv===2? dayStart()+(b0===5?35:INTERVAL[b1])*864e5 : lv===1? dayStart()+864e5 : Date.now();
+  const cd=$("#theCard"); let moved=false;
+  cd.onclick=e=>{ if(e.target.closest("a")||moved) return; cur.flip=!cur.flip; renderCards(); };
+  cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } else if(cur.flip&&e.key==="ArrowRight") grade(2); else if(cur.flip&&e.key==="ArrowLeft") grade(1); };
+  /* Wischen wie bei Dating-Apps, erst nach dem Aufdecken: rechts sicher, links nicht sicher */
+  if(cur.flip){ const wrap=cd.parentNode; let x0=null, y0=0, dx=0;
+    cd.onpointerdown=e=>{ if(e.target.closest("a")) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; };
+    cd.onpointermove=e=>{ if(x0===null) return; dx=e.clientX-x0;
+      if(!moved&&Math.abs(dx)>10&&Math.abs(dx)>Math.abs(e.clientY-y0)){ moved=true; try{cd.setPointerCapture(e.pointerId);}catch(x){} cd.style.transition="none"; }
+      if(!moved) return; e.preventDefault(); cd.style.transform=`translateX(${dx}px) rotate(${dx/20}deg)`;
+      wrap.classList.toggle("goR",dx>40); wrap.classList.toggle("goL",dx<-40); };
+    cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null;
+      if(!moved) return; const lim=Math.min(110,cd.offsetWidth*.28);
+      if(Math.abs(dx)>lim){ cd.style.transition="transform .2s ease-out, opacity .2s"; cd.style.transform=`translateX(${dx>0?600:-600}px) rotate(${dx>0?25:-25}deg)`; cd.style.opacity="0"; setTimeout(()=>grade(dx>0?2:1),180); }
+      else { cd.style.transition="transform .2s"; cd.style.transform=""; wrap.classList.remove("goR","goL"); setTimeout(()=>{ moved=false; },0); } };
+  }
+  /* Bewertung: 2 sicher (nächstes Fach), 1 nicht sicher (ein Fach zurück, morgen wieder, in dieser Runde noch einmal) */
+  function grade(lv){ state.box=state.box||{}; state.due=state.due||{}; state.lapses=state.lapses||{};
+    const b0=cardBox(c.id), old=state.due[c.id]||0;
+    cur.hist.push({ci:cur.ci, id:c.id, box:state.box[c.id], due:state.due[c.id], lapse:state.lapses[c.id], right:cur.right, unsure:cur.unsure, len:D.length, rq:Object.assign({},cur.requeued), typed:cur.typed});
+    const b1= lv===2? Math.min(5,Math.max(b0,1)+1) : Math.max(1,b0-1);
+    const nd= lv===2? dayStart()+(b0===5?35:INTERVAL[b1])*864e5 : dayStart()+864e5;
     if(!cur.free){ state.box[c.id]=b1; state.due[c.id]=nd; }
     else if(lv<2){ state.box[c.id]=Math.min(b0||1,b1); state.due[c.id]=Math.min(old||nd,nd); }
-    if(lv===2) cur.right++; else if(lv===1) cur.unsure=(cur.unsure||0)+1;
-    else { state.lapses=state.lapses||{}; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if((cur.requeued[c.id]||0)<2){ cur.requeued[c.id]=(cur.requeued[c.id]||0)+1; D.push(c); } }
-    logDay(); save(); cur.ci++; cur.flip=false; cur.cstrokes=[]; renderCards(); };
+    if(lv===2) cur.right++;
+    else { cur.unsure=(cur.unsure||0)+1; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if(!cur.requeued[c.id]){ cur.requeued[c.id]=1; D.push(c); } }
+    logDay(); save(); cur.ci++; cur.flip=false; cur.typed=""; renderCards(); window.scrollTo(0,0); }
   if($("#yes")) $("#yes").onclick=()=>grade(2);
   if($("#mid")) $("#mid").onclick=()=>grade(1);
-  if($("#no")) $("#no").onclick=()=>grade(0);
+  /* Eine Karte zurück: letzte Bewertung rückgängig machen */
+  if($("#cprev")) $("#cprev").onclick=()=>{ const h=cur.hist.pop(); if(!h) return;
+    const put=(o,k,v)=>{ if(v===undefined) delete o[k]; else o[k]=v; };
+    put(state.box,h.id,h.box); put(state.due,h.id,h.due); put(state.lapses,h.id,h.lapse);
+    cur.right=h.right; cur.unsure=h.unsure; D.length=h.len; cur.requeued=h.rq; cur.ci=h.ci; cur.flip=true; cur.typed=h.typed; save(); renderCards(); };
 }
 
 /* ================= Grafiken ================= */
@@ -1272,7 +1304,7 @@ const KREUZ=[
 ];
 const kreuzOf=n=>n? KREUZ.filter(x=>x.ch===n) : KREUZ.filter(x=>LESSONS[x.ch]);
 const kzStat=id=>(state.kreuz||{})[id];
-function kzPoints(item,ans){ const right=item.s.filter((st,j)=>ans[j]===st[1]).length; return right+(right===3?1:0); }
+function kzPoints(item,ans,gs){ const right=item.s.filter((st,j)=>ans[j]===st[1]&&!(gs&&gs[j])).length; return right+(right===3?1:0); }
 /* Wiederholung mit Abstand: 4 Punkte schiebt die Aufgabe weiter nach hinten (1, 3, 7, 16, 35 Tage), sonst morgen wieder */
 function kzDueAt(id){ const s=kzStat(id); if(!s) return null; return s.due||dayStart(s.t)+(s.p===4?3:1)*864e5; }
 const kzDue=()=>kreuzOf(0).filter(x=>{ const d=kzDueAt(x.id); return d!=null&&d<=Date.now(); });
@@ -1285,14 +1317,15 @@ function pickKreuz(n,k){
   }
   return out;
 }
-function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, ans:{}, shown:false, pts:[]}; go("kreuz"); }
-function kzBlock(item,ans,shown,key){
-  return item.s.map((st,j)=>{ const a=ans[j];
+function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, ans:{}, gs:{}, shown:false, pts:[], sure:[]}; go("kreuz"); }
+function kzBlock(item,ans,shown,key,gs){
+  return item.s.map((st,j)=>{ const a=ans[j], g=gs&&gs[j];
     const cls=v=>shown?(st[1]===v?"r":(a===v?"w":"")):"";
     return `<div class="kz"><p class="st"><i class="no">${"abc"[j]})</i>${st[0]}</p>
-      <div class="wf" role="group" aria-label="Aussage ${"abc"[j]}"><button data-kz="${key}:${j}" data-v="1" aria-pressed="${a===true}" class="${cls(true)}" ${shown?"disabled":""}>wahr</button><button data-kz="${key}:${j}" data-v="0" aria-pressed="${a===false}" class="${cls(false)}" ${shown?"disabled":""}>falsch</button></div>
-      ${!shown?"":a===st[1]?`<p class="why"><b class="okc">Richtig.</b> ${st[2]}</p>`
-        :`<div class="fb ${a===undefined?"idk":"bad"}"><p class="fh">${a===undefined?"Nicht angekreuzt.":`Du hast „${a?"wahr":"falsch"}“ gewählt.`} Die Aussage ist ${st[1]?"wahr":"falsch"}.</p><p style="margin:0">${st[2]}</p></div>`}</div>`; }).join("");
+      <div class="wf" role="group" aria-label="Aussage ${"abc"[j]}"><button data-kz="${key}:${j}" data-v="1" aria-pressed="${a===true}" class="${cls(true)}" ${shown?"disabled":""}>wahr</button><button data-kz="${key}:${j}" data-v="0" aria-pressed="${a===false}" class="${cls(false)}" ${shown?"disabled":""}>falsch</button></div>${gs?`<button data-kg="${j}" class="kg" aria-pressed="${!!g}" ${shown?"disabled":""}>${g?"✓ ":""}geraten</button>`:""}
+      ${!shown?"":a===st[1]&&!g?`<p class="why"><b class="okc">Richtig.</b> ${st[2]}</p>`
+        :a===st[1]?`<div class="fb idk"><p class="fh">Richtig geraten. Zählt noch nicht als gewusst.</p><p style="margin:0">${st[2]}</p></div>`
+        :`<div class="fb ${a===undefined?"idk":"bad"}"><p class="fh">${a===undefined?"Nicht angekreuzt. ":""}Die Aussage ist ${st[1]?"wahr":"falsch"}.</p><p style="margin:0">${st[2]}</p></div>`}</div>`; }).join("");
 }
 function renderKreuz(){
   const K=cur.kr, back=K.n?"Kapitel "+K.n:"Üben", backFn=()=>{ if(K.n){ cur.ch=K.n; go("chapter"); } else go("practice"); };
@@ -1300,7 +1333,7 @@ function renderKreuz(){
   if(K.i>=K.items.length){
     const sum=K.pts.reduce((a,b)=>a+b,0), max=K.items.length*4;
     $("#app").innerHTML=`${backTo(back)}<h1>Runde geschafft</h1>
-      <div class="block"><p class="pbadge">${sum} von ${max} Punkten</p>
+      <div class="block"><p class="pbadge">${sum} von ${max} Punkten</p>${K.sure.reduce((a,b)=>a+b,0)<sum?`<p class="small" style="margin:6px 0 0">Ohne Geratenes: ${K.sure.reduce((a,b)=>a+b,0)} von ${max}. Mit diesem Wert rechnet der Lernstand.</p>`:""}
       <p class="small muted">So wird auch in der Klausur gezählt: je richtiges Kreuz ein Punkt, alle drei Aussagen einer Aufgabe richtig ein Zusatzpunkt. Aufgaben mit Fehlern kommen bevorzugt wieder.</p>
       <div class="row">${sess?sessBtn():`<button class="btn" id="again">Neue Runde</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
     bindCrumb(backFn); if($("#again")) $("#again").onclick=()=>openKreuz(K.n); if($("#out")) $("#out").onclick=backFn; return;
@@ -1309,15 +1342,16 @@ function renderKreuz(){
   if(!K.shown) K.prev=kzStat(item.id);
   $("#app").innerHTML=`${backTo(back)}
     <div class="row between"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}</p>${K.prev?`<span class="chip">zuletzt ${K.prev.p}/4</span>`:""}</div>
-    <div class="block" style="margin-top:8px"><h3 style="margin:0 0 4px">${item.stem}</h3>${kzBlock(item,K.ans,K.shown,"s")}</div>
-    ${K.shown?`<div class="row between"><span class="pbadge">${K.pts[K.i]} von 4 Punkten</span><button class="btn" id="nx">${K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button></div>`
-      :`<button class="btn" id="ev" style="width:100%" ${all?"":"disabled"}>Auswerten</button><p class="small muted" style="margin-top:8px">${all?"":"Kreuze bei jeder Aussage wahr oder falsch an. "}In der Klausur gibt es keine Minuspunkte, also im Zweifel immer ankreuzen.</p>`}`;
+    <div class="block" style="margin-top:8px"><h3 style="margin:0 0 4px">${item.stem}</h3>${kzBlock(item,K.ans,K.shown,"s",K.gs)}</div>
+    ${K.shown?`<div class="row between"><span class="pbadge">${K.pts[K.i]} von 4 Punkten${K.sure[K.i]<K.pts[K.i]?` · ohne Geratenes ${K.sure[K.i]}`:""}</span><button class="btn" id="nx">${K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button></div>`
+      :`<button class="btn" id="ev" style="width:100%" ${all?"":"disabled"}>Auswerten</button><p class="small muted" style="margin-top:8px">${all?"":"Kreuze bei jeder Aussage wahr oder falsch an. "}In der Klausur gibt es keine Minuspunkte, also im Zweifel immer ankreuzen. Hier markierst du Geratenes mit „geraten“: Es bringt Punkte wie in der Klausur, zählt für den Lernstand aber nicht als gewusst.</p>`}`;
   bindCrumb(backFn);
   document.querySelectorAll("[data-kz]").forEach(b=>b.onclick=()=>{ K.ans[+b.dataset.kz.split(":").pop()]=b.dataset.v==="1"; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
-  if($("#ev")) $("#ev").onclick=()=>{ const p=kzPoints(item,K.ans); K.pts[K.i]=p; K.shown=true;
+  document.querySelectorAll("[data-kg]").forEach(b=>b.onclick=()=>{ const j=+b.dataset.kg; K.gs[j]=!K.gs[j]; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
+  if($("#ev")) $("#ev").onclick=()=>{ K.pts[K.i]=kzPoints(item,K.ans); const p=kzPoints(item,K.ans,K.gs); K.sure[K.i]=p; K.shown=true;
     const s=kzStat(item.id)||{n:0,best:0}, b=p===4?Math.min(5,(s.b||1)+1):1;
     state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now(),b,due:dayStart()+(p===4?(s.b===5?35:INTERVAL[b]):1)*864e5}; logDay(); save(); renderKreuz(); };
-  if($("#nx")) $("#nx").onclick=()=>{ K.i++; K.ans={}; K.shown=false; renderKreuz(); window.scrollTo(0,0); };
+  if($("#nx")) $("#nx").onclick=()=>{ K.i++; K.ans={}; K.gs={}; K.shown=false; renderKreuz(); window.scrollTo(0,0); };
 }
 
 /* ================= Offene Aufgaben (Schreiben) und Probeklausur ================= */
@@ -1946,7 +1980,7 @@ function feedback(c,a){
   if(a===c.a) return `<div class="fb good"><p class="fh">Richtig.</p><p style="margin:0">${inl(c.ex)}</p></div>`;
   if(a===-1) return `<div class="fb idk"><p class="fh">Kein Problem, die Frage kommt morgen noch einmal.</p><div class="dlist">${right}<b>Warum</b><span>${inl(c.ex)}</span></div></div>`;
   const why=c.w&&c.w[a];
-  return `<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist"><b>Deine Wahl</b><span>${inl(c.o[a])}${why?`<span class="fbw">${inl(why)}</span>`:""}</span>${right}<b>${why?"Der Unterschied":"Warum"}</b><span>${inl(c.ex)}</span></div></div>`;
+  return `<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist">${why?`<b>Warum nicht</b><span>${inl(why)}</span>`:""}${right}<b>${why?"Der Unterschied":"Warum"}</b><span>${inl(c.ex)}</span></div></div>`;
 }
 /* Eine Frage: erst nur die Frage, dann auf Wunsch die Auswahl */
 function qBlock(c,key,a,shown,first){
@@ -2036,7 +2070,7 @@ function renderWho(){
     <div class="block"><p class="small muted" style="margin:0 0 6px">${S.q}</p><p class="who">${inl(x.t)}</p>
       <div class="mc">${o.map(k=>{ const cls=W.a===null?"":(k===x.s?"r":(k===W.a?"w":"")); return `<button data-s="${k}" class="${cls}" ${W.a!==null?"disabled":""}>${C[k]}</button>`; }).join("")}</div>
       ${W.a===null?"":W.a===x.s?`<div class="fb good"><p class="fh">Richtig.</p><p style="margin:0">${inl(x.ex)}</p></div>`
-        :`<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist"><b>Deine Wahl</b><span>${C[W.a]}</span><b>Richtig</b><span>${C[x.s]}</span><b>Warum</b><span>${inl(x.ex)}</span></div></div>`}</div>
+        :`<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist"><b>Richtig</b><span>${C[x.s]}</span><b>Warum</b><span>${inl(x.ex)}</span></div></div>`}</div>
     ${W.a!==null?`<button class="btn" id="wNext">Weiter</button>`:`<p class="small muted">Tipp: ${S.hint}</p>`}`;
   bindCrumb(()=>go("practice"));
   document.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{ if(W.a!==null) return; W.a=b.dataset.s; const ok=W.a===x.s; if(ok) W.right++;

@@ -34,7 +34,7 @@ const KREUZ=[
 ];
 const kreuzOf=n=>n? KREUZ.filter(x=>x.ch===n) : KREUZ.filter(x=>LESSONS[x.ch]);
 const kzStat=id=>(state.kreuz||{})[id];
-function kzPoints(item,ans){ const right=item.s.filter((st,j)=>ans[j]===st[1]).length; return right+(right===3?1:0); }
+function kzPoints(item,ans,gs){ const right=item.s.filter((st,j)=>ans[j]===st[1]&&!(gs&&gs[j])).length; return right+(right===3?1:0); }
 /* Wiederholung mit Abstand: 4 Punkte schiebt die Aufgabe weiter nach hinten (1, 3, 7, 16, 35 Tage), sonst morgen wieder */
 function kzDueAt(id){ const s=kzStat(id); if(!s) return null; return s.due||dayStart(s.t)+(s.p===4?3:1)*864e5; }
 const kzDue=()=>kreuzOf(0).filter(x=>{ const d=kzDueAt(x.id); return d!=null&&d<=Date.now(); });
@@ -47,14 +47,15 @@ function pickKreuz(n,k){
   }
   return out;
 }
-function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, ans:{}, shown:false, pts:[]}; go("kreuz"); }
-function kzBlock(item,ans,shown,key){
-  return item.s.map((st,j)=>{ const a=ans[j];
+function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, ans:{}, gs:{}, shown:false, pts:[], sure:[]}; go("kreuz"); }
+function kzBlock(item,ans,shown,key,gs){
+  return item.s.map((st,j)=>{ const a=ans[j], g=gs&&gs[j];
     const cls=v=>shown?(st[1]===v?"r":(a===v?"w":"")):"";
     return `<div class="kz"><p class="st"><i class="no">${"abc"[j]})</i>${st[0]}</p>
-      <div class="wf" role="group" aria-label="Aussage ${"abc"[j]}"><button data-kz="${key}:${j}" data-v="1" aria-pressed="${a===true}" class="${cls(true)}" ${shown?"disabled":""}>wahr</button><button data-kz="${key}:${j}" data-v="0" aria-pressed="${a===false}" class="${cls(false)}" ${shown?"disabled":""}>falsch</button></div>
-      ${!shown?"":a===st[1]?`<p class="why"><b class="okc">Richtig.</b> ${st[2]}</p>`
-        :`<div class="fb ${a===undefined?"idk":"bad"}"><p class="fh">${a===undefined?"Nicht angekreuzt.":`Du hast „${a?"wahr":"falsch"}“ gewählt.`} Die Aussage ist ${st[1]?"wahr":"falsch"}.</p><p style="margin:0">${st[2]}</p></div>`}</div>`; }).join("");
+      <div class="wf" role="group" aria-label="Aussage ${"abc"[j]}"><button data-kz="${key}:${j}" data-v="1" aria-pressed="${a===true}" class="${cls(true)}" ${shown?"disabled":""}>wahr</button><button data-kz="${key}:${j}" data-v="0" aria-pressed="${a===false}" class="${cls(false)}" ${shown?"disabled":""}>falsch</button></div>${gs?`<button data-kg="${j}" class="kg" aria-pressed="${!!g}" ${shown?"disabled":""}>${g?"✓ ":""}geraten</button>`:""}
+      ${!shown?"":a===st[1]&&!g?`<p class="why"><b class="okc">Richtig.</b> ${st[2]}</p>`
+        :a===st[1]?`<div class="fb idk"><p class="fh">Richtig geraten. Zählt noch nicht als gewusst.</p><p style="margin:0">${st[2]}</p></div>`
+        :`<div class="fb ${a===undefined?"idk":"bad"}"><p class="fh">${a===undefined?"Nicht angekreuzt. ":""}Die Aussage ist ${st[1]?"wahr":"falsch"}.</p><p style="margin:0">${st[2]}</p></div>`}</div>`; }).join("");
 }
 function renderKreuz(){
   const K=cur.kr, back=K.n?"Kapitel "+K.n:"Üben", backFn=()=>{ if(K.n){ cur.ch=K.n; go("chapter"); } else go("practice"); };
@@ -62,7 +63,7 @@ function renderKreuz(){
   if(K.i>=K.items.length){
     const sum=K.pts.reduce((a,b)=>a+b,0), max=K.items.length*4;
     $("#app").innerHTML=`${backTo(back)}<h1>Runde geschafft</h1>
-      <div class="block"><p class="pbadge">${sum} von ${max} Punkten</p>
+      <div class="block"><p class="pbadge">${sum} von ${max} Punkten</p>${K.sure.reduce((a,b)=>a+b,0)<sum?`<p class="small" style="margin:6px 0 0">Ohne Geratenes: ${K.sure.reduce((a,b)=>a+b,0)} von ${max}. Mit diesem Wert rechnet der Lernstand.</p>`:""}
       <p class="small muted">So wird auch in der Klausur gezählt: je richtiges Kreuz ein Punkt, alle drei Aussagen einer Aufgabe richtig ein Zusatzpunkt. Aufgaben mit Fehlern kommen bevorzugt wieder.</p>
       <div class="row">${sess?sessBtn():`<button class="btn" id="again">Neue Runde</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
     bindCrumb(backFn); if($("#again")) $("#again").onclick=()=>openKreuz(K.n); if($("#out")) $("#out").onclick=backFn; return;
@@ -71,13 +72,14 @@ function renderKreuz(){
   if(!K.shown) K.prev=kzStat(item.id);
   $("#app").innerHTML=`${backTo(back)}
     <div class="row between"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}</p>${K.prev?`<span class="chip">zuletzt ${K.prev.p}/4</span>`:""}</div>
-    <div class="block" style="margin-top:8px"><h3 style="margin:0 0 4px">${item.stem}</h3>${kzBlock(item,K.ans,K.shown,"s")}</div>
-    ${K.shown?`<div class="row between"><span class="pbadge">${K.pts[K.i]} von 4 Punkten</span><button class="btn" id="nx">${K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button></div>`
-      :`<button class="btn" id="ev" style="width:100%" ${all?"":"disabled"}>Auswerten</button><p class="small muted" style="margin-top:8px">${all?"":"Kreuze bei jeder Aussage wahr oder falsch an. "}In der Klausur gibt es keine Minuspunkte, also im Zweifel immer ankreuzen.</p>`}`;
+    <div class="block" style="margin-top:8px"><h3 style="margin:0 0 4px">${item.stem}</h3>${kzBlock(item,K.ans,K.shown,"s",K.gs)}</div>
+    ${K.shown?`<div class="row between"><span class="pbadge">${K.pts[K.i]} von 4 Punkten${K.sure[K.i]<K.pts[K.i]?` · ohne Geratenes ${K.sure[K.i]}`:""}</span><button class="btn" id="nx">${K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button></div>`
+      :`<button class="btn" id="ev" style="width:100%" ${all?"":"disabled"}>Auswerten</button><p class="small muted" style="margin-top:8px">${all?"":"Kreuze bei jeder Aussage wahr oder falsch an. "}In der Klausur gibt es keine Minuspunkte, also im Zweifel immer ankreuzen. Hier markierst du Geratenes mit „geraten“: Es bringt Punkte wie in der Klausur, zählt für den Lernstand aber nicht als gewusst.</p>`}`;
   bindCrumb(backFn);
   document.querySelectorAll("[data-kz]").forEach(b=>b.onclick=()=>{ K.ans[+b.dataset.kz.split(":").pop()]=b.dataset.v==="1"; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
-  if($("#ev")) $("#ev").onclick=()=>{ const p=kzPoints(item,K.ans); K.pts[K.i]=p; K.shown=true;
+  document.querySelectorAll("[data-kg]").forEach(b=>b.onclick=()=>{ const j=+b.dataset.kg; K.gs[j]=!K.gs[j]; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
+  if($("#ev")) $("#ev").onclick=()=>{ K.pts[K.i]=kzPoints(item,K.ans); const p=kzPoints(item,K.ans,K.gs); K.sure[K.i]=p; K.shown=true;
     const s=kzStat(item.id)||{n:0,best:0}, b=p===4?Math.min(5,(s.b||1)+1):1;
     state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now(),b,due:dayStart()+(p===4?(s.b===5?35:INTERVAL[b]):1)*864e5}; logDay(); save(); renderKreuz(); };
-  if($("#nx")) $("#nx").onclick=()=>{ K.i++; K.ans={}; K.shown=false; renderKreuz(); window.scrollTo(0,0); };
+  if($("#nx")) $("#nx").onclick=()=>{ K.i++; K.ans={}; K.gs={}; K.shown=false; renderKreuz(); window.scrollTo(0,0); };
 }

@@ -28,8 +28,8 @@ Jeder Teil: Kreuzaufgaben (drei Aussagen wahr/falsch, je richtiges Kreuz 1 P., a
 | `cardinfo.js` | Kontextzeile (Vorderseite) und dezente i-Infos (Rückseite) je Karte |
 | `diag.js` | Rechentrainer Diagnostik: z-Wert, Abweichungs-IQ, Normskalen, Normalverteilung, Prozentrang, Testvergleich |
 | `gfx.js` | SVG-Grafiken (Normalverteilung) |
-| `views.js` | Lernpfad, Kapitel, Lektionen mit „Verstehe ich nicht“, Karten mit Wiederholungsplan, Grafiken, Üben, Statistik |
-| `kreuz.js` | Kreuzaufgaben im Klausurformat, mit Wiederholungsplan und Rückmeldung je Aussage |
+| `views.js` | Lernpfad, Kapitel, Lektionen mit „Verstehe ich nicht“, Karten mit Wiederholungsplan (Antwort tippen, wischen: links nicht sicher, rechts sicher, eine Karte zurück), Grafiken, Üben, Statistik |
+| `kreuz.js` | Kreuzaufgaben im Klausurformat, mit Wiederholungsplan, Rückmeldung je Aussage und Markierung „geraten“ (zählt nicht als gewusst) |
 | `symbols.js` | Zeichen der Diagnostik-Statistik: Karten in beide Richtungen und Lexikon |
 | `recall.js` | Verständnisfragen: erst abrufen, dann Auswahl; Rückmeldung je falscher Option (`w`); eigener Wiederholungsplan (`state.qbox`) |
 | `who.js` | Zuordnen: Beispiele dem richtigen Begriff zuordnen (zuerst Lernformen aus Sitzung 2) |

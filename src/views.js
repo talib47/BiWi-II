@@ -223,7 +223,7 @@ const dayStart=(t=Date.now())=>{ const d=new Date(t); d.setHours(0,0,0,0); retur
 const isSeen=id=>!!(state.box||{})[id];
 const isDue=id=>isSeen(id) && ((state.due||{})[id]||0)<=Date.now();
 function dueCards(n){ return allCards(n).filter(x=>isDue(x.id)).sort((a,b)=>((state.due||{})[a.id]||0)-((state.due||{})[b.id]||0)); }
-function openCards(n,free,deck){ cur.cardCh=n; cur.free=!!free; cur.deck=deck?deck.slice():(free?buildDeck(n):buildDueDeck(n)); cur.ci=0; cur.flip=false; cur.right=0; cur.unsure=0; cur.cstrokes=[]; cur.requeued={}; go("cards"); }
+function openCards(n,free,deck){ cur.cardCh=n; cur.free=!!free; cur.deck=deck?deck.slice():(free?buildDeck(n):buildDueDeck(n)); cur.ci=0; cur.flip=false; cur.right=0; cur.unsure=0; cur.typed=""; cur.hist=[]; cur.requeued={}; go("cards"); }
 const deckLabel=n=>DECK_NAME[n]?"Zeichen":n?"Kapitel "+n:"Üben";
 const deckBack=n=>DECK_NAME[n]?go("sym"):n?go("chapter"):go("practice");
 let CARD_CH=null;
@@ -247,40 +247,61 @@ function renderCards(){
     const nextDue=allCards(n).filter(x=>isSeen(x.id)&&!isDue(x.id)).map(x=>(state.due||{})[x.id]).sort((a,b)=>a-b)[0];
     const when=nextDue? Math.round((dayStart(nextDue)-dayStart())/864e5) : null;
     $("#app").innerHTML=`${backTo(deckLabel(n))}<h1>${D.length?(left?"Runde geschafft":"Für heute erledigt"):"Nichts fällig"}</h1>
-      <div class="block">${D.length?`<p>${cur.right} sicher, ${cur.unsure||0} unsicher, ${D.length-cur.right-(cur.unsure||0)} nicht gewusst.</p>`:""}
-      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Stapels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Sichere Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, unsichere morgen, nicht gewusste sofort noch einmal.</p>
+      <div class="block">${D.length?`<p>${cur.right} sicher, ${cur.unsure||0} nicht sicher.</p>`:""}
+      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Stapels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Sichere Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, nicht sichere gleich in dieser Runde und morgen noch einmal.</p>
       <div class="row">${sess?sessBtn():`${left?`<button class="btn" id="again">Weiter</button>`:""}<button class="btn ghost" id="free">Freiwillig weiterüben</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
     bindCrumb(()=>deckBack(n)); if($("#again")) $("#again").onclick=()=>openCards(n); if($("#free")) $("#free").onclick=()=>openCards(n,true); if($("#out")) $("#out").onclick=()=>deckBack(n); return;
   }
   const c=D[cur.ci], b=cardBox(c.id), ch=cardChapter(c.id), sym=/^[sr]-/.test(c.id);
   const ctx=CARD_CTX[c.id]||(ch?ch.title:"");
+  const esc=t=>t.replace(/&/g,"&amp;").replace(/</g,"&lt;");
   $("#app").innerHTML=`${backTo(deckLabel(n))}
     <div class="row between"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?" · fällig":" · neu"}</p><span class="dots" aria-label="Fach ${b} von 5">${[1,2,3,4,5].map(i=>`<i class="${i<=b?"on":""}"></i>`).join("")}</span></div>
+    <div class="swipewrap"><span class="swl" aria-hidden="true">Nicht sicher</span><span class="swr" aria-hidden="true">Sicher</span>
     <div class="block card" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen">
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
       <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}</div>
-      ${cur.flip?`<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div>
-    ${cur.pad?`<div class="pad cardpad"><span class="ph">Hier hinschreiben</span><canvas id="cpad" aria-label="Schreibfeld für die Antwort"></canvas><div class="tools"><button id="cpU">Zurück</button><button id="cpX">Leeren</button></div></div>`:""}
-    ${cur.flip?`<div class="grade"><button class="btn warn" id="no">Nicht gewusst</button><button class="btn ghost" id="mid">Unsicher</button><button class="btn" id="yes">Sicher</button></div>`
-      :`<div class="row"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button><button class="btn ghost" id="padT">${cur.pad?"Schreibfeld aus":"Schreibfeld"}</button></div><p class="small muted" style="margin-top:8px">Erst antworten, im Kopf oder im Schreibfeld, dann aufdecken. Ehrlich bewerten: „Unsicher“, wenn du es nur ungefähr wusstest.</p>`}`;
+      ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div></div>
+    ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid">← Nicht sicher</button><button class="btn" id="yes">Sicher →</button></div><p class="small muted" style="margin-top:8px">Oder die Karte wischen: nach links nicht sicher, nach rechts sicher.</p>`
+      :`<textarea id="cty" class="cty" rows="2" placeholder="Antwort tippen (optional)" aria-label="Antwort tippen">${esc(cur.typed)}</textarea>
+      <button class="btn" id="flip" style="width:100%">Antwort zeigen</button><p class="small muted" style="margin-top:8px">Erst antworten, im Kopf oder getippt, dann aufdecken. Ehrlich bewerten: „Sicher“ nur, wenn du es wirklich wusstest.</p>`}
+    ${cur.hist.length?`<button class="btn ghost small" id="cprev" style="margin-top:6px">← Vorherige Karte</button>`:""}`;
   bindCrumb(()=>deckBack(n));
+  const ta=$("#cty"); if(ta){ const fit=()=>{ ta.style.height="auto"; ta.style.height=ta.scrollHeight+"px"; }; fit(); ta.oninput=()=>{ cur.typed=ta.value; fit(); }; }
   if($("#flip")) $("#flip").onclick=()=>{ cur.flip=true; renderCards(); };
-  const cd=$("#theCard"); cd.onclick=e=>{ if(e.target.closest("a")) return; cur.flip=!cur.flip; renderCards(); };
-  cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } };
-  if(cur.pad){ const sf=drawSurface($("#cpad"),cur.cstrokes); $("#cpU").onclick=()=>sf.undo(); $("#cpX").onclick=()=>sf.clear(); }
-  if($("#padT")) $("#padT").onclick=()=>{ cur.pad=!cur.pad; renderCards(); };
-  /* Bewertung: 2 sicher (nächstes Fach), 1 unsicher (Fach bleibt, morgen wieder), 0 nicht gewusst (Fach 1, gleich nochmal) */
-  const grade=lv=>{ state.box=state.box||{}; state.due=state.due||{}; const b0=cardBox(c.id), old=state.due[c.id]||0;
-    const b1= lv===2? Math.min(5,Math.max(b0,1)+1) : lv===1? Math.max(1,b0) : 1;
-    const nd= lv===2? dayStart()+(b0===5?35:INTERVAL[b1])*864e5 : lv===1? dayStart()+864e5 : Date.now();
+  const cd=$("#theCard"); let moved=false;
+  cd.onclick=e=>{ if(e.target.closest("a")||moved) return; cur.flip=!cur.flip; renderCards(); };
+  cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } else if(cur.flip&&e.key==="ArrowRight") grade(2); else if(cur.flip&&e.key==="ArrowLeft") grade(1); };
+  /* Wischen wie bei Dating-Apps, erst nach dem Aufdecken: rechts sicher, links nicht sicher */
+  if(cur.flip){ const wrap=cd.parentNode; let x0=null, y0=0, dx=0;
+    cd.onpointerdown=e=>{ if(e.target.closest("a")) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; };
+    cd.onpointermove=e=>{ if(x0===null) return; dx=e.clientX-x0;
+      if(!moved&&Math.abs(dx)>10&&Math.abs(dx)>Math.abs(e.clientY-y0)){ moved=true; try{cd.setPointerCapture(e.pointerId);}catch(x){} cd.style.transition="none"; }
+      if(!moved) return; e.preventDefault(); cd.style.transform=`translateX(${dx}px) rotate(${dx/20}deg)`;
+      wrap.classList.toggle("goR",dx>40); wrap.classList.toggle("goL",dx<-40); };
+    cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null;
+      if(!moved) return; const lim=Math.min(110,cd.offsetWidth*.28);
+      if(Math.abs(dx)>lim){ cd.style.transition="transform .2s ease-out, opacity .2s"; cd.style.transform=`translateX(${dx>0?600:-600}px) rotate(${dx>0?25:-25}deg)`; cd.style.opacity="0"; setTimeout(()=>grade(dx>0?2:1),180); }
+      else { cd.style.transition="transform .2s"; cd.style.transform=""; wrap.classList.remove("goR","goL"); setTimeout(()=>{ moved=false; },0); } };
+  }
+  /* Bewertung: 2 sicher (nächstes Fach), 1 nicht sicher (ein Fach zurück, morgen wieder, in dieser Runde noch einmal) */
+  function grade(lv){ state.box=state.box||{}; state.due=state.due||{}; state.lapses=state.lapses||{};
+    const b0=cardBox(c.id), old=state.due[c.id]||0;
+    cur.hist.push({ci:cur.ci, id:c.id, box:state.box[c.id], due:state.due[c.id], lapse:state.lapses[c.id], right:cur.right, unsure:cur.unsure, len:D.length, rq:Object.assign({},cur.requeued), typed:cur.typed});
+    const b1= lv===2? Math.min(5,Math.max(b0,1)+1) : Math.max(1,b0-1);
+    const nd= lv===2? dayStart()+(b0===5?35:INTERVAL[b1])*864e5 : dayStart()+864e5;
     if(!cur.free){ state.box[c.id]=b1; state.due[c.id]=nd; }
     else if(lv<2){ state.box[c.id]=Math.min(b0||1,b1); state.due[c.id]=Math.min(old||nd,nd); }
-    if(lv===2) cur.right++; else if(lv===1) cur.unsure=(cur.unsure||0)+1;
-    else { state.lapses=state.lapses||{}; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if((cur.requeued[c.id]||0)<2){ cur.requeued[c.id]=(cur.requeued[c.id]||0)+1; D.push(c); } }
-    logDay(); save(); cur.ci++; cur.flip=false; cur.cstrokes=[]; renderCards(); };
+    if(lv===2) cur.right++;
+    else { cur.unsure=(cur.unsure||0)+1; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if(!cur.requeued[c.id]){ cur.requeued[c.id]=1; D.push(c); } }
+    logDay(); save(); cur.ci++; cur.flip=false; cur.typed=""; renderCards(); window.scrollTo(0,0); }
   if($("#yes")) $("#yes").onclick=()=>grade(2);
   if($("#mid")) $("#mid").onclick=()=>grade(1);
-  if($("#no")) $("#no").onclick=()=>grade(0);
+  /* Eine Karte zurück: letzte Bewertung rückgängig machen */
+  if($("#cprev")) $("#cprev").onclick=()=>{ const h=cur.hist.pop(); if(!h) return;
+    const put=(o,k,v)=>{ if(v===undefined) delete o[k]; else o[k]=v; };
+    put(state.box,h.id,h.box); put(state.due,h.id,h.due); put(state.lapses,h.id,h.lapse);
+    cur.right=h.right; cur.unsure=h.unsure; D.length=h.len; cur.requeued=h.rq; cur.ci=h.ci; cur.flip=true; cur.typed=h.typed; save(); renderCards(); };
 }
 
 /* ================= Grafiken ================= */

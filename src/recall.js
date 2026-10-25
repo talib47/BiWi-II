@@ -23,7 +23,7 @@ function feedback(c,a){
   if(a===c.a) return `<div class="fb good"><p class="fh">Richtig.</p><p style="margin:0">${inl(c.ex)}</p></div>`;
   if(a===-1) return `<div class="fb idk"><p class="fh">Kein Problem, die Frage kommt morgen noch einmal.</p><div class="dlist">${right}<b>Warum</b><span>${inl(c.ex)}</span></div></div>`;
   const why=c.w&&c.w[a];
-  return `<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist"><b>Deine Wahl</b><span>${inl(c.o[a])}${why?`<span class="fbw">${inl(why)}</span>`:""}</span>${right}<b>${why?"Der Unterschied":"Warum"}</b><span>${inl(c.ex)}</span></div></div>`;
+  return `<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist">${why?`<b>Warum nicht</b><span>${inl(why)}</span>`:""}${right}<b>${why?"Der Unterschied":"Warum"}</b><span>${inl(c.ex)}</span></div></div>`;
 }
 /* Eine Frage: erst nur die Frage, dann auf Wunsch die Auswahl */
 function qBlock(c,key,a,shown,first){

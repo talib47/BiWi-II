@@ -293,7 +293,18 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .card .cctx{margin:0;font-size:.8rem;color:var(--muted);letter-spacing:.01em}
 .card .back>:last-child{margin-bottom:0}
 .ml ol,.ml ul{padding-left:1.25em;margin:0 0 .5em} .ml li{margin:.25em 0} .ml p{margin:0 0 .5em}
-.grade{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.kg{margin-left:8px;vertical-align:middle;background:transparent;border:1px dashed var(--line);border-radius:999px;padding:6px 12px;font-size:.8rem;color:var(--muted)}
+.kg[aria-pressed="true"]{border:1px solid var(--gold);color:var(--gold);font-weight:600}
+.kg:disabled{cursor:default}
+.grade{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.swipewrap{position:relative}
+.swipewrap .card{touch-action:pan-y;will-change:transform;position:relative;z-index:1}
+.swl,.swr{position:absolute;top:50%;transform:translateY(-50%);font-weight:700;font-size:.9rem;opacity:0;transition:opacity .15s}
+.swl{left:6px;color:var(--bad)}.swr{right:6px;color:var(--good)}
+.swipewrap.goL .swl,.swipewrap.goR .swr{opacity:1}
+.swipewrap.goL .card{box-shadow:0 0 0 2px var(--bad)}.swipewrap.goR .card{box-shadow:0 0 0 2px var(--good)}
+.cty{display:block;width:100%;box-sizing:border-box;margin:0 0 10px;padding:10px 12px;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:10px;resize:none;min-height:3em}
+.card .typed{border-top:1px solid var(--line);padding-top:8px}.card .typed p{margin:2px 0 0;white-space:pre-wrap}
 .grade .btn{padding:12px 6px}
 .cardpad{margin:0 0 12px}
 .cardpad canvas{height:170px}

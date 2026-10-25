@@ -51,7 +51,7 @@ function renderWho(){
     <div class="block"><p class="small muted" style="margin:0 0 6px">${S.q}</p><p class="who">${inl(x.t)}</p>
       <div class="mc">${o.map(k=>{ const cls=W.a===null?"":(k===x.s?"r":(k===W.a?"w":"")); return `<button data-s="${k}" class="${cls}" ${W.a!==null?"disabled":""}>${C[k]}</button>`; }).join("")}</div>
       ${W.a===null?"":W.a===x.s?`<div class="fb good"><p class="fh">Richtig.</p><p style="margin:0">${inl(x.ex)}</p></div>`
-        :`<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist"><b>Deine Wahl</b><span>${C[W.a]}</span><b>Richtig</b><span>${C[x.s]}</span><b>Warum</b><span>${inl(x.ex)}</span></div></div>`}</div>
+        :`<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist"><b>Richtig</b><span>${C[x.s]}</span><b>Warum</b><span>${inl(x.ex)}</span></div></div>`}</div>
     ${W.a!==null?`<button class="btn" id="wNext">Weiter</button>`:`<p class="small muted">Tipp: ${S.hint}</p>`}`;
   bindCrumb(()=>go("practice"));
   document.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{ if(W.a!==null) return; W.a=b.dataset.s; const ok=W.a===x.s; if(ok) W.right++;
