@@ -275,21 +275,21 @@ function renderCards(){
   cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } else if(cur.flip&&e.key==="ArrowRight") grade(2); else if(cur.flip&&e.key==="ArrowLeft") grade(1); };
   /* Wischen wie bei Dating-Apps, erst nach dem Aufdecken: rechts sicher, links nicht sicher.
      Die Karte folgt dem Finger, eine leichte Tönung zeigt die Richtung an. */
-  if(cur.flip){ const tint=cd.querySelector(".tint"); let x0=null, y0=0, dx=0, raf=0;
-    const paint=()=>{ raf=0; const w=cd.offsetWidth||360, k=Math.min(1,Math.abs(dx)/(w*.35));
-      cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/45}deg)`;
-      const col=dx>0?"var(--good)":"var(--bad)"; tint.style.background=col; tint.style.opacity=(k*.08).toFixed(3);
-      cd.style.boxShadow=`0 0 0 2px color-mix(in srgb, ${col} ${Math.round(k*100)}%, transparent)`; };
-    cd.onpointerdown=e=>{ if(e.target.closest("a")) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; };
-    cd.onpointermove=e=>{ if(x0===null) return; dx=e.clientX-x0;
-      if(!moved&&Math.abs(dx)>8&&Math.abs(dx)>Math.abs(e.clientY-y0)){ moved=true; try{cd.setPointerCapture(e.pointerId);}catch(x){} cd.style.transition="none"; tint.style.transition="none"; }
-      if(!moved) return; e.preventDefault(); if(!raf) raf=requestAnimationFrame(paint); };
-    cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null; if(!moved) return;
-      const lim=Math.min(100,cd.offsetWidth*.25);
+  if(cur.flip){ const tint=cd.querySelector(".tint"); let x0=null, y0=0, dx=0, raf=0, w=360, dir=0;
+    /* Pro Bild nur transform und opacity ändern: beides läuft auf dem Grafikchip, nichts wird neu gezeichnet */
+    const paint=()=>{ raf=0; const k=Math.min(1,Math.abs(dx)/(w*.35)), d=dx>0?1:-1;
+      if(d!==dir){ dir=d; tint.className="tint "+(d>0?"ok":"no"); }
+      cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/45}deg)`; tint.style.opacity=k; };
+    cd.onpointerdown=e=>{ if(e.target.closest("a")) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; w=cd.offsetWidth||360; };
+    cd.onpointermove=e=>{ if(x0===null) return; const d=e.clientX-x0;
+      if(!moved){ if(Math.abs(d)>6&&Math.abs(d)>Math.abs(e.clientY-y0)){ moved=true; x0+=d>0?6:-6; try{cd.setPointerCapture(e.pointerId);}catch(x){} cd.style.transition="none"; tint.style.transition="none"; } else return; }
+      e.preventDefault(); dx=e.clientX-x0; if(!raf) raf=requestAnimationFrame(paint); };
+    cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null; if(!moved) return; if(raf){ cancelAnimationFrame(raf); raf=0; }
+      const lim=Math.min(100,w*.25);
       if(Math.abs(dx)>lim){ const out=(dx>0?1:-1)*(window.innerWidth+100);
-        cd.style.transition="transform .32s cubic-bezier(.2,.7,.3,1), opacity .32s ease-out"; cd.style.transform=`translate3d(${out}px,0,0) rotate(${dx>0?12:-12}deg)`; cd.style.opacity="0";
+        cd.style.transition="transform .3s cubic-bezier(.2,.7,.3,1), opacity .3s ease-out"; cd.style.transform=`translate3d(${out}px,0,0) rotate(${dx>0?12:-12}deg)`; cd.style.opacity="0";
         setTimeout(()=>{ cur.enter=true; grade(dx>0?2:1); },220); }
-      else { cd.style.transition="transform .35s cubic-bezier(.3,1.4,.5,1), box-shadow .25s"; tint.style.transition="opacity .25s"; cd.style.transform=""; cd.style.boxShadow=""; tint.style.opacity="0"; setTimeout(()=>{ moved=false; },0); } };
+      else { cd.style.transition="transform .35s cubic-bezier(.3,1.4,.5,1)"; tint.style.transition="opacity .25s"; cd.style.transform=""; tint.style.opacity="0"; setTimeout(()=>{ moved=false; },0); } };
   }
   /* Bewertung: 2 sicher (nächstes Fach), 1 nicht sicher (ein Fach zurück, morgen wieder, in dieser Runde noch einmal) */
   function grade(lv){ state.box=state.box||{}; state.due=state.due||{}; state.lapses=state.lapses||{};

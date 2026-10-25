@@ -299,8 +299,10 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .hint{margin:6px 0 0;font-size:.75rem;color:var(--muted);opacity:.85}
 .grade{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .swipewrap{position:relative;overflow-x:clip;overflow-y:visible;margin:0 -16px;padding:0 16px}
-.swipewrap .card{touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;will-change:transform;position:relative;overflow:hidden}
-.card .tint{position:absolute;inset:0;opacity:0;pointer-events:none;border-radius:inherit}
+.swipewrap .card{touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;will-change:transform;position:relative;overflow:hidden;backface-visibility:hidden}
+.card .tint{position:absolute;inset:0;opacity:0;pointer-events:none;border-radius:inherit;border:2px solid transparent;will-change:opacity}
+.card .tint.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 7%,transparent)}
+.card .tint.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 7%,transparent)}
 .card.enter{animation:cardIn .22s ease-out}
 @keyframes cardIn{from{opacity:0;transform:translate3d(0,8px,0) scale(.985)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.card.enter{animation:none}}
