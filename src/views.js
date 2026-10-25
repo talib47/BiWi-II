@@ -262,9 +262,9 @@ function renderCards(){
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
       <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}</div>
       ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div></div>
-    ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid">← Nicht sicher</button><button class="btn" id="yes">Sicher →</button></div><p class="small muted" style="margin-top:8px">Oder die Karte wischen: nach links nicht sicher, nach rechts sicher.</p>`
+    ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid">← Nicht sicher</button><button class="btn" id="yes">Sicher →</button></div><p class="hint">Wischen: ← nicht sicher · sicher →</p>`
       :`${cur.tyOpen||cur.typed?`<textarea id="cty" class="cty" rows="1" placeholder="Deine Antwort …" aria-label="Antwort tippen">${esc(cur.typed)}</textarea>`:""}
-      <div class="row"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button>${cur.tyOpen||cur.typed?"":`<button class="tylink" id="tyO">Tippen</button>`}</div><p class="small muted" style="margin-top:8px">Erst antworten, im Kopf oder getippt, dann aufdecken. Ehrlich bewerten: „Sicher“ nur, wenn du es wirklich wusstest.</p>`}
+      <div class="row"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button>${cur.tyOpen||cur.typed?"":`<button class="tylink" id="tyO">Tippen</button>`}</div><p class="hint">Erst antworten, dann aufdecken.</p>`}
     ${cur.hist.length?`<button class="btn ghost small" id="cprev" style="margin-top:6px">← Vorherige Karte</button>`:""}`;
   bindCrumb(()=>deckBack(n));
   if($("#tyO")) $("#tyO").onclick=()=>{ cur.tyOpen=true; renderCards(); $("#cty").focus(); };
@@ -324,7 +324,7 @@ function renderGraph(){
       <button class="btn small" id="gs" style="margin-left:auto">${cur.gshow?"Musterlösung ausblenden":"Musterlösung darüberlegen"}</button></div>
     ${cur.gshow?`<div class="block"><h3>Hast du das drin?</h3>${g.check.map((c,j)=>`<label class="check"><input type="checkbox" id="k${j}" ${cur.gchecks[j]?"checked":""}><span>${c}</span></label>`).join("")}
       <div class="row" style="margin-top:8px"><button class="btn" id="gsave">Ergebnis speichern</button>${st?`<span class="small muted">Zuletzt: ${st.p} von ${st.max}</span>`:""}</div></div>`
-      :`<p class="small muted">Zeichne mit dem Stift direkt ins Koordinatensystem. Die Musterlösung erscheint in Blau über deiner Zeichnung.</p>`}
+      :`<p class="hint">Mit dem Stift einzeichnen, die Lösung erscheint in Blau.</p>`}
     <div class="lnav">${cur.gi>0?`<button class="btn ghost" id="gp">← Vorherige</button>`:"<span></span>"}${cur.gi<G.length-1?`<button class="btn ghost" id="gn">Nächste →</button>`:""}</div>`;
   bindCrumb(()=>go("chapter"));
   const s=drawSurface($("#gc"),gStrokes[g.id]);
