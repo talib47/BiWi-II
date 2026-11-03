@@ -8,7 +8,7 @@ function freshChapter(){ for(const ch of CHAPTERS){ const L=LESSONS[ch.n]||[]; i
 function planToday(){
   const S=[], dc=dueCards(0).length, dq=qDue().length, kd=kzDue().length;
   if(dc) S.push({k:"cards", t:"Karten wiederholen", d:`${Math.min(dc,20)} fällige Karten`, min:Math.max(2,Math.round(Math.min(dc,20)*.4))});
-  else { const n=freshChapter(); if(n) S.push({k:"newcards", n, t:"Neue Karten", d:`5 neue Karten: ${CHAPTERS.find(c=>c.n===n).title}`, min:3}); }
+  if(dc<25){ const n=freshChapter(); if(n) S.push({k:"newcards", n, t:"Neue Karten", d:`5 neue Karten: ${CHAPTERS.find(c=>c.n===n).title}`, min:3}); }
   if(dq) S.push({k:"recall", t:"Verständnisfragen", d:`${Math.min(dq,6)} fällige Fragen aus den Lektionen`, min:3});
   if(kreuzOf(0).length) S.push({k:"kreuz", t:"Kreuzaufgaben", d:kd?`3 Aufgaben wie in der Klausur, ${Math.min(kd,3)} davon fällig`:"3 Aufgaben wie in der Klausur", min:4});
   const rot=["calc","who","kurz"][dayIndex()%3];
@@ -38,7 +38,7 @@ function finishSession(){
   const min=Math.max(1,Math.round((Date.now()-sess.t0)/60000)); state.sessions=state.sessions||{}; state.sessions[today()]=min; save();
   sess=null; updateSessBar(); view="sessdone"; renderNav();
   $("#app").innerHTML=`<p class="eyebrow">Heute</p><h1>Geschafft</h1><div class="block"><p>Deine Einheit ist fertig, etwa ${min} Minuten.</p>
-    <p class="small muted">Morgen stellt die App eine neue Einheit zusammen. Was du heute nicht sicher wusstest, ist dann wieder dabei.</p>
+    <p class="small muted">Morgen stellt die App eine neue Einheit zusammen. Was du heute nicht sicher wusstest, ist dann wieder dabei.${new Date().getHours()>=18?" Abends gelernt? Dann mach morgen früh kurz die fälligen Karten: Mit Schlaf zwischen zwei Runden sitzt der Stoff schneller und länger.":""}</p>
     <div class="row"><button class="btn" id="sdHome">Zum Lernpfad</button></div></div>`;
   $("#sdHome").onclick=()=>go("home"); window.scrollTo(0,0);
 }

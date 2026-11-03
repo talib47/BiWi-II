@@ -70,6 +70,7 @@ function renderHome(){
   $("#app").innerHTML=`
     <p class="eyebrow">Bildungswissenschaften II · Psychologie · Heine</p>
     <h1>Lernpfad</h1>
+    ${uploadsBlock()}
     <p class="muted">Alles für die Modulklausur in einer App: Theorie lesen, Karten wiederholen, Kreuzaufgaben üben, rechnen, offene Aufgaben schreiben.</p>
     ${todayBlock()}
     ${homeReview()}
@@ -248,7 +249,7 @@ function renderCards(){
     const when=nextDue? Math.round((dayStart(nextDue)-dayStart())/864e5) : null;
     $("#app").innerHTML=`${backTo(deckLabel(n))}<h1>${D.length?(left?"Runde geschafft":"Für heute erledigt"):"Nichts fällig"}</h1>
       <div class="block">${D.length?`<p>${cur.right} sicher, ${cur.unsure||0} nicht sicher.</p>`:""}
-      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Stapels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Sichere Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, nicht sichere gleich in dieser Runde und morgen noch einmal.</p>
+      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Stapels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Sichere Karten kommen nach etwa 1, 3, 7, 16 und 35 Tagen wieder, vor der Prüfung in kürzeren Abständen. Nicht sichere kommen in derselben Runde wieder, bis du sie einmal sicher weißt, und morgen noch einmal.</p>
       <div class="row">${sess?sessBtn():`${left?`<button class="btn" id="again">Weiter</button>`:""}<button class="btn ghost" id="free">Freiwillig weiterüben</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
     bindCrumb(()=>deckBack(n)); if($("#again")) $("#again").onclick=()=>openCards(n); if($("#free")) $("#free").onclick=()=>openCards(n,true); if($("#out")) $("#out").onclick=()=>deckBack(n); return;
   }
@@ -295,11 +296,11 @@ function renderCards(){
     const b0=cardBox(c.id), old=state.due[c.id]||0;
     cur.hist.push({ci:cur.ci, id:c.id, box:state.box[c.id], due:state.due[c.id], lapse:state.lapses[c.id], right:cur.right, unsure:cur.unsure, len:D.length, rq:Object.assign({},cur.requeued), typed:cur.typed});
     const b1= lv===2? Math.min(5,Math.max(b0,1)+1) : Math.max(1,b0-1);
-    const nd= lv===2? dayStart()+(b0===5?35:INTERVAL[b1])*864e5 : dayStart()+864e5;
+    const nd= lv===2? dayStart()+spaceDays(b0===5?35:INTERVAL[b1])*864e5 : dayStart()+864e5;
     if(!cur.free){ state.box[c.id]=b1; state.due[c.id]=nd; }
     else if(lv<2){ state.box[c.id]=Math.min(b0||1,b1); state.due[c.id]=Math.min(old||nd,nd); }
     if(lv===2) cur.right++;
-    else { cur.unsure=(cur.unsure||0)+1; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if(!cur.requeued[c.id]){ cur.requeued[c.id]=1; D.push(c); } }
+    else { cur.unsure=(cur.unsure||0)+1; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if((cur.requeued[c.id]||0)<3){ cur.requeued[c.id]=(cur.requeued[c.id]||0)+1; D.push(c); } }
     logDay(); save(); cur.ci++; cur.flip=false; cur.typed=""; renderCards(); window.scrollTo(0,0); }
   if($("#yes")) $("#yes").onclick=()=>{ cur.enter=true; grade(2); };
   if($("#mid")) $("#mid").onclick=()=>{ cur.enter=true; grade(1); };
@@ -345,7 +346,7 @@ function renderGraph(){
 function renderPractice(){
   const ready=CHAPTERS.filter(c=>LESSONS[c.n]).map(c=>c.n);
   $("#app").innerHTML=`<p class="eyebrow">Wiederholen</p><h1>Üben</h1>
-    <p class="muted">Gemischt aus allen fertigen Kapiteln (${ready.join(", ")}). Gemischtes Üben ist anstrengender als blockweises, bleibt aber deutlich besser hängen.</p>
+    <p class="muted">Gemischt aus allen fertigen Kapiteln (${ready.join(", ")}). Gemischt heißt: Du musst jedes Mal erst erkennen, worum es geht. Das trainiert genau das Unterscheiden ähnlicher Begriffe, das die Prüfung verlangt.</p>
     <div class="block"><div class="modes">
       <button class="mode" id="pK"><span class="t">Fällige Karten</span><span class="n">${dueCards(0).length} fällig</span><span class="d">Alle Karten, die heute dran sind. Neue Karten lernst du im jeweiligen Kapitel.</span></button>
       <button class="mode" id="pR"><span class="t">Verständnisfragen</span><span class="n">${qDue().length} fällig</span><span class="d">Die Fragen aus den Lektionen kommen mit wachsendem Abstand wieder. Erst selbst überlegen, dann die Auswahl.</span></button>
@@ -400,15 +401,26 @@ function renderStats(){
       <div class="week7">${days.map(([d,n],i)=>`<div class="d${i===6?" today":""}" title="${n===1?"1 Aktion":n+" Aktionen"}">
         <div class="bw"><i style="height:${n?Math.max(4,Math.round(n/mx*100)):0}%"></i></div>
         <span class="wd">${wd[d.getDay()]}</span><span class="dt">${d.getDate()}.${d.getMonth()+1}.</span>
-        <span class="n">${n||"–"}</span><span class="u">${n?(n===1?"Aktion":"Aktionen"):""}</span></div>`).join("")}</div></div>
+        <span class="n">${n||"–"}</span><span class="u">${n?(n===1?"Aktion":"Aktionen"):""}</span></div>`).join("")}</div>${motivLine()}</div>
+    ${todoBlock()}
     ${examPlanBlock()}
     ${weakBlock()}
     <div class="block"><h2>Nach Kapitel</h2>${ready.map(c=>{ const p=chapterProgress(c.n);
       return `<div class="srow ch"><span>${c.n} · ${c.title}</span><span class="small muted">${[["Theorie",p.l,1],["Karten",p.k,(CARDS[c.n]||[]).length],["Kreuzen",p.x,kreuzOf(c.n).length],["Rechnen",p.c,(CALC[c.n]||[]).length]].filter(x=>x[2]).map(x=>x[0]+" "+Math.round(x[1]*100)).join(" · ")}</span><span class="pts">${p.total} %</span></div>`;}).join("")}</div>
     <div class="block"><h2>Rechenaufgaben</h2>${calcTypes(0).map(t=>{ const h=state.hist[t]; return `<div class="srow"><span>${TYPES[t].short}</span><span class="chip l${lvlOf(t)}">${LVL[lvlOf(t)]}</span><span>${h&&h.n?`${h.r}/${h.n}`:"–"}</span></div>`;}).join("")}</div>
+    ${bridgeBlock()}
     ${syncBox()}
     <div class="block"><h3>Fortschritt zurücksetzen</h3><p class="small muted">Löscht deinen gesamten Lernstand, auch auf den verbundenen Geräten.</p>
       <button class="btn warn" id="rst">${statsArmed?"Wirklich zurücksetzen":"Zurücksetzen"}</button></div>`;
-  bindSync(); bindExamPlan(); bindWeak();
+  bindSync(); bindExamPlan(); bindWeak(); bindTodo();
   $("#rst").onclick=()=>{ if(!statsArmed){ statsArmed=true; renderStats(); return; } state={}; norm(); save(); flushPush(); statsArmed=false; toast("Zurückgesetzt"); renderStats(); };
 }
+
+/* Tastatur (iPad mit Tastatur): Leertaste oder Enter dreht die Karte, → sicher, ← nicht sicher, Z eine Karte zurück */
+document.addEventListener("keydown",e=>{
+  if(view!=="cards"||e.metaKey||e.ctrlKey||e.altKey||(e.target.closest&&e.target.closest("textarea,input,select"))) return;
+  const c=$("#theCard"); if(!c||document.activeElement===c) return;
+  const k=e.key, hit=id=>{ const b=$(id); if(b){ e.preventDefault(); b.click(); } };
+  if(k===" "||k==="Enter"){ e.preventDefault(); c.click(); }
+  else if(k==="ArrowRight") hit("#yes"); else if(k==="ArrowLeft") hit("#mid"); else if(k==="z"||k==="Z") hit("#cprev");
+});

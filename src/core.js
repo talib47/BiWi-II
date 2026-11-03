@@ -7,7 +7,7 @@ function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
 let state;
 try{ state=JSON.parse(lsGet(KEY)||"null"); }catch(e){ state=null; }
 if(!state||typeof state!=="object") state={};
-function norm(){ for(const k of ["lvl","streak","hist","days","lessons","box","graphs","essays","drafts","kreuz","unclear","qbox","qlapses","lapses","who","sessions"]) if(!state[k]||typeof state[k]!=="object") state[k]={}; }
+function norm(){ for(const k of ["lvl","streak","hist","days","lessons","box","graphs","essays","drafts","kreuz","unclear","qbox","qlapses","lapses","who","sessions","todo"]) if(!state[k]||typeof state[k]!=="object") state[k]={}; }
 norm();
 function save(){ state.updated=Date.now(); lsSet(KEY,JSON.stringify(state)); schedulePush(); }
 

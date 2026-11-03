@@ -13,7 +13,7 @@ function qDue(){ const now=Date.now(); return allQuestions().filter(q=>{ const s
 function qGrade(id,ok){
   state.qbox=state.qbox||{}; const s=qInfo(id)||{b:0};
   const b1= ok? Math.min(5,Math.max(s.b,1)+1) : 1;
-  state.qbox[id]={b:b1, due:dayStart()+(ok?(s.b===5?35:INTERVAL[b1]):1)*864e5};
+  state.qbox[id]={b:b1, due:dayStart()+(ok?spaceDays(s.b===5?35:INTERVAL[b1]):1)*864e5};
   if(!ok){ state.qlapses=state.qlapses||{}; state.qlapses[id]=(state.qlapses[id]||0)+1; }
   save();
 }

@@ -31,7 +31,9 @@
   --accent:#C9AEDF; --accent-ink:#1A1222; --accent-soft:#34293F;
   --good:#6CC28B; --good-soft:#1E3327; --bad:#E58373; --bad-soft:#3A2420; --gold:#D9AE55; }
 *{box-sizing:border-box}
-html{font-size:calc(100% * var(--z,1))}
+html{font-size:calc(var(--base,100%) * var(--z,1))}
+@media (min-width:768px){:root{--base:106.25%}}
+@media (min-width:1100px){:root{--base:112.5%}}
 .zoom{position:fixed;right:max(12px, env(safe-area-inset-right, 0px));bottom:calc(72px + env(safe-area-inset-bottom, 0px));display:flex;flex-direction:column;gap:8px;z-index:6}
 .zoom button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:22px;line-height:1;opacity:.9;box-shadow:0 1px 4px rgba(0,0,0,.15)}
 .tag{display:inline-block;font-family:var(--sans);font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:1px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
@@ -325,6 +327,25 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .unc{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .chip.unk{color:var(--gold);border-color:var(--gold)}
 .copybox{width:100%;min-height:8rem;margin-top:8px;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:8px;font-size:.85rem}
+.upl{padding:10px 14px}
+.upl summary{display:flex;align-items:baseline;justify-content:space-between;gap:10px;cursor:pointer;list-style:none}
+.upl summary::-webkit-details-marker{display:none}
+.upl summary::after{content:"›";color:var(--muted);transition:transform .2s}
+.upl[open] summary::after{transform:rotate(90deg)}
+.upl-last{font-size:.875rem;color:var(--muted);margin-left:auto}
+.upl-u{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.upl-h{display:flex;gap:8px;align-items:baseline;margin:0 0 4px;font-size:.875rem}
+.upl-h b{color:var(--accent)} .upl-h .upst{margin-left:auto}
+.upst{font-size:.75rem;font-weight:600}
+.upst.full{color:var(--good)} .upst.part{color:var(--gold)} .upst.unk{color:var(--muted);font-style:italic}
+.upl-i{list-style:none;margin:0;padding:0;display:grid;gap:2px;font-size:.8125rem}
+.upl-i li{display:flex;gap:6px;align-items:baseline} .upl-i li>span:first-child{width:1rem;flex:none;color:var(--good)}
+.upl-i li.miss>span:first-child{color:var(--muted)}
+.upl-src{margin:4px 0 0;font-size:.75rem}
+.brk-l{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px}
+.brk-l li{display:grid;gap:1px;font-size:.875rem} .brk-l li>span:first-child{font-size:.75rem}
+.motiv{margin:12px 0 0;font-size:.875rem;color:var(--muted);font-style:italic;text-align:center}
+.todo.on>span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
 .week7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:10px}
 .week7 .d{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}
 .week7 .bw{height:80px;width:100%;display:flex;align-items:flex-end;justify-content:center}
@@ -388,7 +409,7 @@ function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
 let state;
 try{ state=JSON.parse(lsGet(KEY)||"null"); }catch(e){ state=null; }
 if(!state||typeof state!=="object") state={};
-function norm(){ for(const k of ["lvl","streak","hist","days","lessons","box","graphs","essays","drafts","kreuz","unclear","qbox","qlapses","lapses","who","sessions"]) if(!state[k]||typeof state[k]!=="object") state[k]={}; }
+function norm(){ for(const k of ["lvl","streak","hist","days","lessons","box","graphs","essays","drafts","kreuz","unclear","qbox","qlapses","lapses","who","sessions","todo"]) if(!state[k]||typeof state[k]!=="object") state[k]={}; }
 norm();
 function save(){ state.updated=Date.now(); lsSet(KEY,JSON.stringify(state)); schedulePush(); }
 
@@ -524,6 +545,92 @@ function judge(step,raw){
   if(step.rate){ if(p.pct) v=v/100; return close(v,step.ans)||close(v/100,step.ans); }
   if(step.pct){ return close(v,step.ans)||close(v*100,step.ans); }
   return close(v,step.ans);
+}
+
+/* ================= Gemeinsame Bausteine aller modularen Lern-Apps (wortgleich in BiWi II, Politik I, Wirtschaft II) =================
+   Was je App verschieden ist, steht in appcfg.js (Objekt APP). Diese Datei nur so ändern, dass sie in allen Apps gleich bleibt.
+
+   1. Hochgeladen-Übersicht (UPLOADS): nur, was wirklich im claude.ai-Projekt liegt und eingebaut ist.
+      Eintrag je Sitzung, Kapitel oder Block, eingetragen in der Inhaltsdatei:
+      {c (nur bei zwei Hälften), ch (Kapitelnummer) oder no (angezeigte Nummer), o (Reihenfolge, sonst ch/no), date,
+       base:true (Grundlagen wie Lehrbuch oder Altklausuren, stehen oben und zählen nicht als „bis“),
+       items:[{k:"Folien|Textgrundlage|Empfehlung|Lektüre", t:"Kurzname", ok:true|false}],
+       known:true|false, src:"woher der Umfang bekannt ist"}
+      known:true  = der vollständige Umfang ist bekannt (Moodle-Screenshot, Verlaufsplan, Folie). Fehlendes steht mit ok:false drin.
+      known:false = nur bekannt, dass das Hochgeladene dazugehört.
+   2. Erledigt-Liste (APP.todos je Hälfte), abgehakt in state.todo[id] = Zeitstempel.
+   3. Motivationssatz unter der Wochenübersicht.
+   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-03", "a": "alle", "w": "Lernen nach Forschungsstand: Abstände passen sich der Prüfung an (höchstens ein Drittel der Resttage, Streuung), nicht sichere Karten bis zu dreimal in derselben Runde, täglich ein paar neue Karten, Tastatur für Karten, größere Schrift auf dem iPad, Hinweis zum Schlaf nach Abendeinheiten", "y": "Tiefenanalyse aller Apps; Regeln stehen unter „Lernprinzipien“"}, {"d": "2026-11-03", "a": "alle", "w": "Hochgeladen-Übersicht, Erledigt-Liste, Motivationssatz und Brücken-Block in allen Apps; Statistik überall in der festen Reihenfolge; gemeinsamer Code in `status.js` (W&G I: angepasster Block in der index.html), Einstellungen je App in `appcfg.js`", "y": "Von Talib bestätigt, einheitlich in allen Apps"}, {"d": "2026-11-03", "a": "alle", "w": "CLAUDE.md in alle vier Repos verteilt, fester Aufbau jeder App festgelegt (Reiter, Reihenfolge auf Lernpfad und Statistik)", "y": "Talib hat die Brücken-Anweisung in alle vier Projekte kopiert; Funktionen sollen nicht mehr zwischen den Apps an verschiedenen Stellen landen"}, {"d": "2026-10-28", "a": "alle", "w": "Offline-Modus mit eigenem Cache-Präfix je App", "y": "Apps sollen ohne Internet starten"}, {"d": "2026-10-26", "a": "alle", "w": "Update-Check und Karten wie in BiWi II (tippen, wischen, eine zurück)", "y": "einheitliches Lernen in allen Apps"}]).
+   5. Abstände vor der Prüfung (spaceDays), siehe unten. */
+const UPLOADS=[];
+const CK=()=>APP.halves?state.course:"main";
+const upOrder=u=>u.base?-1:(u.o!=null?u.o:u.ch!=null?u.ch:u.no||0);
+function upName(u){ if(u.base) return "Grundlagen"; const c=u.ch!=null?APP.chap(u.ch):null; return APP.unit(u)+" "+(u.no!=null?u.no:c?APP.unitNo(c):""); }
+function upDate(u){ if(u.date!=null) return u.date; const c=u.ch!=null?APP.chap(u.ch):null; return (c&&c.date)||""; }
+function upState(u){ if(!u.known) return {cls:"unk", txt:"Umfang unbekannt"}; const m=u.items.filter(x=>!x.ok).length; return m?{cls:"part", txt:`${u.items.length-m} von ${u.items.length}`}:{cls:"full", txt:"vollständig"}; }
+function uploadsBlock(){
+  const L=UPLOADS.filter(u=>!APP.halves||u.c===state.course).sort((a,b)=>upOrder(a)-upOrder(b));
+  const U=L.filter(u=>!u.base); if(!L.length) return "";
+  const last=U[U.length-1], ls=last?upState(last):null;
+  return `<details class="block upl"><summary><span class="eyebrow" style="margin:0">Hochgeladen</span><span class="upl-last">${last?`bis ${upName(last)} · <span class="upst ${ls.cls}">${ls.txt}</span>`:"nur Grundlagen"}</span></summary>
+    ${L.map(u=>{ const st=upState(u);
+      return `<div class="upl-u"><p class="upl-h"><b>${upName(u)}</b><span class="muted">${upDate(u)}</span><span class="upst ${st.cls}">${st.txt}</span></p>
+        <ul class="upl-i">${u.items.map(x=>`<li class="${x.ok?"":"miss"}"><span aria-hidden="true">${x.ok?"✓":"○"}</span><span>${x.k?`<span class="muted">${x.k}:</span> `:""}${x.t}${x.ok?"":` <span class="muted">fehlt</span>`}</span></li>`).join("")}</ul>
+        <p class="upl-src small muted">${u.known?`Umfang laut ${u.src}.`:`Den Überblick, was alles zu ${u.base?"den Grundlagen":upName(u)} gehört, habe ich noch nicht gesehen. Schick mir dazu den Moodle-Screenshot.`}</p></div>`; }).join("")}
+    ${last?`<p class="small muted" style="margin:8px 0 0">Alles nach ${upName(last)} fehlt noch im Projekt.</p>`:""}</details>`;
+}
+
+function todoBlock(){
+  const L=(APP.todos||{})[CK()]||[]; if(!L.length) return "";
+  const done=L.filter(x=>state.todo[x.id]).length;
+  return `<div class="block"><h2>Erledigt? <span class="small muted" style="font-weight:400">${done} von ${L.length}</span></h2>
+    ${L.map(x=>`<label class="check todo${state.todo[x.id]?" on":""}"><input type="checkbox" data-todo="${x.id}" ${state.todo[x.id]?"checked":""}><span>${x.t}${x.d?`<span class="small muted"> · ${x.d}</span>`:""}</span></label>`).join("")}</div>`;
+}
+function bindTodo(){
+  document.querySelectorAll("[data-todo]").forEach(c=>c.onchange=()=>{ const k=c.dataset.todo; if(c.checked) state.todo[k]=Date.now(); else delete state.todo[k]; save(); render(); });
+}
+
+/* Ein kurzer Satz unter der Wochenübersicht, je nach Lernverhalten. Variante wechselt täglich, nicht bei jedem Öffnen. */
+function motivLine(){
+  const key=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  const at=i=>{ const d=new Date(); d.setDate(d.getDate()-i); return state.days[key(d)]||0; };
+  const pick=a=>a[new Date().getDate()%a.length];
+  const t=at(0); let streak=0; for(let i=t?0:1;i<60&&at(i);i++) streak++;
+  let gap=null; for(let i=0;i<60;i++) if(at(i)){ gap=i; break; }
+  const T=APP.examTs&&APP.examTs(), left=T?Math.ceil((T-dayStart())/864e5):null;
+  let m;
+  if(gap===null) m=pick(["Noch nichts geübt. Fünf Minuten reichen für den Anfang.","Der erste Schritt ist der kleinste: eine Lektion, dann ist das Eis gebrochen."]);
+  else if(t&&streak>=3) m=pick([`${streak} Tage am Stück. Genau so bleibt es hängen.`,`Seit ${streak} Tagen dabei. Die Prüfung merkt das.`,`${streak} Tage in Folge, stark. Morgen kurz weitermachen reicht.`]);
+  else if(t) m=pick(["Heute schon geübt. Jede Runde zählt.","Für heute ist was geschafft. Gut gemacht.","Heute erledigt. Kurz und regelmäßig schlägt lang und selten."]);
+  else if(gap===1) m=pick(["Gestern geübt. Eine kurze Einheit heute hält dich im Fluss.","Gestern warst du dran. Heute fünf Minuten, und die Serie läuft weiter."]);
+  else if(gap<=3) m=pick([`Seit ${gap} Tagen Pause. Eine kleine Runde heute, mehr braucht es nicht.`,`${gap} Tage ohne Üben. Starte heute mit den fälligen Karten.`]);
+  else m=pick([`Seit ${gap} Tagen nichts gemacht. Kein Drama, fang heute mit fünf Minuten an.`,`${gap} Tage Pause. Das Wiederholen holt schnell wieder auf, fang einfach an.`,`Lange nichts geübt. Eine Lektion heute, und du bist wieder drin.`]);
+  if(left!=null&&left>0&&left<=21) m+=` Noch ${left} ${left===1?"Tag":"Tage"} bis zur Prüfung.`;
+  return `<p class="motiv">${m}</p>`;
+}
+
+/* Claude-Brücke: was zuletzt an dieser App geändert wurde und warum (aus CLAUDE.md, beim Bauen übernommen) */
+const BRUECKE=[{"d": "2026-11-03", "a": "alle", "w": "Lernen nach Forschungsstand: Abstände passen sich der Prüfung an (höchstens ein Drittel der Resttage, Streuung), nicht sichere Karten bis zu dreimal in derselben Runde, täglich ein paar neue Karten, Tastatur für Karten, größere Schrift auf dem iPad, Hinweis zum Schlaf nach Abendeinheiten", "y": "Tiefenanalyse aller Apps; Regeln stehen unter „Lernprinzipien“"}, {"d": "2026-11-03", "a": "alle", "w": "Hochgeladen-Übersicht, Erledigt-Liste, Motivationssatz und Brücken-Block in allen Apps; Statistik überall in der festen Reihenfolge; gemeinsamer Code in `status.js` (W&G I: angepasster Block in der index.html), Einstellungen je App in `appcfg.js`", "y": "Von Talib bestätigt, einheitlich in allen Apps"}, {"d": "2026-11-03", "a": "alle", "w": "CLAUDE.md in alle vier Repos verteilt, fester Aufbau jeder App festgelegt (Reiter, Reihenfolge auf Lernpfad und Statistik)", "y": "Talib hat die Brücken-Anweisung in alle vier Projekte kopiert; Funktionen sollen nicht mehr zwischen den Apps an verschiedenen Stellen landen"}, {"d": "2026-10-28", "a": "alle", "w": "Offline-Modus mit eigenem Cache-Präfix je App", "y": "Apps sollen ohne Internet starten"}, {"d": "2026-10-26", "a": "alle", "w": "Update-Check und Karten wie in BiWi II (tippen, wischen, eine zurück)", "y": "einheitliches Lernen in allen Apps"}];
+function bridgeBlock(){
+  if(!BRUECKE.length) return "";
+  const f=s=>{ const [y,m,d]=s.split("-"); return +d+"."+(+m)+"."; };
+  return `<details class="block upl brk"><summary><span class="eyebrow" style="margin:0">Claude-Brücke</span><span class="upl-last">zuletzt ${f(BRUECKE[0].d)}</span></summary>
+    <ul class="brk-l">${BRUECKE.map(x=>`<li><span class="muted">${f(x.d)}${x.a!==APP.name?" · "+x.a:""}</span><b>${x.w}</b><span class="small muted">${x.y}</span></li>`).join("")}</ul>
+    <p class="small muted" style="margin:8px 0 0">Jeder Claude-Chat liest vor der Arbeit die gemeinsame Bauanleitung (CLAUDE.md) und trägt seine Änderungen dort ein. So wissen alle Apps voneinander.</p></details>`;
+}
+
+/* Abstände vor der Prüfung.
+   Forschung (Cepeda et al. 2008): Der beste Abstand zwischen zwei Wiederholungen wächst mit der Zeit bis zur Prüfung,
+   ist aber nur ein Bruchteil davon (bei 5 Wochen etwa ein Viertel, bei 10 Wochen etwa ein Sechstel). Zu kurz schadet mehr als zu lang.
+   Darum: der feste Plan (1, 3, 7, 16, 35 Tage) bleibt, aber höchstens ein Drittel der Resttage bis zur Prüfung, damit jede Karte
+   vor der Prüfung noch mehrmals drankommt und nie erst danach. Dazu ±10 % Streuung ab 3 Tagen, damit nicht alle Karten
+   eines Lerntags am selben Tag wieder fällig werden. Ohne Prüfungstermin bleibt der Plan, wie er ist. */
+function spaceDays(d,T){
+  if(d<=1) return d;
+  let x=d>=3?Math.max(2,Math.round(d*(0.9+Math.random()*0.2))):d;
+  if(T==null&&APP.examTs) T=APP.examTs();
+  if(T){ const left=Math.round((T-dayStart())/864e5); if(left>2) x=Math.min(x,Math.max(1,Math.floor(left/3))); }
+  return x;
 }
 
 /* ================= Textformat: Karten, Rückmeldungen, Beispielboxen (aus Wirtschaft II übernommen) =================
@@ -703,6 +810,13 @@ CARDS[16]=[
  {id:"c10-17", f:"Normierung als Nebengütekriterium", b:"Für den Test liegen aktuelle und an einer repräsentativen Stichprobe ermittelte Normen vor."}
 ];
 CALC[16]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];
+
+/* Hochgeladen-Übersicht (status.js): Folien je Vorlesungssitzung, dazu die Grundlagen. Neue Sitzung hier eintragen. */
+UPLOADS.push(
+ {base:true, known:false, items:[{k:"Lehrbuch", t:"Urhahne/Dresel/Fischer 2019", ok:true},{k:"Altklausuren", t:"WiSe 17/18, 18/19, 22/23, 24/25", ok:true},{k:"Fragenkatalog", t:"„Fragen Heine“", ok:true}]},
+ {no:1, known:false, items:[{k:"Folien", t:"Sitzung 1: Einführung, Schwerpunkte, Psychologie als Wissenschaft", ok:true}]},
+ {no:2, known:false, items:[{k:"Folien", t:"Sitzung 2: Psychologie als Wissenschaft, Lernen", ok:true}]}
+);
 
 /* ================= Kleine Erklärhilfen zu Karten =================
    Jede Zeile ein Begriff. „Begriff: Erklärung“ wird als fetter Begriff dargestellt. */
@@ -940,6 +1054,7 @@ function renderHome(){
   $("#app").innerHTML=`
     <p class="eyebrow">Bildungswissenschaften II · Psychologie · Heine</p>
     <h1>Lernpfad</h1>
+    ${uploadsBlock()}
     <p class="muted">Alles für die Modulklausur in einer App: Theorie lesen, Karten wiederholen, Kreuzaufgaben üben, rechnen, offene Aufgaben schreiben.</p>
     ${todayBlock()}
     ${homeReview()}
@@ -1118,7 +1233,7 @@ function renderCards(){
     const when=nextDue? Math.round((dayStart(nextDue)-dayStart())/864e5) : null;
     $("#app").innerHTML=`${backTo(deckLabel(n))}<h1>${D.length?(left?"Runde geschafft":"Für heute erledigt"):"Nichts fällig"}</h1>
       <div class="block">${D.length?`<p>${cur.right} sicher, ${cur.unsure||0} nicht sicher.</p>`:""}
-      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Stapels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Sichere Karten kommen nach 1, 3, 7, 16 und 35 Tagen wieder, nicht sichere gleich in dieser Runde und morgen noch einmal.</p>
+      <p class="small muted">${left?`Noch ${left} Karten fällig oder neu.`:`Alle Karten${n?" dieses Stapels":""} sind auf dem Stand. ${when!=null?`Die nächsten werden ${when<=0?"heute":when===1?"morgen":"in "+when+" Tagen"} fällig.`:""}`} Sichere Karten kommen nach etwa 1, 3, 7, 16 und 35 Tagen wieder, vor der Prüfung in kürzeren Abständen. Nicht sichere kommen in derselben Runde wieder, bis du sie einmal sicher weißt, und morgen noch einmal.</p>
       <div class="row">${sess?sessBtn():`${left?`<button class="btn" id="again">Weiter</button>`:""}<button class="btn ghost" id="free">Freiwillig weiterüben</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
     bindCrumb(()=>deckBack(n)); if($("#again")) $("#again").onclick=()=>openCards(n); if($("#free")) $("#free").onclick=()=>openCards(n,true); if($("#out")) $("#out").onclick=()=>deckBack(n); return;
   }
@@ -1165,11 +1280,11 @@ function renderCards(){
     const b0=cardBox(c.id), old=state.due[c.id]||0;
     cur.hist.push({ci:cur.ci, id:c.id, box:state.box[c.id], due:state.due[c.id], lapse:state.lapses[c.id], right:cur.right, unsure:cur.unsure, len:D.length, rq:Object.assign({},cur.requeued), typed:cur.typed});
     const b1= lv===2? Math.min(5,Math.max(b0,1)+1) : Math.max(1,b0-1);
-    const nd= lv===2? dayStart()+(b0===5?35:INTERVAL[b1])*864e5 : dayStart()+864e5;
+    const nd= lv===2? dayStart()+spaceDays(b0===5?35:INTERVAL[b1])*864e5 : dayStart()+864e5;
     if(!cur.free){ state.box[c.id]=b1; state.due[c.id]=nd; }
     else if(lv<2){ state.box[c.id]=Math.min(b0||1,b1); state.due[c.id]=Math.min(old||nd,nd); }
     if(lv===2) cur.right++;
-    else { cur.unsure=(cur.unsure||0)+1; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if(!cur.requeued[c.id]){ cur.requeued[c.id]=1; D.push(c); } }
+    else { cur.unsure=(cur.unsure||0)+1; state.lapses[c.id]=(state.lapses[c.id]||0)+1; if((cur.requeued[c.id]||0)<3){ cur.requeued[c.id]=(cur.requeued[c.id]||0)+1; D.push(c); } }
     logDay(); save(); cur.ci++; cur.flip=false; cur.typed=""; renderCards(); window.scrollTo(0,0); }
   if($("#yes")) $("#yes").onclick=()=>{ cur.enter=true; grade(2); };
   if($("#mid")) $("#mid").onclick=()=>{ cur.enter=true; grade(1); };
@@ -1215,7 +1330,7 @@ function renderGraph(){
 function renderPractice(){
   const ready=CHAPTERS.filter(c=>LESSONS[c.n]).map(c=>c.n);
   $("#app").innerHTML=`<p class="eyebrow">Wiederholen</p><h1>Üben</h1>
-    <p class="muted">Gemischt aus allen fertigen Kapiteln (${ready.join(", ")}). Gemischtes Üben ist anstrengender als blockweises, bleibt aber deutlich besser hängen.</p>
+    <p class="muted">Gemischt aus allen fertigen Kapiteln (${ready.join(", ")}). Gemischt heißt: Du musst jedes Mal erst erkennen, worum es geht. Das trainiert genau das Unterscheiden ähnlicher Begriffe, das die Prüfung verlangt.</p>
     <div class="block"><div class="modes">
       <button class="mode" id="pK"><span class="t">Fällige Karten</span><span class="n">${dueCards(0).length} fällig</span><span class="d">Alle Karten, die heute dran sind. Neue Karten lernst du im jeweiligen Kapitel.</span></button>
       <button class="mode" id="pR"><span class="t">Verständnisfragen</span><span class="n">${qDue().length} fällig</span><span class="d">Die Fragen aus den Lektionen kommen mit wachsendem Abstand wieder. Erst selbst überlegen, dann die Auswahl.</span></button>
@@ -1270,18 +1385,29 @@ function renderStats(){
       <div class="week7">${days.map(([d,n],i)=>`<div class="d${i===6?" today":""}" title="${n===1?"1 Aktion":n+" Aktionen"}">
         <div class="bw"><i style="height:${n?Math.max(4,Math.round(n/mx*100)):0}%"></i></div>
         <span class="wd">${wd[d.getDay()]}</span><span class="dt">${d.getDate()}.${d.getMonth()+1}.</span>
-        <span class="n">${n||"–"}</span><span class="u">${n?(n===1?"Aktion":"Aktionen"):""}</span></div>`).join("")}</div></div>
+        <span class="n">${n||"–"}</span><span class="u">${n?(n===1?"Aktion":"Aktionen"):""}</span></div>`).join("")}</div>${motivLine()}</div>
+    ${todoBlock()}
     ${examPlanBlock()}
     ${weakBlock()}
     <div class="block"><h2>Nach Kapitel</h2>${ready.map(c=>{ const p=chapterProgress(c.n);
       return `<div class="srow ch"><span>${c.n} · ${c.title}</span><span class="small muted">${[["Theorie",p.l,1],["Karten",p.k,(CARDS[c.n]||[]).length],["Kreuzen",p.x,kreuzOf(c.n).length],["Rechnen",p.c,(CALC[c.n]||[]).length]].filter(x=>x[2]).map(x=>x[0]+" "+Math.round(x[1]*100)).join(" · ")}</span><span class="pts">${p.total} %</span></div>`;}).join("")}</div>
     <div class="block"><h2>Rechenaufgaben</h2>${calcTypes(0).map(t=>{ const h=state.hist[t]; return `<div class="srow"><span>${TYPES[t].short}</span><span class="chip l${lvlOf(t)}">${LVL[lvlOf(t)]}</span><span>${h&&h.n?`${h.r}/${h.n}`:"–"}</span></div>`;}).join("")}</div>
+    ${bridgeBlock()}
     ${syncBox()}
     <div class="block"><h3>Fortschritt zurücksetzen</h3><p class="small muted">Löscht deinen gesamten Lernstand, auch auf den verbundenen Geräten.</p>
       <button class="btn warn" id="rst">${statsArmed?"Wirklich zurücksetzen":"Zurücksetzen"}</button></div>`;
-  bindSync(); bindExamPlan(); bindWeak();
+  bindSync(); bindExamPlan(); bindWeak(); bindTodo();
   $("#rst").onclick=()=>{ if(!statsArmed){ statsArmed=true; renderStats(); return; } state={}; norm(); save(); flushPush(); statsArmed=false; toast("Zurückgesetzt"); renderStats(); };
 }
+
+/* Tastatur (iPad mit Tastatur): Leertaste oder Enter dreht die Karte, → sicher, ← nicht sicher, Z eine Karte zurück */
+document.addEventListener("keydown",e=>{
+  if(view!=="cards"||e.metaKey||e.ctrlKey||e.altKey||(e.target.closest&&e.target.closest("textarea,input,select"))) return;
+  const c=$("#theCard"); if(!c||document.activeElement===c) return;
+  const k=e.key, hit=id=>{ const b=$(id); if(b){ e.preventDefault(); b.click(); } };
+  if(k===" "||k==="Enter"){ e.preventDefault(); c.click(); }
+  else if(k==="ArrowRight") hit("#yes"); else if(k==="ArrowLeft") hit("#mid"); else if(k==="z"||k==="Z") hit("#cprev");
+});
 
 /* ================= Kreuzaufgaben (Klausurformat Heine) =================
    Je Aufgabe ein Satzanfang und drei Aussagen, jede wahr oder falsch.
@@ -1365,7 +1491,7 @@ function renderKreuz(){
   document.querySelectorAll("[data-kg]").forEach(b=>b.onclick=()=>{ const j=+b.dataset.kg; K.gs[j]=!K.gs[j]; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
   if($("#ev")) $("#ev").onclick=()=>{ K.pts[K.i]=kzPoints(item,K.ans); const p=kzPoints(item,K.ans,K.gs); K.sure[K.i]=p; K.shown=true;
     const s=kzStat(item.id)||{n:0,best:0}, b=p===4?Math.min(5,(s.b||1)+1):1;
-    state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now(),b,due:dayStart()+(p===4?(s.b===5?35:INTERVAL[b]):1)*864e5}; logDay(); save(); renderKreuz(); };
+    state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now(),b,due:dayStart()+(p===4?spaceDays(s.b===5?35:INTERVAL[b]):1)*864e5}; logDay(); save(); renderKreuz(); };
   if($("#nx")) $("#nx").onclick=()=>{ K.i++; K.ans={}; K.gs={}; K.shown=false; renderKreuz(); window.scrollTo(0,0); };
 }
 
@@ -1985,7 +2111,7 @@ function qDue(){ const now=Date.now(); return allQuestions().filter(q=>{ const s
 function qGrade(id,ok){
   state.qbox=state.qbox||{}; const s=qInfo(id)||{b:0};
   const b1= ok? Math.min(5,Math.max(s.b,1)+1) : 1;
-  state.qbox[id]={b:b1, due:dayStart()+(ok?(s.b===5?35:INTERVAL[b1]):1)*864e5};
+  state.qbox[id]={b:b1, due:dayStart()+(ok?spaceDays(s.b===5?35:INTERVAL[b1]):1)*864e5};
   if(!ok){ state.qlapses=state.qlapses||{}; state.qlapses[id]=(state.qlapses[id]||0)+1; }
   save();
 }
@@ -2103,7 +2229,7 @@ function freshChapter(){ for(const ch of CHAPTERS){ const L=LESSONS[ch.n]||[]; i
 function planToday(){
   const S=[], dc=dueCards(0).length, dq=qDue().length, kd=kzDue().length;
   if(dc) S.push({k:"cards", t:"Karten wiederholen", d:`${Math.min(dc,20)} fällige Karten`, min:Math.max(2,Math.round(Math.min(dc,20)*.4))});
-  else { const n=freshChapter(); if(n) S.push({k:"newcards", n, t:"Neue Karten", d:`5 neue Karten: ${CHAPTERS.find(c=>c.n===n).title}`, min:3}); }
+  if(dc<25){ const n=freshChapter(); if(n) S.push({k:"newcards", n, t:"Neue Karten", d:`5 neue Karten: ${CHAPTERS.find(c=>c.n===n).title}`, min:3}); }
   if(dq) S.push({k:"recall", t:"Verständnisfragen", d:`${Math.min(dq,6)} fällige Fragen aus den Lektionen`, min:3});
   if(kreuzOf(0).length) S.push({k:"kreuz", t:"Kreuzaufgaben", d:kd?`3 Aufgaben wie in der Klausur, ${Math.min(kd,3)} davon fällig`:"3 Aufgaben wie in der Klausur", min:4});
   const rot=["calc","who","kurz"][dayIndex()%3];
@@ -2133,7 +2259,7 @@ function finishSession(){
   const min=Math.max(1,Math.round((Date.now()-sess.t0)/60000)); state.sessions=state.sessions||{}; state.sessions[today()]=min; save();
   sess=null; updateSessBar(); view="sessdone"; renderNav();
   $("#app").innerHTML=`<p class="eyebrow">Heute</p><h1>Geschafft</h1><div class="block"><p>Deine Einheit ist fertig, etwa ${min} Minuten.</p>
-    <p class="small muted">Morgen stellt die App eine neue Einheit zusammen. Was du heute nicht sicher wusstest, ist dann wieder dabei.</p>
+    <p class="small muted">Morgen stellt die App eine neue Einheit zusammen. Was du heute nicht sicher wusstest, ist dann wieder dabei.${new Date().getHours()>=18?" Abends gelernt? Dann mach morgen früh kurz die fälligen Karten: Mit Schlaf zwischen zwei Runden sitzt der Stoff schneller und länger.":""}</p>
     <div class="row"><button class="btn" id="sdHome">Zum Lernpfad</button></div></div>`;
   $("#sdHome").onclick=()=>go("home"); window.scrollTo(0,0);
 }
@@ -2219,6 +2345,20 @@ function bindWeak(){
   document.querySelectorAll("[data-wt]").forEach(b=>b.onclick=()=>startTask(b.dataset.wt,false));
   if($("#wkW")) $("#wkW").onclick=()=>openWho(8);
 }
+
+/* ================= Einstellungen nur dieser App für die gemeinsamen Bausteine (status.js) ================= */
+const APP={
+ name:"BiWi II",
+ halves:false,
+ chap:n=>CHAPTERS.find(c=>c.n===n),
+ unit:()=>"Sitzung",
+ unitNo:c=>c.n,
+ examTs:()=>examDateTs(),
+ todos:{main:[
+  {id:"bw-his", t:"Zur Klausur in HIS in One angemeldet", d:"Frist im HIS prüfen"},
+  {id:"bw-raum", t:"Uhrzeit und PC-Raum der Klausur nachgesehen", d:"Mi 17.02.2027"}
+ ]}
+};
 
 /* ================= Aufgabe ================= */
 function startTask(t,mix){
@@ -2408,7 +2548,7 @@ if("serviceWorker" in navigator){ window.addEventListener("load", ()=>navigator.
    Beim Start lädt die App eine neue Version sofort. Beim Zurückkehren nur, wenn gerade nichts läuft;
    mitten in Karten, Aufgaben oder Probeklausur erscheint stattdessen ein Hinweis zum Antippen. Der Lernstand liegt im Gerät und wird vorher abgeglichen. */
 (function(){
-  var V="6505e09f3c09", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
+  var V="de023a3be5c1", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
   function busy(){ try{ return BUSY.indexOf(view)>=0; }catch(e){ return false; } }
   function syncing(){ try{ return !!(pushTimer||pushing); }catch(e){ return false; } }
   function reload(t){ try{ sessionStorage.setItem("upd-"+t,"1"); }catch(e){} location.replace(location.pathname+"?v="+t+location.hash); }
