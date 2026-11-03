@@ -6,6 +6,14 @@ const APP={
  unit:()=>"Sitzung",
  unitNo:c=>c.n,
  examTs:()=>examDateTs(),
+ focus:{                                        /* Lernmodus ohne Ablenkung (status.js) */
+  views:["cards","recall","who","kreuz","kurz","task","graph","exam"],
+  prog:()=>{ const P={cards:()=>cur.deck&&{i:cur.ci,n:cur.deck.length}, recall:()=>cur.rq&&{i:cur.rq.i,n:cur.rq.list.length},
+    who:()=>cur.wh&&{i:cur.wh.i,n:cur.wh.list.length}, kreuz:()=>cur.kr&&{i:cur.kr.i,n:cur.kr.items.length}}[view];
+    const r=P&&P(); return r&&r.n?r:null; },
+  title:()=>({cards:"Karten",recall:"Verständnisfragen",who:"Zuordnen",kreuz:"Kreuzaufgaben",kurz:"Offene Aufgabe",task:"Rechenaufgabe",graph:"Grafik",exam:"Probeklausur"})[view]||"",
+  exit:()=>go(TAB_OF[view]||"home")
+ },
  todos:{main:[
   {id:"bw-his", t:"Zur Klausur in HIS in One angemeldet", d:"Frist im HIS prüfen"},
   {id:"bw-raum", t:"Uhrzeit und PC-Raum der Klausur nachgesehen", d:"Mi 17.02.2027"}
