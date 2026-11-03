@@ -562,6 +562,7 @@ function judge(step,raw){
    3. Motivationssatz unter der Wochenübersicht.
    4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-03", "a": "alle", "w": "Unbekannter Prüfungstermin: Stichtag 31.01.2027 (Wirtschaft II, Sozialstruktur in W&G I), als Annahme gekennzeichnet, eigener Termin geht vor; bekannte Termine bleiben (Politik 04.02., BiWi 17.02., Quizze laut Moodle)", "y": "Talib: Bis Ende Januar soll alles sitzen, sofern kein Termin feststeht"}, {"d": "2026-11-03", "a": "alle", "w": "Lernen nach Forschungsstand: Abstände passen sich der Prüfung an (höchstens ein Drittel der Resttage, Streuung), nicht sichere Karten bis zu dreimal in derselben Runde, täglich ein paar neue Karten, Tastatur für Karten, größere Schrift auf dem iPad, Hinweis zum Schlaf nach Abendeinheiten", "y": "Tiefenanalyse aller Apps; Regeln stehen unter „Lernprinzipien“"}, {"d": "2026-11-03", "a": "alle", "w": "Hochgeladen-Übersicht, Erledigt-Liste, Motivationssatz und Brücken-Block in allen Apps; Statistik überall in der festen Reihenfolge; gemeinsamer Code in `status.js` (W&G I: angepasster Block in der index.html), Einstellungen je App in `appcfg.js`", "y": "Von Talib bestätigt, einheitlich in allen Apps"}, {"d": "2026-11-03", "a": "alle", "w": "CLAUDE.md in alle vier Repos verteilt, fester Aufbau jeder App festgelegt (Reiter, Reihenfolge auf Lernpfad und Statistik)", "y": "Talib hat die Brücken-Anweisung in alle vier Projekte kopiert; Funktionen sollen nicht mehr zwischen den Apps an verschiedenen Stellen landen"}, {"d": "2026-10-28", "a": "alle", "w": "Offline-Modus mit eigenem Cache-Präfix je App", "y": "Apps sollen ohne Internet starten"}, {"d": "2026-10-26", "a": "alle", "w": "Update-Check und Karten wie in BiWi II (tippen, wischen, eine zurück)", "y": "einheitliches Lernen in allen Apps"}]).
    5. Abstände vor der Prüfung (spaceDays), siehe unten.
+   6. Symbole der Tableiste (NAV_ICONS), Gestaltung in design.css.
    Prüfungstermin unbekannt: Die App rechnet mit dem Stichtag 31.01. und meldet das über APP.examAssumed() (dann „bis zum Stichtag“). */
 const UPLOADS=[];
 const CK=()=>APP.halves?state.course:"main";
@@ -609,6 +610,16 @@ function motivLine(){
   if(left!=null&&left>0&&left<=21) m+=` Noch ${left} ${left===1?"Tag":"Tage"} ${APP.examAssumed&&APP.examAssumed()?"bis zum Stichtag":"bis zur Prüfung"}.`;
   return `<p class="motiv">${m}</p>`;
 }
+
+/* Symbole der Tableiste: gleiche Bildsprache in allen Apps. Lernpfad = Buch, Üben = Zielscheibe, Statistik = Balken,
+   Karten = Kartenstapel, Quiz = Liste mit Häkchen. Flächen mit class="f" füllen sich beim aktiven Reiter leicht. */
+const NAV_ICONS=(()=>{ const s=b=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${b}</svg>`;
+  const book=s('<path class="f" d="M12 6.6C10.1 5.3 7.5 4.7 3.8 4.9v13.5c3.7-.2 6.3.4 8.2 1.7 1.9-1.3 4.5-1.9 8.2-1.7V4.9c-3.7-.2-6.3.4-8.2 1.7Z"/><path d="M12 6.6v13.5"/>');
+  const target=s('<circle cx="12" cy="12" r="8.6"/><circle class="f" cx="12" cy="12" r="4.8"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/>');
+  const bars=s('<rect class="f" x="4" y="12.5" width="4" height="7.5" rx="1.4"/><rect class="f" x="10" y="8" width="4" height="12" rx="1.4"/><rect class="f" x="16" y="4" width="4" height="16" rx="1.4"/>');
+  const cards=s('<rect class="f" x="7" y="3.6" width="13" height="15.4" rx="2.6"/><path d="M4.4 7.6v9.8a3 3 0 0 0 3 3h8.2"/>');
+  const quiz=s('<rect class="f" x="4" y="3.6" width="16" height="16.8" rx="3"/><path d="m7.8 9.2 1.6 1.6 2.8-3M7.8 15.4l1.6 1.6 2.8-3M15 9.6h1.6M15 15.8h1.6"/>');
+  return {home:book, overview:book, practice:target, stats:bars, cards, quiz, exam:quiz}; })();
 
 /* Claude-Brücke: was zuletzt an dieser App geändert wurde und warum (aus CLAUDE.md, beim Bauen übernommen) */
 const BRUECKE=[{"d": "2026-11-03", "a": "alle", "w": "Unbekannter Prüfungstermin: Stichtag 31.01.2027 (Wirtschaft II, Sozialstruktur in W&G I), als Annahme gekennzeichnet, eigener Termin geht vor; bekannte Termine bleiben (Politik 04.02., BiWi 17.02., Quizze laut Moodle)", "y": "Talib: Bis Ende Januar soll alles sitzen, sofern kein Termin feststeht"}, {"d": "2026-11-03", "a": "alle", "w": "Lernen nach Forschungsstand: Abstände passen sich der Prüfung an (höchstens ein Drittel der Resttage, Streuung), nicht sichere Karten bis zu dreimal in derselben Runde, täglich ein paar neue Karten, Tastatur für Karten, größere Schrift auf dem iPad, Hinweis zum Schlaf nach Abendeinheiten", "y": "Tiefenanalyse aller Apps; Regeln stehen unter „Lernprinzipien“"}, {"d": "2026-11-03", "a": "alle", "w": "Hochgeladen-Übersicht, Erledigt-Liste, Motivationssatz und Brücken-Block in allen Apps; Statistik überall in der festen Reihenfolge; gemeinsamer Code in `status.js` (W&G I: angepasster Block in der index.html), Einstellungen je App in `appcfg.js`", "y": "Von Talib bestätigt, einheitlich in allen Apps"}, {"d": "2026-11-03", "a": "alle", "w": "CLAUDE.md in alle vier Repos verteilt, fester Aufbau jeder App festgelegt (Reiter, Reihenfolge auf Lernpfad und Statistik)", "y": "Talib hat die Brücken-Anweisung in alle vier Projekte kopiert; Funktionen sollen nicht mehr zwischen den Apps an verschiedenen Stellen landen"}, {"d": "2026-10-28", "a": "alle", "w": "Offline-Modus mit eigenem Cache-Präfix je App", "y": "Apps sollen ohne Internet starten"}, {"d": "2026-10-26", "a": "alle", "w": "Update-Check und Karten wie in BiWi II (tippen, wischen, eine zurück)", "y": "einheitliches Lernen in allen Apps"}];
@@ -2549,7 +2560,7 @@ if("serviceWorker" in navigator){ window.addEventListener("load", ()=>navigator.
    Beim Start lädt die App eine neue Version sofort. Beim Zurückkehren nur, wenn gerade nichts läuft;
    mitten in Karten, Aufgaben oder Probeklausur erscheint stattdessen ein Hinweis zum Antippen. Der Lernstand liegt im Gerät und wird vorher abgeglichen. */
 (function(){
-  var V="fc0be6f5a2dd", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
+  var V="1859d25e9716", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
   function busy(){ try{ return BUSY.indexOf(view)>=0; }catch(e){ return false; } }
   function syncing(){ try{ return !!(pushTimer||pushing); }catch(e){ return false; } }
   function reload(t){ try{ sessionStorage.setItem("upd-"+t,"1"); }catch(e){} location.replace(location.pathname+"?v="+t+location.hash); }
