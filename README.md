@@ -1,5 +1,7 @@
 # Bildungswissenschaften II – Lern-App (Psychologie, Heine)
 
+Vor jeder Arbeit `CLAUDE.md` lesen (Claude-Brücke: gemeinsame Regeln, Aufbau, Bausteine aller Apps, Logbuch).
+
 Live: https://talib47.github.io/BiWi-II/
 
 Modul BiWi II (UDE, Lehramt GyGe), Vorlesung „Psychologie im Lehramt“ bei Prof. Heine (Mi 8.15–11.45) mit vier Schwerpunkten:
