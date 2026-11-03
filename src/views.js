@@ -51,10 +51,10 @@ let view="home", task=null, cur={};
 const TABS=[["home","Lernpfad"],["practice","Üben"],["stats","Statistik"]];
 const TAB_OF={home:"home",chapter:"home",lesson:"home",graph:"home",essay:"home",kreuz:"practice",cards:"practice",calc:"practice",task:"practice",practice:"practice",stats:"stats",exam:"practice",kurz:"practice",sym:"practice",recall:"practice",who:"practice",sessdone:"home"};
 function renderNav(){
-  $("#nav").innerHTML=TABS.map(([k,l])=>`<button data-v="${k}"${TAB_OF[view]===k?' aria-current="page"':""}>${l}</button>`).join("");
+  $("#nav").innerHTML=TABS.map(([k,l])=>`<button data-v="${k}"${TAB_OF[view]===k?' aria-current="page"':""}>${NAV_ICONS[k]||""}<span>${l}</span></button>`).join("");
   $("#nav").querySelectorAll("button").forEach(b=>b.onclick=()=>go(b.dataset.v));
 }
-function go(v){ view=v; render(); window.scrollTo(0,0); }
+function go(v){ view=v; const a=$("#app"); a.classList.remove("vin"); void a.offsetWidth; a.classList.add("vin"); render(); window.scrollTo(0,0); }
 function render(){ renderNav(); ({home:renderHome,chapter:renderChapter,lesson:renderLesson,cards:renderCards,graph:renderGraph,practice:renderPractice,calc:renderCalc,task:renderTask,stats:renderStats,exam:renderExam,kurz:renderKurz,kreuz:renderKreuz,sym:renderSym,recall:renderRecall,who:renderWho,sessdone:renderHome})[view](); }
 const backTo=(label,fn)=>`<button class="crumb" id="crumb">← ${label}</button>`;
 function bindCrumb(fn){ const b=$("#crumb"); if(b) b.onclick=fn; }

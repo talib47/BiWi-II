@@ -5,7 +5,7 @@
    Alle Apps teilen sich talib47.github.io und damit den Speicher: Jede App verwaltet nur Caches mit eigenem Präfix. */
 const PREFIX = "bw2-offline-";
 const CACHE = PREFIX + "v1";
-const CORE = ["./", "./index.html", "/BiWi-II/apple-touch-icon.png?v=3", "/BiWi-II/icon-192.png?v=3", "/BiWi-II/manifest.webmanifest?v=3"];
+const CORE = ["./", "./index.html", "/BiWi-II/apple-touch-icon.png?v=3", "/BiWi-II/icon-192.png?v=3", "/BiWi-II/manifest.webmanifest?v=3", "/BiWi-II/fonts/newsreader-latin.woff2"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));

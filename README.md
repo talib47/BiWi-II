@@ -22,7 +22,8 @@ Jeder Teil: Kreuzaufgaben (drei Aussagen wahr/falsch, je richtiges Kreuz 1 P., a
 
 | Datei | Inhalt |
 |---|---|
-| `head.html` | Kopf, Icons, Manifest, CSS (Farben als Tokens, Dunkelmodus, Akzent Pflaume), Zoom |
+| `head.html` | Kopf, Icons, Manifest, Bandfarbe BiWi II (`--accent`, `--plate-top`, `--plate-bot`, `--numeral` „II“), Grund-CSS, Knopf „Aa“ |
+| `design.css` | Gemeinsames Design aller Apps („Die Reihe“, wortgleich): Farben hell/dunkel, Newsreader-Titel, Platte „Heute“, Tableiste aus Glas mit Symbolen, Knopf „Aa“, Lernkarte mit Stapel. `build.py` setzt sie in `head.html` ein. Schrift in `fonts/` (SIL OFL) |
 | `core.js` | Speicher (`localStorage`), Geräte-Abgleich über GitHub, Hilfsfunktionen, `judge()` |
 | `format.js` | Textformat aus Wirtschaft II: leise Klammern, Formelboxen, Beispielboxen (`bsp`), Kopierhilfe |
 | `content.js` | Kapitelliste nach Heines vier Schwerpunkten (`teil` = Klausurteil), Kapitel 16 Normwerte |
