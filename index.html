@@ -399,9 +399,9 @@ h1,h2,h3,.card .front{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto
 
 /* ---------- Farben und Formen ---------- */
 :root{ color-scheme:light;
-  --bg:#F2F2F4; --surface:#FFFFFF; --surface2:#F7F7F9; --ink:#1B1B1F; --muted:#6C6C74; --line:#E3E3E8;
+  --bg:#F2F2F4; --surface:#FFFFFF; --surface2:#F7F7F9; --ink:#1B1B1F; --muted:#5F5F66; --line:#E3E3E8;
   --fill:rgba(118,118,128,.10); --fill2:rgba(118,118,128,.18);
-  --good:#2D7A4E; --bad:#B43A2E; --gold:#9E7518;
+  --good:#2D7A4E; --bad:#B43A2E; --gold:#785810;
   --good-soft:color-mix(in srgb,var(--good) 10%,var(--surface)); --bad-soft:color-mix(in srgb,var(--bad) 9%,var(--surface));
   --accent-soft:color-mix(in srgb,var(--accent) 8%,var(--surface));
   --tint:color-mix(in srgb,var(--accent) 11%,transparent);
@@ -463,7 +463,7 @@ p,li{text-wrap:pretty}
 .block>.modes:last-child,.block>.tlist:last-child{margin-bottom:-6px}
 .sect{font-size:1.0625rem;font-weight:650;letter-spacing:-.008em;text-transform:none;color:var(--ink);margin:26px 2px 10px;align-items:baseline}
 .sect>span+span{font-size:.8125rem;font-weight:500;color:var(--muted);letter-spacing:0}
-.crumb{display:inline-flex;align-items:center;gap:4px;font-size:.9375rem;font-weight:600;color:var(--accent);padding:6px 0;margin:0 0 14px}
+.crumb{display:inline-flex;align-items:center;gap:4px;font-size:.9375rem;font-weight:600;color:var(--accent);padding:6px 0;min-height:44px;margin:-4px 0 8px}
 
 /* ---------- Gruppen (ruhig, ohne Rahmen und ohne Schatten) ---------- */
 .block{background:var(--surface);border:0;border-radius:var(--r-m);padding:18px;margin:0 0 12px}
@@ -537,7 +537,7 @@ p,li{text-wrap:pretty}
 
 /* ---------- Häkchen (rund, wie in Erinnerungen) ---------- */
 .check{gap:12px;padding:8px 0}
-.check input[type=checkbox]{-webkit-appearance:none;appearance:none;width:22px;height:22px;flex:none;margin:1px 0 0;border-radius:50%;
+.check input[type=checkbox]{-webkit-appearance:none;appearance:none;width:24px;height:24px;flex:none;margin:1px 0 0;border-radius:50%;
   border:1.6px solid color-mix(in srgb,var(--muted) 60%,transparent);background:transparent center/14px 14px no-repeat;cursor:pointer;
   transition:background-color .18s,border-color .18s,transform .18s}
 .check input[type=checkbox]:checked{background-color:var(--accent);border-color:var(--accent);background-image:var(--check)}
@@ -631,7 +631,7 @@ body.focus main{padding-bottom:calc(48px + env(safe-area-inset-bottom,0px))}
   -webkit-backdrop-filter:saturate(180%) blur(24px);backdrop-filter:saturate(180%) blur(24px);border-bottom:.5px solid var(--glass-line)}
 #focusbar[hidden]{display:none}
 #focusbar .fbin{max-width:42rem;margin:0 auto;display:flex;align-items:center;gap:14px;padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px))}
-#focusbar .fx{flex:none;width:36px;height:36px;border:0;border-radius:50%;background:var(--fill);color:var(--ink);display:grid;place-items:center;transition:transform .14s}
+#focusbar .fx{flex:none;width:44px;height:44px;border:0;border-radius:50%;background:var(--fill);color:var(--ink);display:grid;place-items:center;transition:transform .14s}
 #focusbar .fx:active{transform:scale(.9)}
 #focusbar .fprog{flex:1;height:6px;border-radius:999px;background:var(--fill);overflow:hidden}
 #focusbar .fprog i{display:block;height:100%;border-radius:999px;background:var(--accent);transition:width .4s cubic-bezier(.3,.7,.3,1)}
@@ -654,6 +654,14 @@ body.fbon .etop{top:calc(52px + env(safe-area-inset-top,0px))}
   .toast{animation:toastin .28s cubic-bezier(.2,.9,.3,1.2)}
   @keyframes toastin{from{opacity:0;transform:translate(-50%,10px) scale(.96)}to{opacity:1;transform:translate(-50%,0)}}
 }
+
+/* Prüfung 11/2026: große Schrift (bis 180 %) ohne Überlauf, Kontrast nach WCAG AA, Tippflächen ab 44 px */
+#app{overflow-wrap:break-word}
+#app p,#app li,#app td,#app th,#app .klist>b,#app .klist>span,#app .titem .t,#app .titem .d{-webkit-hyphens:auto;hyphens:auto}
+.titem .t{min-width:0}
+.klist{grid-template-columns:fit-content(40%) minmax(0,1fr)}
+.hint,.card .tap{opacity:1}
+.upl>summary{min-height:44px;display:flex;align-items:center}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px)}</style>
 </head>
@@ -824,7 +832,7 @@ function judge(step,raw){
       known:false = nur bekannt, dass das Hochgeladene dazugehört.
    2. Erledigt-Liste (APP.todos je Hälfte), abgehakt in state.todo[id] = Zeitstempel.
    3. Motivationssatz unter der Wochenübersicht.
-   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-03", "a": "alle", "w": "Prüfauftrag `PRUEFAUFTRAG.md` in allen Repos: Gesamtprüfung in acht Schritten (Inhalt gegen Unterlagen, Prüfungspassung, Lernwirksamkeit, Oberfläche, Technik, unabhängige Zweitprüfung, Umsetzen, Bericht)", "y": "Talib will die Apps regelmäßig von Grund auf prüfen lassen"}, {"d": "2026-11-03", "a": "alle", "w": "Lernmodus in BiWi II, Wirtschaft II und W&G I übernommen (W&G I: Fragenrunde, Karten, Wer sagt das?, laufendes Quiz; Umschalter dort ausgeblendet)", "y": "Talib hat das Muster freigegeben"}, {"d": "2026-11-03", "a": "alle", "w": "Abstände geprüft (automatische Messung in allen Ansichten) und nach festem Raster korrigiert: kleine Zeile über Titeln, Titel zu Text, Listen in Gruppen", "y": "Talib: kleine Sätze klebten an Titeln wie „Üben“"}, {"d": "2026-11-03", "a": "alle", "w": "Design „Die Reihe“ in BiWi II (Pflaume, II), Wirtschaft II (Blau, II) und W&G I (Grün, I, fünf Reiter mit Symbolen) übernommen", "y": "Talib hat das Muster in Politik I freigegeben"}, {"d": "2026-11-03", "a": "alle", "w": "Unbekannter Prüfungstermin: Stichtag 31.01.2027 (Wirtschaft II, Sozialstruktur in W&G I), als Annahme gekennzeichnet, eigener Termin geht vor; bekannte Termine bleiben (Politik 04.02., BiWi 17.02., Quizze laut Moodle)", "y": "Talib: Bis Ende Januar soll alles sitzen, sofern kein Termin feststeht"}, {"d": "2026-11-03", "a": "alle", "w": "Lernen nach Forschungsstand: Abstände passen sich der Prüfung an (höchstens ein Drittel der Resttage, Streuung), nicht sichere Karten bis zu dreimal in derselben Runde, täglich ein paar neue Karten, Tastatur für Karten, größere Schrift auf dem iPad, Hinweis zum Schlaf nach Abendeinheiten", "y": "Tiefenanalyse aller Apps; Regeln stehen unter „Lernprinzipien“"}]).
+   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-04", "a": "alle", "w": "`PRUEFAUFTRAG.md` verschlankt: erst Skripte, dann gezielt lesen, keine parallelen Agenten, Bericht im Chat", "y": "Talib: Das Limit wurde ständig erreicht"}, {"d": "2026-11-04", "a": "alle", "w": "`spaceDays` nie unter 3 Tage, Streuung nach dem Deckel; `design.css`: Grauton und Gold dunkler (WCAG AA), Hinweise voll deckend, Silbentrennung gegen Überlauf bei 180 % Schrift, Zurück, Schließen und Aufklappzeilen 44 px, Häkchen 24 px", "y": "Prüfauftrag Politik I: Stau in der letzten Woche vor der Prüfung, 16 Kontrastfehler, Überlauf bei großer Schrift"}, {"d": "2026-11-03", "a": "alle", "w": "Prüfauftrag `PRUEFAUFTRAG.md` in allen Repos: Gesamtprüfung in acht Schritten (Inhalt gegen Unterlagen, Prüfungspassung, Lernwirksamkeit, Oberfläche, Technik, unabhängige Zweitprüfung, Umsetzen, Bericht)", "y": "Talib will die Apps regelmäßig von Grund auf prüfen lassen"}, {"d": "2026-11-03", "a": "alle", "w": "Lernmodus in BiWi II, Wirtschaft II und W&G I übernommen (W&G I: Fragenrunde, Karten, Wer sagt das?, laufendes Quiz; Umschalter dort ausgeblendet)", "y": "Talib hat das Muster freigegeben"}, {"d": "2026-11-03", "a": "alle", "w": "Abstände geprüft (automatische Messung in allen Ansichten) und nach festem Raster korrigiert: kleine Zeile über Titeln, Titel zu Text, Listen in Gruppen", "y": "Talib: kleine Sätze klebten an Titeln wie „Üben“"}, {"d": "2026-11-03", "a": "alle", "w": "Design „Die Reihe“ in BiWi II (Pflaume, II), Wirtschaft II (Blau, II) und W&G I (Grün, I, fünf Reiter mit Symbolen) übernommen", "y": "Talib hat das Muster in Politik I freigegeben"}]).
    5. Abstände vor der Prüfung (spaceDays), siehe unten.
    6. Symbole der Tableiste (NAV_ICONS), Gestaltung in design.css.
    7. Lernmodus ohne Ablenkung (focusBar): Ansichten aus APP.focus.views und die ganze Tageseinheit blenden Tableiste und „Aa“ aus.
@@ -908,7 +916,7 @@ document.addEventListener("keydown",e=>{ if(e.key!=="Escape"||!document.body.cla
   const a=document.activeElement; if(a&&/^(TEXTAREA|INPUT|SELECT)$/.test(a.tagName)) return; const x=document.getElementById("fx"); if(x){ e.preventDefault(); x.click(); } });
 
 /* Claude-Brücke: was zuletzt an dieser App geändert wurde und warum (aus CLAUDE.md, beim Bauen übernommen) */
-const BRUECKE=[{"d": "2026-11-03", "a": "alle", "w": "Prüfauftrag `PRUEFAUFTRAG.md` in allen Repos: Gesamtprüfung in acht Schritten (Inhalt gegen Unterlagen, Prüfungspassung, Lernwirksamkeit, Oberfläche, Technik, unabhängige Zweitprüfung, Umsetzen, Bericht)", "y": "Talib will die Apps regelmäßig von Grund auf prüfen lassen"}, {"d": "2026-11-03", "a": "alle", "w": "Lernmodus in BiWi II, Wirtschaft II und W&G I übernommen (W&G I: Fragenrunde, Karten, Wer sagt das?, laufendes Quiz; Umschalter dort ausgeblendet)", "y": "Talib hat das Muster freigegeben"}, {"d": "2026-11-03", "a": "alle", "w": "Abstände geprüft (automatische Messung in allen Ansichten) und nach festem Raster korrigiert: kleine Zeile über Titeln, Titel zu Text, Listen in Gruppen", "y": "Talib: kleine Sätze klebten an Titeln wie „Üben“"}, {"d": "2026-11-03", "a": "alle", "w": "Design „Die Reihe“ in BiWi II (Pflaume, II), Wirtschaft II (Blau, II) und W&G I (Grün, I, fünf Reiter mit Symbolen) übernommen", "y": "Talib hat das Muster in Politik I freigegeben"}, {"d": "2026-11-03", "a": "alle", "w": "Unbekannter Prüfungstermin: Stichtag 31.01.2027 (Wirtschaft II, Sozialstruktur in W&G I), als Annahme gekennzeichnet, eigener Termin geht vor; bekannte Termine bleiben (Politik 04.02., BiWi 17.02., Quizze laut Moodle)", "y": "Talib: Bis Ende Januar soll alles sitzen, sofern kein Termin feststeht"}, {"d": "2026-11-03", "a": "alle", "w": "Lernen nach Forschungsstand: Abstände passen sich der Prüfung an (höchstens ein Drittel der Resttage, Streuung), nicht sichere Karten bis zu dreimal in derselben Runde, täglich ein paar neue Karten, Tastatur für Karten, größere Schrift auf dem iPad, Hinweis zum Schlaf nach Abendeinheiten", "y": "Tiefenanalyse aller Apps; Regeln stehen unter „Lernprinzipien“"}];
+const BRUECKE=[{"d": "2026-11-04", "a": "alle", "w": "`PRUEFAUFTRAG.md` verschlankt: erst Skripte, dann gezielt lesen, keine parallelen Agenten, Bericht im Chat", "y": "Talib: Das Limit wurde ständig erreicht"}, {"d": "2026-11-04", "a": "alle", "w": "`spaceDays` nie unter 3 Tage, Streuung nach dem Deckel; `design.css`: Grauton und Gold dunkler (WCAG AA), Hinweise voll deckend, Silbentrennung gegen Überlauf bei 180 % Schrift, Zurück, Schließen und Aufklappzeilen 44 px, Häkchen 24 px", "y": "Prüfauftrag Politik I: Stau in der letzten Woche vor der Prüfung, 16 Kontrastfehler, Überlauf bei großer Schrift"}, {"d": "2026-11-03", "a": "alle", "w": "Prüfauftrag `PRUEFAUFTRAG.md` in allen Repos: Gesamtprüfung in acht Schritten (Inhalt gegen Unterlagen, Prüfungspassung, Lernwirksamkeit, Oberfläche, Technik, unabhängige Zweitprüfung, Umsetzen, Bericht)", "y": "Talib will die Apps regelmäßig von Grund auf prüfen lassen"}, {"d": "2026-11-03", "a": "alle", "w": "Lernmodus in BiWi II, Wirtschaft II und W&G I übernommen (W&G I: Fragenrunde, Karten, Wer sagt das?, laufendes Quiz; Umschalter dort ausgeblendet)", "y": "Talib hat das Muster freigegeben"}, {"d": "2026-11-03", "a": "alle", "w": "Abstände geprüft (automatische Messung in allen Ansichten) und nach festem Raster korrigiert: kleine Zeile über Titeln, Titel zu Text, Listen in Gruppen", "y": "Talib: kleine Sätze klebten an Titeln wie „Üben“"}, {"d": "2026-11-03", "a": "alle", "w": "Design „Die Reihe“ in BiWi II (Pflaume, II), Wirtschaft II (Blau, II) und W&G I (Grün, I, fünf Reiter mit Symbolen) übernommen", "y": "Talib hat das Muster in Politik I freigegeben"}];
 function bridgeBlock(){
   if(!BRUECKE.length) return "";
   const f=s=>{ const [y,m,d]=s.split("-"); return +d+"."+(+m)+"."; };
@@ -921,14 +929,15 @@ function bridgeBlock(){
    Forschung (Cepeda et al. 2008): Der beste Abstand zwischen zwei Wiederholungen wächst mit der Zeit bis zur Prüfung,
    ist aber nur ein Bruchteil davon (bei 5 Wochen etwa ein Viertel, bei 10 Wochen etwa ein Sechstel). Zu kurz schadet mehr als zu lang.
    Darum: der feste Plan (1, 3, 7, 16, 35 Tage) bleibt, aber höchstens ein Drittel der Resttage bis zur Prüfung, damit jede Karte
-   vor der Prüfung noch mehrmals drankommt und nie erst danach. Dazu ±10 % Streuung ab 3 Tagen, damit nicht alle Karten
-   eines Lerntags am selben Tag wieder fällig werden. Ohne Prüfungstermin bleibt der Plan, wie er ist. */
+   vor der Prüfung noch mehrmals drankommt und nie erst danach. Nie kürzer als 3 Tage, wenn der Plan 3 Tage oder mehr
+   vorsieht (sonst wäre in der letzten Woche jede Karte täglich fällig und alles staute sich). Die ±10 % Streuung kommt
+   nach dem Deckel, damit nicht alle Karten am selben Tag fällig werden. Ohne Prüfungstermin bleibt der Plan, wie er ist. */
 function spaceDays(d,T){
   if(d<=1) return d;
-  let x=d>=3?Math.max(2,Math.round(d*(0.9+Math.random()*0.2))):d;
+  let x=d;
   if(T==null&&APP.examTs) T=APP.examTs();
-  if(T){ const left=Math.round((T-dayStart())/864e5); if(left>2) x=Math.min(x,Math.max(1,Math.floor(left/3))); }
-  return x;
+  if(T){ const left=Math.round((T-dayStart())/864e5); if(left>2) x=Math.min(x,Math.max(Math.min(d,3),Math.floor(left/3))); }
+  return x>=3?Math.max(2,Math.round(x*(0.9+Math.random()*0.2))):x;
 }
 
 /* ================= Textformat: Karten, Rückmeldungen, Beispielboxen (aus Wirtschaft II übernommen) =================
@@ -2857,7 +2866,7 @@ if("serviceWorker" in navigator){ window.addEventListener("load", ()=>navigator.
    Beim Start lädt die App eine neue Version sofort. Beim Zurückkehren nur, wenn gerade nichts läuft;
    mitten in Karten, Aufgaben oder Probeklausur erscheint stattdessen ein Hinweis zum Antippen. Der Lernstand liegt im Gerät und wird vorher abgeglichen. */
 (function(){
-  var V="6dff39e80f0b", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
+  var V="0516cc26ab8e", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
   function busy(){ try{ return BUSY.indexOf(view)>=0; }catch(e){ return false; } }
   function syncing(){ try{ return !!(pushTimer||pushing); }catch(e){ return false; } }
   function reload(t){ try{ sessionStorage.setItem("upd-"+t,"1"); }catch(e){} location.replace(location.pathname+"?v="+t+location.hash); }
