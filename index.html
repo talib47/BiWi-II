@@ -835,7 +835,7 @@ function judge(step,raw){
       known:false = nur bekannt, dass das Hochgeladene dazugehört.
    2. Erledigt-Liste (APP.todos je Hälfte), abgehakt in state.todo[id] = Zeitstempel.
    3. Motivationssatz unter der Wochenübersicht.
-   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-10", "a": "alle", "w": "Knopf „Projekt öffnen“ wieder entfernt, Hinweis zeigt den Weg in der Claude-App", "y": "Aus der Web-App öffnet iOS einen Browser, in dem Talib nicht angemeldet ist"}, {"d": "2026-11-10", "a": "alle", "w": "Hochladen und Bescheid geben in einem Schritt: Dateien in einem neuen Chat im Projekt anhängen und senden, ohne Text; der Chat baut sie nach `UPDATE.md` ein und sichert die Textfassung als Projekt-Dokument; Knopf heißt „Projekt öffnen“", "y": "Talib: Upload, Knopf, Chat, Einfügen waren zu viele Schritte"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Unterlagen aktualisieren“ im Block „Unterlagen“ (öffnet das claude.ai-Projekt, kopiert „Update“), `UPDATE.md` als gründlicher Einbau-Auftrag (wortgleich in allen Repos), Regel 11 neu; fehlende `APP.projectUrl` trägt der nächste Update-Chat selbst ein", "y": "Talib: Hochladen allein ändert die App nicht, er will ein klares Signal und sorgfältigen Einbau"}, {"d": "2026-11-10", "a": "alle", "w": "Block „Unterlagen“ in allen Apps, Muster je App aus den bisherigen Uploads hergeleitet: BiWi II ein wachsender Foliensatz (immer die neueste ganze Datei), W&G I je Hälfte etwa wöchentlich wie bisher, Wirtschaft II komplett, Politik I nach Vorlesungs- und Verlaufsplan; unsicher heißt „vermutlich“ mit Bitte um Moodle-Screenshot; Regel 7 neu", "y": "Talib: Die Fächer laden sehr unterschiedlich hoch, Claude soll das selbst herleiten und in jedem Chat wissen"}, {"d": "2026-11-04", "a": "alle", "w": "`PRUEFAUFTRAG.md` verschlankt: erst Skripte, dann gezielt lesen, keine parallelen Agenten, Bericht im Chat", "y": "Talib: Das Limit wurde ständig erreicht"}, {"d": "2026-11-04", "a": "alle", "w": "`spaceDays` nie unter 3 Tage, Streuung nach dem Deckel; `design.css`: Grauton und Gold dunkler (WCAG AA), Hinweise voll deckend, Silbentrennung gegen Überlauf bei 180 % Schrift, Zurück, Schließen und Aufklappzeilen 44 px, Häkchen 24 px", "y": "Prüfauftrag Politik I: Stau in der letzten Woche vor der Prüfung, 16 Kontrastfehler, Überlauf bei großer Schrift"}]).
+   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-10", "a": "BiWi II", "w": "Update Sitzung 4 und 5: Kapitel 11 Operante Konditionierung, 12 Lernen am Modell, 2 Gedächtnis, 3 Vergessen und Abruf (17 Lektionen, 69 Karten, 34 Verständnisfragen, 12 Kreuzaufgaben davon 4 echte aus WiSe 24/25, 5 offene Aufgaben mit dem Michael-Fall aus 24/25, 3 Zuordnen-Sätze); Unterlagen-Muster korrigiert: je Sitzung eine eigene Datei statt wachsendem Foliensatz, Sitzung 3 fehlt", "y": "Neue Folien im Projekt; Teil 1 der Klausur 24/25 stammt fast ganz aus diesen Sitzungen"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Projekt öffnen“ wieder entfernt, Hinweis zeigt den Weg in der Claude-App", "y": "Aus der Web-App öffnet iOS einen Browser, in dem Talib nicht angemeldet ist"}, {"d": "2026-11-10", "a": "alle", "w": "Hochladen und Bescheid geben in einem Schritt: Dateien in einem neuen Chat im Projekt anhängen und senden, ohne Text; der Chat baut sie nach `UPDATE.md` ein und sichert die Textfassung als Projekt-Dokument; Knopf heißt „Projekt öffnen“", "y": "Talib: Upload, Knopf, Chat, Einfügen waren zu viele Schritte"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Unterlagen aktualisieren“ im Block „Unterlagen“ (öffnet das claude.ai-Projekt, kopiert „Update“), `UPDATE.md` als gründlicher Einbau-Auftrag (wortgleich in allen Repos), Regel 11 neu; fehlende `APP.projectUrl` trägt der nächste Update-Chat selbst ein", "y": "Talib: Hochladen allein ändert die App nicht, er will ein klares Signal und sorgfältigen Einbau"}, {"d": "2026-11-10", "a": "alle", "w": "Block „Unterlagen“ in allen Apps, Muster je App aus den bisherigen Uploads hergeleitet: BiWi II ein wachsender Foliensatz (immer die neueste ganze Datei), W&G I je Hälfte etwa wöchentlich wie bisher, Wirtschaft II komplett, Politik I nach Vorlesungs- und Verlaufsplan; unsicher heißt „vermutlich“ mit Bitte um Moodle-Screenshot; Regel 7 neu", "y": "Talib: Die Fächer laden sehr unterschiedlich hoch, Claude soll das selbst herleiten und in jedem Chat wissen"}, {"d": "2026-11-04", "a": "alle", "w": "`PRUEFAUFTRAG.md` verschlankt: erst Skripte, dann gezielt lesen, keine parallelen Agenten, Bericht im Chat", "y": "Talib: Das Limit wurde ständig erreicht"}]).
    5. Abstände vor der Prüfung (spaceDays), siehe unten.
    6. Symbole der Tableiste (NAV_ICONS), Gestaltung in design.css.
    7. Lernmodus ohne Ablenkung (focusBar): Ansichten aus APP.focus.views und die ganze Tageseinheit blenden Tableiste und „Aa“ aus.
@@ -964,7 +964,7 @@ document.addEventListener("keydown",e=>{ if(e.key!=="Escape"||!document.body.cla
   const a=document.activeElement; if(a&&/^(TEXTAREA|INPUT|SELECT)$/.test(a.tagName)) return; const x=document.getElementById("fx"); if(x){ e.preventDefault(); x.click(); } });
 
 /* Claude-Brücke: was zuletzt an dieser App geändert wurde und warum (aus CLAUDE.md, beim Bauen übernommen) */
-const BRUECKE=[{"d": "2026-11-10", "a": "alle", "w": "Knopf „Projekt öffnen“ wieder entfernt, Hinweis zeigt den Weg in der Claude-App", "y": "Aus der Web-App öffnet iOS einen Browser, in dem Talib nicht angemeldet ist"}, {"d": "2026-11-10", "a": "alle", "w": "Hochladen und Bescheid geben in einem Schritt: Dateien in einem neuen Chat im Projekt anhängen und senden, ohne Text; der Chat baut sie nach `UPDATE.md` ein und sichert die Textfassung als Projekt-Dokument; Knopf heißt „Projekt öffnen“", "y": "Talib: Upload, Knopf, Chat, Einfügen waren zu viele Schritte"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Unterlagen aktualisieren“ im Block „Unterlagen“ (öffnet das claude.ai-Projekt, kopiert „Update“), `UPDATE.md` als gründlicher Einbau-Auftrag (wortgleich in allen Repos), Regel 11 neu; fehlende `APP.projectUrl` trägt der nächste Update-Chat selbst ein", "y": "Talib: Hochladen allein ändert die App nicht, er will ein klares Signal und sorgfältigen Einbau"}, {"d": "2026-11-10", "a": "alle", "w": "Block „Unterlagen“ in allen Apps, Muster je App aus den bisherigen Uploads hergeleitet: BiWi II ein wachsender Foliensatz (immer die neueste ganze Datei), W&G I je Hälfte etwa wöchentlich wie bisher, Wirtschaft II komplett, Politik I nach Vorlesungs- und Verlaufsplan; unsicher heißt „vermutlich“ mit Bitte um Moodle-Screenshot; Regel 7 neu", "y": "Talib: Die Fächer laden sehr unterschiedlich hoch, Claude soll das selbst herleiten und in jedem Chat wissen"}, {"d": "2026-11-04", "a": "alle", "w": "`PRUEFAUFTRAG.md` verschlankt: erst Skripte, dann gezielt lesen, keine parallelen Agenten, Bericht im Chat", "y": "Talib: Das Limit wurde ständig erreicht"}, {"d": "2026-11-04", "a": "alle", "w": "`spaceDays` nie unter 3 Tage, Streuung nach dem Deckel; `design.css`: Grauton und Gold dunkler (WCAG AA), Hinweise voll deckend, Silbentrennung gegen Überlauf bei 180 % Schrift, Zurück, Schließen und Aufklappzeilen 44 px, Häkchen 24 px", "y": "Prüfauftrag Politik I: Stau in der letzten Woche vor der Prüfung, 16 Kontrastfehler, Überlauf bei großer Schrift"}];
+const BRUECKE=[{"d": "2026-11-10", "a": "BiWi II", "w": "Update Sitzung 4 und 5: Kapitel 11 Operante Konditionierung, 12 Lernen am Modell, 2 Gedächtnis, 3 Vergessen und Abruf (17 Lektionen, 69 Karten, 34 Verständnisfragen, 12 Kreuzaufgaben davon 4 echte aus WiSe 24/25, 5 offene Aufgaben mit dem Michael-Fall aus 24/25, 3 Zuordnen-Sätze); Unterlagen-Muster korrigiert: je Sitzung eine eigene Datei statt wachsendem Foliensatz, Sitzung 3 fehlt", "y": "Neue Folien im Projekt; Teil 1 der Klausur 24/25 stammt fast ganz aus diesen Sitzungen"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Projekt öffnen“ wieder entfernt, Hinweis zeigt den Weg in der Claude-App", "y": "Aus der Web-App öffnet iOS einen Browser, in dem Talib nicht angemeldet ist"}, {"d": "2026-11-10", "a": "alle", "w": "Hochladen und Bescheid geben in einem Schritt: Dateien in einem neuen Chat im Projekt anhängen und senden, ohne Text; der Chat baut sie nach `UPDATE.md` ein und sichert die Textfassung als Projekt-Dokument; Knopf heißt „Projekt öffnen“", "y": "Talib: Upload, Knopf, Chat, Einfügen waren zu viele Schritte"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Unterlagen aktualisieren“ im Block „Unterlagen“ (öffnet das claude.ai-Projekt, kopiert „Update“), `UPDATE.md` als gründlicher Einbau-Auftrag (wortgleich in allen Repos), Regel 11 neu; fehlende `APP.projectUrl` trägt der nächste Update-Chat selbst ein", "y": "Talib: Hochladen allein ändert die App nicht, er will ein klares Signal und sorgfältigen Einbau"}, {"d": "2026-11-10", "a": "alle", "w": "Block „Unterlagen“ in allen Apps, Muster je App aus den bisherigen Uploads hergeleitet: BiWi II ein wachsender Foliensatz (immer die neueste ganze Datei), W&G I je Hälfte etwa wöchentlich wie bisher, Wirtschaft II komplett, Politik I nach Vorlesungs- und Verlaufsplan; unsicher heißt „vermutlich“ mit Bitte um Moodle-Screenshot; Regel 7 neu", "y": "Talib: Die Fächer laden sehr unterschiedlich hoch, Claude soll das selbst herleiten und in jedem Chat wissen"}, {"d": "2026-11-04", "a": "alle", "w": "`PRUEFAUFTRAG.md` verschlankt: erst Skripte, dann gezielt lesen, keine parallelen Agenten, Bericht im Chat", "y": "Talib: Das Limit wurde ständig erreicht"}];
 function bridgeBlock(){
   if(!BRUECKE.length) return "";
   const f=s=>{ const [y,m,d]=s.split("-"); return +d+"."+(+m)+"."; };
@@ -1042,8 +1042,8 @@ async function copyText(text,holder){
 const VL={1:"Einführung in die Psychologie", 2:"Lehr-/Lernpsychologie", 3:"Pädagogisch-psychologische Diagnostik", 4:"Inklusion"};
 const CHAPTERS=[
   {n:1,  teil:1, title:"Psychologie als Wissenschaft", teaser:"Lernziele nach Bloom, Kompetenz nach Weinert, die vier Ziele der Psychologie, Konstrukte und Operationalisierung."},
-  {n:2,  teil:1, title:"Gedächtnis", teaser:"Mehrspeichermodell, Arbeitsgedächtnis, Chunking, explizites und implizites Langzeitgedächtnis, Netzwerkmodell."},
-  {n:3,  teil:1, title:"Vergessen und Abruf", teaser:"Verarbeitungstiefe, Enkodierungsspezifität, Interferenz, Kontextfluktuation, abrufinduziertes Vergessen."},
+  {n:2,  teil:1, title:"Gedächtnis", teaser:"Modales Modell, Gedächtnissysteme, episodisches und prozedurales Gedächtnis, Schlaf, Kurzzeit- und Arbeitsgedächtnis."},
+  {n:3,  teil:1, title:"Vergessen und Abruf", teaser:"Enkodierung, Gedächtnis als Konstruktion, Abruf-Cues, Interferenz, Cue-Overload, abrufinduziertes Vergessen."},
   {n:4,  teil:1, title:"Emotion", teaser:"Circumplexmodell nach Russell (Valenz und Erregung) und Strategien der Emotionsregulation."},
   {n:5,  teil:1, title:"Motivation", teaser:"Intrinsisch und extrinsisch, Erwartungs-Wert-Modell nach Atkinson, Attribution und Feedback."},
   {n:6,  teil:1, title:"Volition und Selbststeuerung", teaser:"Exekutive Funktionen (Inhibition, Updating, Shifting) und selbstreguliertes Lernen."},
@@ -1051,8 +1051,8 @@ const CHAPTERS=[
   {n:8,  teil:1, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
   {n:9,  teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Reflexe, Habituation und Sensitivierung."},
   {n:10, teil:2, title:"Klassische Konditionierung", teaser:"Neutrale und konditionierte Reize, Generalisierung, Konditionierung höherer Ordnung."},
-  {n:11, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen nach Skinner, Verstärkerpläne und ihre Wirkung auf künftiges Verhalten."},
-  {n:12, teil:2, title:"Lernen am Modell", teaser:"Beobachtungslernen nach Bandura, stellvertretende Verstärkung, Selbstwirksamkeit."},
+  {n:11, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen, Verstärkungspläne, Bestrafung, erlernte Hilflosigkeit, Fallbeispiele aus der Klausur."},
+  {n:12, teil:2, title:"Lernen am Modell", teaser:"Soziales Lernen nach Bandura, Arten von Modellen, Abgrenzung, Determinanten, Selbstwirksamkeitserwartung."},
   {n:13, teil:2, title:"Wissenserwerb", teaser:"Wie Wissen im Unterricht aufgebaut wird."},
   {n:14, teil:2, title:"Leistungsmessung in der Schule", teaser:"Funktionen schulischer Leistungsbeurteilung, Bezugsnormen, Beurteilungsfehler."},
   {n:15, teil:3, title:"Messen und Skalenniveaus", teaser:"Quantifizierung von Merkmalen, diskrete und stetige Merkmale, Nominal- bis Verhältnisskala."},
@@ -1170,7 +1170,9 @@ CALC[16]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];
 UPLOADS.push(
  {base:true, known:false, items:[{k:"Lehrbuch", t:"Urhahne/Dresel/Fischer 2019", ok:true},{k:"Altklausuren", t:"WiSe 17/18, 18/19, 22/23, 24/25", ok:true},{k:"Fragenkatalog", t:"„Fragen Heine“", ok:true}]},
  {no:1, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 1: Einführung, Schwerpunkte, Psychologie als Wissenschaft", ok:true}]},
- {no:2, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 2: Psychologie als Wissenschaft, Lernen", ok:true}]}
+ {no:2, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 2: Psychologie als Wissenschaft, Lernen", ok:true}]},
+ {no:4, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 4: Lernen 3 & Gedächtnis 1 (34 Folien)", ok:true}]},
+ {no:5, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 5: Gedächtnis 2 (30 Folien)", ok:true}]}
 );
 
 /* ================= Kleine Erklärhilfen zu Karten =================
@@ -2354,6 +2356,539 @@ KURZ.push(
 );
 OPEN.push({id:"o9-k2", ch:9, kind:"kurz", k:"k9-2", pts:10, title:"Nichtassoziatives Lernen"});
 
+/* ================= Kapitel 11: Operante Konditionierung =================
+   Grundlage: Folien Sitzung 4 (WiSe 26/27, Input 1: Folien 5–14), Klausur WiSe 24/25 (Thema 6 „Operante Konditionierung“, 10 P.),
+   Lehrbuch Urhahne/Dresel/Fischer (2019) Kap. 1.4 (Tab. 1.1). Die Folien von Sitzung 3 (Lernen 2, Grundlagen) fehlen noch:
+   Die vier Konsequenzen stehen deshalb vorerst nach Lehrbuch und Klausur. */
+LESSONS[11]=[
+{id:"11-1", t:"Die vier operanten Konsequenzen", html:`
+<p>Bei der operanten Konditionierung wird eine Verknüpfung zwischen einem <b>Verhalten</b> (R) und seiner <b>Konsequenz</b> (S) gelernt. Ob ein Verhalten künftig häufiger oder seltener auftritt, hängt von dieser Konsequenz ab (Skinner, aufbauend auf Thorndikes Gesetz der Wirkung).</p>
+<p>Zwei Fragen ordnen jede Konsequenz ein:</p>
+<ul><li><b>Positiv oder negativ?</b> Das heißt nur: Wird ein Reiz <b>dargeboten</b> (positiv, +) oder <b>entzogen</b> (negativ, −)? Mit „gut“ oder „schlecht“ hat es nichts zu tun.</li>
+<li><b>Verstärkung oder Bestrafung?</b> Verstärkung macht das Verhalten <b>häufiger</b>, Bestrafung macht es <b>seltener</b>.</li></ul>
+<table class="kvq"><tr><th></th><th>Reiz wird dargeboten</th><th>Reiz wird entzogen</th></tr>
+<tr><td>angenehmer (appetitiver) Reiz</td><td><b>positive Verstärkung</b><br><span class="small muted">Lob für gute Mitarbeit</span></td><td><b>negative Bestrafung</b><br><span class="small muted">Wegnahme des Handys</span></td></tr>
+<tr><td>unangenehmer (aversiver) Reiz</td><td><b>positive Bestrafung</b><br><span class="small muted">Ermahnung bei Unterrichtsstörung</span></td><td><b>negative Verstärkung</b><br><span class="small muted">Befreiung von Hausaufgaben</span></td></tr></table>
+<p>Folgt gar keine Konsequenz mehr, wird das Verhalten nach und nach seltener: <b>Löschung</b> (Extinktion).</p>
+<div class="merk"><b>So fragt Heine in der Klausur (WiSe 24/25)</b>Name der Konsequenz, dann der Mechanismus „allgemein“ (welche Art Konsequenz wird dargeboten oder entfernt?) und „im konkreten Fall“, dann der Effekt auf die Auftretenshäufigkeit, allgemein und konkret. Bei negativer Bestrafung also: Eine <i>appetitive</i> Konsequenz wird <i>entnommen</i>, die Auftretenshäufigkeit <i>sinkt</i>.</div>
+<p class="small muted">Quelle: Lehrbuch Kap. 1.4, Tab. 1.1, und Klausur WiSe 24/25. Die Folien zu Sitzung 3 fehlen noch in der App.</p>`,
+check:[
+ {q:"Was bedeutet „negativ“ bei negativer Verstärkung?", o:["Die Konsequenz ist unangenehm","Ein Reiz wird entzogen","Das Verhalten wird seltener","Die Lehrkraft ist unzufrieden"], a:1, ex:"Positiv und negativ sagen nur, ob ein Reiz dargeboten oder entzogen wird. Bei negativer Verstärkung fällt etwas Unangenehmes weg, deshalb wird das Verhalten häufiger.", w:["Unangenehm ist der Reiz, der wegfällt. „Negativ“ bezeichnet aber das Wegnehmen, nicht die Qualität.",null,"Seltener wird ein Verhalten durch Bestrafung. Jede Verstärkung macht es häufiger.","Die Stimmung der Lehrkraft spielt für die Einteilung keine Rolle."]},
+ {q:"Weil ein Schüler im Unterricht spielt, wird ihm das Handy bis Stundenende abgenommen. Welche Konsequenz liegt vor?", o:["Positive Bestrafung","Negative Verstärkung","Negative Bestrafung","Löschung"], a:2, ex:"Ein angenehmer (appetitiver) Reiz wird entzogen, das Spielen soll seltener werden.", w:["Bei positiver Bestrafung käme etwas Unangenehmes hinzu, z. B. eine Ermahnung.","Negative Verstärkung macht ein Verhalten häufiger, weil etwas Unangenehmes wegfällt.",null,"Löschung hieße, dass gar keine Konsequenz mehr folgt."]}
+]},
+{id:"11-2", t:"Verstärkungspläne und ihre Effekte", html:`
+<p>Bei <b>kontinuierlicher Verstärkung</b> (continuous reinforcement, <b>CRF</b>) wird jede einzelne Verhaltensäußerung verstärkt. Wird nur manchmal verstärkt, spricht man von <b>intermittierender Verstärkung</b>. Die vier wichtigsten Pläne:</p>
+<table class="kvq"><tr><th></th><th>Quotenpläne (nach Anzahl)</th><th>Intervallpläne (nach Zeit)</th></tr>
+<tr><td>fest</td><td><b>Feste Quote</b> (FQ, fixed ratio): exakt jede x-te korrekte Reaktion wird verstärkt. Spezialfall: CRF</td><td><b>Festes Intervall</b> (FI): jeweils die erste korrekte Reaktion eines x-Minuten-Intervalls wird verstärkt</td></tr>
+<tr><td>variabel</td><td><b>Variable Quote</b> (VQ): ungefähr jede x-te korrekte Reaktion wird verstärkt</td><td><b>Variables Intervall</b> (VI): durchschnittlich alle x Minuten wird eine korrekte Reaktion verstärkt</td></tr></table>
+<p><b>Effekte:</b></p>
+<ul><li><b>CRF</b> führt <b>rasch zum Erwerb</b> des Verhaltens. Bleibt die Verstärkung aus, wird das Verhalten aber <b>schnell eingestellt</b> (Extinktion).</li>
+<li><b>Intermittierende Verstärkung</b> ist <b>extinktionsresistenter</b> als CRF („<b>partieller Verstärkungseffekt</b>“). Sie ist die Basis von <b>Fading/Thinning</b>: erst kontinuierlich verstärken, dann immer seltener.</li></ul>
+<table class="kvq"><tr><th>Plan</th><th>Reaktionsrate</th><th>Besonderheit</th></tr>
+<tr><td>FQ</td><td>hoch</td><td><b>Nachverstärkungspause</b> (post-reinforcement effect, PRE)</td></tr>
+<tr><td>VQ</td><td>hoch, gleichmäßig</td><td>geringe Nachverstärkungspause</td></tr>
+<tr><td>FI</td><td>moderat</td><td><b>FI-Bögen</b>: Pause nach der Verstärkung, dann immer schnellere Reaktion</td></tr>
+<tr><td>VI</td><td>moderat, gleichmäßig</td><td></td></tr></table>
+<div class="merk"><b>Merksatz</b><div class="mrows">
+<div><span class="ml">Quote</span><span>hohe Raten, denn mehr Verhalten bringt mehr Verstärkung</span></div>
+<div><span class="ml">Variabel</span><span>gleichmäßig, denn die nächste Verstärkung ist nie vorhersehbar</span></div></div></div>`,
+check:[
+ {q:"Ein Kind bekommt anfangs für jede gelesene Seite einen Sticker, später nur noch ab und zu. Was ist der Vorteil?", o:["Das Verhalten wird schneller erworben","Das Verhalten wird extinktionsresistenter","Die Nachverstärkungspause verschwindet ganz","Das Verhalten wird nicht mehr bewusst gesteuert"], a:1, ex:"Das ist Fading/Thinning: CRF für den schnellen Erwerb, dann intermittierend, weil das stabiler gegen Löschung ist (partieller Verstärkungseffekt).", w:["Schnell erworben wird mit CRF, also in der ersten Phase. Der Wechsel dient der Stabilität.",null,"Eine Nachverstärkungspause gibt es bei festen Quoten. Sie verschwindet durch Fading nicht automatisch.","Mit Bewusstheit hat der Verstärkungsplan nichts zu tun."]},
+ {q:"Eine Lehrkraft sammelt jeden Freitag die Hefte ein und lobt die Mitarbeit. Viele arbeiten erst donnerstags richtig. Welcher Plan und welcher Effekt?", o:["Variable Quote, gleichmäßige Rate","Festes Intervall, FI-Bogen","Feste Quote, hohe Rate","Variables Intervall, kein Effekt"], a:1, ex:"Verstärkt wird nach festen Zeitabständen. Nach der Verstärkung folgt eine Pause, vor dem nächsten Termin steigt die Reaktion an: FI-Bogen.", w:["Bei variabler Quote hängt die Verstärkung von der Anzahl der Reaktionen ab und ist unvorhersehbar.",null,"Bei fester Quote zählt die Anzahl der Reaktionen, nicht der Wochentag.","Ein variables Intervall wäre ein unvorhersehbarer Termin. Es führt zu gleichmäßigen Raten."]}
+]},
+{id:"11-3", t:"Was die Lernkurve beeinflusst, und Bestrafung", html:`
+<p>Wie schnell ein Verhalten erworben wird, hängt unter anderem ab von:</p>
+<ul><li><b>Kontiguität:</b> Je geringer der zeitliche Abstand zwischen Verhalten und Verstärkung, desto schneller der Erwerb.</li>
+<li><b>Kontingenz:</b> Wie regelmäßig das Verhalten verstärkt wird (→ Verstärkungspläne).</li>
+<li><b>Motivation:</b> Die Wirkung des Verstärkers hängt von der momentanen motivationalen Lage ab (z. B. Hunger).</li>
+<li><b>Verstärkereigenschaften:</b> Je potenter der Verstärker, desto schneller der Erwerb.</li></ul>
+<p><b>Bestrafung</b> dient dazu, Verhaltenstendenzen zu schwächen. Positive Bestrafung (eine aversive Konsequenz) hat im echten Leben Probleme:</p>
+<ul><li>Sie <b>stärkt kein erwünschtes Verhalten</b>.</li>
+<li>Der Bestrafer wird <b>gemieden</b>, oder das Verhalten wird <b>nur in seiner Anwesenheit</b> unterdrückt.</li>
+<li>Sie führt zu <b>emotionalen Reaktionen</b> wie Aggression.</li>
+<li>Der Effekt von Bestrafung <b>verstärkt auch das Bestrafungsverhalten</b> des Bestrafers.</li></ul>
+<p>Wenn positive (statt negative!) Bestrafung, dann</p>
+<ul><li><b>ohne Verzögerung</b>,</li><li><b>nicht intermittierend</b>,</li><li><b>von Beginn an mit der notwendigen Intensität</b>,</li><li>mit <b>gleichzeitiger Verstärkung erwünschten Verhaltens</b>,</li><li>bei Menschen in Kombination mit <b>Erklärungen</b>.</li></ul>
+<div class="merk"><b>Schulbezug</b>Wer nur ermahnt, bringt der Klasse nicht bei, was sie stattdessen tun soll. Deshalb gehört zur Strafe immer die Verstärkung des erwünschten Verhaltens. Ruft eine Lehrkraft selten und unberechenbar zur Ordnung, ist die Bestrafung intermittierend und wirkt schlecht.</div>`,
+check:[
+ {q:"Warum wirkt positive Bestrafung im Alltag oft nicht wie gewünscht?", o:["Weil sie das unerwünschte Verhalten immer noch verstärkt","Weil sie nichts Erwünschtes aufbaut und der Bestrafer gemieden wird","Weil sie nur bei Tieren im Labor zuverlässig funktioniert","Weil sie meist viel zu schnell auf das Verhalten folgt"], a:1, ex:"Laut Folie stärkt Bestrafung kein erwünschtes Verhalten, der Bestrafer wird gemieden oder das Verhalten nur in seiner Anwesenheit unterdrückt, dazu kommen Aggression und ein sich selbst verstärkendes Bestrafen.", w:["Bestrafung schwächt Verhaltenstendenzen. Dass sie das Verhalten immer verstärkt, steht nirgends.",null,"Die Probleme sind gerade aus dem menschlichen Alltag bekannt.","Im Gegenteil: Bestrafung soll ohne Verzögerung erfolgen."]},
+ {q:"Welche Bedingung nennt Heine für den Einsatz positiver Bestrafung?", o:["Erst schwach beginnen und dann langsam steigern","Nur ab und zu, damit sie überraschend kommt","Sofort und von Beginn an mit nötiger Intensität","Ohne Erklärung, damit sie stärker wirkt"], a:2, ex:"Bestrafung soll sofort, nicht intermittierend, gleich mit der nötigen Intensität, mit Verstärkung des Erwünschten und mit Erklärung erfolgen.", w:["Langsames Steigern widerspricht der Bedingung „von Beginn an mit notwendiger Intensität“.","Gerade nicht intermittierend: Bestrafung soll jedes Mal erfolgen.",null,"Bei Menschen soll Bestrafung mit Erklärungen verbunden werden."]}
+]},
+{id:"11-4", t:"Erlernte Hilflosigkeit und Fallbeispiele", html:`
+<p><b>Erlernte Hilflosigkeit</b> (Seligman) ist eine mögliche Folge, wenn jemand wiederholt aversiven Reizen ausgesetzt ist, die er als <b>nicht kontrollierbar</b> erlebt. Sie geht einher mit</p>
+<ul><li>psychischen Symptomen wie Stress, Angst, Apathie, Depression und psychosomatischen Erkrankungen,</li><li>einer <b>Verminderung der Lernfähigkeit</b>.</li></ul>
+<p>Zentral für die Entstehung ist ein <b>Mangel an Kontingenz</b> zwischen Verhalten und Konsequenz: Die Person erfährt, dass ihre Reaktion die Konsequenz nicht kontrolliert. <span class="small muted">Schulbezug: Wer trotz Anstrengung immer schlechte Noten bekommt, erlebt genau diese fehlende Kontingenz.</span></p>
+<p><b>Fallbeispiele von den Folien</b> <span class="erg">Lösungsvorschlag</span> <span class="small muted">Die Folien stellen nur die Frage.</span></p>
+<table class="kvq"><tr><th>Fall</th><th>Verhalten → Konsequenz</th><th>Art</th></tr>
+<tr><td><b>Michael</b> (Klausur 24/25)</td><td>Ohrfeige → zwei Wochen Trainingsverbot, also wird eine appetitive Konsequenz (Fußballspielen) entnommen. Danach schlägt er nicht mehr.</td><td>negative Bestrafung</td></tr>
+<tr><td><b>Mutter</b> (Fall 2)</td><td>Süßigkeit kaufen → Quengeln und Weinen hören auf, also fällt etwas Aversives weg. Beim nächsten Mal kauft sie schon vorher.</td><td>negative Verstärkung</td></tr>
+<tr><td><b>Lina</b> (Fall 3)</td><td>Quengeln und Weinen → Süßigkeit, also kommt etwas Appetitives hinzu. Beim nächsten Einkauf quengelt sie wieder.</td><td>positive Verstärkung</td></tr>
+<tr><td><b>Snoopy</b> (Fall 4)</td><td>dem Zaun nähern → schrilles Piepsen, also kommt etwas Aversives hinzu. Er meidet den Zaun.</td><td>positive Bestrafung</td></tr></table>
+<div class="merk"><b>Merksatz</b>Immer zuerst fragen: Wessen Verhalten betrachte ich? Dieselbe Szene (Mutter und Lina) enthält zwei verschiedene Lernprozesse, je nachdem, auf wen man schaut.</div>`,
+check:[
+ {q:"Was ist laut Folie zentral für die Entstehung erlernter Hilflosigkeit?", o:["Zu häufige Verstärkung durch die Umwelt","Fehlende Kontingenz von Verhalten und Konsequenz","Eine einmalige, aber sehr starke Bestrafung","Die Beobachtung eines hilflosen Modells"], a:1, ex:"Die Person erfährt, dass ihre Reaktion die Konsequenz nicht kontrolliert.", w:["Häufige Verstärkung setzt gerade Kontingenz voraus.",null,"Stärke allein ist nicht entscheidend, sondern die Unkontrollierbarkeit.","Beobachtungslernen ist eine andere Lernform. Hilflosigkeit entsteht durch eigene Erfahrung."]},
+ {q:"Fall 2 aus der Vorlesung, Fokus Mutter: Sie kauft die Süßigkeit, das Weinen hört auf, beim nächsten Mal kauft sie schon früher. Was liegt vor?", o:["Positive Verstärkung","Negative Verstärkung","Negative Bestrafung","Positive Bestrafung"], a:1, ex:"Das Verhalten der Mutter (kaufen) wird häufiger, weil dadurch etwas Aversives (Quengeln, Weinen) entfernt wird.", w:["Positive Verstärkung gilt für Lina: Sie bekommt etwas Angenehmes. Für die Mutter fällt etwas weg.",null,"Bestrafung macht ein Verhalten seltener. Das Kaufen wird aber häufiger.","Bei positiver Bestrafung käme etwas Unangenehmes hinzu und das Verhalten würde seltener."]}
+]}
+];
+
+CARDS[11]=[
+ {id:"c11-01", f:"Operante Konditionierung: was wird gelernt?", b:"Die Verknüpfung von Verhalten und Konsequenz (R → S). Die Konsequenz bestimmt, ob das Verhalten künftig häufiger oder seltener auftritt."},
+ {id:"c11-02", f:"„Positiv“ und „negativ“ bei operanten Konsequenzen", b:"Positiv: Ein Reiz wird dargeboten.\nNegativ: Ein Reiz wird entzogen.\nKeine Wertung („gut“/„schlecht“)."},
+ {id:"c11-03", f:"Positive Verstärkung", b:"Ein appetitiver (angenehmer) Reiz wird dargeboten, das Verhalten wird häufiger.\nBeispiel: Lob für gute Mitarbeit."},
+ {id:"c11-04", f:"Negative Verstärkung", b:"Ein aversiver (unangenehmer) Reiz wird entzogen, das Verhalten wird häufiger.\nBeispiel: Befreiung von Hausaufgaben."},
+ {id:"c11-05", f:"Positive Bestrafung", b:"Ein aversiver Reiz wird dargeboten, das Verhalten wird seltener.\nBeispiel: Ermahnung bei Unterrichtsstörung."},
+ {id:"c11-06", f:"Negative Bestrafung", b:"Ein appetitiver Reiz wird entzogen, das Verhalten wird seltener.\nBeispiel: Wegnahme des Handys, Trainingsverbot (Klausur 24/25)."},
+ {id:"c11-07", f:"Kontinuierliche Verstärkung (CRF)", b:"Jede einzelne Verhaltensäußerung wird verstärkt.\nEffekt: rascher Erwerb, aber schnelle Extinktion, wenn die Verstärkung ausbleibt."},
+ {id:"c11-08", f:"Die vier intermittierenden Verstärkungspläne", b:"Feste Quote (FQ): exakt jede x-te Reaktion\nVariable Quote (VQ): ungefähr jede x-te Reaktion\nFestes Intervall (FI): erste Reaktion nach x Minuten\nVariables Intervall (VI): durchschnittlich alle x Minuten"},
+ {id:"c11-09", f:"Partieller Verstärkungseffekt", b:"Intermittierend verstärktes Verhalten ist extinktionsresistenter als kontinuierlich verstärktes. Basis von Fading/Thinning."},
+ {id:"c11-10", f:"Effekte der vier Pläne", b:"FQ: hohe Raten, Nachverstärkungspause (PRE)\nVQ: hohe, gleichmäßige Raten, geringe PRE\nFI: moderate Raten, FI-Bögen\nVI: moderate, gleichmäßige Raten"},
+ {id:"c11-11", f:"FI-Bogen", b:"Typischer Verlauf beim festen Intervall: Nach der Verstärkung eine Pause (PRE), dann immer schnellere Reaktion bis zum nächsten Verstärkungszeitpunkt."},
+ {id:"c11-12", f:"Vier Variablen, die die Lernkurve beeinflussen", b:"Kontiguität (zeitliche Nähe von Verhalten und Verstärkung)\nKontingenz (Regelmäßigkeit der Verstärkung)\nMotivation (momentane Lage, z. B. Hunger)\nVerstärkereigenschaften (Potenz des Verstärkers)"},
+ {id:"c11-13", f:"Probleme positiver Bestrafung im Alltag", b:"keine Stärkung erwünschten Verhaltens\nBestrafer wird gemieden bzw. Verhalten nur in seiner Anwesenheit unterdrückt\nemotionale Reaktionen wie Aggression\nEffekt verstärkt auch das Bestrafungsverhalten"},
+ {id:"c11-14", f:"Bedingungen, wenn positiv bestraft wird", b:"ohne Verzögerung\nnicht intermittierend\nvon Beginn an mit notwendiger Intensität\nmit gleichzeitiger Verstärkung erwünschten Verhaltens\nbei Menschen mit Erklärungen"},
+ {id:"c11-15", f:"Erlernte Hilflosigkeit (Seligman)", b:"Mögliche Folge wiederholter, als unkontrollierbar erlebter aversiver Reize. Symptome: Stress, Angst, Apathie, Depression, psychosomatische Erkrankungen, verminderte Lernfähigkeit.\nZentral: Mangel an Kontingenz von Verhalten und Konsequenz."},
+ {id:"c11-16", f:"Fall Michael (Klausur 24/25): Ohrfeige → zwei Wochen Trainingsverbot", b:"Negative Bestrafung: Eine appetitive Konsequenz (Fußballspielen) wird entnommen. Die Auftretenshäufigkeit des Verhaltens sinkt: Michael schlägt beim nächsten Foul nicht mehr."}
+];
+Object.assign(CARD_INFO,{
+ "c11-01":"Operant: Das Verhalten „operiert“ auf die Umwelt und verändert sie.",
+ "c11-03":"Appetitiv: lateinisch appetere, „begehren“, also angenehm, erstrebt.",
+ "c11-04":"Aversiv: lateinisch aversus, „abgewandt“, also unangenehm, gemieden.",
+ "c11-07":"CRF: continuous reinforcement.\nExtinktion: Löschung, das Verhalten verschwindet ohne Verstärkung.",
+ "c11-08":"Intermittierend: lateinisch „unterbrochen“, also nicht jedes Mal.\nRatio: Quote. Interval: Zeitspanne.",
+ "c11-09":"Fading/Thinning: Verstärkung schrittweise „ausblenden“ bzw. „ausdünnen“.",
+ "c11-10":"PRE: post-reinforcement effect, die Pause direkt nach einer Verstärkung.",
+ "c11-12":"Kontiguität: zeitliche Nähe. Kontingenz: regelhafte Verknüpfung.",
+ "c11-15":"Martin Seligman, US-amerikanischer Psychologe, Experimente mit unausweichlichen Reizen."
+});
+Object.assign(CARD_CTX,{
+ "c11-01":"Lernen durch Konsequenzen","c11-02":"Vorsicht vor der Alltagsbedeutung","c11-03":"Erste der vier Konsequenzen","c11-04":"Zweite der vier Konsequenzen",
+ "c11-05":"Dritte der vier Konsequenzen","c11-06":"Vierte der vier Konsequenzen","c11-07":"Jedes Mal verstärken","c11-08":"Nur manchmal verstärken",
+ "c11-09":"Warum seltener verstärken hilft","c11-10":"Wie sich die Pläne auswirken","c11-11":"Ein typischer Verlauf","c11-12":"Wovon die Lernkurve abhängt",
+ "c11-13":"Warum Strafen oft schiefgeht","c11-14":"Wenn schon strafen, dann so","c11-15":"Wenn Verhalten nichts bewirkt","c11-16":"Echte Klausuraufgabe"
+});
+
+/* ================= Kapitel 12: Lernen am Modell =================
+   Grundlage: Folien Sitzung 4 (WiSe 26/27, Input 2: Folien 16–21) */
+LESSONS[12]=[
+{id:"12-1", t:"Soziales Lernen und Modelle", html:`
+<p>Allgemein ist Lernen eine Änderung von Verhalten, die durch Erfahrung bedingt ist. <b>Banduras Theorie des sozialen Lernens</b> betont: Höhere Lebewesen lernen nicht in Isolation, sondern zunächst und vor allem <b>eingebettet in soziale Kontexte</b>.</p>
+<p>Unter dem Oberbegriff <b>soziales Lernen</b> werden diskutiert:</p>
+<ul><li><b>Beobachtungslernen</b> (observational learning),</li><li><b>Imitationslernen</b> (imitation learning),</li><li><b>stellvertretendes Lernen</b> (vicarious learning).</li></ul>
+<p>Zentral ist jeweils das <b>Modell</b>, also eine Verhaltensvorgabe, die der Beobachter erwerben soll. Heine unterscheidet vier Arten:</p>
+<table class="kvq"><tr><th>Modell</th><th>Was passiert</th></tr>
+<tr><td><b>reales Modell</b></td><td>Ein Anderer (Person, Tier) zeigt ein Verhalten und dessen Konsequenz.</td></tr>
+<tr><td><b>symbolisch-verbales Modell</b></td><td>Ein Anderer beschreibt ein Verhalten und instruiert, wie man es ausführt.</td></tr>
+<tr><td><b>symbolisch-bildhaftes Modell</b></td><td>Ein Medium zeigt das Verhalten (Film usw.).</td></tr>
+<tr><td><b>imaginäres Modell</b></td><td>Ein vorgestellter Anderer dient als Vorbild.</td></tr></table>`,
+check:[
+ {q:"Eine Sportlehrerin erklärt nur mit Worten, wie der Handstand geht, ohne ihn vorzumachen. Welches Modell ist das?", o:["Reales Modell","Symbolisch-verbales Modell","Symbolisch-bildhaftes Modell","Imaginäres Modell"], a:1, ex:"Das Verhalten wird beschrieben und es wird instruiert, wie man es ausführt.", w:["Ein reales Modell würde den Handstand selbst vormachen.",null,"Symbolisch-bildhaft wäre ein Video oder ein Bild.","Imaginär wäre ein vorgestelltes Vorbild, kein Mensch, der gerade spricht."]},
+ {q:"Was ist der Kern von Banduras Theorie des sozialen Lernens?", o:["Lernen geschieht nur durch eigene Konsequenzen","Lernen ist vor allem in soziale Kontexte eingebettet","Lernen ist angeboren","Lernen braucht immer Belohnung"], a:1, ex:"Höhere Lebewesen lernen nicht isoliert, sondern zunächst und vor allem im sozialen Kontext.", w:["Eigene Konsequenzen sind operante Konditionierung. Bandura betont das Lernen von anderen.",null,"Angeborenes ist gerade kein Lernen.","Beobachtungslernen findet auch ohne Belohnung des Beobachters statt."]}
+]},
+{id:"12-2", t:"Beobachtungslernen und Abgrenzung", html:`
+<p>Beim <b>Beobachtungslernen</b> ändert sich das Verhalten (Verhaltenskopie), nachdem das Individuum (Mensch oder Tier) ein Modell bei der Ausführung einer Handlung beobachtet hat.</p>
+<ul><li>Es ist <b>unabhängig davon, ob Beobachter oder Modell sich bewusst sind, dass gelernt wird</b>.</li>
+<li>Weil die Leistung davon profitiert, ein anderes, im Idealfall <b>kompetenteres</b> Individuum zu beobachten, nutzt man es z. B. im <b>Sport</b> oder in der <b>Verhaltenstherapie</b>.</li></ul>
+<p>Abzugrenzen sind einfachere Formen sozialer Verhaltensbeeinflussung, die typischerweise nur zu <b>kurzfristiger</b> Verhaltensänderung führen:</p>
+<table class="kvq"><tr><th>Form</th><th>Was passiert</th><th>Beispiel</th></tr>
+<tr><td><b>Verhaltensansteckung</b></td><td>Ausführung (mehr oder weniger) instinktiver Verhaltensmuster nach Beobachtung bei einem Artgenossen</td><td>gähnen, fliehen, lachen</td></tr>
+<tr><td><b>Aufmerksamkeitslenkung</b></td><td>Das Verhalten eines Artgenossen verändert die Salienz eines Reizes</td><td>Zeigegeste</td></tr></table>
+<div class="merk"><b>Merksatz</b>Beobachtungslernen: eine neue Verhaltenskopie, die bleibt. Ansteckung und Aufmerksamkeitslenkung: kurzfristig, ohne dass etwas Neues erworben wird.</div>`,
+check:[
+ {q:"Im Klassenraum gähnt eine Schülerin, kurz darauf gähnen drei weitere. Was liegt vor?", o:["Beobachtungslernen","Verhaltensansteckung","Aufmerksamkeitslenkung","Stellvertretende Verstärkung"], a:1, ex:"Ein instinktives Verhaltensmuster wird nach Beobachtung ausgeführt, kurzfristig und ohne Erwerb von etwas Neuem.", w:["Beobachtungslernen erwirbt ein neues Verhalten dauerhaft. Gähnen ist instinktiv.",null,"Aufmerksamkeitslenkung hieße, dass ein Reiz durch das Verhalten anderer auffälliger wird, etwa durch Zeigen.","Hier wird nichts verstärkt, das Gähnen wird einfach ausgelöst."]},
+ {q:"Was gilt laut Folie für Beobachtungslernen?", o:["Es setzt voraus, dass das Modell bewusst lehren will","Es findet ausschließlich bei Menschen statt, nicht bei Tieren","Es ist unabhängig davon, ob das Lernen bewusst geschieht","Es führt nur zu einer kurzfristigen Änderung im Verhalten"], a:2, ex:"Weder Beobachter noch Modell müssen wissen, dass gelernt wird.", w:["Das Modell muss nichts davon wissen.","Die Folie nennt ausdrücklich Mensch und Tier.",null,"Kurzfristig sind gerade die einfacheren Formen wie Verhaltensansteckung."]}
+]},
+{id:"12-3", t:"Determinanten und Selbstwirksamkeitserwartung", html:`
+<p>Ob beobachtetes Verhalten übernommen wird, hängt ab von:</p>
+<table class="kvq"><tr><th>Determinante</th><th>Wirkung</th></tr>
+<tr><td><b>beobachtete Konsequenzen für das Modell</b></td><td>Je positiver, desto eher wird das Verhalten übernommen.</td></tr>
+<tr><td><b>Konsequenzen für den Beobachter</b></td><td>Je positiver, desto eher wird es wiederholt (vgl. „see aggression, do aggression“, <b>Bobo-Doll-Experimente</b> der 1960er).</td></tr>
+<tr><td><b>Eigenschaften des Modells</b></td><td>Je attraktiver und ähnlicher dem Beobachter, desto eher wird übernommen.</td></tr>
+<tr><td><b>Fähigkeiten des Beobachters</b></td><td>Er muss grundsätzlich in der Lage sein, das Verhalten auszuführen.</td></tr>
+<tr><td><b>Lerngeschichte des Beobachters</b></td><td>Bisherige Erfahrungen mit dem Übernehmen von Modellverhalten (→ Selbstwirksamkeitserwartung).</td></tr></table>
+<p>Bandura geht davon aus, dass Lernprozesse stark von <b>kognitiven Bewertungsprozessen</b> abhängen. Die wichtigste ist die <b>Selbstwirksamkeitserwartung</b>: die Beurteilung der eigenen Fähigkeiten, ein Zielverhalten zu planen und auszuführen.</p>
+<ul><li>Relevant ist <b>nicht das tatsächliche Können</b>, sondern die individuelle Beurteilung, was man mit seinen Fähigkeiten erreichen kann.</li>
+<li>Lernen wird wahrscheinlicher, wenn die Selbstwirksamkeitserwartung positiv ist, also ein Ergebnis als möglich erkannt wird.</li></ul>
+<div class="merk"><b>Schulbezug</b>Ein Mitschüler als Modell wirkt oft besser als die Lehrkraft, weil er ähnlicher ist. Wer sieht, dass ein ähnlicher Schüler die Aufgabe schafft und dafür gelobt wird, traut es sich eher selbst zu.</div>`,
+check:[
+ {q:"Welches Modell wird laut Folie am ehesten nachgeahmt?", o:["Ein unbekanntes Modell, das dem Beobachter sehr unähnlich ist","Ein attraktives Modell, das dem Beobachter ähnlich ist","Ein Modell, das für sein Verhalten sichtbar bestraft wird","Ein Modell, dessen Verhalten der Beobachter nicht ausführen kann"], a:1, ex:"Attraktivität und Ähnlichkeit des Modells erhöhen die Wahrscheinlichkeit der Übernahme.", w:["Unähnlichkeit senkt die Übernahme.",null,"Negative beobachtete Konsequenzen machen die Übernahme unwahrscheinlicher.","Der Beobachter muss das Verhalten grundsätzlich ausführen können."]},
+ {q:"Was ist bei der Selbstwirksamkeitserwartung entscheidend?", o:["Das tatsächliche, messbare Können der Person","Die eigene Beurteilung, was man erreichen kann","Die Bewertung der Person durch die Lehrkraft","Die Zahl der bisher erhaltenen Belohnungen"], a:1, ex:"Nicht das Können zählt, sondern die subjektive Einschätzung, ein Ergebnis zu erreichen.", w:["Die Folie betont ausdrücklich, dass es nicht um das tatsächliche Können geht.",null,"Es ist eine Selbstbeurteilung, keine Fremdbeurteilung.","Belohnungen können die Lerngeschichte prägen, entscheidend ist aber die eigene Beurteilung."]}
+]}
+];
+
+CARDS[12]=[
+ {id:"c12-01", f:"Banduras Theorie des sozialen Lernens: Kernannahme", b:"Höhere Lebewesen lernen nicht in Isolation, sondern zunächst und vor allem eingebettet in soziale Kontexte."},
+ {id:"c12-02", f:"Drei Begriffe unter dem Dach des sozialen Lernens", b:"Beobachtungslernen (observational learning)\nImitationslernen (imitation learning)\nstellvertretendes Lernen (vicarious learning)"},
+ {id:"c12-03", f:"Modell (beim sozialen Lernen)", b:"Eine Verhaltensvorgabe, die vom Beobachter erworben werden soll."},
+ {id:"c12-04", f:"Die vier Arten von Modellen", b:"Real: ein Anderer zeigt Verhalten und Konsequenz\nSymbolisch-verbal: ein Anderer beschreibt und instruiert\nSymbolisch-bildhaft: ein Medium (Film) zeigt das Verhalten\nImaginär: ein vorgestellter Anderer als Vorbild"},
+ {id:"c12-05", f:"Beobachtungslernen", b:"Verhaltensänderung (Verhaltenskopie), nachdem ein Individuum ein Modell bei der Ausführung einer Handlung beobachtet hat. Unabhängig davon, ob Beobachter oder Modell sich des Lernens bewusst sind."},
+ {id:"c12-06", f:"Wo wird Beobachtungslernen gezielt genutzt?", b:"Im Sport und in der Verhaltenstherapie, weil die Leistung davon profitiert, ein (im Idealfall kompetenteres) Modell zu beobachten."},
+ {id:"c12-07", f:"Verhaltensansteckung", b:"Ausführung (mehr oder weniger) instinktiver Verhaltensmuster nach Beobachtung bei einem Artgenossen, z. B. gähnen, fliehen, lachen. Kurzfristig, kein Beobachtungslernen."},
+ {id:"c12-08", f:"Aufmerksamkeitslenkung", b:"Verhaltensänderung, weil das Verhalten eines Artgenossen die Salienz eines Reizes verändert, z. B. durch Zeigegesten. Kurzfristig, kein Beobachtungslernen."},
+ {id:"c12-09", f:"Fünf Determinanten des Beobachtungslernens", b:"beobachtete Konsequenzen für das Modell\nKonsequenzen für den Beobachter\nEigenschaften des Modells (attraktiv, ähnlich)\nFähigkeiten des Beobachters\nLerngeschichte des Beobachters"},
+ {id:"c12-10", f:"Bobo-Doll-Experimente (1960er)", b:"Beleg für „see aggression, do aggression“: Kinder übernehmen beobachtetes aggressives Verhalten, besonders wenn die Konsequenzen positiv sind."},
+ {id:"c12-11", f:"Selbstwirksamkeitserwartung", b:"Beurteilung der eigenen Fähigkeiten zur Planung und Ausführung eines Zielverhaltens. Relevant ist nicht das tatsächliche Können, sondern die eigene Beurteilung. Positive Erwartung macht Lernen wahrscheinlicher."}
+];
+Object.assign(CARD_INFO,{
+ "c12-01":"Albert Bandura (1925–2021), kanadisch-amerikanischer Psychologe.",
+ "c12-02":"Vicarious: englisch „stellvertretend“.",
+ "c12-08":"Salienz: wie auffällig ein Reiz ist.",
+ "c12-10":"Bobo: aufblasbare Stehaufpuppe, die Kinder nach einem aggressiven Modell schlugen."
+});
+Object.assign(CARD_CTX,{
+ "c12-01":"Lernen von anderen","c12-02":"Was zum sozialen Lernen gehört","c12-03":"Zentraler Begriff","c12-04":"Wer oder was als Vorbild dient",
+ "c12-05":"Die eigentliche Lernform","c12-06":"Anwendung","c12-07":"Abgrenzung: kurzfristig","c12-08":"Abgrenzung: kurzfristig",
+ "c12-09":"Wovon die Übernahme abhängt","c12-10":"Ein klassischer Befund","c12-11":"Kognitive Bewertung nach Bandura"
+});
+
+KREUZ.push(
+ {id:"x11-01", ch:11, stem:"Für Verstärkungspläne gilt:", s:[
+  ["Kontinuierliche Verstärkung führt rasch zum Erwerb des angestrebten Verhaltens.", true, "So auf der Folie: CRF führt rasch zum Erwerb."],
+  ["Kontinuierlich verstärktes Verhalten ist extinktionsresistenter als intermittierend verstärktes.", false, "Umgekehrt: <b>Intermittierende</b> Verstärkung ist extinktionsresistenter (partieller Verstärkungseffekt)."],
+  ["Bei einem festen Intervallplan zeigen sich typischerweise FI-Bögen.", true, "Pause nach der Verstärkung, dann beschleunigte Reaktion."]]},
+ {id:"x11-02", ch:11, stem:"In Bezug auf operante Konsequenzen gilt:", s:[
+  ["Bei negativer Verstärkung wird ein aversiver Reiz entfernt.", true, "Das Verhalten wird häufiger, weil etwas Unangenehmes wegfällt."],
+  ["Negative Bestrafung bedeutet, dass ein unangenehmer Reiz dargeboten wird.", false, "Das ist <b>positive</b> Bestrafung. Bei negativer Bestrafung wird ein <b>appetitiver</b> Reiz entzogen."],
+  ["Wenn positive Bestrafung eingesetzt wird, dann ohne Verzögerung und nicht intermittierend.", true, "So die Bedingungen auf der Folie."]]},
+ {id:"x11-03", ch:11, stem:"Für das instrumentelle Lernen gilt:", s:[
+  ["Je größer der zeitliche Abstand zwischen Verhalten und Verstärkung, desto schneller der Erwerb.", false, "Kontiguität: Je <b>geringer</b> der Abstand, desto schneller der Erwerb."],
+  ["Zentral für erlernte Hilflosigkeit ist ein Mangel an Kontingenz von Verhalten und Konsequenz.", true, "Die Person erfährt, dass ihre Reaktion die Konsequenz nicht kontrolliert."],
+  ["Erlernte Hilflosigkeit geht mit einer verminderten Lernfähigkeit einher.", true, "Neben Stress, Angst, Apathie und Depression."]]},
+ {id:"x12-01", ch:12, stem:"Für das Beobachtungslernen gilt:", s:[
+  ["Beobachtungslernen setzt voraus, dass sich das Modell bewusst ist, dass es beobachtet wird.", false, "Es ist <b>unabhängig</b> davon, ob Beobachter oder Modell sich des Lernens bewusst sind."],
+  ["Je ähnlicher das Modell dem Beobachter ist, desto wahrscheinlicher wird das Verhalten übernommen.", true, "Attraktivität und Ähnlichkeit sind Eigenschaften des Modells, die die Übernahme fördern."],
+  ["Verhaltensansteckung ist eine Form des Beobachtungslernens mit dauerhafter Verhaltensänderung.", false, "Sie wird vom Beobachtungslernen <b>abgegrenzt</b> und führt typischerweise nur zu kurzfristiger Änderung."]]},
+ {id:"x12-02", ch:12, stem:"In Bezug auf Banduras soziale Lerntheorie gilt:", s:[
+  ["Die Selbstwirksamkeitserwartung beschreibt das tatsächliche Können einer Person.", false, "Relevant ist die <b>individuelle Beurteilung</b>, nicht das tatsächliche Können."],
+  ["Lernprozesse hängen stark von kognitiven Bewertungsprozessen des Individuums ab.", true, "Das ist eine Grundannahme Banduras."],
+  ["Auch ein Film kann als Modell dienen.", true, "Symbolisch-bildhaftes Modell."]]}
+);
+
+KURZ.push(
+ {id:"k11-1", ch:11, pts:10, klausur:"WiSe 24/25",
+  q:"Die Lerntheorie nach Skinner unterscheidet vier operante Konsequenzen. Fallbeispiel: Michael spielt in einem Fußballverein. Während eines Spiels foult ihn ein gegnerischer Spieler, woraufhin Michael dem Spieler eine Ohrfeige verpasst. Der Trainer erteilt Michael für zwei Wochen Trainingsverbot. Als Michael danach wieder spielt und erneut gefoult wird, reißt er sich zusammen. a) Benennen Sie die Art der operanten Konsequenz (2 P.). b) Beschreiben Sie den Mechanismus allgemein und identifizieren Sie den relevanten Aspekt im Fall (4 P.). c) Welche Effekte sind für künftiges Verhalten allgemein und im konkreten Fall zu erwarten? (4 P.)",
+  k:["a) Negative Bestrafung","b) allgemein: Eine appetitive (angenehme) Konsequenz wird entnommen","b) konkret: Der Trainer entzieht ihm für zwei Wochen das Training bzw. Fußballspielen","c) allgemein: Die Auftretenshäufigkeit des Verhaltens sinkt","c) konkret: Michael schlägt seinen Gegenspieler beim nächsten Foul nicht"],
+  m:"a) Es handelt sich um eine negative Bestrafung. b) Allgemein bedeutet das, dass eine appetitive Konsequenz entnommen wird. Im konkreten Fall entzieht der Trainer Michael für zwei Wochen das Training, also das Fußballspielen. c) Allgemein ist zu erwarten, dass die Auftretenshäufigkeit des bestraften Verhaltens sinkt. Im konkreten Fall zeigt sich der Lerneffekt darin, dass Michael seinem Gegenspieler nach einem Foul keine Ohrfeige mehr gibt."},
+ {id:"k11-2", ch:11, pts:8,
+  q:"Frau Schmidt kauft ihrer quengelnden Tochter Lina im Supermarkt nach einiger Zeit eine Süßigkeit. Beim nächsten Einkauf quengelt Lina wieder, und die Mutter kauft die Süßigkeit sofort. Beschreiben Sie die Situation mit Konzepten operanten Lernens, einmal mit Fokus auf die Mutter und einmal mit Fokus auf Lina.",
+  k:["Fokus Mutter: Verhalten = Süßigkeit kaufen","Konsequenz: Quengeln/Weinen (aversiv) hört auf → negative Verstärkung","Kaufen wird häufiger, sie kauft sogar früher (bevor es eskaliert)","Fokus Lina: Verhalten = Quengeln/Weinen","Konsequenz: Süßigkeit (appetitiv) wird dargeboten → positive Verstärkung","Quengeln wird häufiger; beide verstärken sich gegenseitig"],
+  m:"Mit Fokus auf die Mutter: Ihr Verhalten ist das Kaufen der Süßigkeit. Darauf hört das Quengeln und Weinen auf, ein aversiver Reiz wird also entfernt. Das ist negative Verstärkung, das Kaufen wird häufiger; beim nächsten Einkauf kauft sie schon, bevor die Situation eskaliert. Mit Fokus auf Lina: Ihr Verhalten ist das Quengeln und Weinen. Darauf folgt die Süßigkeit, ein appetitiver Reiz wird dargeboten. Das ist positive Verstärkung, das Quengeln wird häufiger, wie der nächste Einkauf zeigt. Mutter und Kind verstärken sich so gegenseitig."},
+ {id:"k12-1", ch:12, pts:8,
+  q:"Erläutern Sie, wovon es laut Bandura abhängt, ob Schülerinnen und Schüler das Verhalten eines Modells übernehmen. Leiten Sie zwei Konsequenzen für die Unterrichtsgestaltung ab.",
+  k:["Beobachtete Konsequenzen für das Modell (je positiver, desto eher)","Konsequenzen für den Beobachter selbst","Eigenschaften des Modells: attraktiv, ähnlich","Fähigkeiten des Beobachters: muss Verhalten ausführen können","Lerngeschichte / Selbstwirksamkeitserwartung","zwei passende Konsequenzen, z. B. Mitschüler als Modell, erwünschtes Modellverhalten sichtbar loben, Aufgaben an Fähigkeiten anpassen"],
+  m:"Übernommen wird Verhalten eher, wenn das Modell dafür positive Konsequenzen erfährt und wenn auch der Beobachter selbst positive Konsequenzen erlebt. Das Modell sollte attraktiv und dem Beobachter ähnlich sein. Der Beobachter muss grundsätzlich in der Lage sein, das Verhalten auszuführen, und seine Lerngeschichte spielt mit, vor allem seine Selbstwirksamkeitserwartung, also die eigene Beurteilung, das Ergebnis erreichen zu können. Für den Unterricht folgt daraus etwa, Mitschülerinnen und Mitschüler als Modelle einzusetzen, weil sie ähnlicher sind als die Lehrkraft, und erwünschtes Verhalten sichtbar zu verstärken, damit die Klasse die positiven Konsequenzen beobachtet. Aufgaben sollten so gestuft sein, dass die Lernenden sie sich zutrauen."}
+);
+OPEN.push({id:"o11-k1", ch:11, kind:"kurz", k:"k11-1", pts:10, title:"Operante Konditionierung"});
+OPEN.push({id:"o12-k1", ch:12, kind:"kurz", k:"k12-1", pts:10, title:"Lernen am Modell"});
+
+/* ================= Kapitel 2: Gedächtnis =================
+   Grundlage: Folien Sitzung 4 (Input 3/4: Folien 22–26) und Sitzung 5 (Input 2–4, Exkurs Schlaf: Folien 12–29), WiSe 26/27;
+   Klausur WiSe 24/25 Teil 1 (Aufgaben 2 und 4); Lehrbuch Urhahne/Dresel/Fischer (2019) Kap. 2 (Chunking). */
+LESSONS[2]=[
+{id:"2-1", t:"Was Gedächtnis ist", html:`
+<p><b>Gedächtnis</b> ist das Fortbestehen aufgenommener Information über die Zeit, das deren Verfügbarmachung ermöglicht.</p>
+<p>Zwei Konzepte von Gedächtnis:</p>
+<ul><li><b>Strukturelle Sicht:</b> Gedächtnis ist ein <i>Ort</i>, an dem Information aufbewahrt wird. Räumliche Metaphern dominieren („Speicher“).</li>
+<li><b>Prozedurale Sicht:</b> Gedächtnis sind die <i>Prozesse</i>, durch die Gedächtnisinhalte entstehen. Eine dynamische Konzeption.</li></ul>
+<p>Die drei zentralen <b>Gedächtnisprozesse</b>:</p>
+<ol><li><b>Enkodierung</b> von Information,</li><li><b>Speicherung</b> von Information,</li><li><b>Abruf</b> von Information.</li></ol>
+<p><b>Vergessen</b> bezeichnet den Verlust von zugreifbarer Information.</p>
+<div class="merk"><b>Merksatz</b>Enkodieren, speichern, abrufen. Vergessen heißt: Die Information ist nicht mehr zugreifbar.</div>`,
+check:[
+ {q:"Wie definiert Heine Gedächtnis?", o:["Als fester Ort im Gehirn, an dem alles Wissen dauerhaft abgelegt ist","Als Fortbestehen aufgenommener Information über die Zeit, das sie verfügbar macht","Als allgemeine Fähigkeit, durch Erfahrung Neues dazuzulernen","Als Summe aller Erfahrungen, die ein Mensch im Leben gemacht hat"], a:1, ex:"So steht es auf der Folie. Die Sicht als „Ort“ ist nur eine von zwei Konzeptionen (strukturell).", w:["Das ist die strukturelle Sicht, aber nicht die Definition.",null,"Lernen und Gedächtnis hängen zusammen, sind aber nicht dasselbe.","Die Definition betont das Fortbestehen und die Verfügbarkeit von Information, nicht eine Summe."]},
+ {q:"Welche Sicht betrachtet Gedächtnis als dynamisch?", o:["Die strukturelle Sicht","Die prozedurale Sicht","Das modale Modell","Die Speichersicht"], a:1, ex:"Prozedural: Gedächtnis sind die Prozesse, durch die Gedächtnisinhalte entstehen.", w:["Die strukturelle Sicht arbeitet mit räumlichen Metaphern, also eher statisch.",null,"Das modale Modell ist ein Mehrspeichermodell, also strukturell gedacht.","„Speicher“ ist gerade die räumliche Metapher der strukturellen Sicht."]}
+]},
+{id:"2-2", t:"Das modale Modell (Atkinson & Shiffrin, 1968)", html:`
+<p>Das <b>Mehrkomponentenmodell</b> (modales Modell) von <b>Atkinson & Shiffrin (1968)</b> nimmt unterschiedliche Gedächtnissysteme an. Sie unterscheiden sich in</p>
+<ul><li>zeitlichen Constraints,</li><li>Kapazitäts-Constraints,</li><li>Vergessensmechanismen,</li><li>ihrer neuroanatomischen Basis.</li></ul>
+<table class="kvq"><tr><th>Speicher</th><th>Dauer</th><th>Vergessen</th></tr>
+<tr><td><b>Sensorischer Speicher</b> (visuell, auditiv, haptisch)</td><td>unter 1 Sekunde</td><td>Zerfall nicht beachteter Information</td></tr>
+<tr><td><b>Kurzzeitspeicher</b></td><td>mehrere Sekunden, aber verlängerbar durch <b>Rehearsal</b></td><td>Interferenz und Verdrängung durch neue Information</td></tr>
+<tr><td><b>Langzeitgedächtnis</b> (episodisch, semantisch, prozedural)</td><td>beliebige Dauer</td><td>Interferenz oder Zerfall</td></tr></table>
+<p>Der Weg: Reizinformation → sensorischer Speicher → (durch <b>Aufmerksamkeit</b>) Kurzzeitspeicher → (Transfer) Langzeitgedächtnis. Aus dem Langzeitgedächtnis wird in den Kurzzeitspeicher <b>abgerufen</b>. Kontrollprozesse im Kurzzeitspeicher sind z. B. Wiederholen (Rehearsal) und Elaboration.</p>`,
+check:[
+ {q:"Worin unterscheiden sich die Speicher im modalen Modell laut Folie nicht?", o:["Zeitliche Constraints","Kapazitäts-Constraints","Vergessensmechanismen","Persönlichkeit"], a:3, ex:"Genannt sind zeitliche Constraints, Kapazität, Vergessensmechanismen und neuroanatomische Basis.", w:["Zeitliche Constraints sind ein Unterscheidungsmerkmal (unter 1 Sek., mehrere Sek., beliebig).","Kapazität ist ein Unterscheidungsmerkmal.","Vergessensmechanismen sind ein Unterscheidungsmerkmal (Zerfall, Interferenz).",null]},
+ {q:"Wie lange hält der Kurzzeitspeicher Information im modalen Modell?", o:["Unter einer Sekunde, dann zerfällt die Spur","Mehrere Sekunden, länger mit Rehearsal","Beliebig lange, ohne jede Wiederholung","Genau eine Minute, unabhängig vom Üben"], a:1, ex:"Ohne Wiederholung geht die Information nach Sekunden verloren. Rehearsal hält sie aktiv.", w:["Unter einer Sekunde gilt für den sensorischen Speicher.",null,"Beliebige Dauer gilt für das Langzeitgedächtnis.","Eine feste Minute nennt das Modell nicht."]}
+]},
+{id:"2-3", t:"Gedächtnissysteme und semantisches Netzwerk", html:`
+<p>Heines Übersicht der Gedächtnissysteme:</p>
+<table class="kvq"><tr><th colspan="2">Langzeitgedächtnis</th></tr>
+<tr><td><b>deklarativ</b> (explizit)</td><td><b>episodisches Gedächtnis</b>: persönliche Erlebnisse<br><b>semantisches Gedächtnis</b>: Weltwissen, Sprache</td></tr>
+<tr><td><b>non-deklarativ</b> (implizit)</td><td><b>prozedurales Gedächtnis</b>: motorische Fertigkeiten<br><b>PRS</b>: perzeptuelles Priming<br><b>klassische Konditionierung</b>: CS-UCS-Assoziation<br><b>non-assoziatives Lernen</b>: Habituation und Sensitivierung</td></tr>
+<tr><th colspan="2">Transientes Gedächtnis</th></tr>
+<tr><td colspan="2">sensorische Register, Kurzzeit- und Arbeitsgedächtnis</td></tr></table>
+<p><b>Struktur des semantischen Gedächtnisses</b>: das <b>Spreading-Activation-Modell</b> von <b>Collins & Loftus (1975)</b>. Annahmen:</p>
+<ul><li>Semantische Konzepte sind in einem <b>nicht-hierarchischen Netzwerk</b> gespeichert.</li>
+<li>Je mehr Eigenschaften zwei Konzepte teilen, desto mehr Verbindungen haben sie.</li>
+<li>Wird ein Konzept verarbeitet, wird es <b>aktiviert</b>. Die Aktivierung <b>breitet sich auf nahe liegende Knoten aus</b>.</li>
+<li>Die Aktivierung nimmt mit zunehmender <b>Entfernung</b> vom Zielknoten ab, und sie nimmt mit der <b>Zeit</b> ab.</li></ul>
+<div class="merk"><b>So stand es in der Klausur WiSe 24/25</b><div class="mrows">
+<div><span class="ml"><span class="vd t">wahr</span></span><span>Spreading Activation: semantische Inhalte in einem nicht-hierarchischen Netzwerk</span></div>
+<div><span class="ml"><span class="vd f">falsch</span></span><span>„Das prozedurale Gedächtnis ist Teil des transienten Gedächtnisses.“<br><span class="small muted">Grund: Es gehört zum (non-deklarativen) Langzeitgedächtnis.</span></span></div>
+<div><span class="ml"><span class="vd f">falsch</span></span><span>„Inhalte aus dem expliziten LZG können nicht verbalisiert werden.“<br><span class="small muted">Grund: Explizite, deklarative Inhalte sind bewusst und berichtbar.</span></span></div></div></div>`,
+check:[
+ {q:"Wohin gehört das prozedurale Gedächtnis?", o:["Zum transienten Gedächtnis","Zum deklarativen Langzeitgedächtnis","Zum non-deklarativen Langzeitgedächtnis","Zum sensorischen Register"], a:2, ex:"Prozedurales Gedächtnis (motorische Fertigkeiten) ist Teil des impliziten, non-deklarativen LZG. Genau das wurde 24/25 abgefragt.", w:["Transient sind nur sensorische Register, Kurzzeit- und Arbeitsgedächtnis.","Deklarativ sind episodisches und semantisches Gedächtnis.",null,"Sensorische Register gehören zum transienten Gedächtnis."]},
+ {q:"Was nimmt das Spreading-Activation-Modell an?", o:["Konzepte sind streng hierarchisch nach Oberbegriffen geordnet","Aktivierung breitet sich auf nahe Knoten aus, mit Entfernung schwächer","Jedes Konzept ist mit jedem anderen gleich stark verbunden","Einmal aktivierte Konzepte bleiben dauerhaft aktiviert"], a:1, ex:"Collins & Loftus (1975): nicht-hierarchisches Netzwerk, Aktivierung breitet sich aus, schwächer mit Entfernung und Zeit.", w:["Gerade nicht hierarchisch, das ist der Kern des Modells.",null,"Je mehr Eigenschaften Konzepte teilen, desto mehr Verbindungen. Also ungleich.","Die Aktivierung nimmt mit der Zeit ab."]}
+]},
+{id:"2-4", t:"Episodisches Gedächtnis und Kontext", html:`
+<p>Neben dem semantischen Gedächtnis für Fakten und Objekte haben Menschen Wissen, das zum „was“ auch enthält:</p>
+<ul><li>„<b>wann</b>“ (Zeitpunkt),</li><li>„<b>wo</b>“ (Ort),</li><li>„<b>wie</b>“ (situativer Kontext).</li></ul>
+<p>Das <b>episodische Gedächtnis</b> ist für Enkodierung, Speicherung und Abruf von Wissen um spezifische Ereignisse (komplexe Episoden) verantwortlich, die ein Individuum erlebt hat. Das Wissen wird <b>kontextgebunden</b> enkodiert und abgerufen (→ <b>Quellengedächtnis</b>).</p>
+<p>Der Abruferfolg hängt stark von der <b>Passung des externalen und internalen Kontexts</b> bei Enkodierung und Abruf ab:</p>
+<table class="kvq"><tr><th>Effekt</th><th>Befund</th></tr>
+<tr><td><b>Umgebung</b></td><td>Godden & Baddeley (1975): Abruf ist am besten, wenn Enkodierungs- und Abrufsituation ähnlich sind. <b>Mentales Simulieren</b> des Kontexts reicht oft aus.</td></tr>
+<tr><td><b>physischer Status</b></td><td>Godwin et al. (1969): Unter Alkohol Gelerntes wird unter Alkohol besser abgerufen (auch andere psychotrope Substanzen). Miles & Hardman (1998): gleicher kardiovaskulärer Status hilft ebenfalls.</td></tr>
+<tr><td><b>emotionaler Status</b></td><td><b>Stimmungsabhängigkeit</b> (Eich et al., 1994): Abruf am besten bei gleicher Stimmung.<br><b>Stimmungskongruenz</b>: Bei positiver bzw. negativer Stimmung werden vor allem positive bzw. negative Ereignisse erinnert (→ Depression).</td></tr></table>
+<p>Belegt ist Kontextabhängigkeit auch für Musik, Temperatur, Geruch, Körperlage und Tageszeit.</p>
+<div class="merk"><b>Schulbezug</b>Die Klausur wird am PC im PC-Raum geschrieben. Wer am PC übt und sich den Raum vorstellt, nutzt die Kontextpassung.</div>`,
+check:[
+ {q:"Was unterscheidet Stimmungskongruenz von Stimmungsabhängigkeit?", o:["Es gibt keinen Unterschied, beides meint dasselbe","Kongruenz: Man erinnert eher, was zur aktuellen Stimmung passt","Kongruenz: Man erinnert sich nur in guter Stimmung gut","Kongruenz: Sie betrifft nur Lernen unter Alkohol"], a:1, ex:"Abhängigkeit: Abruf am besten bei gleicher Stimmung wie beim Lernen. Kongruenz: ein Bias zu stimmungspassenden Inhalten, etwa bei Depression zu negativen.", w:["Die Folie unterscheidet beide ausdrücklich.",null,"Die Kongruenz gilt für positive wie negative Stimmung.","Alkohol gehört zum physischen Status, nicht zum emotionalen."]},
+ {q:"Welche drei Informationen enthält episodisches Wissen über das „was“ hinaus?", o:["wer, warum, wozu","wann, wo, wie","wie viel, wie oft, wie lange","was, womit, wodurch"], a:1, ex:"Zeitpunkt, Ort und situativer Kontext.", w:["Diese W-Fragen nennt die Folie nicht.",null,"Häufigkeiten und Dauer stehen nicht auf der Folie.","„Was“ ist der semantische Teil. Gefragt ist, was darüber hinaus kommt."]}
+]},
+{id:"2-5", t:"Prozedurales Gedächtnis und Schlaf", html:`
+<p>Das <b>implizite, nicht-deklarative Gedächtnis</b> wirkt sich auf Verhalten aus, ohne zwangsläufig ins Bewusstsein zu treten (<b>Schacter, 1987</b>). Davon abzugrenzen ist das <b>explizite Gedächtnis</b>: Seine Inhalte sind bewusst und können berichtet werden, also „deklarativ“.</p>
+<p><b>Prozedurales Gedächtnis</b>: durch Übung erworbenes Wissen um automatisierte motorische Muster und Handlungsabläufe, etwa Gehen, Sprechen, Jonglieren.</p>
+<p><b>Phasenmodell des Erwerbs prozeduralen Wissens:</b></p>
+<table class="kvq"><tr><th>Phase</th><th>Kennzeichen</th></tr>
+<tr><td>1. <b>kognitive Phase</b></td><td>Wissen ist explizit, oft verbal repräsentiert (Schemata); die Ausführung erfordert starke Aufmerksamkeit.</td></tr>
+<tr><td>2. <b>assoziative Phase</b></td><td>Durch wiederholtes Üben prägen sich zunehmend automatisierte Antwortmuster auf relevante Reize ein.</td></tr>
+<tr><td>3. <b>autonome Phase</b></td><td>Sehr genaue, schnelle Ausführung ohne Aufmerksamkeit.</td></tr></table>
+<p><b>Exkurs: Langzeitgedächtnis und Schlaf.</b> Schlaf ist unabdingbar für die <b>Konsolidierung</b> (Verfestigung) von LZG-Inhalten. Dabei werden dieselben Hirnareale aktiv wie bei der ersten Reizverarbeitung (Interaktion Hippocampus und Kortex). Schlafphasen wechseln zyklisch:</p>
+<ul><li><b>Non-REM-Schlaf</b> (slow-wave sleep, <b>SWS</b>, Stadien III und IV): stärker in der <b>ersten Schlafhälfte</b>, langsame EEG-Oszillationen. Befördert vor allem die Konsolidierung <b>deklarativer</b> Inhalte (Wortpaare).</li>
+<li><b>REM-Schlaf</b>: stärker in der <b>zweiten Schlafhälfte</b>, schnelle EEG-Oszillationen und Augenbewegungen. Befördert vor allem <b>nicht-deklarative</b> Inhalte (Mirror-Tracing).</li></ul>`,
+check:[
+ {q:"In welcher Phase des Fertigkeitserwerbs braucht die Ausführung starke Aufmerksamkeit?", o:["Kognitive Phase","Assoziative Phase","Autonome Phase","In keiner Phase"], a:0, ex:"Zu Beginn ist das Wissen explizit, oft verbal, und die Ausführung erfordert starke Aufmerksamkeitsfokussierung.", w:[null,"In der assoziativen Phase werden die Muster schon zunehmend automatisiert.","In der autonomen Phase läuft die Ausführung gerade ohne Aufmerksamkeit.","Die kognitive Phase ist ausdrücklich so beschrieben."]},
+ {q:"Welcher Schlaf befördert vor allem die Konsolidierung deklarativer Inhalte?", o:["REM-Schlaf in der zweiten Nachthälfte","Früher, SWS-reicher Schlaf","Nur der Mittagsschlaf","Schlaf hat darauf keinen Einfluss"], a:1, ex:"Im klassischen Paradigma profitiert das Lernen von Wortpaaren vor allem vom frühen Tiefschlaf (SWS).", w:["REM-Schlaf befördert vor allem nicht-deklarative Inhalte wie Mirror-Tracing.",null,"Die Folie unterscheidet frühen und späten Nachtschlaf, nicht Mittagsschlaf.","Schlaf ist laut Folie unabdingbar für die Konsolidierung."]}
+]},
+{id:"2-6", t:"Sensorisches Gedächtnis und Kurzzeitgedächtnis", html:`
+<p>Zum <b>transienten Gedächtnis</b> gehören sensorische Register, Kurzzeit- und Arbeitsgedächtnis.</p>
+<p><b>Sensorisches Gedächtnis</b>: unmittelbare und sehr kurze Speicherung eingehender sensorischer Information. Eigenschaften:</p>
+<ul><li>streng <b>modalitätsspezifisch</b>,</li><li>sehr kurze Speicherdauer (je nach Sinnesmodalität unterschiedlich),</li><li>Kapazität relativ <b>hoch</b> (z. B. mehr als 7),</li><li><b>unabhängig von Aufmerksamkeit</b> und Bewusstsein,</li><li>Vergessen durch <b>Spurenzerfall</b>.</li></ul>
+<p>Funktion: Basis des kontinuierlichen Informationsflusses, den spätere Gedächtnissysteme übernehmen.</p>
+<p><b>Kurzzeitgedächtnis</b> (KZG), nach Atkinson & Shiffrin (1968): die Funktion, kleine Informationsmengen kurz in einem aktiven Zustand zu halten.</p>
+<ul><li>eine <b>bewusste</b> Verarbeitungsstufe, Information ist leicht zugreifbar,</li>
+<li>Information geht nach etwa <b>20 Sekunden</b> verloren, außer sie wird durch <b>Rehearsal</b> aufgefrischt,</li>
+<li>Kapazität bei Ungeübten etwa <b>7 ± 2</b> Einheiten (<b>Miller, 1956</b>),</li>
+<li><b>Chunking</b>, die Bündelung einfacher Elemente zu Stimuluskomplexen, erlaubt größere Mengen. Chunks werden auf Basis von <b>Vorwissen aus dem LZG</b> gebildet (Lehrbuch Kap. 2: „i-t-b-m-w“ → „IT“, „BMW“),</li>
+<li>durch <b>Elaboration</b> (Enkodierung in ein Format, z. B. visuell, semantisch) kann Information ins LZG übergehen.</li></ul>
+<p><b>Vergessen im KZG:</b> Spurenverlust über die Zeit (<b>Peterson & Peterson, 1959</b>). Wahrscheinlicher ist aber, dass vor allem <b>Interferenz</b> zwischen Elementen den Abruf behindert (<b>Waugh & Norman, 1965</b>).</p>
+<div class="merk"><b>So stand es in der Klausur WiSe 24/25</b><div class="mrows">
+<div><span class="ml"><span class="vd t">wahr</span></span><span>Chunking setzt Zugriff auf Information aus dem LZG voraus.</span></div>
+<div><span class="ml"><span class="vd t">wahr</span></span><span>Gesunde Erwachsene können Information im KZG länger als 20 Sekunden halten.<br><span class="small muted">Grund: Rehearsal</span></span></div></div></div>`,
+check:[
+ {q:"Was gilt für das sensorische Gedächtnis?", o:["Es hängt von Aufmerksamkeit ab","Es ist streng modalitätsspezifisch","Es hat eine Kapazität von 7 ± 2","Es speichert über Minuten"], a:1, ex:"Jeder Sinn hat sein eigenes Register mit eigener, sehr kurzer Dauer.", w:["Es ist gerade unabhängig von Aufmerksamkeit und Bewusstsein.",null,"7 ± 2 ist die Kapazität des Kurzzeitgedächtnisses. Das sensorische Gedächtnis fasst mehr.","Die Speicherdauer ist sehr kurz, im visuellen Bereich unter einer Sekunde."]},
+ {q:"Warum kann man Information länger als 20 Sekunden im KZG halten?", o:["Durch Rehearsal, also Auffrischen","Weil das KZG unbegrenzt ist","Durch Spurenzerfall","Weil Chunking die Zeit verlängert"], a:0, ex:"Ohne Wiederholung geht die Information nach etwa 20 Sekunden verloren, mit Rehearsal bleibt sie aktiv. In der Klausur 24/25 war die Aussage deshalb wahr.", w:[null,"Das KZG ist in Kapazität und Dauer begrenzt.","Spurenzerfall ist ein Grund für Vergessen, nicht für Behalten.","Chunking erhöht die Menge, nicht die Dauer."]}
+]},
+{id:"2-7", t:"Arbeitsgedächtnis (Baddeley & Hitch, 1974)", html:`
+<p>Zwei Schwächen des modalen Modells mit seinem KZG führten zum Konzept des Arbeitsgedächtnisses:</p>
+<ul><li><b>Annahme eines passiven Speichers:</b> Wie soll dann aktive Manipulation von Information beim Problemlösen gehen?</li>
+<li><b>Annahme eines unitären Speichers:</b> <b>Dual-Task-Studien</b> zeigen, dass bestimmte Aufgabentypen kaum interferieren.</li></ul>
+<p>Das <b>Arbeitsgedächtnis</b> (AG) nach <b>Baddeley & Hitch (1974)</b> ist ein <b>aktives</b> Verarbeitungssystem, das die für die aktuelle Aufgabe nötige Information temporär bereitstellt und <b>manipuliert</b>. Es besteht aus mindestens vier Subsystemen, die untereinander und mit dem LZG interagieren:</p>
+<table class="kvq"><tr><th>Subsystem</th><th>Aufgabe</th></tr>
+<tr><td><b>phonologische Schleife</b></td><td>hält sprachbasierte Information aufrecht</td></tr>
+<tr><td><b>räumlich-visueller Notizblock</b></td><td>hält visuell-räumliche Information aufrecht</td></tr>
+<tr><td><b>episodischer Puffer</b></td><td>multimodaler Speicher; bindet unterschiedliche Informationsflüsse zu komplexen Mustern („<b>Binding</b>“)</td></tr>
+<tr><td><b>zentrale Exekutive</b></td><td>überwacht Verarbeitungsprozesse, verteilt Ressourcen, lenkt Aufmerksamkeit</td></tr></table>
+<p>Schleife und Notizblock bestehen jeweils aus einem <b>Speicher</b> und einem <b>Rehearsal-Mechanismus</b>. Die zentrale Exekutive ist angelehnt an das <b>supervisory attentional system</b> (SAS) von Norman & Shallice (1986). Sie ist gefragt, wenn nicht-automatisierte Handlungen ausgeführt werden oder ein Konflikt auftritt und unerwünschte Tendenzen unterdrückt werden müssen.</p>
+<div class="merk"><b>So stand es in der Klausur WiSe 24/25</b><div class="mrows">
+<div><span class="ml"><span class="vd f">falsch</span></span><span>„Räumlich-visuelle und verbale Informationen parallel zu verarbeiten (Dual-Tasking), ist nur mit deutlichen Leistungseinbußen möglich.“<br><span class="small muted">Grund: Getrennte Subsysteme, die Aufgaben interferieren kaum.</span></span></div></div></div>`,
+check:[
+ {q:"Warum kann man gleichzeitig ein Bild ansehen und einem Satz zuhören, ohne dass die Leistung stark sinkt?", o:["Weil das Kurzzeitgedächtnis unbegrenzt viel aufnehmen kann","Weil getrennte Subsysteme verbale und visuelle Information halten","Weil die zentrale Exekutive beide Informationen selbst speichert","Weil das sensorische Gedächtnis die Bilder dauerhaft übernimmt"], a:1, ex:"Phonologische Schleife und räumlich-visueller Notizblock sind getrennt. Darum interferieren solche Aufgaben kaum (Dual-Task-Befunde).", w:["Das KZG ist begrenzt. Der Grund liegt in getrennten Subsystemen.",null,"Die zentrale Exekutive steuert und verteilt Ressourcen, sie ist kein Speicher für beides.","Das sensorische Gedächtnis hält Information nur extrem kurz."]},
+ {q:"Welches Subsystem verbindet Information aus verschiedenen Quellen zu komplexen Mustern?", o:["Phonologische Schleife","Räumlich-visueller Notizblock","Episodischer Puffer","Zentrale Exekutive"], a:2, ex:"Der episodische Puffer ist multimodal und für das „Binding“ zuständig.", w:["Die Schleife hält nur sprachbasierte Information.","Der Notizblock hält nur visuell-räumliche Information.",null,"Die zentrale Exekutive überwacht und lenkt, verbindet aber nicht selbst."]}
+]}
+];
+
+CARDS[2]=[
+ {id:"c2-01", f:"Gedächtnis (Definition)", b:"Das Fortbestehen aufgenommener Information über die Zeit, das deren Verfügbarmachung ermöglicht."},
+ {id:"c2-02", f:"Strukturelle vs. prozedurale Sicht auf Gedächtnis", b:"Strukturell: Gedächtnis ist ein Ort, an dem Information aufbewahrt wird (räumliche Metaphern).\nProzedural: Gedächtnis sind die Prozesse, durch die Inhalte entstehen (dynamisch)."},
+ {id:"c2-03", f:"Die drei zentralen Gedächtnisprozesse", b:"Enkodierung\nSpeicherung\nAbruf"},
+ {id:"c2-04", f:"Vergessen (Definition)", b:"Verlust von zugreifbarer Information."},
+ {id:"c2-05", f:"Modales Modell (Atkinson & Shiffrin, 1968): Worin unterscheiden sich die Speicher?", b:"zeitliche Constraints\nKapazitäts-Constraints\nVergessensmechanismen\nneuroanatomische Basis"},
+ {id:"c2-06", f:"Die drei Speicher im modalen Modell mit Dauer", b:"Sensorischer Speicher: unter 1 Sekunde\nKurzzeitspeicher: mehrere Sekunden (aber Rehearsal)\nLangzeitgedächtnis: beliebige Dauer"},
+ {id:"c2-07", f:"Deklaratives Langzeitgedächtnis", b:"Explizit, bewusst und berichtbar.\nEpisodisch: persönliche Erlebnisse\nSemantisch: Weltwissen, Sprache"},
+ {id:"c2-08", f:"Non-deklaratives Langzeitgedächtnis", b:"Implizit, wirkt sich auf Verhalten aus, ohne zwangsläufig bewusst zu werden.\nProzedural (motorische Fertigkeiten), perzeptuelles Priming (PRS), klassische Konditionierung, non-assoziatives Lernen"},
+ {id:"c2-09", f:"Transientes Gedächtnis", b:"Sensorische Register, Kurzzeit- und Arbeitsgedächtnis. Das prozedurale Gedächtnis gehört nicht dazu (Klausur 24/25)."},
+ {id:"c2-10", f:"Spreading-Activation-Modell (Collins & Loftus, 1975)", b:"Semantische Konzepte in einem nicht-hierarchischen Netzwerk. Mehr gemeinsame Eigenschaften → mehr Verbindungen. Aktivierung breitet sich auf nahe Knoten aus und nimmt mit Entfernung und Zeit ab."},
+ {id:"c2-11", f:"Episodisches Gedächtnis", b:"Enkodierung, Speicherung und Abruf von Wissen um spezifische, selbst erlebte Ereignisse. Enthält neben dem „was“ auch wann, wo und wie. Kontextgebunden (Quellengedächtnis)."},
+ {id:"c2-12", f:"Godden & Baddeley (1975)", b:"Abruf ist am besten, wenn Enkodierungs- und Abrufsituation ähnlich sind (Umgebung). Mentales Simulieren des Kontexts reicht häufig aus."},
+ {id:"c2-13", f:"Kontexteffekte des physischen Status", b:"Godwin et al. (1969): unter Alkohol Gelerntes wird unter Alkohol besser abgerufen (auch andere psychotrope Substanzen).\nMiles & Hardman (1998): gleicher kardiovaskulärer Status verbessert die Gedächtnisleistung."},
+ {id:"c2-14", f:"Stimmungsabhängigkeit vs. Stimmungskongruenz", b:"Abhängigkeit (Eich et al., 1994): Abruf am besten bei gleicher Stimmung bei Enkodierung und Abruf.\nKongruenz: Bias, bei positiver bzw. negativer Stimmung vor allem positive bzw. negative Ereignisse zu erinnern (→ Depression)."},
+ {id:"c2-15", f:"Implizites Gedächtnis (Schacter, 1987)", b:"Teil des Gedächtnisses, der sich auf Verhalten auswirkt, ohne zwangsläufig ins Bewusstsein zu treten. Abgrenzung: explizites Gedächtnis mit bewussten, berichtbaren (deklarativen) Inhalten."},
+ {id:"c2-16", f:"Prozedurales Gedächtnis", b:"Durch Übung erworbenes Wissen um automatisierte motorische Muster bzw. Handlungsabläufe wie Gehen, Sprechen, Jonglieren."},
+ {id:"c2-17", f:"Drei Phasen des Erwerbs prozeduralen Wissens", b:"Kognitiv: explizit, oft verbal, starke Aufmerksamkeit nötig\nAssoziativ: durch Üben zunehmend automatisierte Antwortmuster\nAutonom: genau und schnell, ohne Aufmerksamkeit"},
+ {id:"c2-18", f:"Schlaf und Konsolidierung: SWS vs. REM", b:"Früher, SWS-reicher Schlaf (Non-REM, Stadien III/IV, langsame EEG-Wellen): vor allem deklarative Inhalte.\nSpäter REM-Schlaf (schnelle EEG-Wellen, Augenbewegungen): vor allem nicht-deklarative Inhalte."},
+ {id:"c2-19", f:"Sensorisches Gedächtnis: Eigenschaften", b:"streng modalitätsspezifisch\nsehr kurze Speicherdauer\nrelativ hohe Kapazität (z. B. > 7)\nunabhängig von Aufmerksamkeit/Bewusstsein\nVergessen durch Spurenzerfall"},
+ {id:"c2-20", f:"Kurzzeitgedächtnis: Eigenschaften", b:"bewusste Verarbeitungsstufe, leicht zugreifbar\nVerlust nach etwa 20 Sekunden, außer bei Rehearsal\nKapazität 7 ± 2 Einheiten bei Ungeübten (Miller, 1956)\nChunking erlaubt größere Mengen"},
+ {id:"c2-21", f:"Chunking", b:"Bündelung einfacher Elemente zu größeren Einheiten (Stimuluskomplexen). Setzt Zugriff auf Vorwissen aus dem LZG voraus (Klausur 24/25: wahr). Beispiel Lehrbuch: i-t-b-m-w → IT, BMW."},
+ {id:"c2-22", f:"Vergessen im KZG: zwei Erklärungen", b:"Spurenverlust in Abhängigkeit von der Zeit (Peterson & Peterson, 1959).\nWahrscheinlicher: Interferenz zwischen Elementen im KZG (Waugh & Norman, 1965)."},
+ {id:"c2-23", f:"Zwei Schwächen des modalen Modells (KZG)", b:"Annahme eines passiven Speichers: Wie geht aktive Manipulation beim Problemlösen?\nAnnahme eines unitären Speichers: Dual-Task-Studien zeigen, dass bestimmte Aufgabentypen kaum interferieren."},
+ {id:"c2-24", f:"Arbeitsgedächtnis (Baddeley & Hitch, 1974)", b:"Aktives, multikomponentielles Verarbeitungssystem, das die für die aktuelle Aufgabe nötige Information temporär bereitstellt und manipuliert, nicht nur ein passiver Kurzzeitspeicher."},
+ {id:"c2-25", f:"Die vier Subsysteme des Arbeitsgedächtnisses", b:"Phonologische Schleife: sprachbasierte Information\nRäumlich-visueller Notizblock: visuell-räumliche Information\nEpisodischer Puffer: multimodal, Binding\nZentrale Exekutive: überwacht, verteilt Ressourcen, lenkt Aufmerksamkeit"},
+ {id:"c2-26", f:"Zentrale Exekutive: wann ist sie gefragt?", b:"Angelehnt an das supervisory attentional system (Norman & Shallice, 1986). Relevant bei nicht-automatisierten Handlungen und bei Konflikten, wenn unerwünschte Tendenzen unterdrückt werden müssen."}
+];
+Object.assign(CARD_INFO,{
+ "c2-03":"Enkodierung: Information in eine speicherbare Form bringen (englisch encoding).",
+ "c2-05":"Constraints: Beschränkungen.",
+ "c2-06":"Rehearsal: englisch „Probe“, inneres Wiederholen.",
+ "c2-07":"Deklarativ: lateinisch declarare, „erklären, kundtun“, also berichtbar.",
+ "c2-08":"Priming: Vorerfahrung mit einem Reiz erleichtert seine spätere Verarbeitung.\nCS-UCS: konditionierter und unkonditionierter Reiz.",
+ "c2-09":"Transient: lateinisch transire, „vorübergehen“, also flüchtig.",
+ "c2-11":"Episode: ein abgeschlossenes Ereignis aus dem eigenen Leben.",
+ "c2-13":"Psychotrop: auf die Psyche wirkend.\nKardiovaskulär: Herz und Kreislauf betreffend.",
+ "c2-14":"Kongruenz: Übereinstimmung.",
+ "c2-18":"SWS: slow-wave sleep, Tiefschlaf.\nREM: rapid eye movement.\nMirror-Tracing: eine Figur im Spiegel nachzeichnen.",
+ "c2-19":"Modalität: Sinneskanal (Sehen, Hören, Tasten …).",
+ "c2-25":"Binding: englisch „Bindung“, das Verknüpfen zu einem Ganzen."
+});
+Object.assign(CARD_CTX,{
+ "c2-01":"Grundbegriff","c2-02":"Zwei Konzepte von Gedächtnis","c2-03":"Was das Gedächtnis tut","c2-04":"Grundbegriff",
+ "c2-05":"Das Mehrspeichermodell","c2-06":"Wie lange jeder Speicher hält","c2-07":"Bewusstes Langzeitwissen","c2-08":"Unbewusstes Langzeitwissen",
+ "c2-09":"Das flüchtige Gedächtnis","c2-10":"Wie Weltwissen gespeichert ist","c2-11":"Erinnerung an Erlebtes","c2-12":"Kontext: Umgebung",
+ "c2-13":"Kontext: Körperzustand","c2-14":"Kontext: Gefühle","c2-15":"Abgrenzung explizit und implizit","c2-16":"Können statt Wissen",
+ "c2-17":"Wie Fertigkeiten automatisch werden","c2-18":"Exkurs Schlaf","c2-19":"Die erste Station","c2-20":"Der kurze Zwischenspeicher",
+ "c2-21":"Mehr Platz im KZG","c2-22":"Warum Inhalte aus dem KZG verschwinden","c2-23":"Warum ein neues Modell nötig war","c2-24":"Das aktive Modell",
+ "c2-25":"Aufbau des Arbeitsgedächtnisses","c2-26":"Die Steuerzentrale"
+});
+
+/* ================= Kapitel 3: Vergessen und Abruf =================
+   Grundlage: Folien Sitzung 4 (Input 4: Folien 27–33) und Sitzung 5 (Input 1: Folien 7–11), WiSe 26/27;
+   Klausur WiSe 24/25 Teil 1 (Aufgaben 1 und 3). */
+LESSONS[3]=[
+{id:"3-1", t:"Enkodierung und Gedächtnis als Konstruktion", html:`
+<p><b>Enkodierung</b> ist der Prozess des Abspeicherns von Information, noch während der Reiz präsent ist. Für die Qualität der Enkodierung sind wichtig:</p>
+<ul><li><b>Verarbeitungstiefe</b> („levels of processing“, „deep/shallow encoding“): Je tiefer, also z. B. semantisch statt nur oberflächlich verarbeitet, desto besser wird erinnert.</li>
+<li><b>Passung der Enkodierungs- und Abrufprozesse</b>,</li>
+<li><b>Vorwissen</b>,</li>
+<li><b>Lernrate</b>: Bei expliziten Inhalten ist verteiltes Lernen dem massierten überlegen.</li></ul>
+<p><b>Gedächtnis als konstruktiver Prozess:</b> Gedächtnisinhalte sind <b>keine objektiven Abbildungen</b> von Reizen oder Ereignissen (siehe <b>Augenzeugenberichte</b>). <b>Schemata</b> und <b>Skripte</b> (gelernte Muster von Ereignisabfolgen) wirken als „Situationsmodelle“ und lenken</p>
+<ul><li>die Enkodierung durch Selektion, Abstraktion, Interpretation (inferenzielle Prozesse) und Integration von Informationseinheiten,</li>
+<li>den Abruf durch <b>Rekonstruktion</b> von Inhalten.</li></ul>
+<div class="merk"><b>So stand es in der Klausur WiSe 24/25</b><div class="mrows">
+<div><span class="ml"><span class="vd f">falsch</span></span><span>„Gedächtnisinhalte sind objektive Repräsentationen von Stimuli und Ereignissen.“</span></div>
+<div><span class="ml"><span class="vd f">falsch</span></span><span>„Je tiefer Information bei der Enkodierung verarbeitet wurde, desto schwieriger ist der Abruf.“</span></div></div></div>
+<p class="small muted">Die Aussage zum verteilten Lernen stammt aus der Grafik auf Folie 27 (Sitzung 4).</p>`,
+check:[
+ {q:"Was gilt für die Verarbeitungstiefe bei der Enkodierung?", o:["Je tiefer verarbeitet, desto schwieriger der Abruf","Je tiefer verarbeitet, desto besser die Enkodierung","Die Tiefe spielt keine Rolle","Nur oberflächliche Verarbeitung gelangt ins LZG"], a:1, ex:"Tiefe (z. B. semantische) Verarbeitung verbessert die Enkodierung. Das Gegenteil war 24/25 als falsche Aussage in der Klausur.", w:["Genau diese Aussage war in der Klausur 24/25 falsch.",null,"Verarbeitungstiefe ist der erste Faktor auf Heines Liste.","Oberflächliche Verarbeitung führt zu schlechterem Behalten."]},
+ {q:"Warum sind Augenzeugenberichte oft ungenau?", o:["Weil das Kurzzeitgedächtnis für ganze Szenen zu klein ist","Weil Gedächtnis konstruktiv ist und Schemata den Abruf lenken","Weil Augenzeugen in den meisten Fällen bewusst lügen","Weil bei Stress das sensorische Gedächtnis ausfällt"], a:1, ex:"Gedächtnisinhalte sind keine objektiven Abbilder. Schemata und Skripte wählen aus, interpretieren und rekonstruieren.", w:["Das KZG erklärt nicht, warum Erinnerungen verzerrt sind.",null,"Es geht nicht um Absicht. Auch ehrliche Erinnerungen sind rekonstruiert.","Jeder Mensch hat ein sensorisches Gedächtnis."]}
+]},
+{id:"3-2", t:"Behalten und Abruf", html:`
+<p><b>Behaltensleistung:</b> Nach einem anfänglichen Abfall in den ersten <b>2 bis 3 Jahren</b> nach dem Lernen bleibt semantisches Wissen relativ stabil („<b>permastore</b>“). <b>Abruf wirkt konservierend</b>. Allerdings erinnert man bei jedem Abruf womöglich nicht das ursprüngliche Ereignis, sondern das, was zuletzt erinnert wurde.</p>
+<p>Beim <b>Abruf</b> wird ein Gedächtnisinhalt (z. B. die Vokabel „agua“) nach einem <b>Schlüsselreiz</b> (retrieval cue, hier „water“) reproduziert. Was den Abruf bestimmt:</p>
+<table class="kvq"><tr><th>Faktor</th><th>Wirkung</th></tr>
+<tr><td><b>Aufmerksamkeitslenkung</b></td><td>Der Abruferfolg sinkt, wenn der Cue nicht beachtet wird.</td></tr>
+<tr><td><b>Cue-Relevanz</b></td><td>Der Cue muss mit dem Ziel assoziiert sein, also Ähnlichkeit zwischen Enkodierungs- und Abrufphase.</td></tr>
+<tr><td><b>assoziative Stärke</b></td><td>Cue und Ziel müssen hinreichend stark verknüpft sein.</td></tr>
+<tr><td><b>Anzahl der Cues</b></td><td>Kombinationen von Cues wirken besser als einzelne.</td></tr>
+<tr><td><b>Stärke der Gedächtnisspur</b></td><td>Schwach repräsentierte Inhalte sind schlechter abrufbar.</td></tr>
+<tr><td><b>Abrufstrategie</b></td><td>Sie sollte der Enkodierungsstrategie ähneln.</td></tr>
+<tr><td><b>mentaler Modus</b></td><td>Ein aktiviertes Schema richtet die Aufmerksamkeit auf relevante Cues.</td></tr></table>
+<div class="merk"><b>Merksatz</b>Viele verschiedene Cues zu einem Inhalt helfen. Viele Inhalte an einem Cue schaden (Cue-Overload, nächste Lektion).</div>`,
+check:[
+ {q:"Was bedeutet „permastore“?", o:["Information im Kurzzeitgedächtnis bleibt dauerhaft erhalten","Semantisches Wissen bleibt nach anfänglichem Abfall relativ stabil","Alles Gelernte bleibt für immer gleich gut abrufbar","Ein eigener Speicher innerhalb des Arbeitsgedächtnisses"], a:1, ex:"Nach einem Abfall in den ersten 2 bis 3 Jahren scheint semantisches Wissen relativ stabil.", w:["Im KZG geht Information nach etwa 20 Sekunden verloren.",null,"Es gibt einen anfänglichen Abfall, danach erst bleibt das Wissen stabil.","Permastore bezieht sich auf das semantische LZG."]},
+ {q:"Welcher Faktor fördert den Abruf?", o:["Ein unbeachteter Cue","Eine Abrufstrategie, die der Enkodierungsstrategie ähnelt","Eine schwache Gedächtnisspur","Ein Cue, der mit vielen Inhalten verknüpft ist"], a:1, ex:"Die Abrufstrategie sollte der Enkodierung ähneln.", w:["Wird der Cue nicht beachtet, sinkt der Abruferfolg.",null,"Schwach repräsentierte Inhalte sind schlechter abrufbar.","Ein Cue mit vielen Inhalten führt zu Cue-Overload."]}
+]},
+{id:"3-3", t:"Vergessen und Interferenz", html:`
+<p><b>Inzidentelles Vergessen</b> im Laufe der Zeit entsteht durch:</p>
+<ul><li><b>Spurenzerfall</b>: graduelles Abschwächen der Gedächtnisspur. Unklar, ob es ihn im LZG gibt, denn er lässt sich nicht untersuchen: Jeder Abruf zum Prüfen führt zur Konsolidierung.</li>
+<li><b>Kontextfluktuation</b>: Abruf-Cues gehen verloren, weil sich der Kontext verändert.</li>
+<li><b>Interferenz</b>: Der Abruf einer Information wird gestört, weil eine ähnliche Information gespeichert wird.
+ <ul><li><b>Cue-Competition</b>: Ein Abruf-Cue ist mit mehr als einer Gedächtnisspur verknüpft, die Inhalte blockieren sich gegenseitig.</li>
+ <li><b>Cue-Overload-Prinzip</b>: Die Abrufleistung sinkt systematisch mit der Anzahl der Einheiten, die mit einem Cue verknüpft sind.</li></ul></li></ul>
+<table class="kvq"><tr><th>Interferenzphänomen</th><th>Was stört was?</th></tr>
+<tr><td><b>retroaktive Interferenz</b></td><td><b>Neu</b> erworbene Information stört den Abruf <b>früher</b> erworbener Inhalte.</td></tr>
+<tr><td><b>proaktive Interferenz</b></td><td><b>Früher</b> erworbene Information stört den Abruf <b>später</b> erworbener Inhalte.</td></tr>
+<tr><td><b>abrufinduziertes Vergessen</b></td><td>Der Abruf bestimmter Teilinformationen behindert einen späteren Abruf anderer Informationsteile.</td></tr></table>
+<div class="merk"><b>Eselsbrücke</b><div class="mrows">
+<div><span class="ml">retro</span><span>„zurück“: Das Neue wirkt zurück auf das Alte.</span></div>
+<div><span class="ml">pro</span><span>„vorwärts“: Das Alte wirkt nach vorn auf das Neue.</span></div></div></div>
+<div class="merk"><b>So stand es in der Klausur WiSe 24/25</b><div class="mrows">
+<div><span class="ml"><span class="vd f">falsch</span></span><span>„Je mehr unterschiedliche Gedächtnisspuren mit einem Cue verknüpft sind, desto besser der Abruf.“<br><span class="small muted">Grund: Cue-Overload</span></span></div>
+<div><span class="ml"><span class="vd t">wahr</span></span><span>Proaktive Interferenz: Früheres stört den Abruf von Späterem.</span></div>
+<div><span class="ml"><span class="vd t">wahr</span></span><span>Kontextfluktuation bedingt Vergessen, weil relevante Abrufreize verlorengehen können.</span></div></div></div>`,
+check:[
+ {q:"Nach dem Lernen der französischen Vokabeln fallen einer Schülerin die spanischen nicht mehr ein, die sie früher gelernt hat. Was liegt vor?", o:["Proaktive Interferenz","Retroaktive Interferenz","Spurenzerfall","Abrufinduziertes Vergessen"], a:1, ex:"Das Neue (Französisch) stört den Abruf des früher Gelernten (Spanisch).", w:["Proaktiv wäre es umgekehrt: Spanisch würde das spätere Französisch stören.",null,"Spurenzerfall wäre ein bloßes Abschwächen über die Zeit, ohne ähnliche neue Information.","Abrufinduziert hieße, dass das Abrufen einiger Teile den Abruf anderer Teile behindert."]},
+ {q:"Warum lässt sich Spurenzerfall im LZG laut Folie kaum nachweisen?", o:["Weil er zu schnell abläuft, um ihn zu messen","Weil jeder Abruf zur Prüfung die Spur festigt","Weil es kein dauerhaftes Langzeitgedächtnis gibt","Weil er nur bei Tieren beobachtet werden kann"], a:1, ex:"Um zu prüfen, ob eine Spur zerfallen ist, muss man abrufen, und Abruf führt zur Konsolidierung.", w:["Über die Geschwindigkeit sagt die Folie nichts.",null,"Das LZG ist ein zentrales Gedächtnissystem.","Die Folie nennt keine Beschränkung auf Tiere."]}
+]}
+];
+
+CARDS[3]=[
+ {id:"c3-01", f:"Enkodierung", b:"Prozess des Abspeicherns von Information, noch während der Stimulus präsent ist."},
+ {id:"c3-02", f:"Vier Faktoren für die Qualität der Enkodierung", b:"Verarbeitungstiefe (levels of processing, deep/shallow encoding)\nPassung der Enkodierungs- und Abrufprozesse\nVorwissen\nLernrate"},
+ {id:"c3-03", f:"Verarbeitungstiefe", b:"Je tiefer (z. B. semantisch) Information bei der Enkodierung verarbeitet wird, desto besser wird sie behalten. Die Gegenaussage („desto schwieriger der Abruf“) war 24/25 falsch."},
+ {id:"c3-04", f:"Gedächtnis als konstruktiver Prozess", b:"Gedächtnisinhalte sind keine objektiven Abbildungen (Augenzeugenberichte!). Schemata und Skripte lenken die Enkodierung (Selektion, Abstraktion, Interpretation, Integration) und den Abruf (Rekonstruktion)."},
+ {id:"c3-05", f:"Schemata und Skripte", b:"Gelernte Muster von Ereignisabfolgen, die als „Situationsmodelle“ Enkodierung und Abruf lenken."},
+ {id:"c3-06", f:"Behaltensleistung: permastore", b:"Nach anfänglichem Abfall in den ersten 2–3 Jahren bleibt semantisches Gedächtnis relativ stabil. Abruf wirkt konservierend, ggf. wird aber das zuletzt Erinnerte erinnert, nicht das Original."},
+ {id:"c3-07", f:"Abruf und retrieval cue", b:"Beim Abruf wird ein Gedächtnisinhalt nach einem Schlüsselreiz reproduziert, z. B. „agua“ nach dem Cue „water“."},
+ {id:"c3-08", f:"Vier Faktoren des Abrufs (erste Folie)", b:"Aufmerksamkeitslenkung (unbeachteter Cue senkt den Erfolg)\nCue-Relevanz (Ähnlichkeit von Enkodierung und Abruf)\nassoziative Stärke von Cue und Target\nAnzahl der Cues (Kombinationen wirken besser)"},
+ {id:"c3-09", f:"Drei weitere Faktoren des Abrufs", b:"Stärke der Gedächtnisspur\nAbrufstrategie (ähnlich der Enkodierungsstrategie)\nmentaler Modus (aktiviertes Schema lenkt auf relevante Cues)"},
+ {id:"c3-10", f:"Drei Ursachen inzidentellen Vergessens", b:"Spurenzerfall (unklar, ob es ihn gibt)\nKontextfluktuation (Abruf-Cues gehen verloren)\nInterferenz (ähnliche Information stört den Abruf)"},
+ {id:"c3-11", f:"Spurenzerfall im LZG", b:"Graduelles Abschwächen der Gedächtnisspur. Unklar, ob es existiert, weil es nicht zu untersuchen ist: Abruf führt zu Konsolidierung."},
+ {id:"c3-12", f:"Kontextfluktuation", b:"Verlust von Abruf-Cues durch Veränderung des Kontextes. Bedingt Vergessen (Klausur 24/25: wahr)."},
+ {id:"c3-13", f:"Cue-Competition und Cue-Overload-Prinzip", b:"Cue-Competition: Ein Cue ist mit mehr als einer Spur verknüpft, die Inhalte blockieren sich.\nCue-Overload: Die Abrufleistung sinkt systematisch mit der Anzahl der Einheiten an einem Cue."},
+ {id:"c3-14", f:"Retroaktive Interferenz", b:"Neu erworbene Information stört den Abruf früher erworbener Inhalte."},
+ {id:"c3-15", f:"Proaktive Interferenz", b:"Früher erworbene Information stört den Abruf später erworbener Inhalte (Klausur 24/25: wahr)."},
+ {id:"c3-16", f:"Abrufinduziertes Vergessen", b:"Der Abruf bestimmter Teilinformationen behindert einen späteren Abruf anderer Informationsteile."}
+];
+Object.assign(CARD_INFO,{
+ "c3-02":"Ergänzung (nicht auf der Folie): Der Ansatz „levels of processing“ geht auf Craik & Lockhart (1972) zurück.",
+ "c3-05":"Skript: ein Schema für typische Abläufe, etwa „Restaurantbesuch“.",
+ "c3-06":"Permastore: englisch, etwa „Dauerspeicher“.",
+ "c3-07":"Retrieval: englisch „Abruf“. Cue: Hinweisreiz.",
+ "c3-10":"Inzidentell: nebenbei, ohne Absicht.",
+ "c3-13":"Overload: Überlastung.",
+ "c3-14":"Retro: lateinisch „zurück“.",
+ "c3-15":"Pro: lateinisch „vor, nach vorn“."
+});
+Object.assign(CARD_CTX,{
+ "c3-01":"Der erste Gedächtnisprozess","c3-02":"Wovon gutes Abspeichern abhängt","c3-03":"Echte Klausuraussage","c3-04":"Kein Abbild der Wirklichkeit",
+ "c3-05":"Was die Konstruktion lenkt","c3-06":"Wie lange Wissen hält","c3-07":"Der Abruf","c3-08":"Was den Abruf bestimmt",
+ "c3-09":"Was den Abruf noch bestimmt","c3-10":"Warum wir vergessen","c3-11":"Erste Ursache","c3-12":"Zweite Ursache",
+ "c3-13":"Dritte Ursache: Interferenz","c3-14":"Interferenz: neu stört alt","c3-15":"Interferenz: alt stört neu","c3-16":"Vergessen durch Erinnern"
+});
+
+KREUZ.push(
+ {id:"x3-01", ch:3, stem:"Für Gedächtnisprozesse allgemein gilt:", klausur:"WiSe 24/25", s:[
+  ["Gedächtnisinhalte sind objektive Repräsentationen von Stimuli und Ereignissen, mit denen das Individuum zu einem früheren Zeitpunkt konfrontiert war.", false, "Gedächtnis ist <b>konstruktiv</b>: Schemata lenken Enkodierung und Abruf (Augenzeugenberichte)."],
+  ["Je tiefer Information bei der Enkodierung verarbeitet wurde, desto schwieriger ist der Abruf der Information.", false, "Umgekehrt: Tiefere Verarbeitung verbessert die Enkodierung und damit den Abruf."],
+  ["Je weniger ähnlich sich Enkodierungs- und Abrufsituation sind, desto wahrscheinlicher ist der Abruf aus dem episodischen Gedächtnis gestört.", true, "Episodischer Abruf ist kontextabhängig (Godden & Baddeley, 1975)."]]},
+ {id:"x2-01", ch:2, stem:"Für das Langzeitgedächtnis gilt:", klausur:"WiSe 24/25", s:[
+  ["Das Spreading-Activation-Modell (Collins & Loftus, 1975) geht davon aus, dass semantische Gedächtnisinhalte in Form eines nicht-hierarchischen Netzwerks gespeichert sind.", true, "So auf der Folie."],
+  ["Inhalte, die aus dem expliziten Langzeitgedächtnis abgerufen werden, können nicht verbalisiert werden.", false, "Explizite Inhalte sind bewusst und <b>berichtbar</b>, also deklarativ."],
+  ["Das prozedurale Gedächtnis ist Teil des transienten Gedächtnisses.", false, "Es gehört zum <b>non-deklarativen Langzeitgedächtnis</b>."]]},
+ {id:"x3-02", ch:3, stem:"Für das Vergessen von Information aus dem Langzeitgedächtnis gilt:", klausur:"WiSe 24/25", s:[
+  ["Je mehr unterschiedliche Gedächtnisspuren mit einem Abrufreiz (Cue) verknüpft sind, desto besser ist der Gedächtnisabruf.", false, "Cue-Overload: Die Abrufleistung <b>sinkt</b> mit der Anzahl der Einheiten an einem Cue."],
+  ["Proaktive Interferenz bezeichnet das Phänomen, dass früher erworbene Gedächtnisinhalte den Abruf später erworbener Gedächtnisinhalte stören.", true, "Retroaktiv wäre umgekehrt."],
+  ["Kontextfluktuation bedingt Vergessen, da dadurch relevante Abrufreize verlorengehen können.", true, "So auf der Folie."]]},
+ {id:"x2-02", ch:2, stem:"Für das transiente Gedächtnis gilt:", klausur:"WiSe 24/25", s:[
+  ["Chunking, also die Bündelung von Information im Kurzzeitgedächtnis, setzt Zugriff auf Information aus dem Langzeitgedächtnis voraus.", true, "Chunks entstehen auf Basis von <b>Vorwissen</b> aus dem LZG (Lehrbuch Kap. 2)."],
+  ["Werden räumlich-visuelle und verbale Informationen parallel verarbeitet (Dual-Tasking), ist das nur mit deutlichen Leistungseinbußen möglich.", false, "Getrennte Subsysteme (Schleife, Notizblock): Diese Aufgaben interferieren <b>kaum</b>."],
+  ["Von gesunden Erwachsenen kann Information im Kurzzeitgedächtnis länger als 20 Sekunden aufrechterhalten werden.", true, "Mit <b>Rehearsal</b>."]]},
+ {id:"x2-03", ch:2, stem:"Für das episodische Gedächtnis gilt:", s:[
+  ["Episodisches Wissen enthält neben dem „was“ auch Information über wann, wo und wie.", true, "Zeitpunkt, Ort, situativer Kontext."],
+  ["Stimmungskongruenz bedeutet, dass der Abruf am besten ist, wenn die Stimmung bei Enkodierung und Abruf identisch ist.", false, "Das ist <b>Stimmungsabhängigkeit</b>. Kongruenz ist der Bias zu stimmungspassenden Inhalten."],
+  ["Mentales Simulieren des Lernkontexts kann den Abruf bereits verbessern.", true, "Laut Folie ist das häufig ausreichend."]]},
+ {id:"x2-04", ch:2, stem:"Für das Arbeitsgedächtnis und den Schlaf gilt:", s:[
+  ["Die zentrale Exekutive ist besonders bei automatisierten Handlungen gefragt.", false, "Sie ist bei <b>nicht-automatisierten</b> Handlungen und bei Konflikten relevant."],
+  ["Der episodische Puffer bindet Information unterschiedlicher Verarbeitungssysteme zusammen.", true, "Binding, multimodal."],
+  ["Früher, SWS-reicher Schlaf befördert vor allem die Konsolidierung deklarativer Gedächtnisinhalte.", true, "REM-Schlaf eher nicht-deklarative Inhalte."]]},
+ {id:"x3-03", ch:3, stem:"Für den Abruf von Information gilt:", s:[
+  ["Kombinationen von Abruf-Cues sind effektiver als einzelne Cues.", true, "Anzahl der Cues als Faktor."],
+  ["Die Abrufstrategie sollte sich möglichst von der Enkodierungsstrategie unterscheiden.", false, "Sie sollte der Enkodierungsstrategie <b>ähneln</b>."],
+  ["Beim abrufinduzierten Vergessen behindert der Abruf bestimmter Teilinformationen den späteren Abruf anderer Teile.", true, "So definiert auf der Folie."]]}
+);
+
+KURZ.push(
+ {id:"k2-1", ch:2, pts:8,
+  q:"Erläutern Sie, warum das Kurzzeitgedächtnis im modalen Modell zum Konzept des Arbeitsgedächtnisses weiterentwickelt wurde, und beschreiben Sie die Subsysteme des Arbeitsgedächtnisses nach Baddeley & Hitch (1974).",
+  k:["KZG im modalen Modell: kleine Mengen kurz aktiv halten (ca. 20 s, 7 ± 2)","Schwäche 1: passiver Speicher, erklärt keine aktive Manipulation (Problemlösen)","Schwäche 2: unitärer Speicher, aber Dual-Task-Befunde: manche Aufgaben interferieren kaum","Phonologische Schleife (sprachlich) und räumlich-visueller Notizblock (visuell-räumlich), je Speicher + Rehearsal","Episodischer Puffer: multimodal, Binding","Zentrale Exekutive: überwacht, verteilt Ressourcen, lenkt Aufmerksamkeit"],
+  m:"Im modalen Modell von Atkinson und Shiffrin hält das Kurzzeitgedächtnis kleine Informationsmengen für kurze Zeit aktiv, etwa 20 Sekunden und 7 ± 2 Einheiten. Zwei Annahmen erwiesen sich als zu eng: Ein passiver Speicher kann nicht erklären, wie Information beim Problemlösen aktiv manipuliert wird, und ein einheitlicher Speicher passt nicht zu Dual-Task-Befunden, nach denen bestimmte Aufgaben kaum interferieren. Baddeley und Hitch fassen das Arbeitsgedächtnis daher als aktives System mit mindestens vier Subsystemen: Die phonologische Schleife hält sprachbasierte, der räumlich-visuelle Notizblock visuell-räumliche Information aufrecht, beide mit Speicher und Rehearsal-Mechanismus. Der episodische Puffer verbindet als multimodaler Speicher Informationen zu komplexen Mustern. Die zentrale Exekutive überwacht die Verarbeitung, verteilt Ressourcen und lenkt die Aufmerksamkeit."},
+ {id:"k3-1", ch:3, pts:8,
+  q:"Ein Schüler lernt am Montag englische, am Dienstag französische Vokabeln für ähnliche Begriffe. Am Mittwoch fallen ihm im Englischtest viele Wörter nicht ein. Erklären Sie das Vergessen mit Interferenz und nennen Sie zwei weitere Ursachen inzidentellen Vergessens.",
+  k:["Interferenz: ähnliche gespeicherte Information stört den Abruf","Retroaktive Interferenz: das neu gelernte Französisch stört den Abruf des früher gelernten Englisch","Cue-Competition/Cue-Overload: derselbe Cue (deutsches Wort) ist mit mehreren Spuren verknüpft","Kontextfluktuation: Abruf-Cues gehen durch veränderten Kontext verloren","Spurenzerfall: graduelles Abschwächen, Existenz im LZG unklar"],
+  m:"Interferenz liegt vor, wenn ähnliche Information den Abruf stört. Hier wirkt das später gelernte Französisch zurück auf das früher gelernte Englisch: retroaktive Interferenz. Der deutsche Begriff als Abrufreiz ist nun mit zwei Gedächtnisspuren verknüpft; diese blockieren sich (Cue-Competition), und mit jeder weiteren Verknüpfung sinkt die Abrufleistung (Cue-Overload). Weitere Ursachen sind Kontextfluktuation, also der Verlust von Abrufreizen, weil sich der Kontext ändert, und Spurenzerfall, ein graduelles Abschwächen der Spur, dessen Existenz im Langzeitgedächtnis allerdings unklar ist, weil jeder Abruf zur Konsolidierung führt."}
+);
+OPEN.push({id:"o2-k1", ch:2, kind:"kurz", k:"k2-1", pts:10, title:"Arbeitsgedächtnis"});
+OPEN.push({id:"o3-k1", ch:3, kind:"kurz", k:"k3-1", pts:10, title:"Vergessen und Interferenz"});
+
 /* ================= Zeichen der Diagnostik-Statistik =================
    Jedes Zeichen aus Heines Folien und den Altklausuren einmal erklärt: Bedeutung, wofür, Mini-Beispiel, wo es vorkommt,
    typische Verwechslung. Daraus entstehen zwei Kartenstapel (Zeichen → Bedeutung und Bedeutung → Zeichen) und das Lexikon.
@@ -2521,7 +3056,16 @@ function renderRecall(){
 const WHO_SETS={
   lern:{t:"Welche Lernform?", kap:9, q:"Was steckt hinter dieser Beobachtung?",
     hint:"Wird die Reaktion schwächer oder stärker? Werden zwei Ereignisse verknüpft? Oder steckt Reifung oder Müdigkeit dahinter?",
-    cats:{hab:"Habituation", sens:"Sensitivierung", kk:"Klassische Konditionierung (S → S)", ok:"Operante Konditionierung (R → S)", kein:"Kein Lernen (Reifung, Ermüdung)"}}
+    cats:{hab:"Habituation", sens:"Sensitivierung", kk:"Klassische Konditionierung (S → S)", ok:"Operante Konditionierung (R → S)", kein:"Kein Lernen (Reifung, Ermüdung)"}},
+  konseq:{t:"Welche operante Konsequenz?", kap:11, q:"Wessen Verhalten wird wie beeinflusst?",
+    hint:"Erst klären, wessen Verhalten gemeint ist. Dann: Kommt ein Reiz dazu (positiv) oder fällt er weg (negativ)? Wird das Verhalten häufiger (Verstärkung) oder seltener (Bestrafung)?",
+    cats:{pv:"Positive Verstärkung", nv:"Negative Verstärkung", pb:"Positive Bestrafung", nb:"Negative Bestrafung", loe:"Löschung"}},
+  gedsys:{t:"Welches Gedächtnissystem?", kap:2, q:"Welches Gedächtnissystem ist hier vor allem am Werk?",
+    hint:"Bewusst berichtbar oder nur im Verhalten sichtbar? Erlebnis oder Weltwissen? Bruchteil einer Sekunde, ein paar Sekunden oder dauerhaft?",
+    cats:{epis:"Episodisches Gedächtnis", sem:"Semantisches Gedächtnis", proz:"Prozedurales Gedächtnis", ag:"Kurzzeit- bzw. Arbeitsgedächtnis", sens:"Sensorisches Gedächtnis"}},
+  verg:{t:"Warum vergessen?", kap:3, q:"Welcher Mechanismus erklärt das Vergessen am besten?",
+    hint:"Stört Neues das Alte oder Altes das Neue? Hängen zu viele Inhalte an einem Hinweisreiz? Fehlt der alte Kontext?",
+    cats:{retro:"Retroaktive Interferenz", pro:"Proaktive Interferenz", aiv:"Abrufinduziertes Vergessen", cue:"Cue-Overload", kf:"Kontextfluktuation"}}
 };
 const WHO=[
  {id:"l01", set:"lern", t:"Nach zwei Wochen im neuen Klassenraum bemerkt Ayla das Rauschen der Lüftung nicht mehr.", s:"hab", ex:"Ein schwacher, regelmäßiger Reiz wird wiederholt dargeboten, die Reaktion wird schwächer."},
@@ -2538,6 +3082,31 @@ const WHO=[
  {id:"l12", set:"lern", t:"Ein Jugendlicher reagiert nach einem belastenden Erlebnis auf laute Geräusche nicht ruhiger, sondern jedes Mal heftiger.", s:"sens", ex:"„Failure to habituate“: Statt Gewöhnung tritt eine immer stärkere Reaktion auf. So erklärt man z. B. Symptome bei PTBS."},
  {id:"l13", set:"lern", t:"Mit Fieber bleibt am Abend vor der Prüfung kaum etwas hängen.", s:"kein", ex:"Eine körperliche Ursache wie Krankheit ist weder Lernen noch Vergessen (Lehrbuch Kap. 1)."},
  {id:"l14", set:"lern", t:"Neu an der Schule an der Hauptstraße, stört Elif der Verkehrslärm. Nach einigen Wochen nimmt sie ihn kaum noch wahr.", s:"hab", ex:"Gewöhnung an einen wiederholten Reiz ermöglicht die Anpassung an eine bestimmte Umwelt."}
+ ,{id:"o01", set:"konseq", t:"Ein Schüler meldet sich häufiger, seit die Lehrkraft jede gute Antwort lobt.", s:"pv", ex:"Ein appetitiver Reiz (Lob) kommt hinzu, das Melden wird häufiger."},
+ {id:"o02", set:"konseq", t:"Michael bekommt nach einer Ohrfeige zwei Wochen Trainingsverbot und schlägt danach nicht mehr.", s:"nb", ex:"Klausur 24/25: Eine appetitive Konsequenz (Fußball) wird entnommen, das Verhalten wird seltener."},
+ {id:"o03", set:"konseq", t:"Die Mutter kauft die Süßigkeit, und das Weinen ihrer Tochter hört auf. Beim nächsten Mal kauft sie sofort. (Fokus: Mutter)", s:"nv", ex:"Für die Mutter fällt etwas Aversives weg (Weinen). Ihr Kaufen wird häufiger."},
+ {id:"o04", set:"konseq", t:"Lina quengelt, bekommt die Süßigkeit und quengelt beim nächsten Einkauf wieder. (Fokus: Lina)", s:"pv", ex:"Für Lina kommt etwas Appetitives hinzu (Süßigkeit). Ihr Quengeln wird häufiger."},
+ {id:"o05", set:"konseq", t:"Snoopys Halsband piept schrill, sobald er sich dem Zaun nähert. Bald meidet er den Zaun.", s:"pb", ex:"Fall 4 der Vorlesung: Ein aversiver Reiz kommt hinzu, die Annäherung wird seltener."},
+ {id:"o06", set:"konseq", t:"Wer die Hausaufgaben vollständig hat, muss die Wiederholungsübung am Freitag nicht machen. Die Abgaben werden vollständiger.", s:"nv", ex:"Etwas Unangenehmes (Wiederholungsübung) fällt weg, das Verhalten wird häufiger. Beispiel aus dem Lehrbuch: Befreiung von Hausaufgaben."},
+ {id:"o07", set:"konseq", t:"Ein Schüler macht Witze, die Klasse lacht nicht mehr mit. Nach einigen Tagen hört er damit auf.", s:"loe", ex:"Die bisherige Verstärkung (Lachen) bleibt aus, es folgt keine Konsequenz mehr: Löschung."},
+ {id:"o08", set:"konseq", t:"Nach jeder Störung ermahnt die Lehrkraft eine Schülerin vor der Klasse. Sie stört seltener.", s:"pb", ex:"Ein aversiver Reiz (Ermahnung) wird dargeboten. Lehrbuch: Ermahnung bei Unterrichtsstörung."},
+ {id:"o09", set:"konseq", t:"Weil er im Unterricht chattet, wird einem Schüler das Handy bis Stundenende abgenommen.", s:"nb", ex:"Ein appetitiver Reiz (Handy) wird entzogen. Lehrbuch: Wegnahme des Handys."},
+ {id:"g01", set:"gedsys", t:"Aylin weiß noch genau, wo und mit wem sie ihren ersten Schultag verbracht hat.", s:"epis", ex:"Ein persönliches Erlebnis mit wann, wo und wie."},
+ {id:"g02", set:"gedsys", t:"Ben weiß, dass Paris die Hauptstadt Frankreichs ist, aber nicht, wann er das gelernt hat.", s:"sem", ex:"Weltwissen ohne den Kontext des Lernens."},
+ {id:"g03", set:"gedsys", t:"Nach Monaten Training fährt Mia Fahrrad, ohne über das Gleichgewicht nachzudenken.", s:"proz", ex:"Eine durch Übung automatisierte motorische Fertigkeit (autonome Phase)."},
+ {id:"g04", set:"gedsys", t:"Tom rechnet 17 · 6 im Kopf und hält dabei das Zwischenergebnis fest.", s:"ag", ex:"Information wird kurz aktiv gehalten und bearbeitet: Arbeitsgedächtnis."},
+ {id:"g05", set:"gedsys", t:"Nach einem Blitz sieht man für einen Bruchteil einer Sekunde noch ein Nachbild der Szene.", s:"sens", ex:"Unmittelbare, sehr kurze, modalitätsspezifische Speicherung."},
+ {id:"g06", set:"gedsys", t:"Lea wiederholt eine Telefonnummer leise, bis sie sie eingetippt hat.", s:"ag", ex:"Rehearsal hält Information im Kurzzeitgedächtnis aktiv."},
+ {id:"g07", set:"gedsys", t:"Ein Schüler tippt auf der Tastatur blind, kann aber nicht sagen, wo das „k“ liegt.", s:"proz", ex:"Implizites Können, das sich im Verhalten zeigt, aber nicht berichtet werden kann."},
+ {id:"g08", set:"gedsys", t:"Jonas kennt die Bedeutung des Wortes „Photosynthese“.", s:"sem", ex:"Sprach- und Weltwissen."},
+ {id:"g09", set:"gedsys", t:"Elif erinnert sich, dass ihr Lehrer beim letzten Elternabend vor dem Fenster stand.", s:"epis", ex:"Ein selbst erlebtes Ereignis mit Ort und Situation."},
+ {id:"v01", set:"verg", t:"Nach dem Lernen der neuen PIN fällt Ali seine alte PIN nicht mehr ein.", s:"retro", ex:"Das Neue stört den Abruf des Früheren."},
+ {id:"v02", set:"verg", t:"Seit dem Umzug schreibt Sara im Formular immer wieder ihre alte Adresse statt der neuen.", s:"pro", ex:"Das früher Gelernte stört den Abruf des später Gelernten."},
+ {id:"v03", set:"verg", t:"Unter dem Stichwort „Lerntheorie“ sollen 15 Begriffe einfallen. Je mehr es werden, desto weniger fällt pro Begriff ein.", s:"cue", ex:"Die Abrufleistung sinkt mit der Anzahl der Einheiten an einem Cue."},
+ {id:"v04", set:"verg", t:"Im Klassenzimmer wusste Max alles, in der Turnhalle bei der Klausur fällt ihm wenig ein.", s:"kf", ex:"Der Kontext hat sich verändert, Abruf-Cues aus dem Lernraum fehlen."},
+ {id:"v05", set:"verg", t:"Eine Schülerin übt nur drei der sechs Vokabeln einer Wortfamilie. Die drei anderen fallen ihr danach schlechter ein als vorher.", s:"aiv", ex:"Der Abruf einiger Teilinformationen behindert den späteren Abruf der anderen."},
+ {id:"v06", set:"verg", t:"Nach Spanisch in der 7. Klasse kommt in der 8. Französisch. Die neuen französischen Wörter werden ständig von den spanischen verdrängt.", s:"pro", ex:"Das früher gelernte Spanisch stört das später gelernte Französisch."},
+ {id:"v07", set:"verg", t:"Nach einem Wochenende mit neuen Spielregeln weiß Tim die Regeln des alten Spiels nicht mehr.", s:"retro", ex:"Neu erworbene Information stört den Abruf früher erworbener Inhalte."}
 ];
 const whoCats=x=>WHO_SETS[x.set].cats;
 function whoOptions(x){
@@ -2704,9 +3273,13 @@ function bindWeak(){
 /* ================= Einstellungen nur dieser App für die gemeinsamen Bausteine (status.js) ================= */
 const APP={
  name:"BiWi II",
- /* Unterlagen-Muster, hergeleitet aus den Uploads bis 21.10.: Heine stellt einen Foliensatz in Moodle, der jede Woche
-    um die neue Sitzung wächst. Darum immer die ganze, neueste Datei hochladen. Rhythmus wöchentlich, Wochentag unbekannt. */
- expect:(h,L)=>weeklyAfter(L,{grow:true, end:"2027-02-06", items:["neuester Foliensatz aus Moodle (eine Datei, sie wächst jede Woche)"]}),
+ /* Unterlagen-Muster, korrigiert am 10.11. aus den Uploads: Heine stellt je Sitzung eine eigene Datei
+    „Psy-Lehramt_WiSe-26-27_Sitzung<Nr>.pdf“ in Moodle (kein wachsender Foliensatz). Rhythmus wöchentlich, Wochentag unbekannt.
+    Sitzung 3 (Lernen 2) fehlt: Sitzung 4 setzt bei der operanten Konditionierung an, die Grundlagen davor sind nicht hochgeladen. */
+ projectUrl:"https://claude.ai/project/01a15557-90c1-7400-9208-1196e80443c9",
+ expect:(h,L)=>{ const W=weeklyAfter(L,{end:"2027-02-06", items:["Folien der Sitzung (eigene Datei Psy-Lehramt_WiSe-26-27_Sitzung…pdf)"]});
+   const gap=L.some(u=>u.no===3&&u.added)?[]:[{ch:3, label:"Sitzung 3", date:"schon gehalten", ts:new Date("2026-10-28").getTime(), items:["Folien Sitzung 3: Lernen 2 (Konditionierung)"]}];
+   return {list:gap.concat(W.list), unsure:true}; },
  halves:false,
  chap:n=>CHAPTERS.find(c=>c.n===n),
  unit:()=>"Sitzung",
@@ -2917,7 +3490,7 @@ if("serviceWorker" in navigator){ window.addEventListener("load", ()=>navigator.
    Beim Start lädt die App eine neue Version sofort. Beim Zurückkehren nur, wenn gerade nichts läuft;
    mitten in Karten, Aufgaben oder Probeklausur erscheint stattdessen ein Hinweis zum Antippen. Der Lernstand liegt im Gerät und wird vorher abgeglichen. */
 (function(){
-  var V="67bc5324e54a", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
+  var V="9a5eac6b657f", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
   function busy(){ try{ return BUSY.indexOf(view)>=0; }catch(e){ return false; } }
   function syncing(){ try{ return !!(pushTimer||pushing); }catch(e){ return false; } }
   function reload(t){ try{ sessionStorage.setItem("upd-"+t,"1"); }catch(e){} location.replace(location.pathname+"?v="+t+location.hash); }

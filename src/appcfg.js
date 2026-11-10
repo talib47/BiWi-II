@@ -1,9 +1,13 @@
 /* ================= Einstellungen nur dieser App für die gemeinsamen Bausteine (status.js) ================= */
 const APP={
  name:"BiWi II",
- /* Unterlagen-Muster, hergeleitet aus den Uploads bis 21.10.: Heine stellt einen Foliensatz in Moodle, der jede Woche
-    um die neue Sitzung wächst. Darum immer die ganze, neueste Datei hochladen. Rhythmus wöchentlich, Wochentag unbekannt. */
- expect:(h,L)=>weeklyAfter(L,{grow:true, end:"2027-02-06", items:["neuester Foliensatz aus Moodle (eine Datei, sie wächst jede Woche)"]}),
+ /* Unterlagen-Muster, korrigiert am 10.11. aus den Uploads: Heine stellt je Sitzung eine eigene Datei
+    „Psy-Lehramt_WiSe-26-27_Sitzung<Nr>.pdf“ in Moodle (kein wachsender Foliensatz). Rhythmus wöchentlich, Wochentag unbekannt.
+    Sitzung 3 (Lernen 2) fehlt: Sitzung 4 setzt bei der operanten Konditionierung an, die Grundlagen davor sind nicht hochgeladen. */
+ projectUrl:"https://claude.ai/project/01a15557-90c1-7400-9208-1196e80443c9",
+ expect:(h,L)=>{ const W=weeklyAfter(L,{end:"2027-02-06", items:["Folien der Sitzung (eigene Datei Psy-Lehramt_WiSe-26-27_Sitzung…pdf)"]});
+   const gap=L.some(u=>u.no===3&&u.added)?[]:[{ch:3, label:"Sitzung 3", date:"schon gehalten", ts:new Date("2026-10-28").getTime(), items:["Folien Sitzung 3: Lernen 2 (Konditionierung)"]}];
+   return {list:gap.concat(W.list), unsure:true}; },
  halves:false,
  chap:n=>CHAPTERS.find(c=>c.n===n),
  unit:()=>"Sitzung",

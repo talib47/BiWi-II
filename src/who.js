@@ -6,7 +6,16 @@
 const WHO_SETS={
   lern:{t:"Welche Lernform?", kap:9, q:"Was steckt hinter dieser Beobachtung?",
     hint:"Wird die Reaktion schwächer oder stärker? Werden zwei Ereignisse verknüpft? Oder steckt Reifung oder Müdigkeit dahinter?",
-    cats:{hab:"Habituation", sens:"Sensitivierung", kk:"Klassische Konditionierung (S → S)", ok:"Operante Konditionierung (R → S)", kein:"Kein Lernen (Reifung, Ermüdung)"}}
+    cats:{hab:"Habituation", sens:"Sensitivierung", kk:"Klassische Konditionierung (S → S)", ok:"Operante Konditionierung (R → S)", kein:"Kein Lernen (Reifung, Ermüdung)"}},
+  konseq:{t:"Welche operante Konsequenz?", kap:11, q:"Wessen Verhalten wird wie beeinflusst?",
+    hint:"Erst klären, wessen Verhalten gemeint ist. Dann: Kommt ein Reiz dazu (positiv) oder fällt er weg (negativ)? Wird das Verhalten häufiger (Verstärkung) oder seltener (Bestrafung)?",
+    cats:{pv:"Positive Verstärkung", nv:"Negative Verstärkung", pb:"Positive Bestrafung", nb:"Negative Bestrafung", loe:"Löschung"}},
+  gedsys:{t:"Welches Gedächtnissystem?", kap:2, q:"Welches Gedächtnissystem ist hier vor allem am Werk?",
+    hint:"Bewusst berichtbar oder nur im Verhalten sichtbar? Erlebnis oder Weltwissen? Bruchteil einer Sekunde, ein paar Sekunden oder dauerhaft?",
+    cats:{epis:"Episodisches Gedächtnis", sem:"Semantisches Gedächtnis", proz:"Prozedurales Gedächtnis", ag:"Kurzzeit- bzw. Arbeitsgedächtnis", sens:"Sensorisches Gedächtnis"}},
+  verg:{t:"Warum vergessen?", kap:3, q:"Welcher Mechanismus erklärt das Vergessen am besten?",
+    hint:"Stört Neues das Alte oder Altes das Neue? Hängen zu viele Inhalte an einem Hinweisreiz? Fehlt der alte Kontext?",
+    cats:{retro:"Retroaktive Interferenz", pro:"Proaktive Interferenz", aiv:"Abrufinduziertes Vergessen", cue:"Cue-Overload", kf:"Kontextfluktuation"}}
 };
 const WHO=[
  {id:"l01", set:"lern", t:"Nach zwei Wochen im neuen Klassenraum bemerkt Ayla das Rauschen der Lüftung nicht mehr.", s:"hab", ex:"Ein schwacher, regelmäßiger Reiz wird wiederholt dargeboten, die Reaktion wird schwächer."},
@@ -23,6 +32,31 @@ const WHO=[
  {id:"l12", set:"lern", t:"Ein Jugendlicher reagiert nach einem belastenden Erlebnis auf laute Geräusche nicht ruhiger, sondern jedes Mal heftiger.", s:"sens", ex:"„Failure to habituate“: Statt Gewöhnung tritt eine immer stärkere Reaktion auf. So erklärt man z. B. Symptome bei PTBS."},
  {id:"l13", set:"lern", t:"Mit Fieber bleibt am Abend vor der Prüfung kaum etwas hängen.", s:"kein", ex:"Eine körperliche Ursache wie Krankheit ist weder Lernen noch Vergessen (Lehrbuch Kap. 1)."},
  {id:"l14", set:"lern", t:"Neu an der Schule an der Hauptstraße, stört Elif der Verkehrslärm. Nach einigen Wochen nimmt sie ihn kaum noch wahr.", s:"hab", ex:"Gewöhnung an einen wiederholten Reiz ermöglicht die Anpassung an eine bestimmte Umwelt."}
+ ,{id:"o01", set:"konseq", t:"Ein Schüler meldet sich häufiger, seit die Lehrkraft jede gute Antwort lobt.", s:"pv", ex:"Ein appetitiver Reiz (Lob) kommt hinzu, das Melden wird häufiger."},
+ {id:"o02", set:"konseq", t:"Michael bekommt nach einer Ohrfeige zwei Wochen Trainingsverbot und schlägt danach nicht mehr.", s:"nb", ex:"Klausur 24/25: Eine appetitive Konsequenz (Fußball) wird entnommen, das Verhalten wird seltener."},
+ {id:"o03", set:"konseq", t:"Die Mutter kauft die Süßigkeit, und das Weinen ihrer Tochter hört auf. Beim nächsten Mal kauft sie sofort. (Fokus: Mutter)", s:"nv", ex:"Für die Mutter fällt etwas Aversives weg (Weinen). Ihr Kaufen wird häufiger."},
+ {id:"o04", set:"konseq", t:"Lina quengelt, bekommt die Süßigkeit und quengelt beim nächsten Einkauf wieder. (Fokus: Lina)", s:"pv", ex:"Für Lina kommt etwas Appetitives hinzu (Süßigkeit). Ihr Quengeln wird häufiger."},
+ {id:"o05", set:"konseq", t:"Snoopys Halsband piept schrill, sobald er sich dem Zaun nähert. Bald meidet er den Zaun.", s:"pb", ex:"Fall 4 der Vorlesung: Ein aversiver Reiz kommt hinzu, die Annäherung wird seltener."},
+ {id:"o06", set:"konseq", t:"Wer die Hausaufgaben vollständig hat, muss die Wiederholungsübung am Freitag nicht machen. Die Abgaben werden vollständiger.", s:"nv", ex:"Etwas Unangenehmes (Wiederholungsübung) fällt weg, das Verhalten wird häufiger. Beispiel aus dem Lehrbuch: Befreiung von Hausaufgaben."},
+ {id:"o07", set:"konseq", t:"Ein Schüler macht Witze, die Klasse lacht nicht mehr mit. Nach einigen Tagen hört er damit auf.", s:"loe", ex:"Die bisherige Verstärkung (Lachen) bleibt aus, es folgt keine Konsequenz mehr: Löschung."},
+ {id:"o08", set:"konseq", t:"Nach jeder Störung ermahnt die Lehrkraft eine Schülerin vor der Klasse. Sie stört seltener.", s:"pb", ex:"Ein aversiver Reiz (Ermahnung) wird dargeboten. Lehrbuch: Ermahnung bei Unterrichtsstörung."},
+ {id:"o09", set:"konseq", t:"Weil er im Unterricht chattet, wird einem Schüler das Handy bis Stundenende abgenommen.", s:"nb", ex:"Ein appetitiver Reiz (Handy) wird entzogen. Lehrbuch: Wegnahme des Handys."},
+ {id:"g01", set:"gedsys", t:"Aylin weiß noch genau, wo und mit wem sie ihren ersten Schultag verbracht hat.", s:"epis", ex:"Ein persönliches Erlebnis mit wann, wo und wie."},
+ {id:"g02", set:"gedsys", t:"Ben weiß, dass Paris die Hauptstadt Frankreichs ist, aber nicht, wann er das gelernt hat.", s:"sem", ex:"Weltwissen ohne den Kontext des Lernens."},
+ {id:"g03", set:"gedsys", t:"Nach Monaten Training fährt Mia Fahrrad, ohne über das Gleichgewicht nachzudenken.", s:"proz", ex:"Eine durch Übung automatisierte motorische Fertigkeit (autonome Phase)."},
+ {id:"g04", set:"gedsys", t:"Tom rechnet 17 · 6 im Kopf und hält dabei das Zwischenergebnis fest.", s:"ag", ex:"Information wird kurz aktiv gehalten und bearbeitet: Arbeitsgedächtnis."},
+ {id:"g05", set:"gedsys", t:"Nach einem Blitz sieht man für einen Bruchteil einer Sekunde noch ein Nachbild der Szene.", s:"sens", ex:"Unmittelbare, sehr kurze, modalitätsspezifische Speicherung."},
+ {id:"g06", set:"gedsys", t:"Lea wiederholt eine Telefonnummer leise, bis sie sie eingetippt hat.", s:"ag", ex:"Rehearsal hält Information im Kurzzeitgedächtnis aktiv."},
+ {id:"g07", set:"gedsys", t:"Ein Schüler tippt auf der Tastatur blind, kann aber nicht sagen, wo das „k“ liegt.", s:"proz", ex:"Implizites Können, das sich im Verhalten zeigt, aber nicht berichtet werden kann."},
+ {id:"g08", set:"gedsys", t:"Jonas kennt die Bedeutung des Wortes „Photosynthese“.", s:"sem", ex:"Sprach- und Weltwissen."},
+ {id:"g09", set:"gedsys", t:"Elif erinnert sich, dass ihr Lehrer beim letzten Elternabend vor dem Fenster stand.", s:"epis", ex:"Ein selbst erlebtes Ereignis mit Ort und Situation."},
+ {id:"v01", set:"verg", t:"Nach dem Lernen der neuen PIN fällt Ali seine alte PIN nicht mehr ein.", s:"retro", ex:"Das Neue stört den Abruf des Früheren."},
+ {id:"v02", set:"verg", t:"Seit dem Umzug schreibt Sara im Formular immer wieder ihre alte Adresse statt der neuen.", s:"pro", ex:"Das früher Gelernte stört den Abruf des später Gelernten."},
+ {id:"v03", set:"verg", t:"Unter dem Stichwort „Lerntheorie“ sollen 15 Begriffe einfallen. Je mehr es werden, desto weniger fällt pro Begriff ein.", s:"cue", ex:"Die Abrufleistung sinkt mit der Anzahl der Einheiten an einem Cue."},
+ {id:"v04", set:"verg", t:"Im Klassenzimmer wusste Max alles, in der Turnhalle bei der Klausur fällt ihm wenig ein.", s:"kf", ex:"Der Kontext hat sich verändert, Abruf-Cues aus dem Lernraum fehlen."},
+ {id:"v05", set:"verg", t:"Eine Schülerin übt nur drei der sechs Vokabeln einer Wortfamilie. Die drei anderen fallen ihr danach schlechter ein als vorher.", s:"aiv", ex:"Der Abruf einiger Teilinformationen behindert den späteren Abruf der anderen."},
+ {id:"v06", set:"verg", t:"Nach Spanisch in der 7. Klasse kommt in der 8. Französisch. Die neuen französischen Wörter werden ständig von den spanischen verdrängt.", s:"pro", ex:"Das früher gelernte Spanisch stört das später gelernte Französisch."},
+ {id:"v07", set:"verg", t:"Nach einem Wochenende mit neuen Spielregeln weiß Tim die Regeln des alten Spiels nicht mehr.", s:"retro", ex:"Neu erworbene Information stört den Abruf früher erworbener Inhalte."}
 ];
 const whoCats=x=>WHO_SETS[x.set].cats;
 function whoOptions(x){

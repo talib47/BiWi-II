@@ -5,8 +5,8 @@
 const VL={1:"Einführung in die Psychologie", 2:"Lehr-/Lernpsychologie", 3:"Pädagogisch-psychologische Diagnostik", 4:"Inklusion"};
 const CHAPTERS=[
   {n:1,  teil:1, title:"Psychologie als Wissenschaft", teaser:"Lernziele nach Bloom, Kompetenz nach Weinert, die vier Ziele der Psychologie, Konstrukte und Operationalisierung."},
-  {n:2,  teil:1, title:"Gedächtnis", teaser:"Mehrspeichermodell, Arbeitsgedächtnis, Chunking, explizites und implizites Langzeitgedächtnis, Netzwerkmodell."},
-  {n:3,  teil:1, title:"Vergessen und Abruf", teaser:"Verarbeitungstiefe, Enkodierungsspezifität, Interferenz, Kontextfluktuation, abrufinduziertes Vergessen."},
+  {n:2,  teil:1, title:"Gedächtnis", teaser:"Modales Modell, Gedächtnissysteme, episodisches und prozedurales Gedächtnis, Schlaf, Kurzzeit- und Arbeitsgedächtnis."},
+  {n:3,  teil:1, title:"Vergessen und Abruf", teaser:"Enkodierung, Gedächtnis als Konstruktion, Abruf-Cues, Interferenz, Cue-Overload, abrufinduziertes Vergessen."},
   {n:4,  teil:1, title:"Emotion", teaser:"Circumplexmodell nach Russell (Valenz und Erregung) und Strategien der Emotionsregulation."},
   {n:5,  teil:1, title:"Motivation", teaser:"Intrinsisch und extrinsisch, Erwartungs-Wert-Modell nach Atkinson, Attribution und Feedback."},
   {n:6,  teil:1, title:"Volition und Selbststeuerung", teaser:"Exekutive Funktionen (Inhibition, Updating, Shifting) und selbstreguliertes Lernen."},
@@ -14,8 +14,8 @@ const CHAPTERS=[
   {n:8,  teil:1, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
   {n:9,  teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Reflexe, Habituation und Sensitivierung."},
   {n:10, teil:2, title:"Klassische Konditionierung", teaser:"Neutrale und konditionierte Reize, Generalisierung, Konditionierung höherer Ordnung."},
-  {n:11, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen nach Skinner, Verstärkerpläne und ihre Wirkung auf künftiges Verhalten."},
-  {n:12, teil:2, title:"Lernen am Modell", teaser:"Beobachtungslernen nach Bandura, stellvertretende Verstärkung, Selbstwirksamkeit."},
+  {n:11, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen, Verstärkungspläne, Bestrafung, erlernte Hilflosigkeit, Fallbeispiele aus der Klausur."},
+  {n:12, teil:2, title:"Lernen am Modell", teaser:"Soziales Lernen nach Bandura, Arten von Modellen, Abgrenzung, Determinanten, Selbstwirksamkeitserwartung."},
   {n:13, teil:2, title:"Wissenserwerb", teaser:"Wie Wissen im Unterricht aufgebaut wird."},
   {n:14, teil:2, title:"Leistungsmessung in der Schule", teaser:"Funktionen schulischer Leistungsbeurteilung, Bezugsnormen, Beurteilungsfehler."},
   {n:15, teil:3, title:"Messen und Skalenniveaus", teaser:"Quantifizierung von Merkmalen, diskrete und stetige Merkmale, Nominal- bis Verhältnisskala."},
@@ -133,5 +133,7 @@ CALC[16]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];
 UPLOADS.push(
  {base:true, known:false, items:[{k:"Lehrbuch", t:"Urhahne/Dresel/Fischer 2019", ok:true},{k:"Altklausuren", t:"WiSe 17/18, 18/19, 22/23, 24/25", ok:true},{k:"Fragenkatalog", t:"„Fragen Heine“", ok:true}]},
  {no:1, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 1: Einführung, Schwerpunkte, Psychologie als Wissenschaft", ok:true}]},
- {no:2, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 2: Psychologie als Wissenschaft, Lernen", ok:true}]}
+ {no:2, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 2: Psychologie als Wissenschaft, Lernen", ok:true}]},
+ {no:4, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 4: Lernen 3 & Gedächtnis 1 (34 Folien)", ok:true}]},
+ {no:5, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 5: Gedächtnis 2 (30 Folien)", ok:true}]}
 );
