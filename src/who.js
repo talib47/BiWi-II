@@ -13,6 +13,9 @@ const WHO_SETS={
   gedsys:{t:"Welches Gedächtnissystem?", kap:2, q:"Welches Gedächtnissystem ist hier vor allem am Werk?",
     hint:"Bewusst berichtbar oder nur im Verhalten sichtbar? Erlebnis oder Weltwissen? Bruchteil einer Sekunde, ein paar Sekunden oder dauerhaft?",
     cats:{epis:"Episodisches Gedächtnis", sem:"Semantisches Gedächtnis", proz:"Prozedurales Gedächtnis", ag:"Kurzzeit- bzw. Arbeitsgedächtnis", sens:"Sensorisches Gedächtnis"}},
+  kkb:{t:"Was passiert bei der Konditionierung?", kap:10, q:"Welches Phänomen der klassischen Konditionierung zeigt sich?",
+    hint:"Kommt die Reaktion auf einen ähnlichen Reiz? Wird der CS ohne US gezeigt? Kommt eine gelöschte Reaktion nach einer Pause zurück? Wird ein neuer Reiz nur mit einem CS gekoppelt?",
+    cats:{gen:"Generalisierung", ext:"Extinktion", spont:"Spontanerholung", dis:"Diskrimination", zwei:"Konditionierung zweiter Ordnung"}},
   verg:{t:"Warum vergessen?", kap:3, q:"Welcher Mechanismus erklärt das Vergessen am besten?",
     hint:"Stört Neues das Alte oder Altes das Neue? Hängen zu viele Inhalte an einem Hinweisreiz? Fehlt der alte Kontext?",
     cats:{retro:"Retroaktive Interferenz", pro:"Proaktive Interferenz", aiv:"Abrufinduziertes Vergessen", cue:"Cue-Overload", kf:"Kontextfluktuation"}}
@@ -57,6 +60,13 @@ const WHO=[
  {id:"v05", set:"verg", t:"Eine Schülerin übt nur drei der sechs Vokabeln einer Wortfamilie. Die drei anderen fallen ihr danach schlechter ein als vorher.", s:"aiv", ex:"Der Abruf einiger Teilinformationen behindert den späteren Abruf der anderen."},
  {id:"v06", set:"verg", t:"Nach Spanisch in der 7. Klasse kommt in der 8. Französisch. Die neuen französischen Wörter werden ständig von den spanischen verdrängt.", s:"pro", ex:"Das früher gelernte Spanisch stört das später gelernte Französisch."},
  {id:"v07", set:"verg", t:"Nach einem Wochenende mit neuen Spielregeln weiß Tim die Regeln des alten Spiels nicht mehr.", s:"retro", ex:"Neu erworbene Information stört den Abruf früher erworbener Inhalte."}
+ ,{id:"k01", set:"kkb", t:"Nach Ärger mit einer Mathelehrerin bekommt Emre auch bei einer anderen, ähnlich strengen Lehrerin Herzklopfen.", s:"gen", ex:"Die CR tritt auch auf Reize auf, die dem CS ähneln."},
+ {id:"k02", set:"kkb", t:"Der Hund hört die Glocke immer wieder, ohne dass Futter folgt. Der Speichelfluss wird immer schwächer.", s:"ext", ex:"CS ohne US: Die CR schwächt sich ab."},
+ {id:"k03", set:"kkb", t:"Nach den Sommerferien spürt Lina beim Betreten des Chemieraums kurz wieder die alte Angst, die im Frühjahr schon verschwunden war.", s:"spont", ex:"Eine gelöschte CR flackert nach einer Ruhephase wieder auf."},
+ {id:"k04", set:"kkb", t:"Der Hund speichelt nur noch beim Ton von 1000 Hz, nicht mehr bei 900 Hz, auf den nie Futter folgte.", s:"dis", ex:"Diskriminierungstraining: Der CS2 sagt das Ausbleiben des US vorher (konditionierte Inhibition)."},
+ {id:"k05", set:"kkb", t:"Erst wurde der Lehrer mit Tadel verknüpft, dann die Zahlen mit dem Lehrer. Jetzt machen schon Zahlen Angst.", s:"zwei", ex:"Ein neuer Reiz wird nur mit einem CS gekoppelt, ohne US. Heines Beispiel für Matheangst."},
+ {id:"k06", set:"kkb", t:"Ein Licht wird mehrmals vor dem Ton gezeigt, auf den der Hund schon speichelt, aber nie mit Futter. Bald speichelt er beim Licht.", s:"zwei", ex:"Folie Sitzung 3: Lernen ohne US, der dritte Reiz wird zum abgeschwächten CS."},
+ {id:"k07", set:"kkb", t:"Ein Kind, das Angst vor einer weißen Ratte gelernt hat, reagiert auch auf ein weißes Kaninchen ängstlich.", s:"gen", ex:"Ähnliche Reize lösen eine (meist schwächere) CR aus."}
 ];
 const whoCats=x=>WHO_SETS[x.set].cats;
 function whoOptions(x){

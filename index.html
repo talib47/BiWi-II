@@ -835,7 +835,7 @@ function judge(step,raw){
       known:false = nur bekannt, dass das Hochgeladene dazugehört.
    2. Erledigt-Liste (APP.todos je Hälfte), abgehakt in state.todo[id] = Zeitstempel.
    3. Motivationssatz unter der Wochenübersicht.
-   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-10", "a": "BiWi II", "w": "Update Sitzung 4 und 5: Kapitel 11 Operante Konditionierung, 12 Lernen am Modell, 2 Gedächtnis, 3 Vergessen und Abruf (17 Lektionen, 69 Karten, 34 Verständnisfragen, 12 Kreuzaufgaben davon 4 echte aus WiSe 24/25, 5 offene Aufgaben mit dem Michael-Fall aus 24/25, 3 Zuordnen-Sätze); Unterlagen-Muster korrigiert: je Sitzung eine eigene Datei statt wachsendem Foliensatz, Sitzung 3 fehlt", "y": "Neue Folien im Projekt; Teil 1 der Klausur 24/25 stammt fast ganz aus diesen Sitzungen"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Projekt öffnen“ wieder entfernt, Hinweis zeigt den Weg in der Claude-App", "y": "Aus der Web-App öffnet iOS einen Browser, in dem Talib nicht angemeldet ist"}, {"d": "2026-11-10", "a": "alle", "w": "Hochladen und Bescheid geben in einem Schritt: Dateien in einem neuen Chat im Projekt anhängen und senden, ohne Text; der Chat baut sie nach `UPDATE.md` ein und sichert die Textfassung als Projekt-Dokument; Knopf heißt „Projekt öffnen“", "y": "Talib: Upload, Knopf, Chat, Einfügen waren zu viele Schritte"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Unterlagen aktualisieren“ im Block „Unterlagen“ (öffnet das claude.ai-Projekt, kopiert „Update“), `UPDATE.md` als gründlicher Einbau-Auftrag (wortgleich in allen Repos), Regel 11 neu; fehlende `APP.projectUrl` trägt der nächste Update-Chat selbst ein", "y": "Talib: Hochladen allein ändert die App nicht, er will ein klares Signal und sorgfältigen Einbau"}, {"d": "2026-11-10", "a": "alle", "w": "Block „Unterlagen“ in allen Apps, Muster je App aus den bisherigen Uploads hergeleitet: BiWi II ein wachsender Foliensatz (immer die neueste ganze Datei), W&G I je Hälfte etwa wöchentlich wie bisher, Wirtschaft II komplett, Politik I nach Vorlesungs- und Verlaufsplan; unsicher heißt „vermutlich“ mit Bitte um Moodle-Screenshot; Regel 7 neu", "y": "Talib: Die Fächer laden sehr unterschiedlich hoch, Claude soll das selbst herleiten und in jedem Chat wissen"}, {"d": "2026-11-04", "a": "alle", "w": "`PRUEFAUFTRAG.md` verschlankt: erst Skripte, dann gezielt lesen, keine parallelen Agenten, Bericht im Chat", "y": "Talib: Das Limit wurde ständig erreicht"}]).
+   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-10", "a": "BiWi II", "w": "Update Sitzung 3: Kapitel 10 Klassische Konditionierung neu (4 Lektionen, 14 Karten, 8 Fragen, 3 Kreuzaufgaben, Matheangst als offene Aufgabe, Zuordnen-Satz; IDs mit „kk“, weil „10-…“ zu Kapitel 16 gehört), Kapitel 11 um Thorndike/instrumentelles Lernen und Verstärkertypen ergänzt, die vier Konsequenzen jetzt nach Heines eigener Tabelle", "y": "Sitzung 3 nachgereicht, damit ist Lernen 1–3 vollständig"}, {"d": "2026-11-10", "a": "BiWi II", "w": "Update Sitzung 4 und 5: Kapitel 11 Operante Konditionierung, 12 Lernen am Modell, 2 Gedächtnis, 3 Vergessen und Abruf (17 Lektionen, 69 Karten, 34 Verständnisfragen, 12 Kreuzaufgaben davon 4 echte aus WiSe 24/25, 5 offene Aufgaben mit dem Michael-Fall aus 24/25, 3 Zuordnen-Sätze); Unterlagen-Muster korrigiert: je Sitzung eine eigene Datei statt wachsendem Foliensatz, Sitzung 3 fehlt", "y": "Neue Folien im Projekt; Teil 1 der Klausur 24/25 stammt fast ganz aus diesen Sitzungen"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Projekt öffnen“ wieder entfernt, Hinweis zeigt den Weg in der Claude-App", "y": "Aus der Web-App öffnet iOS einen Browser, in dem Talib nicht angemeldet ist"}, {"d": "2026-11-10", "a": "alle", "w": "Hochladen und Bescheid geben in einem Schritt: Dateien in einem neuen Chat im Projekt anhängen und senden, ohne Text; der Chat baut sie nach `UPDATE.md` ein und sichert die Textfassung als Projekt-Dokument; Knopf heißt „Projekt öffnen“", "y": "Talib: Upload, Knopf, Chat, Einfügen waren zu viele Schritte"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Unterlagen aktualisieren“ im Block „Unterlagen“ (öffnet das claude.ai-Projekt, kopiert „Update“), `UPDATE.md` als gründlicher Einbau-Auftrag (wortgleich in allen Repos), Regel 11 neu; fehlende `APP.projectUrl` trägt der nächste Update-Chat selbst ein", "y": "Talib: Hochladen allein ändert die App nicht, er will ein klares Signal und sorgfältigen Einbau"}, {"d": "2026-11-10", "a": "alle", "w": "Block „Unterlagen“ in allen Apps, Muster je App aus den bisherigen Uploads hergeleitet: BiWi II ein wachsender Foliensatz (immer die neueste ganze Datei), W&G I je Hälfte etwa wöchentlich wie bisher, Wirtschaft II komplett, Politik I nach Vorlesungs- und Verlaufsplan; unsicher heißt „vermutlich“ mit Bitte um Moodle-Screenshot; Regel 7 neu", "y": "Talib: Die Fächer laden sehr unterschiedlich hoch, Claude soll das selbst herleiten und in jedem Chat wissen"}]).
    5. Abstände vor der Prüfung (spaceDays), siehe unten.
    6. Symbole der Tableiste (NAV_ICONS), Gestaltung in design.css.
    7. Lernmodus ohne Ablenkung (focusBar): Ansichten aus APP.focus.views und die ganze Tageseinheit blenden Tableiste und „Aa“ aus.
@@ -964,7 +964,7 @@ document.addEventListener("keydown",e=>{ if(e.key!=="Escape"||!document.body.cla
   const a=document.activeElement; if(a&&/^(TEXTAREA|INPUT|SELECT)$/.test(a.tagName)) return; const x=document.getElementById("fx"); if(x){ e.preventDefault(); x.click(); } });
 
 /* Claude-Brücke: was zuletzt an dieser App geändert wurde und warum (aus CLAUDE.md, beim Bauen übernommen) */
-const BRUECKE=[{"d": "2026-11-10", "a": "BiWi II", "w": "Update Sitzung 4 und 5: Kapitel 11 Operante Konditionierung, 12 Lernen am Modell, 2 Gedächtnis, 3 Vergessen und Abruf (17 Lektionen, 69 Karten, 34 Verständnisfragen, 12 Kreuzaufgaben davon 4 echte aus WiSe 24/25, 5 offene Aufgaben mit dem Michael-Fall aus 24/25, 3 Zuordnen-Sätze); Unterlagen-Muster korrigiert: je Sitzung eine eigene Datei statt wachsendem Foliensatz, Sitzung 3 fehlt", "y": "Neue Folien im Projekt; Teil 1 der Klausur 24/25 stammt fast ganz aus diesen Sitzungen"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Projekt öffnen“ wieder entfernt, Hinweis zeigt den Weg in der Claude-App", "y": "Aus der Web-App öffnet iOS einen Browser, in dem Talib nicht angemeldet ist"}, {"d": "2026-11-10", "a": "alle", "w": "Hochladen und Bescheid geben in einem Schritt: Dateien in einem neuen Chat im Projekt anhängen und senden, ohne Text; der Chat baut sie nach `UPDATE.md` ein und sichert die Textfassung als Projekt-Dokument; Knopf heißt „Projekt öffnen“", "y": "Talib: Upload, Knopf, Chat, Einfügen waren zu viele Schritte"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Unterlagen aktualisieren“ im Block „Unterlagen“ (öffnet das claude.ai-Projekt, kopiert „Update“), `UPDATE.md` als gründlicher Einbau-Auftrag (wortgleich in allen Repos), Regel 11 neu; fehlende `APP.projectUrl` trägt der nächste Update-Chat selbst ein", "y": "Talib: Hochladen allein ändert die App nicht, er will ein klares Signal und sorgfältigen Einbau"}, {"d": "2026-11-10", "a": "alle", "w": "Block „Unterlagen“ in allen Apps, Muster je App aus den bisherigen Uploads hergeleitet: BiWi II ein wachsender Foliensatz (immer die neueste ganze Datei), W&G I je Hälfte etwa wöchentlich wie bisher, Wirtschaft II komplett, Politik I nach Vorlesungs- und Verlaufsplan; unsicher heißt „vermutlich“ mit Bitte um Moodle-Screenshot; Regel 7 neu", "y": "Talib: Die Fächer laden sehr unterschiedlich hoch, Claude soll das selbst herleiten und in jedem Chat wissen"}, {"d": "2026-11-04", "a": "alle", "w": "`PRUEFAUFTRAG.md` verschlankt: erst Skripte, dann gezielt lesen, keine parallelen Agenten, Bericht im Chat", "y": "Talib: Das Limit wurde ständig erreicht"}];
+const BRUECKE=[{"d": "2026-11-10", "a": "BiWi II", "w": "Update Sitzung 3: Kapitel 10 Klassische Konditionierung neu (4 Lektionen, 14 Karten, 8 Fragen, 3 Kreuzaufgaben, Matheangst als offene Aufgabe, Zuordnen-Satz; IDs mit „kk“, weil „10-…“ zu Kapitel 16 gehört), Kapitel 11 um Thorndike/instrumentelles Lernen und Verstärkertypen ergänzt, die vier Konsequenzen jetzt nach Heines eigener Tabelle", "y": "Sitzung 3 nachgereicht, damit ist Lernen 1–3 vollständig"}, {"d": "2026-11-10", "a": "BiWi II", "w": "Update Sitzung 4 und 5: Kapitel 11 Operante Konditionierung, 12 Lernen am Modell, 2 Gedächtnis, 3 Vergessen und Abruf (17 Lektionen, 69 Karten, 34 Verständnisfragen, 12 Kreuzaufgaben davon 4 echte aus WiSe 24/25, 5 offene Aufgaben mit dem Michael-Fall aus 24/25, 3 Zuordnen-Sätze); Unterlagen-Muster korrigiert: je Sitzung eine eigene Datei statt wachsendem Foliensatz, Sitzung 3 fehlt", "y": "Neue Folien im Projekt; Teil 1 der Klausur 24/25 stammt fast ganz aus diesen Sitzungen"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Projekt öffnen“ wieder entfernt, Hinweis zeigt den Weg in der Claude-App", "y": "Aus der Web-App öffnet iOS einen Browser, in dem Talib nicht angemeldet ist"}, {"d": "2026-11-10", "a": "alle", "w": "Hochladen und Bescheid geben in einem Schritt: Dateien in einem neuen Chat im Projekt anhängen und senden, ohne Text; der Chat baut sie nach `UPDATE.md` ein und sichert die Textfassung als Projekt-Dokument; Knopf heißt „Projekt öffnen“", "y": "Talib: Upload, Knopf, Chat, Einfügen waren zu viele Schritte"}, {"d": "2026-11-10", "a": "alle", "w": "Knopf „Unterlagen aktualisieren“ im Block „Unterlagen“ (öffnet das claude.ai-Projekt, kopiert „Update“), `UPDATE.md` als gründlicher Einbau-Auftrag (wortgleich in allen Repos), Regel 11 neu; fehlende `APP.projectUrl` trägt der nächste Update-Chat selbst ein", "y": "Talib: Hochladen allein ändert die App nicht, er will ein klares Signal und sorgfältigen Einbau"}, {"d": "2026-11-10", "a": "alle", "w": "Block „Unterlagen“ in allen Apps, Muster je App aus den bisherigen Uploads hergeleitet: BiWi II ein wachsender Foliensatz (immer die neueste ganze Datei), W&G I je Hälfte etwa wöchentlich wie bisher, Wirtschaft II komplett, Politik I nach Vorlesungs- und Verlaufsplan; unsicher heißt „vermutlich“ mit Bitte um Moodle-Screenshot; Regel 7 neu", "y": "Talib: Die Fächer laden sehr unterschiedlich hoch, Claude soll das selbst herleiten und in jedem Chat wissen"}];
 function bridgeBlock(){
   if(!BRUECKE.length) return "";
   const f=s=>{ const [y,m,d]=s.split("-"); return +d+"."+(+m)+"."; };
@@ -1050,7 +1050,7 @@ const CHAPTERS=[
   {n:7,  teil:1, title:"Aufmerksamkeit", teaser:"Selektive und geteilte Aufmerksamkeit, Aufmerksamkeitssteuerung."},
   {n:8,  teil:1, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
   {n:9,  teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Reflexe, Habituation und Sensitivierung."},
-  {n:10, teil:2, title:"Klassische Konditionierung", teaser:"Neutrale und konditionierte Reize, Generalisierung, Konditionierung höherer Ordnung."},
+  {n:10, teil:2, title:"Klassische Konditionierung", teaser:"US, UR, NS, CS, CR, Little Albert, Extinktion, Generalisierung, Konditionierung zweiter Ordnung, Matheangst."},
   {n:11, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen, Verstärkungspläne, Bestrafung, erlernte Hilflosigkeit, Fallbeispiele aus der Klausur."},
   {n:12, teil:2, title:"Lernen am Modell", teaser:"Soziales Lernen nach Bandura, Arten von Modellen, Abgrenzung, Determinanten, Selbstwirksamkeitserwartung."},
   {n:13, teil:2, title:"Wissenserwerb", teaser:"Wie Wissen im Unterricht aufgebaut wird."},
@@ -1171,6 +1171,7 @@ UPLOADS.push(
  {base:true, known:false, items:[{k:"Lehrbuch", t:"Urhahne/Dresel/Fischer 2019", ok:true},{k:"Altklausuren", t:"WiSe 17/18, 18/19, 22/23, 24/25", ok:true},{k:"Fragenkatalog", t:"„Fragen Heine“", ok:true}]},
  {no:1, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 1: Einführung, Schwerpunkte, Psychologie als Wissenschaft", ok:true}]},
  {no:2, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 2: Psychologie als Wissenschaft, Lernen", ok:true}]},
+ {no:3, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 3: Lernen 2 (41 Folien)", ok:true}]},
  {no:4, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 4: Lernen 3 & Gedächtnis 1 (34 Folien)", ok:true}]},
  {no:5, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 5: Gedächtnis 2 (30 Folien)", ok:true}]}
 );
@@ -2357,24 +2358,46 @@ KURZ.push(
 OPEN.push({id:"o9-k2", ch:9, kind:"kurz", k:"k9-2", pts:10, title:"Nichtassoziatives Lernen"});
 
 /* ================= Kapitel 11: Operante Konditionierung =================
-   Grundlage: Folien Sitzung 4 (WiSe 26/27, Input 1: Folien 5–14), Klausur WiSe 24/25 (Thema 6 „Operante Konditionierung“, 10 P.),
-   Lehrbuch Urhahne/Dresel/Fischer (2019) Kap. 1.4 (Tab. 1.1). Die Folien von Sitzung 3 (Lernen 2, Grundlagen) fehlen noch:
-   Die vier Konsequenzen stehen deshalb vorerst nach Lehrbuch und Klausur. */
+   Grundlage: Folien Sitzung 3 (Input 3: Folien 19–34) und Sitzung 4 (Input 1: Folien 5–14), WiSe 26/27; Klausur WiSe 24/25
+   (Thema 6 „Operante Konditionierung“, 10 P.); Lehrbuch Urhahne/Dresel/Fischer (2019) Kap. 1.4 (Beispiele aus Tab. 1.1). */
 LESSONS[11]=[
+{id:"11-5", t:"Thorndike und instrumentelles Lernen", html:`
+<p>Angeregt durch Darwin untersuchte <b>Edward Thorndike</b> (1874–1949) das Problemlöseverhalten von Tieren in <b>Problemkäfigen</b> („puzzle boxes“). Eine Katze im Käfig probiert alles Mögliche aus, bis sie zufällig den Knopf oder Draht betätigt, der die Tür öffnet. Mit der Zeit unterbleiben die erfolglosen Versuche, der erfolgreiche wird „eingeprägt“.</p>
+<ul><li>Prinzip „<b>Trial and Error</b>“: beliebige Verhaltenssequenzen, bis zufällig eine passende Handlung gelingt.</li>
+<li>Die ersten Durchläufe dauern lange, mit jeder Wiederholung befreit sich das Tier schneller: Die <b>Latenz sinkt</b>.</li>
+<li>Das Verhalten wird zum <b>Instrument</b>, also zum Mittel zum Zweck.</li></ul>
+<p><b>Gesetz der Wirkung</b> (law of effect): Je größer die resultierende Befriedigung bzw. Frustration, desto stärker wird die Assoziation zwischen Situation (Stimulus) und Verhaltensweise (Reaktion) gestärkt bzw. geschwächt. Die Verhaltenswahrscheinlichkeit ist eine <b>Funktion der Verhaltenskonsequenzen</b>.</p>
+<p><b>Instrumentelles Lernen</b> allgemein: Latenz, Geschwindigkeit, Wahrscheinlichkeit bzw. Häufigkeit eines Verhaltens verändern sich, nachdem eine Verstärkung <b>kontingent</b> zu diesem Verhalten gemacht wird (assoziatives Lernen). Das Verhalten kann mehr oder weniger komplex sein (vgl. <b>Shaping</b>).</p>
+<p><b>Skinners Konzeption</b>: Anders als beim reflexartigen (reaktiven) Verhalten der klassischen Konditionierung steht komplexeres Verhalten im Fokus, das auf die Umwelt wirkt („operates on“): <b>operantes Verhalten</b>. „Instrumentelles Lernen“ passt eher auf natürliche Situationen, Skinner untersuchte vor allem kontrollierte Lernexperimente (<b>operante Konditionierung</b>).</p>`,
+check:[
+ {q:"Was beobachtete Thorndike bei den Katzen in den Problemkäfigen?", o:["Sie fanden die Lösung sofort durch Nachdenken","Die Zeit bis zur Befreiung sank mit jeder Wiederholung","Sie lernten durch Zuschauen bei anderen Katzen","Sie reagierten reflexartig auf einen Ton"], a:1, ex:"Trial and Error: Erst zufällig, dann immer schneller, die Latenz sinkt.", w:["Die Lösung wurde zufällig gefunden, nicht durch Einsicht.",null,"Lernen durch Zuschauen ist Beobachtungslernen nach Bandura.","Reflexe auf einen Ton gehören zur klassischen Konditionierung."]},
+ {q:"Was unterscheidet operantes Verhalten nach Skinner vom Verhalten bei der klassischen Konditionierung?", o:["Es ist reflexartig","Es wirkt auf die Umwelt ein","Es braucht keinen Reiz","Es ist angeboren"], a:1, ex:"Operant heißt: Das Verhalten „operates on“ die Umwelt. Klassisch konditioniert werden reflexartige, reaktive Reaktionen.", w:["Reflexartig ist gerade das Verhalten der klassischen Konditionierung.",null,"Auch operantes Verhalten steht in Beziehung zu Reizen, nämlich zu den Konsequenzen.","Angeborenes ist kein Lernen."]}
+]},
 {id:"11-1", t:"Die vier operanten Konsequenzen", html:`
-<p>Bei der operanten Konditionierung wird eine Verknüpfung zwischen einem <b>Verhalten</b> (R) und seiner <b>Konsequenz</b> (S) gelernt. Ob ein Verhalten künftig häufiger oder seltener auftritt, hängt von dieser Konsequenz ab (Skinner, aufbauend auf Thorndikes Gesetz der Wirkung).</p>
-<p>Zwei Fragen ordnen jede Konsequenz ein:</p>
-<ul><li><b>Positiv oder negativ?</b> Das heißt nur: Wird ein Reiz <b>dargeboten</b> (positiv, +) oder <b>entzogen</b> (negativ, −)? Mit „gut“ oder „schlecht“ hat es nichts zu tun.</li>
-<li><b>Verstärkung oder Bestrafung?</b> Verstärkung macht das Verhalten <b>häufiger</b>, Bestrafung macht es <b>seltener</b>.</li></ul>
-<table class="kvq"><tr><th></th><th>Reiz wird dargeboten</th><th>Reiz wird entzogen</th></tr>
-<tr><td>angenehmer (appetitiver) Reiz</td><td><b>positive Verstärkung</b><br><span class="small muted">Lob für gute Mitarbeit</span></td><td><b>negative Bestrafung</b><br><span class="small muted">Wegnahme des Handys</span></td></tr>
-<tr><td>unangenehmer (aversiver) Reiz</td><td><b>positive Bestrafung</b><br><span class="small muted">Ermahnung bei Unterrichtsstörung</span></td><td><b>negative Verstärkung</b><br><span class="small muted">Befreiung von Hausaufgaben</span></td></tr></table>
-<p>Folgt gar keine Konsequenz mehr, wird das Verhalten nach und nach seltener: <b>Löschung</b> (Extinktion).</p>
-<div class="merk"><b>So fragt Heine in der Klausur (WiSe 24/25)</b>Name der Konsequenz, dann der Mechanismus „allgemein“ (welche Art Konsequenz wird dargeboten oder entfernt?) und „im konkreten Fall“, dann der Effekt auf die Auftretenshäufigkeit, allgemein und konkret. Bei negativer Bestrafung also: Eine <i>appetitive</i> Konsequenz wird <i>entnommen</i>, die Auftretenshäufigkeit <i>sinkt</i>.</div>
-<p class="small muted">Quelle: Lehrbuch Kap. 1.4, Tab. 1.1, und Klausur WiSe 24/25. Die Folien zu Sitzung 3 fehlen noch in der App.</p>`,
+<p>Bei der operanten Konditionierung wird eine Verknüpfung zwischen einem <b>Verhalten</b> (R) und seiner <b>Konsequenz</b> (S) gelernt. Zwei Fragen ordnen jede Konsequenz ein:</p>
+<ul><li><b>Positiv oder negativ?</b> Das heißt nur: Wird eine Konsequenz <b>präsentiert</b> (positiv) oder <b>entzogen</b> (negativ)? Mit „gut“ oder „schlecht“ hat es nichts zu tun.</li>
+<li><b>Verstärkung oder Bestrafung?</b> Verstärkung führt zur <b>Zunahme</b> der Frequenz eines Verhaltens, Bestrafung zur <b>Abnahme</b>.</li></ul>
+<p>Heines Tabelle (Sitzung 3, Folie 23):</p>
+<table class="kvq"><tr><th>Art</th><th>Mechanismus</th><th>Effekt</th><th>Beispiel</th></tr>
+<tr><td><b>positive Verstärkung</b></td><td>Präsentation einer appetitiven Konsequenz</td><td>Zunahme</td><td>Regelmäßige Nachbereitung der Vorlesung führt zu einer besseren Klausurnote: Die Nachbereitung wird häufiger und intensiver.</td></tr>
+<tr><td><b>negative Verstärkung</b></td><td>Entzug einer aversiven Konsequenz</td><td>Zunahme</td><td>Das Verlassen einer lauten Lernumgebung führt zu weniger Störung: Man zieht sich häufiger in eine leise Umgebung zurück.</td></tr>
+<tr><td><b>(positive) Bestrafung</b></td><td>Präsentation einer aversiven Konsequenz</td><td>Abnahme</td><td>Abschreiben in der Klausur führt zu Ärger mit dem Dozenten: Es wird seltener abgeschrieben.</td></tr>
+<tr><td><b>negative Bestrafung</b></td><td>Entzug einer appetitiven Konsequenz</td><td>Abnahme</td><td>Schlafen in der Vorlesung führt dazu, dass spannende Inhalte verpasst werden: Man schläft seltener.</td></tr></table>
+<p class="small muted">Schulbeispiele aus dem Lehrbuch (Kap. 1.4): Lob für Mitarbeit, Befreiung von Hausaufgaben, Ermahnung bei Störung, Wegnahme des Handys. Folgt gar keine Konsequenz mehr, wird das Verhalten seltener: <b>Löschung</b>.</p>
+<div class="merk"><b>So fragt Heine in der Klausur (WiSe 24/25)</b>Genau in den Spalten ihrer Tabelle: Art der Konsequenz, Mechanismus „allgemein“ und „im konkreten Fall“, Effekt auf die Auftretenshäufigkeit, allgemein und konkret. Bei negativer Bestrafung also: Eine <i>appetitive</i> Konsequenz wird <i>entnommen</i>, die Auftretenshäufigkeit <i>sinkt</i>.</div>`,
 check:[
  {q:"Was bedeutet „negativ“ bei negativer Verstärkung?", o:["Die Konsequenz ist unangenehm","Ein Reiz wird entzogen","Das Verhalten wird seltener","Die Lehrkraft ist unzufrieden"], a:1, ex:"Positiv und negativ sagen nur, ob ein Reiz dargeboten oder entzogen wird. Bei negativer Verstärkung fällt etwas Unangenehmes weg, deshalb wird das Verhalten häufiger.", w:["Unangenehm ist der Reiz, der wegfällt. „Negativ“ bezeichnet aber das Wegnehmen, nicht die Qualität.",null,"Seltener wird ein Verhalten durch Bestrafung. Jede Verstärkung macht es häufiger.","Die Stimmung der Lehrkraft spielt für die Einteilung keine Rolle."]},
  {q:"Weil ein Schüler im Unterricht spielt, wird ihm das Handy bis Stundenende abgenommen. Welche Konsequenz liegt vor?", o:["Positive Bestrafung","Negative Verstärkung","Negative Bestrafung","Löschung"], a:2, ex:"Ein angenehmer (appetitiver) Reiz wird entzogen, das Spielen soll seltener werden.", w:["Bei positiver Bestrafung käme etwas Unangenehmes hinzu, z. B. eine Ermahnung.","Negative Verstärkung macht ein Verhalten häufiger, weil etwas Unangenehmes wegfällt.",null,"Löschung hieße, dass gar keine Konsequenz mehr folgt."]}
+]},
+{id:"11-6", t:"Typen von Verstärkern", html:`
+<table class="kvq"><tr><th>Typ</th><th>Was er ist</th></tr>
+<tr><td><b>primäre Verstärker</b></td><td>befriedigen physiologische Bedürfnisse wie Hunger, Durst, Wärme</td></tr>
+<tr><td><b>sekundäre Verstärker</b></td><td>erwerben ihre Wirkung durch gelernte Assoziation mit primären Verstärkern (<b>konditionierte Verstärker</b>). Beispiele sind <b>generalisierte Verstärker</b> wie Geld oder Tokens.</td></tr>
+<tr><td><b>soziale Verstärker</b></td><td>Aufmerksamkeit, Lob, Liebe. Sie lassen sich nicht eindeutig einer der beiden Kategorien zuordnen.</td></tr></table>
+<div class="merk"><b>Schulbezug</b>Sticker, Stempel oder Punkte in einem Token-System sind sekundäre, generalisierte Verstärker: Sie wirken erst, weil sie gegen etwas eingetauscht werden können oder mit Anerkennung verbunden sind.</div>`,
+check:[
+ {q:"Zu welchem Verstärkertyp gehört Geld?", o:["Ein primärer Verstärker wie Essen","Ein generalisierter Verstärker","Ein sozialer Verstärker wie Lob","Ein unbedingter Reiz (US)"], a:1, ex:"Geld wirkt durch gelernte Assoziation mit primären Verstärkern und lässt sich gegen vieles eintauschen.", w:["Geld stillt kein physiologisches Bedürfnis direkt.",null,"Sozial sind Aufmerksamkeit, Lob oder Liebe.","Unbedingte Reize gehören zur klassischen Konditionierung. Geld ist ein Verstärker."]},
+ {q:"Was gilt laut Folie für Lob?", o:["Es ist ein primärer Verstärker wie Nahrung","Es ist eindeutig ein sekundärer Verstärker","Es ist sozial und nicht eindeutig zuzuordnen","Es wirkt bei Jugendlichen nie als Verstärker"], a:2, ex:"Soziale Verstärker wie Aufmerksamkeit, Lob, Liebe sind nicht eindeutig primär oder sekundär.", w:["Primär sind Verstärker für physiologische Bedürfnisse wie Hunger.","Genau das sagt die Folie nicht: Die Zuordnung ist nicht eindeutig.",null,"Lob ist eines der Standardbeispiele für Verstärker."]}
 ]},
 {id:"11-2", t:"Verstärkungspläne und ihre Effekte", html:`
 <p>Bei <b>kontinuierlicher Verstärkung</b> (continuous reinforcement, <b>CRF</b>) wird jede einzelne Verhaltensäußerung verstärkt. Wird nur manchmal verstärkt, spricht man von <b>intermittierender Verstärkung</b>. Die vier wichtigsten Pläne:</p>
@@ -2432,12 +2455,17 @@ check:[
 ];
 
 CARDS[11]=[
+ {id:"c11-17", f:"Thorndikes Problemkäfige: Was wurde beobachtet?", b:"Trial and Error: Tiere probieren beliebige Verhaltenssequenzen, bis zufällig eine passende Handlung gelingt. Mit jeder Wiederholung sinkt die Latenz. Das Verhalten wird zum Instrument (Mittel zum Zweck)."},
+ {id:"c11-18", f:"Gesetz der Wirkung (Thorndike)", b:"Je größer die resultierende Befriedigung/Frustration, desto stärker die Stärkung/Schwächung der Assoziation zwischen Situation (Stimulus) und Verhaltensweise (Reaktion). Verhaltenswahrscheinlichkeit = Funktion der Konsequenzen."},
+ {id:"c11-19", f:"Instrumentelles Lernen (Definition)", b:"Latenz, Geschwindigkeit, Wahrscheinlichkeit bzw. Häufigkeit eines Verhaltens verändern sich, nachdem eine Verstärkung kontingent zu diesem Verhalten gemacht wird (assoziatives Lernen)."},
+ {id:"c11-20", f:"Operantes Verhalten (Skinner) vs. instrumentelles Lernen", b:"Skinner: komplexeres Verhalten, das auf die Umwelt wirkt („operates on“), im Unterschied zum reflexartigen Verhalten der klassischen Konditionierung. „Instrumentelles Lernen“ eher für natürliche Situationen, Skinner vor allem kontrollierte Experimente."},
+ {id:"c11-21", f:"Primäre, sekundäre und soziale Verstärker", b:"Primär: befriedigen physiologische Bedürfnisse (Hunger, Durst, Wärme)\nSekundär (konditioniert): wirken durch Assoziation mit primären; generalisierte Verstärker wie Geld, Tokens\nSozial: Aufmerksamkeit, Lob, Liebe, nicht eindeutig zuzuordnen"},
  {id:"c11-01", f:"Operante Konditionierung: was wird gelernt?", b:"Die Verknüpfung von Verhalten und Konsequenz (R → S). Die Konsequenz bestimmt, ob das Verhalten künftig häufiger oder seltener auftritt."},
  {id:"c11-02", f:"„Positiv“ und „negativ“ bei operanten Konsequenzen", b:"Positiv: Ein Reiz wird dargeboten.\nNegativ: Ein Reiz wird entzogen.\nKeine Wertung („gut“/„schlecht“)."},
- {id:"c11-03", f:"Positive Verstärkung", b:"Ein appetitiver (angenehmer) Reiz wird dargeboten, das Verhalten wird häufiger.\nBeispiel: Lob für gute Mitarbeit."},
- {id:"c11-04", f:"Negative Verstärkung", b:"Ein aversiver (unangenehmer) Reiz wird entzogen, das Verhalten wird häufiger.\nBeispiel: Befreiung von Hausaufgaben."},
- {id:"c11-05", f:"Positive Bestrafung", b:"Ein aversiver Reiz wird dargeboten, das Verhalten wird seltener.\nBeispiel: Ermahnung bei Unterrichtsstörung."},
- {id:"c11-06", f:"Negative Bestrafung", b:"Ein appetitiver Reiz wird entzogen, das Verhalten wird seltener.\nBeispiel: Wegnahme des Handys, Trainingsverbot (Klausur 24/25)."},
+ {id:"c11-03", f:"Positive Verstärkung", b:"Präsentation einer appetitiven Konsequenz, Zunahme der Frequenz.\nBeispiel Heine: Nachbereitung führt zu besserer Note, Nachbereitung wird häufiger."},
+ {id:"c11-04", f:"Negative Verstärkung", b:"Entzug einer aversiven Konsequenz, Zunahme der Frequenz.\nBeispiel Heine: Rückzug aus lauter Lernumgebung bringt Ruhe, Rückzug wird häufiger."},
+ {id:"c11-05", f:"Positive Bestrafung", b:"Präsentation einer aversiven Konsequenz, Abnahme der Frequenz.\nBeispiel Heine: Abschreiben führt zu Ärger mit dem Dozenten, es wird seltener abgeschrieben."},
+ {id:"c11-06", f:"Negative Bestrafung", b:"Entzug einer appetitiven Konsequenz, Abnahme der Frequenz.\nBeispiel Heine: Schlafen in der Vorlesung, spannende Inhalte verpasst; Klausur 24/25: Trainingsverbot."},
  {id:"c11-07", f:"Kontinuierliche Verstärkung (CRF)", b:"Jede einzelne Verhaltensäußerung wird verstärkt.\nEffekt: rascher Erwerb, aber schnelle Extinktion, wenn die Verstärkung ausbleibt."},
  {id:"c11-08", f:"Die vier intermittierenden Verstärkungspläne", b:"Feste Quote (FQ): exakt jede x-te Reaktion\nVariable Quote (VQ): ungefähr jede x-te Reaktion\nFestes Intervall (FI): erste Reaktion nach x Minuten\nVariables Intervall (VI): durchschnittlich alle x Minuten"},
  {id:"c11-09", f:"Partieller Verstärkungseffekt", b:"Intermittierend verstärktes Verhalten ist extinktionsresistenter als kontinuierlich verstärktes. Basis von Fading/Thinning."},
@@ -2450,6 +2478,9 @@ CARDS[11]=[
  {id:"c11-16", f:"Fall Michael (Klausur 24/25): Ohrfeige → zwei Wochen Trainingsverbot", b:"Negative Bestrafung: Eine appetitive Konsequenz (Fußballspielen) wird entnommen. Die Auftretenshäufigkeit des Verhaltens sinkt: Michael schlägt beim nächsten Foul nicht mehr."}
 ];
 Object.assign(CARD_INFO,{
+ "c11-17":"Latenz: Zeit bis zur Reaktion, hier bis zur Befreiung.",
+ "c11-19":"Shaping: schrittweises Formen eines komplexen Verhaltens durch Verstärkung von Annäherungen.",
+ "c11-21":"Token: Wertmarke, die gegen Belohnungen eingetauscht wird.",
  "c11-01":"Operant: Das Verhalten „operiert“ auf die Umwelt und verändert sie.",
  "c11-03":"Appetitiv: lateinisch appetere, „begehren“, also angenehm, erstrebt.",
  "c11-04":"Aversiv: lateinisch aversus, „abgewandt“, also unangenehm, gemieden.",
@@ -2461,6 +2492,7 @@ Object.assign(CARD_INFO,{
  "c11-15":"Martin Seligman, US-amerikanischer Psychologe, Experimente mit unausweichlichen Reizen."
 });
 Object.assign(CARD_CTX,{
+ "c11-17":"Wie alles begann","c11-18":"Thorndikes Grundgesetz","c11-19":"Allgemeine Definition","c11-20":"Skinners Begriff","c11-21":"Was als Verstärker wirkt",
  "c11-01":"Lernen durch Konsequenzen","c11-02":"Vorsicht vor der Alltagsbedeutung","c11-03":"Erste der vier Konsequenzen","c11-04":"Zweite der vier Konsequenzen",
  "c11-05":"Dritte der vier Konsequenzen","c11-06":"Vierte der vier Konsequenzen","c11-07":"Jedes Mal verstärken","c11-08":"Nur manchmal verstärken",
  "c11-09":"Warum seltener verstärken hilft","c11-10":"Wie sich die Pläne auswirken","c11-11":"Ein typischer Verlauf","c11-12":"Wovon die Lernkurve abhängt",
@@ -2468,7 +2500,7 @@ Object.assign(CARD_CTX,{
 });
 
 /* ================= Kapitel 12: Lernen am Modell =================
-   Grundlage: Folien Sitzung 4 (WiSe 26/27, Input 2: Folien 16–21) */
+   Grundlage: Folien Sitzung 3 (Input 4: Folien 35–40) und Sitzung 4 (Input 2: Folien 16–21), WiSe 26/27 */
 LESSONS[12]=[
 {id:"12-1", t:"Soziales Lernen und Modelle", html:`
 <p>Allgemein ist Lernen eine Änderung von Verhalten, die durch Erfahrung bedingt ist. <b>Banduras Theorie des sozialen Lernens</b> betont: Höhere Lebewesen lernen nicht in Isolation, sondern zunächst und vor allem <b>eingebettet in soziale Kontexte</b>.</p>
@@ -2549,6 +2581,10 @@ KREUZ.push(
   ["Bei negativer Verstärkung wird ein aversiver Reiz entfernt.", true, "Das Verhalten wird häufiger, weil etwas Unangenehmes wegfällt."],
   ["Negative Bestrafung bedeutet, dass ein unangenehmer Reiz dargeboten wird.", false, "Das ist <b>positive</b> Bestrafung. Bei negativer Bestrafung wird ein <b>appetitiver</b> Reiz entzogen."],
   ["Wenn positive Bestrafung eingesetzt wird, dann ohne Verzögerung und nicht intermittierend.", true, "So die Bedingungen auf der Folie."]]},
+ {id:"x11-04", ch:11, stem:"Für Verstärker und instrumentelles Lernen gilt:", s:[
+  ["Sekundäre Verstärker erwerben ihre Wirkung durch gelernte Assoziation mit primären Verstärkern.", true, "Deshalb heißen sie auch konditionierte Verstärker."],
+  ["Laut Thorndikes Gesetz der Wirkung ist die Verhaltenswahrscheinlichkeit eine Funktion der Verhaltenskonsequenzen.", true, "So auf der Folie."],
+  ["Soziale Verstärker wie Lob sind eindeutig primäre Verstärker.", false, "Sie sind <b>nicht eindeutig</b> einer Kategorie zuzuordnen."]]},
  {id:"x11-03", ch:11, stem:"Für das instrumentelle Lernen gilt:", s:[
   ["Je größer der zeitliche Abstand zwischen Verhalten und Verstärkung, desto schneller der Erwerb.", false, "Kontiguität: Je <b>geringer</b> der Abstand, desto schneller der Erwerb."],
   ["Zentral für erlernte Hilflosigkeit ist ein Mangel an Kontingenz von Verhalten und Konsequenz.", true, "Die Person erfährt, dass ihre Reaktion die Konsequenz nicht kontrolliert."],
@@ -2889,6 +2925,129 @@ KURZ.push(
 OPEN.push({id:"o2-k1", ch:2, kind:"kurz", k:"k2-1", pts:10, title:"Arbeitsgedächtnis"});
 OPEN.push({id:"o3-k1", ch:3, kind:"kurz", k:"k3-1", pts:10, title:"Vergessen und Interferenz"});
 
+/* ================= Kapitel 10: Klassische Konditionierung =================
+   Grundlage: Folien Sitzung 3 (WiSe 26/27, Input 2: Folien 9–17).
+   IDs mit „kk“, weil „10-…“, „c10-…“, „x10-…“, „k10-…“ schon zu Kapitel 16 (Normwerte, früher Nr. 10) gehören. */
+LESSONS[10]=[
+{id:"kk-1", t:"Was bei der klassischen Konditionierung passiert", html:`
+<p><b>Klassische Konditionierung</b> ist ein Lernprozess, der dazu führt, dass</p>
+<ul><li>ein ursprünglich <b>neutraler Reiz</b> (NS, später CS), der eine antizipatorische Reaktion nicht auslöst,</li>
+<li>durch <b>Assoziation</b> mit einem Reiz, der diese Reaktion immer bzw. unbedingt auslöst (US),</li>
+<li>ebenfalls eine antizipatorische Reaktion (CR) auslöst.</li></ul>
+<table class="kvq"><tr><th>Kürzel</th><th>Bedeutung</th><th>Pawlows Hund</th></tr>
+<tr><td><b>US</b></td><td>unkonditionierter Reiz (unconditioned stimulus)</td><td>Futter</td></tr>
+<tr><td><b>UR</b></td><td>unkonditionierte, reflexartige Reaktion</td><td>Speichelfluss auf Futter</td></tr>
+<tr><td><b>NS</b></td><td>neutraler Reiz</td><td>Ton vor dem Lernen</td></tr>
+<tr><td><b>CS</b></td><td>konditionierter Reiz</td><td>Ton nach dem Lernen</td></tr>
+<tr><td><b>CR</b></td><td>konditionierte Reaktion</td><td>Speichelfluss auf den Ton</td></tr></table>
+<p><b>Schema des Erwerbs</b> (Akquisition):</p>
+<table class="kvq"><tr><th>vorher</th><td>NS (Ton) → keine Reaktion · US (Futter) → UR (Speichelfluss)</td></tr>
+<tr><th>Lernen</th><td>NS (Ton) + US (Futter) → UR (Speichelfluss), mehrfach</td></tr>
+<tr><th>nachher</th><td>CS (Ton) → CR (Speichelfluss)</td></tr></table>
+<p><b>Zwei Typen:</b></p>
+<table class="kvq"><tr><th>Fall</th><th>Typ</th><th>US</th><th>UR</th><th>NS/CS</th><th>CR</th></tr>
+<tr><td>Pawlows Hunde</td><td><b>appetitiv</b></td><td>Futter</td><td>Speichelfluss</td><td>Metronom</td><td>Speichelfluss</td></tr>
+<tr><td>„Little Albert“</td><td><b>aversiv</b></td><td>lauter Ton</td><td>Schreckreaktion</td><td>Ratte</td><td>Angstreaktion</td></tr></table>
+<p>„Little Albert“ (<b>Watson & Rayner</b>) ist das Beispiel für <b>Furchtkonditionierung</b> („Conditioned Emotional Response“, CER).</p>
+<div class="merk"><b>Merksatz</b>Gelernt wird eine Verknüpfung zweier Reize (S1 → S2). Das eigene Verhalten spielt keine Rolle, anders als bei der operanten Konditionierung.</div>`,
+check:[
+ {q:"Bei „Little Albert“: Was ist die Ratte nach dem Lernen?", o:["Unkonditionierter Reiz (US)","Konditionierter Reiz (CS)","Unkonditionierte Reaktion (UR)","Konditionierte Reaktion (CR)"], a:1, ex:"Die Ratte war vorher neutral. Durch die Kopplung mit dem lauten Ton löst sie jetzt Angst aus, sie ist also der CS.", w:["Der US ist der laute Ton, der die Schreckreaktion von sich aus auslöst.",null,"Eine Reaktion ist ein Verhalten des Kindes, kein Reiz.","Die CR ist die Angstreaktion auf die Ratte, nicht die Ratte selbst."]},
+ {q:"Was unterscheidet die Konditionierung bei Pawlows Hunden von der bei „Little Albert“?", o:["Bei Pawlow wird ein Verhalten belohnt","Pawlow ist appetitiv, Albert aversiv","Bei Albert gibt es keinen US","Bei Pawlow fehlt der neutrale Reiz"], a:1, ex:"Futter ist ein angenehmer, ein lauter Ton ein unangenehmer US. Albert ist das Beispiel für Furchtkonditionierung.", w:["Belohnung eines Verhaltens wäre operante Konditionierung.",null,"Der laute Ton ist bei Albert der US.","Bei Pawlow ist das Metronom bzw. der Ton der neutrale Reiz."]}
+]},
+{id:"kk-2", t:"Unterdrückung, Löschung und Spontanerholung", html:`
+<p>Klassische Konditionierung bezieht sich nicht nur auf das Verstärken, sondern auch auf das <b>Unterdrücken</b> von Verhalten. Beispiel auf der Folie: Ein Ton (NS) kündigt einen Schock (US) an, der Erstarren (Freezing) auslöst. Danach löst der Ton allein Freezing aus.</p>
+<p>Standard ist eine <b>zeitlich verzögerte</b> Darbietung des US: Der CS kommt zuerst und ist damit <b>prädiktiv</b>, er kündigt den US an.</p>
+<p><b>Löschung?</b> Etablierte konditionierte Reaktionen sind <b>sehr stabil</b>. Trotzdem gibt es eine gewisse Dynamik:</p>
+<ul><li><b>Extinktion</b> (Löschung): die vollständige oder teilweise Abschwächung einer CR durch wiederholte Darbietung des CS (Glocke) <b>ohne</b> den US (Futter).</li>
+<li><b>Spontanerholung</b>: das Wiederaufflackern einer gelöschten CR auf den CS nach einer Ruhephase.</li></ul>
+<div class="merk"><b>Schulbezug</b>Angst vor einem Fach lässt sich abschwächen, wenn das Fach immer wieder ohne die unangenehme Erfahrung erlebt wird. Nach den Ferien kann sie aber kurz wieder aufflackern (Spontanerholung).</div>`,
+check:[
+ {q:"Wie wird eine konditionierte Reaktion gelöscht?", o:["Indem man den US häufiger allein darbietet","Indem man den CS wiederholt ohne den US darbietet","Indem man das Verhalten bestraft","Indem man eine Pause macht"], a:1, ex:"Extinktion: CS (Glocke) immer wieder ohne US (Futter). Die CR schwächt sich ab.", w:["Der US allein ändert nichts an der Verknüpfung des CS.",null,"Bestrafung gehört zur operanten Konditionierung.","Nach einer Pause kommt die gelöschte Reaktion eher wieder (Spontanerholung)."]},
+ {q:"Warum ist eine verzögerte Darbietung des US der Standard?", o:["Weil der CS dadurch den US vorhersagt","Weil der US sonst zu stark wirkt","Weil so die Löschung schneller geht","Weil die UR sonst ausbleibt"], a:0, ex:"Der CS kommt zuerst und wird so zum Signal, er ist prädiktiv.", w:[null,"Die Stärke des US hängt nicht an der Reihenfolge.","Löschung hat mit der Reihenfolge beim Erwerb nichts zu tun.","Die UR folgt auf den US in jedem Fall, sie ist reflexartig."]}
+]},
+{id:"kk-3", t:"Generalisierung, Diskrimination und Stärke", html:`
+<p><b>Generalisierung:</b> Die CR folgt nicht nur auf den CS, sondern auch auf <b>ähnliche</b> Reize. Je ähnlicher der Reiz dem CS, desto stärker die CR: <b>Generalisierungsgradient</b>. Beispiel auf der Folie: Konditioniert auf einen Ton von 1000 Hz, reagiert das Tier auch auf 900 oder 1100 Hz, schwächer auf 700 oder 1300 Hz.</p>
+<p><b>Diskriminierungstraining:</b> Ziel ist, die CR zu fokussieren. Grundlage ist die <b>konditionierte Inhibition</b>: Ein zweiter Reiz (CS2, z. B. 900 Hz) sagt vorher, dass der US <i>ausbleibt</i>.</p>
+<p>Laut <b>Pawlow</b> bestimmen vor allem drei Parameter die Stärke der Konditionierung:</p>
+<ol><li><b>Kontiguität</b>, also zeitliche Nähe der Reize, ist besonders bedeutsam.</li>
+<li>Die Intensität der CR hängt stark von der <b>Intensität des US</b> ab.</li>
+<li>Die <b>Häufigkeit</b> des gemeinsamen Auftretens ist zentral. Ausnahme: <b>erlernte Geschmacksaversion</b> (dort reicht ein Mal).</li></ol>
+<p><b>Rescorla</b> ergänzte die <b>Kontingenz</b>: die Wahrscheinlichkeit des US bei Anwesenheit des CS im Verhältnis zu seiner Wahrscheinlichkeit ohne CS. Die Frage ist also: Ist der CS ein <b>zuverlässiger Prädiktor</b>?</p>`,
+check:[
+ {q:"Ein Hund ist auf einen Ton von 1000 Hz konditioniert. Auf welchen Ton speichelt er am stärksten, abgesehen von 1000 Hz?", o:["700 Hz","900 Hz","1300 Hz","Auf alle gleich stark"], a:1, ex:"Generalisierungsgradient: Je ähnlicher der Reiz dem CS, desto stärker die CR. 900 Hz liegt am nächsten an 1000 Hz.", w:["700 Hz ist weiter vom CS entfernt, die Reaktion ist schwächer.",null,"1300 Hz ist weiter vom CS entfernt als 900 Hz.","Gerade nicht: Die Stärke hängt von der Ähnlichkeit ab."]},
+ {q:"Was ergänzte Rescorla zu Pawlows Parametern?", o:["Kontiguität, also die zeitliche Nähe der Reize","Kontingenz, also wie zuverlässig der CS den US vorhersagt","Die Intensität des US als Maß für die Stärke","Die Häufigkeit, mit der beide Reize gekoppelt werden"], a:1, ex:"Rescorla fragte, wie wahrscheinlich der US mit CS im Vergleich zu ohne CS ist.", w:["Kontiguität nennt schon Pawlow, als wichtigsten Parameter.",null,"Die Intensität des US ist einer von Pawlows drei Parametern.","Die Häufigkeit ist ebenfalls ein Parameter Pawlows."]}
+]},
+{id:"kk-4", t:"Konditionierung zweiter Ordnung und Matheangst", html:`
+<p><b>Konditionierung zweiter Ordnung:</b> Durch die Verknüpfung mit einem CS erwirbt ein bisher neutraler <b>dritter Reiz</b> die Kraft eines (abgeschwächten) CS. Das ist <b>Lernen ohne US</b>.</p>
+<table class="kvq"><tr><th>vorher</th><td>NS (Ton) → keine Reaktion · US (Futter) → UR (Speichelfluss)</td></tr>
+<tr><th>danach</th><td>CS (Ton) → CR (Speichelfluss)</td></tr>
+<tr><th>zweite Ordnung</th><td>Licht wird mit dem Ton gekoppelt, ganz ohne Futter. Danach: CS (Licht) → CR (Speichelfluss)</td></tr></table>
+<p><b>Warum relevant für uns?</b> So erklärt Heine z. B. <b>Matheangst</b>:</p>
+<table class="kvq"><tr><th>Schritt 1</th><td>NS (Lehrer) + US (Tadel) → UR (Angstreaktion). Danach: CS (Lehrer) → CR (Angstreaktion)</td></tr>
+<tr><th>Schritt 2</th><td>NS („Zahlen“) + CS (Lehrer) → CR (Angstreaktion). Danach: CS („Zahlen“) → CR (Angstreaktion)</td></tr></table>
+<div class="merk"><b>Merksatz</b>Die Zahlen selbst wurden nie getadelt. Sie lösen Angst aus, weil sie mit dem Lehrer gekoppelt waren, der seinerseits mit Tadel gekoppelt war. Genauso lassen sich Prüfungs- und Schulangst erklären.</div>`,
+check:[
+ {q:"Was ist das Besondere an der Konditionierung zweiter Ordnung?", o:["Sie braucht einen besonders starken und häufigen US","Ein neuer Reiz wird nur mit einem CS gekoppelt","Sie funktioniert nur bei Tieren im Labor, nicht bei Menschen","Sie löscht die erste Konditionierung vollständig aus"], a:1, ex:"Lernen ohne US: Der dritte Reiz bekommt die Kraft eines (abgeschwächten) CS.", w:["Bei der zweiten Ordnung ist gar kein US beteiligt.",null,"Heines Matheangst-Beispiel zeigt sie beim Menschen.","Die erste Konditionierung bleibt bestehen, sie ist sogar die Voraussetzung."]},
+ {q:"Im Matheangst-Beispiel: Was ist der „Lehrer“ in Schritt 2?", o:["Der unkonditionierte Reiz (US)","Ein CS, der wie ein US wirkt","Die unkonditionierte Reaktion (UR)","Ein neutraler Reiz (NS)"], a:1, ex:"Der Lehrer ist nach Schritt 1 ein CS. In Schritt 2 übernimmt er die Rolle des US, damit „Zahlen“ zum CS werden.", w:["Der US war in Schritt 1 der Tadel, nicht der Lehrer.",null,"UR und CR sind die Angstreaktion, also kein Reiz.","Neutral war der Lehrer nur vor Schritt 1."]}
+]}
+];
+
+CARDS[10]=[
+ {id:"ckk-01", f:"Klassische Konditionierung (Definition)", b:"Ein ursprünglich neutraler Reiz (NS → CS), der eine antizipatorische Reaktion nicht auslöst, löst durch Assoziation mit einem Reiz, der diese Reaktion unbedingt auslöst (US), ebenfalls eine antizipatorische Reaktion (CR) aus."},
+ {id:"ckk-02", f:"US, UR, NS, CS, CR", b:"US: unkonditionierter Reiz\nUR: unkonditionierte, reflexartige Reaktion\nNS: neutraler Reiz\nCS: konditionierter Reiz\nCR: konditionierte Reaktion"},
+ {id:"ckk-03", f:"Schema des Erwerbs (Pawlow)", b:"Vorher: Ton (NS) → keine Reaktion; Futter (US) → Speichelfluss (UR)\nLernen: Ton + Futter → Speichelfluss\nNachher: Ton (CS) → Speichelfluss (CR)"},
+ {id:"ckk-04", f:"Appetitive vs. aversive Konditionierung", b:"Appetitiv: Pawlows Hunde, US Futter, UR/CR Speichelfluss, CS Metronom.\nAversiv: „Little Albert“, US lauter Ton, UR Schreckreaktion, CS Ratte, CR Angstreaktion."},
+ {id:"ckk-05", f:"„Little Albert“ (Watson & Rayner)", b:"Beispiel für Furchtkonditionierung bzw. „Conditioned Emotional Response“ (CER): Eine Ratte (NS) wird mit einem lauten Ton (US) gekoppelt und löst danach Angst aus (CR)."},
+ {id:"ckk-06", f:"Klassische Konditionierung: nur Verstärkung von Verhalten?", b:"Nein, auch Unterdrückung: Ton (CS) kündigt Schock (US) an und löst danach Freezing aus.\nStandard: zeitlich verzögerte Darbietung des US, der CS ist prädiktiv."},
+ {id:"ckk-07", f:"Extinktion (klassische Konditionierung)", b:"Vollständige oder teilweise Abschwächung einer CR durch wiederholte Darbietung des CS (Glocke) ohne den US (Futter). Etablierte CRs sind aber sehr stabil."},
+ {id:"ckk-08", f:"Spontanerholung (klassische Konditionierung)", b:"Das Wiederaufflackern einer gelöschten CR auf den CS nach einer Ruhephase."},
+ {id:"ckk-09", f:"Generalisierung und Generalisierungsgradient", b:"Die CR folgt auch auf Reize, die dem CS ähneln. Ihre Stärke hängt von der Ähnlichkeit zum CS ab (Gradient), z. B. CS 1000 Hz, schwächere CR auf 900 oder 1100 Hz."},
+ {id:"ckk-10", f:"Diskriminierungstraining", b:"Ziel: die CR auf den CS fokussieren. Basis: konditionierte Inhibition, d. h. ein CS2 sagt das Ausbleiben des US vorher."},
+ {id:"ckk-11", f:"Drei Parameter der Konditionierungsstärke nach Pawlow", b:"Kontiguität (zeitliche Nähe der Reize, vor allem)\nIntensität des US (bestimmt Intensität der CR)\nHäufigkeit des gemeinsamen Auftretens (Ausnahme: erlernte Geschmacksaversion)"},
+ {id:"ckk-12", f:"Kontingenz nach Rescorla", b:"Wahrscheinlichkeit des US bei Anwesenheit des CS im Verhältnis zur Wahrscheinlichkeit des US ohne CS. Frage: Ist der CS ein zuverlässiger Prädiktor?"},
+ {id:"ckk-13", f:"Konditionierung zweiter Ordnung", b:"Durch Assoziation mit einem CS erwirbt ein bisher neutraler dritter Reiz die Kapazität eines (abgeschwächten) CS. Lernen ohne US! Beispiel: Licht wird mit dem Ton gekoppelt."},
+ {id:"ckk-14", f:"Matheangst als klassische Konditionierung", b:"Schritt 1: Lehrer (NS) + Tadel (US) → Angst (UR); danach Lehrer (CS) → Angst (CR).\nSchritt 2: „Zahlen“ (NS) + Lehrer (CS) → Angst; danach „Zahlen“ (CS) → Angst (CR). Konditionierung zweiter Ordnung."}
+];
+Object.assign(CARD_INFO,{
+ "ckk-01":"Antizipatorisch: vorwegnehmend, die Reaktion bereitet auf den kommenden US vor.",
+ "ckk-02":"Englisch: unconditioned/conditioned stimulus bzw. response.",
+ "ckk-03":"Akquisition: Erwerb.",
+ "ckk-05":"John B. Watson und Rosalie Rayner, 1920. Albert war ein elf Monate altes Kind.",
+ "ckk-06":"Freezing: Erstarren als Angstreaktion.",
+ "ckk-10":"Inhibition: Hemmung.",
+ "ckk-11":"Erlernte Geschmacksaversion: Nach einer einzigen Übelkeit meidet man ein Essen lange.",
+ "ckk-12":"Robert Rescorla, US-amerikanischer Psychologe (Rescorla-Wagner-Modell)."
+});
+Object.assign(CARD_CTX,{
+ "ckk-01":"Lernen durch Reizkopplung","ckk-02":"Die Kürzel","ckk-03":"Wie der Erwerb abläuft","ckk-04":"Zwei Typen",
+ "ckk-05":"Ein klassisches Experiment","ckk-06":"Auch Unterdrückung ist lernbar","ckk-07":"Wie man eine CR abschwächt","ckk-08":"Wenn die CR zurückkommt",
+ "ckk-09":"Auch ähnliche Reize wirken","ckk-10":"Die CR schärfen","ckk-11":"Wovon die Stärke abhängt","ckk-12":"Rescorlas Ergänzung",
+ "ckk-13":"Lernen ohne US","ckk-14":"Anwendung auf Schule"
+});
+
+KREUZ.push(
+ {id:"xkk-01", ch:10, stem:"Für die klassische Konditionierung gilt:", s:[
+  ["Ein ursprünglich neutraler Reiz löst nach der Konditionierung eine antizipatorische Reaktion aus.", true, "Aus dem NS wird ein CS, der eine CR auslöst."],
+  ["Bei der Konditionierung zweiter Ordnung wird ein neutraler Reiz erneut mit dem US gekoppelt.", false, "Gerade <b>ohne US</b>: Der neue Reiz wird nur mit einem CS gekoppelt."],
+  ["Klassische Konditionierung kann auch zur Unterdrückung von Verhalten führen.", true, "Beispiel: Ton kündigt Schock an, danach Freezing auf den Ton."]]},
+ {id:"xkk-02", ch:10, stem:"In Bezug auf konditionierte Reaktionen gilt:", s:[
+  ["Etablierte konditionierte Reaktionen sind sehr instabil und verschwinden von selbst.", false, "Sie sind <b>sehr stabil</b>. Abschwächung erfolgt durch Extinktion."],
+  ["Extinktion erfolgt durch wiederholte Darbietung des CS in Abwesenheit des US.", true, "So auf der Folie: Glocke ohne Futter."],
+  ["Die Stärke der CR auf einen neuen Reiz hängt von dessen Ähnlichkeit zum CS ab.", true, "Generalisierungsgradient."]]},
+ {id:"xkk-03", ch:10, stem:"Für die Stärke der Konditionierung gilt:", s:[
+  ["Laut Pawlow ist vor allem die Kontiguität, also die zeitliche Nähe der Reize, bedeutsam.", true, "Der erste und wichtigste der drei Parameter."],
+  ["Die Intensität der CR ist unabhängig von der Intensität des US.", false, "Sie hängt <b>stark</b> von der Intensität des US ab."],
+  ["Bei der erlernten Geschmacksaversion ist die Häufigkeit des gemeinsamen Auftretens weniger entscheidend.", true, "Sie ist die Ausnahme von der Regel, dass die Häufigkeit zentral ist."]]}
+);
+
+KURZ.push(
+ {id:"kk-k1", ch:10, pts:8,
+  q:"Erklären Sie mit Hilfe der klassischen Konditionierung, wie bei einem Schüler Matheangst entstehen kann, obwohl ihm Zahlen selbst nie etwas getan haben. Verwenden Sie die Fachbegriffe und gehen Sie auf die Konditionierung zweiter Ordnung ein.",
+  k:["Schritt 1: Lehrer (NS) wird mit Tadel (US) gekoppelt, Tadel löst Angst (UR) aus","Danach ist der Lehrer ein CS und löst Angst (CR) aus","Schritt 2: „Zahlen“ (NS) werden mit dem Lehrer (CS) gekoppelt, ohne Tadel","Danach lösen „Zahlen“ als CS Angst (CR) aus","Das ist Konditionierung zweiter Ordnung: Lernen ohne US, der neue CS ist meist abgeschwächt","Generalisierung möglich, z. B. auf ähnliche Situationen (Prüfungen, Schule)"],
+  m:"Zunächst ist der Lehrer ein neutraler Reiz. Er tritt wiederholt zusammen mit Tadel auf, einem unkonditionierten Reiz, der von sich aus eine Angstreaktion auslöst. Durch diese Kopplung wird der Lehrer zum konditionierten Reiz und löst selbst eine konditionierte Angstreaktion aus. In einem zweiten Schritt werden die Zahlen, bisher neutral, mit dem Lehrer gekoppelt, ohne dass noch getadelt wird. Nun lösen auch die Zahlen als konditionierter Reiz Angst aus. Das ist Konditionierung zweiter Ordnung: Ein neutraler Reiz erwirbt die Kraft eines meist abgeschwächten konditionierten Reizes allein über die Verknüpfung mit einem anderen konditionierten Reiz, also ohne US. Über Generalisierung kann sich die Angst auf ähnliche Reize wie Prüfungssituationen ausweiten."}
+);
+OPEN.push({id:"okk-k1", ch:10, kind:"kurz", k:"kk-k1", pts:10, title:"Klassische Konditionierung"});
+
 /* ================= Zeichen der Diagnostik-Statistik =================
    Jedes Zeichen aus Heines Folien und den Altklausuren einmal erklärt: Bedeutung, wofür, Mini-Beispiel, wo es vorkommt,
    typische Verwechslung. Daraus entstehen zwei Kartenstapel (Zeichen → Bedeutung und Bedeutung → Zeichen) und das Lexikon.
@@ -3063,6 +3222,9 @@ const WHO_SETS={
   gedsys:{t:"Welches Gedächtnissystem?", kap:2, q:"Welches Gedächtnissystem ist hier vor allem am Werk?",
     hint:"Bewusst berichtbar oder nur im Verhalten sichtbar? Erlebnis oder Weltwissen? Bruchteil einer Sekunde, ein paar Sekunden oder dauerhaft?",
     cats:{epis:"Episodisches Gedächtnis", sem:"Semantisches Gedächtnis", proz:"Prozedurales Gedächtnis", ag:"Kurzzeit- bzw. Arbeitsgedächtnis", sens:"Sensorisches Gedächtnis"}},
+  kkb:{t:"Was passiert bei der Konditionierung?", kap:10, q:"Welches Phänomen der klassischen Konditionierung zeigt sich?",
+    hint:"Kommt die Reaktion auf einen ähnlichen Reiz? Wird der CS ohne US gezeigt? Kommt eine gelöschte Reaktion nach einer Pause zurück? Wird ein neuer Reiz nur mit einem CS gekoppelt?",
+    cats:{gen:"Generalisierung", ext:"Extinktion", spont:"Spontanerholung", dis:"Diskrimination", zwei:"Konditionierung zweiter Ordnung"}},
   verg:{t:"Warum vergessen?", kap:3, q:"Welcher Mechanismus erklärt das Vergessen am besten?",
     hint:"Stört Neues das Alte oder Altes das Neue? Hängen zu viele Inhalte an einem Hinweisreiz? Fehlt der alte Kontext?",
     cats:{retro:"Retroaktive Interferenz", pro:"Proaktive Interferenz", aiv:"Abrufinduziertes Vergessen", cue:"Cue-Overload", kf:"Kontextfluktuation"}}
@@ -3107,6 +3269,13 @@ const WHO=[
  {id:"v05", set:"verg", t:"Eine Schülerin übt nur drei der sechs Vokabeln einer Wortfamilie. Die drei anderen fallen ihr danach schlechter ein als vorher.", s:"aiv", ex:"Der Abruf einiger Teilinformationen behindert den späteren Abruf der anderen."},
  {id:"v06", set:"verg", t:"Nach Spanisch in der 7. Klasse kommt in der 8. Französisch. Die neuen französischen Wörter werden ständig von den spanischen verdrängt.", s:"pro", ex:"Das früher gelernte Spanisch stört das später gelernte Französisch."},
  {id:"v07", set:"verg", t:"Nach einem Wochenende mit neuen Spielregeln weiß Tim die Regeln des alten Spiels nicht mehr.", s:"retro", ex:"Neu erworbene Information stört den Abruf früher erworbener Inhalte."}
+ ,{id:"k01", set:"kkb", t:"Nach Ärger mit einer Mathelehrerin bekommt Emre auch bei einer anderen, ähnlich strengen Lehrerin Herzklopfen.", s:"gen", ex:"Die CR tritt auch auf Reize auf, die dem CS ähneln."},
+ {id:"k02", set:"kkb", t:"Der Hund hört die Glocke immer wieder, ohne dass Futter folgt. Der Speichelfluss wird immer schwächer.", s:"ext", ex:"CS ohne US: Die CR schwächt sich ab."},
+ {id:"k03", set:"kkb", t:"Nach den Sommerferien spürt Lina beim Betreten des Chemieraums kurz wieder die alte Angst, die im Frühjahr schon verschwunden war.", s:"spont", ex:"Eine gelöschte CR flackert nach einer Ruhephase wieder auf."},
+ {id:"k04", set:"kkb", t:"Der Hund speichelt nur noch beim Ton von 1000 Hz, nicht mehr bei 900 Hz, auf den nie Futter folgte.", s:"dis", ex:"Diskriminierungstraining: Der CS2 sagt das Ausbleiben des US vorher (konditionierte Inhibition)."},
+ {id:"k05", set:"kkb", t:"Erst wurde der Lehrer mit Tadel verknüpft, dann die Zahlen mit dem Lehrer. Jetzt machen schon Zahlen Angst.", s:"zwei", ex:"Ein neuer Reiz wird nur mit einem CS gekoppelt, ohne US. Heines Beispiel für Matheangst."},
+ {id:"k06", set:"kkb", t:"Ein Licht wird mehrmals vor dem Ton gezeigt, auf den der Hund schon speichelt, aber nie mit Futter. Bald speichelt er beim Licht.", s:"zwei", ex:"Folie Sitzung 3: Lernen ohne US, der dritte Reiz wird zum abgeschwächten CS."},
+ {id:"k07", set:"kkb", t:"Ein Kind, das Angst vor einer weißen Ratte gelernt hat, reagiert auch auf ein weißes Kaninchen ängstlich.", s:"gen", ex:"Ähnliche Reize lösen eine (meist schwächere) CR aus."}
 ];
 const whoCats=x=>WHO_SETS[x.set].cats;
 function whoOptions(x){
@@ -3275,7 +3444,7 @@ const APP={
  name:"BiWi II",
  /* Unterlagen-Muster, korrigiert am 10.11. aus den Uploads: Heine stellt je Sitzung eine eigene Datei
     „Psy-Lehramt_WiSe-26-27_Sitzung<Nr>.pdf“ in Moodle (kein wachsender Foliensatz). Rhythmus wöchentlich, Wochentag unbekannt.
-    Sitzung 3 (Lernen 2) fehlt: Sitzung 4 setzt bei der operanten Konditionierung an, die Grundlagen davor sind nicht hochgeladen. */
+    Sitzung 3 wurde am 10.11. nachgereicht; die Lücke verschwindet, sobald sie in UPLOADS mit added steht. */
  projectUrl:"https://claude.ai/project/01a15557-90c1-7400-9208-1196e80443c9",
  expect:(h,L)=>{ const W=weeklyAfter(L,{end:"2027-02-06", items:["Folien der Sitzung (eigene Datei Psy-Lehramt_WiSe-26-27_Sitzung…pdf)"]});
    const gap=L.some(u=>u.no===3&&u.added)?[]:[{ch:3, label:"Sitzung 3", date:"schon gehalten", ts:new Date("2026-10-28").getTime(), items:["Folien Sitzung 3: Lernen 2 (Konditionierung)"]}];
@@ -3490,7 +3659,7 @@ if("serviceWorker" in navigator){ window.addEventListener("load", ()=>navigator.
    Beim Start lädt die App eine neue Version sofort. Beim Zurückkehren nur, wenn gerade nichts läuft;
    mitten in Karten, Aufgaben oder Probeklausur erscheint stattdessen ein Hinweis zum Antippen. Der Lernstand liegt im Gerät und wird vorher abgeglichen. */
 (function(){
-  var V="9a5eac6b657f", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
+  var V="4d1d06a0ed95", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
   function busy(){ try{ return BUSY.indexOf(view)>=0; }catch(e){ return false; } }
   function syncing(){ try{ return !!(pushTimer||pushing); }catch(e){ return false; } }
   function reload(t){ try{ sessionStorage.setItem("upd-"+t,"1"); }catch(e){} location.replace(location.pathname+"?v="+t+location.hash); }

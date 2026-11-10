@@ -1,22 +1,44 @@
 /* ================= Kapitel 11: Operante Konditionierung =================
-   Grundlage: Folien Sitzung 4 (WiSe 26/27, Input 1: Folien 5–14), Klausur WiSe 24/25 (Thema 6 „Operante Konditionierung“, 10 P.),
-   Lehrbuch Urhahne/Dresel/Fischer (2019) Kap. 1.4 (Tab. 1.1). Die Folien von Sitzung 3 (Lernen 2, Grundlagen) fehlen noch:
-   Die vier Konsequenzen stehen deshalb vorerst nach Lehrbuch und Klausur. */
+   Grundlage: Folien Sitzung 3 (Input 3: Folien 19–34) und Sitzung 4 (Input 1: Folien 5–14), WiSe 26/27; Klausur WiSe 24/25
+   (Thema 6 „Operante Konditionierung“, 10 P.); Lehrbuch Urhahne/Dresel/Fischer (2019) Kap. 1.4 (Beispiele aus Tab. 1.1). */
 LESSONS[11]=[
+{id:"11-5", t:"Thorndike und instrumentelles Lernen", html:`
+<p>Angeregt durch Darwin untersuchte <b>Edward Thorndike</b> (1874–1949) das Problemlöseverhalten von Tieren in <b>Problemkäfigen</b> („puzzle boxes“). Eine Katze im Käfig probiert alles Mögliche aus, bis sie zufällig den Knopf oder Draht betätigt, der die Tür öffnet. Mit der Zeit unterbleiben die erfolglosen Versuche, der erfolgreiche wird „eingeprägt“.</p>
+<ul><li>Prinzip „<b>Trial and Error</b>“: beliebige Verhaltenssequenzen, bis zufällig eine passende Handlung gelingt.</li>
+<li>Die ersten Durchläufe dauern lange, mit jeder Wiederholung befreit sich das Tier schneller: Die <b>Latenz sinkt</b>.</li>
+<li>Das Verhalten wird zum <b>Instrument</b>, also zum Mittel zum Zweck.</li></ul>
+<p><b>Gesetz der Wirkung</b> (law of effect): Je größer die resultierende Befriedigung bzw. Frustration, desto stärker wird die Assoziation zwischen Situation (Stimulus) und Verhaltensweise (Reaktion) gestärkt bzw. geschwächt. Die Verhaltenswahrscheinlichkeit ist eine <b>Funktion der Verhaltenskonsequenzen</b>.</p>
+<p><b>Instrumentelles Lernen</b> allgemein: Latenz, Geschwindigkeit, Wahrscheinlichkeit bzw. Häufigkeit eines Verhaltens verändern sich, nachdem eine Verstärkung <b>kontingent</b> zu diesem Verhalten gemacht wird (assoziatives Lernen). Das Verhalten kann mehr oder weniger komplex sein (vgl. <b>Shaping</b>).</p>
+<p><b>Skinners Konzeption</b>: Anders als beim reflexartigen (reaktiven) Verhalten der klassischen Konditionierung steht komplexeres Verhalten im Fokus, das auf die Umwelt wirkt („operates on“): <b>operantes Verhalten</b>. „Instrumentelles Lernen“ passt eher auf natürliche Situationen, Skinner untersuchte vor allem kontrollierte Lernexperimente (<b>operante Konditionierung</b>).</p>`,
+check:[
+ {q:"Was beobachtete Thorndike bei den Katzen in den Problemkäfigen?", o:["Sie fanden die Lösung sofort durch Nachdenken","Die Zeit bis zur Befreiung sank mit jeder Wiederholung","Sie lernten durch Zuschauen bei anderen Katzen","Sie reagierten reflexartig auf einen Ton"], a:1, ex:"Trial and Error: Erst zufällig, dann immer schneller, die Latenz sinkt.", w:["Die Lösung wurde zufällig gefunden, nicht durch Einsicht.",null,"Lernen durch Zuschauen ist Beobachtungslernen nach Bandura.","Reflexe auf einen Ton gehören zur klassischen Konditionierung."]},
+ {q:"Was unterscheidet operantes Verhalten nach Skinner vom Verhalten bei der klassischen Konditionierung?", o:["Es ist reflexartig","Es wirkt auf die Umwelt ein","Es braucht keinen Reiz","Es ist angeboren"], a:1, ex:"Operant heißt: Das Verhalten „operates on“ die Umwelt. Klassisch konditioniert werden reflexartige, reaktive Reaktionen.", w:["Reflexartig ist gerade das Verhalten der klassischen Konditionierung.",null,"Auch operantes Verhalten steht in Beziehung zu Reizen, nämlich zu den Konsequenzen.","Angeborenes ist kein Lernen."]}
+]},
 {id:"11-1", t:"Die vier operanten Konsequenzen", html:`
-<p>Bei der operanten Konditionierung wird eine Verknüpfung zwischen einem <b>Verhalten</b> (R) und seiner <b>Konsequenz</b> (S) gelernt. Ob ein Verhalten künftig häufiger oder seltener auftritt, hängt von dieser Konsequenz ab (Skinner, aufbauend auf Thorndikes Gesetz der Wirkung).</p>
-<p>Zwei Fragen ordnen jede Konsequenz ein:</p>
-<ul><li><b>Positiv oder negativ?</b> Das heißt nur: Wird ein Reiz <b>dargeboten</b> (positiv, +) oder <b>entzogen</b> (negativ, −)? Mit „gut“ oder „schlecht“ hat es nichts zu tun.</li>
-<li><b>Verstärkung oder Bestrafung?</b> Verstärkung macht das Verhalten <b>häufiger</b>, Bestrafung macht es <b>seltener</b>.</li></ul>
-<table class="kvq"><tr><th></th><th>Reiz wird dargeboten</th><th>Reiz wird entzogen</th></tr>
-<tr><td>angenehmer (appetitiver) Reiz</td><td><b>positive Verstärkung</b><br><span class="small muted">Lob für gute Mitarbeit</span></td><td><b>negative Bestrafung</b><br><span class="small muted">Wegnahme des Handys</span></td></tr>
-<tr><td>unangenehmer (aversiver) Reiz</td><td><b>positive Bestrafung</b><br><span class="small muted">Ermahnung bei Unterrichtsstörung</span></td><td><b>negative Verstärkung</b><br><span class="small muted">Befreiung von Hausaufgaben</span></td></tr></table>
-<p>Folgt gar keine Konsequenz mehr, wird das Verhalten nach und nach seltener: <b>Löschung</b> (Extinktion).</p>
-<div class="merk"><b>So fragt Heine in der Klausur (WiSe 24/25)</b>Name der Konsequenz, dann der Mechanismus „allgemein“ (welche Art Konsequenz wird dargeboten oder entfernt?) und „im konkreten Fall“, dann der Effekt auf die Auftretenshäufigkeit, allgemein und konkret. Bei negativer Bestrafung also: Eine <i>appetitive</i> Konsequenz wird <i>entnommen</i>, die Auftretenshäufigkeit <i>sinkt</i>.</div>
-<p class="small muted">Quelle: Lehrbuch Kap. 1.4, Tab. 1.1, und Klausur WiSe 24/25. Die Folien zu Sitzung 3 fehlen noch in der App.</p>`,
+<p>Bei der operanten Konditionierung wird eine Verknüpfung zwischen einem <b>Verhalten</b> (R) und seiner <b>Konsequenz</b> (S) gelernt. Zwei Fragen ordnen jede Konsequenz ein:</p>
+<ul><li><b>Positiv oder negativ?</b> Das heißt nur: Wird eine Konsequenz <b>präsentiert</b> (positiv) oder <b>entzogen</b> (negativ)? Mit „gut“ oder „schlecht“ hat es nichts zu tun.</li>
+<li><b>Verstärkung oder Bestrafung?</b> Verstärkung führt zur <b>Zunahme</b> der Frequenz eines Verhaltens, Bestrafung zur <b>Abnahme</b>.</li></ul>
+<p>Heines Tabelle (Sitzung 3, Folie 23):</p>
+<table class="kvq"><tr><th>Art</th><th>Mechanismus</th><th>Effekt</th><th>Beispiel</th></tr>
+<tr><td><b>positive Verstärkung</b></td><td>Präsentation einer appetitiven Konsequenz</td><td>Zunahme</td><td>Regelmäßige Nachbereitung der Vorlesung führt zu einer besseren Klausurnote: Die Nachbereitung wird häufiger und intensiver.</td></tr>
+<tr><td><b>negative Verstärkung</b></td><td>Entzug einer aversiven Konsequenz</td><td>Zunahme</td><td>Das Verlassen einer lauten Lernumgebung führt zu weniger Störung: Man zieht sich häufiger in eine leise Umgebung zurück.</td></tr>
+<tr><td><b>(positive) Bestrafung</b></td><td>Präsentation einer aversiven Konsequenz</td><td>Abnahme</td><td>Abschreiben in der Klausur führt zu Ärger mit dem Dozenten: Es wird seltener abgeschrieben.</td></tr>
+<tr><td><b>negative Bestrafung</b></td><td>Entzug einer appetitiven Konsequenz</td><td>Abnahme</td><td>Schlafen in der Vorlesung führt dazu, dass spannende Inhalte verpasst werden: Man schläft seltener.</td></tr></table>
+<p class="small muted">Schulbeispiele aus dem Lehrbuch (Kap. 1.4): Lob für Mitarbeit, Befreiung von Hausaufgaben, Ermahnung bei Störung, Wegnahme des Handys. Folgt gar keine Konsequenz mehr, wird das Verhalten seltener: <b>Löschung</b>.</p>
+<div class="merk"><b>So fragt Heine in der Klausur (WiSe 24/25)</b>Genau in den Spalten ihrer Tabelle: Art der Konsequenz, Mechanismus „allgemein“ und „im konkreten Fall“, Effekt auf die Auftretenshäufigkeit, allgemein und konkret. Bei negativer Bestrafung also: Eine <i>appetitive</i> Konsequenz wird <i>entnommen</i>, die Auftretenshäufigkeit <i>sinkt</i>.</div>`,
 check:[
  {q:"Was bedeutet „negativ“ bei negativer Verstärkung?", o:["Die Konsequenz ist unangenehm","Ein Reiz wird entzogen","Das Verhalten wird seltener","Die Lehrkraft ist unzufrieden"], a:1, ex:"Positiv und negativ sagen nur, ob ein Reiz dargeboten oder entzogen wird. Bei negativer Verstärkung fällt etwas Unangenehmes weg, deshalb wird das Verhalten häufiger.", w:["Unangenehm ist der Reiz, der wegfällt. „Negativ“ bezeichnet aber das Wegnehmen, nicht die Qualität.",null,"Seltener wird ein Verhalten durch Bestrafung. Jede Verstärkung macht es häufiger.","Die Stimmung der Lehrkraft spielt für die Einteilung keine Rolle."]},
  {q:"Weil ein Schüler im Unterricht spielt, wird ihm das Handy bis Stundenende abgenommen. Welche Konsequenz liegt vor?", o:["Positive Bestrafung","Negative Verstärkung","Negative Bestrafung","Löschung"], a:2, ex:"Ein angenehmer (appetitiver) Reiz wird entzogen, das Spielen soll seltener werden.", w:["Bei positiver Bestrafung käme etwas Unangenehmes hinzu, z. B. eine Ermahnung.","Negative Verstärkung macht ein Verhalten häufiger, weil etwas Unangenehmes wegfällt.",null,"Löschung hieße, dass gar keine Konsequenz mehr folgt."]}
+]},
+{id:"11-6", t:"Typen von Verstärkern", html:`
+<table class="kvq"><tr><th>Typ</th><th>Was er ist</th></tr>
+<tr><td><b>primäre Verstärker</b></td><td>befriedigen physiologische Bedürfnisse wie Hunger, Durst, Wärme</td></tr>
+<tr><td><b>sekundäre Verstärker</b></td><td>erwerben ihre Wirkung durch gelernte Assoziation mit primären Verstärkern (<b>konditionierte Verstärker</b>). Beispiele sind <b>generalisierte Verstärker</b> wie Geld oder Tokens.</td></tr>
+<tr><td><b>soziale Verstärker</b></td><td>Aufmerksamkeit, Lob, Liebe. Sie lassen sich nicht eindeutig einer der beiden Kategorien zuordnen.</td></tr></table>
+<div class="merk"><b>Schulbezug</b>Sticker, Stempel oder Punkte in einem Token-System sind sekundäre, generalisierte Verstärker: Sie wirken erst, weil sie gegen etwas eingetauscht werden können oder mit Anerkennung verbunden sind.</div>`,
+check:[
+ {q:"Zu welchem Verstärkertyp gehört Geld?", o:["Ein primärer Verstärker wie Essen","Ein generalisierter Verstärker","Ein sozialer Verstärker wie Lob","Ein unbedingter Reiz (US)"], a:1, ex:"Geld wirkt durch gelernte Assoziation mit primären Verstärkern und lässt sich gegen vieles eintauschen.", w:["Geld stillt kein physiologisches Bedürfnis direkt.",null,"Sozial sind Aufmerksamkeit, Lob oder Liebe.","Unbedingte Reize gehören zur klassischen Konditionierung. Geld ist ein Verstärker."]},
+ {q:"Was gilt laut Folie für Lob?", o:["Es ist ein primärer Verstärker wie Nahrung","Es ist eindeutig ein sekundärer Verstärker","Es ist sozial und nicht eindeutig zuzuordnen","Es wirkt bei Jugendlichen nie als Verstärker"], a:2, ex:"Soziale Verstärker wie Aufmerksamkeit, Lob, Liebe sind nicht eindeutig primär oder sekundär.", w:["Primär sind Verstärker für physiologische Bedürfnisse wie Hunger.","Genau das sagt die Folie nicht: Die Zuordnung ist nicht eindeutig.",null,"Lob ist eines der Standardbeispiele für Verstärker."]}
 ]},
 {id:"11-2", t:"Verstärkungspläne und ihre Effekte", html:`
 <p>Bei <b>kontinuierlicher Verstärkung</b> (continuous reinforcement, <b>CRF</b>) wird jede einzelne Verhaltensäußerung verstärkt. Wird nur manchmal verstärkt, spricht man von <b>intermittierender Verstärkung</b>. Die vier wichtigsten Pläne:</p>
@@ -74,12 +96,17 @@ check:[
 ];
 
 CARDS[11]=[
+ {id:"c11-17", f:"Thorndikes Problemkäfige: Was wurde beobachtet?", b:"Trial and Error: Tiere probieren beliebige Verhaltenssequenzen, bis zufällig eine passende Handlung gelingt. Mit jeder Wiederholung sinkt die Latenz. Das Verhalten wird zum Instrument (Mittel zum Zweck)."},
+ {id:"c11-18", f:"Gesetz der Wirkung (Thorndike)", b:"Je größer die resultierende Befriedigung/Frustration, desto stärker die Stärkung/Schwächung der Assoziation zwischen Situation (Stimulus) und Verhaltensweise (Reaktion). Verhaltenswahrscheinlichkeit = Funktion der Konsequenzen."},
+ {id:"c11-19", f:"Instrumentelles Lernen (Definition)", b:"Latenz, Geschwindigkeit, Wahrscheinlichkeit bzw. Häufigkeit eines Verhaltens verändern sich, nachdem eine Verstärkung kontingent zu diesem Verhalten gemacht wird (assoziatives Lernen)."},
+ {id:"c11-20", f:"Operantes Verhalten (Skinner) vs. instrumentelles Lernen", b:"Skinner: komplexeres Verhalten, das auf die Umwelt wirkt („operates on“), im Unterschied zum reflexartigen Verhalten der klassischen Konditionierung. „Instrumentelles Lernen“ eher für natürliche Situationen, Skinner vor allem kontrollierte Experimente."},
+ {id:"c11-21", f:"Primäre, sekundäre und soziale Verstärker", b:"Primär: befriedigen physiologische Bedürfnisse (Hunger, Durst, Wärme)\nSekundär (konditioniert): wirken durch Assoziation mit primären; generalisierte Verstärker wie Geld, Tokens\nSozial: Aufmerksamkeit, Lob, Liebe, nicht eindeutig zuzuordnen"},
  {id:"c11-01", f:"Operante Konditionierung: was wird gelernt?", b:"Die Verknüpfung von Verhalten und Konsequenz (R → S). Die Konsequenz bestimmt, ob das Verhalten künftig häufiger oder seltener auftritt."},
  {id:"c11-02", f:"„Positiv“ und „negativ“ bei operanten Konsequenzen", b:"Positiv: Ein Reiz wird dargeboten.\nNegativ: Ein Reiz wird entzogen.\nKeine Wertung („gut“/„schlecht“)."},
- {id:"c11-03", f:"Positive Verstärkung", b:"Ein appetitiver (angenehmer) Reiz wird dargeboten, das Verhalten wird häufiger.\nBeispiel: Lob für gute Mitarbeit."},
- {id:"c11-04", f:"Negative Verstärkung", b:"Ein aversiver (unangenehmer) Reiz wird entzogen, das Verhalten wird häufiger.\nBeispiel: Befreiung von Hausaufgaben."},
- {id:"c11-05", f:"Positive Bestrafung", b:"Ein aversiver Reiz wird dargeboten, das Verhalten wird seltener.\nBeispiel: Ermahnung bei Unterrichtsstörung."},
- {id:"c11-06", f:"Negative Bestrafung", b:"Ein appetitiver Reiz wird entzogen, das Verhalten wird seltener.\nBeispiel: Wegnahme des Handys, Trainingsverbot (Klausur 24/25)."},
+ {id:"c11-03", f:"Positive Verstärkung", b:"Präsentation einer appetitiven Konsequenz, Zunahme der Frequenz.\nBeispiel Heine: Nachbereitung führt zu besserer Note, Nachbereitung wird häufiger."},
+ {id:"c11-04", f:"Negative Verstärkung", b:"Entzug einer aversiven Konsequenz, Zunahme der Frequenz.\nBeispiel Heine: Rückzug aus lauter Lernumgebung bringt Ruhe, Rückzug wird häufiger."},
+ {id:"c11-05", f:"Positive Bestrafung", b:"Präsentation einer aversiven Konsequenz, Abnahme der Frequenz.\nBeispiel Heine: Abschreiben führt zu Ärger mit dem Dozenten, es wird seltener abgeschrieben."},
+ {id:"c11-06", f:"Negative Bestrafung", b:"Entzug einer appetitiven Konsequenz, Abnahme der Frequenz.\nBeispiel Heine: Schlafen in der Vorlesung, spannende Inhalte verpasst; Klausur 24/25: Trainingsverbot."},
  {id:"c11-07", f:"Kontinuierliche Verstärkung (CRF)", b:"Jede einzelne Verhaltensäußerung wird verstärkt.\nEffekt: rascher Erwerb, aber schnelle Extinktion, wenn die Verstärkung ausbleibt."},
  {id:"c11-08", f:"Die vier intermittierenden Verstärkungspläne", b:"Feste Quote (FQ): exakt jede x-te Reaktion\nVariable Quote (VQ): ungefähr jede x-te Reaktion\nFestes Intervall (FI): erste Reaktion nach x Minuten\nVariables Intervall (VI): durchschnittlich alle x Minuten"},
  {id:"c11-09", f:"Partieller Verstärkungseffekt", b:"Intermittierend verstärktes Verhalten ist extinktionsresistenter als kontinuierlich verstärktes. Basis von Fading/Thinning."},
@@ -92,6 +119,9 @@ CARDS[11]=[
  {id:"c11-16", f:"Fall Michael (Klausur 24/25): Ohrfeige → zwei Wochen Trainingsverbot", b:"Negative Bestrafung: Eine appetitive Konsequenz (Fußballspielen) wird entnommen. Die Auftretenshäufigkeit des Verhaltens sinkt: Michael schlägt beim nächsten Foul nicht mehr."}
 ];
 Object.assign(CARD_INFO,{
+ "c11-17":"Latenz: Zeit bis zur Reaktion, hier bis zur Befreiung.",
+ "c11-19":"Shaping: schrittweises Formen eines komplexen Verhaltens durch Verstärkung von Annäherungen.",
+ "c11-21":"Token: Wertmarke, die gegen Belohnungen eingetauscht wird.",
  "c11-01":"Operant: Das Verhalten „operiert“ auf die Umwelt und verändert sie.",
  "c11-03":"Appetitiv: lateinisch appetere, „begehren“, also angenehm, erstrebt.",
  "c11-04":"Aversiv: lateinisch aversus, „abgewandt“, also unangenehm, gemieden.",
@@ -103,6 +133,7 @@ Object.assign(CARD_INFO,{
  "c11-15":"Martin Seligman, US-amerikanischer Psychologe, Experimente mit unausweichlichen Reizen."
 });
 Object.assign(CARD_CTX,{
+ "c11-17":"Wie alles begann","c11-18":"Thorndikes Grundgesetz","c11-19":"Allgemeine Definition","c11-20":"Skinners Begriff","c11-21":"Was als Verstärker wirkt",
  "c11-01":"Lernen durch Konsequenzen","c11-02":"Vorsicht vor der Alltagsbedeutung","c11-03":"Erste der vier Konsequenzen","c11-04":"Zweite der vier Konsequenzen",
  "c11-05":"Dritte der vier Konsequenzen","c11-06":"Vierte der vier Konsequenzen","c11-07":"Jedes Mal verstärken","c11-08":"Nur manchmal verstärken",
  "c11-09":"Warum seltener verstärken hilft","c11-10":"Wie sich die Pläne auswirken","c11-11":"Ein typischer Verlauf","c11-12":"Wovon die Lernkurve abhängt",
@@ -110,7 +141,7 @@ Object.assign(CARD_CTX,{
 });
 
 /* ================= Kapitel 12: Lernen am Modell =================
-   Grundlage: Folien Sitzung 4 (WiSe 26/27, Input 2: Folien 16–21) */
+   Grundlage: Folien Sitzung 3 (Input 4: Folien 35–40) und Sitzung 4 (Input 2: Folien 16–21), WiSe 26/27 */
 LESSONS[12]=[
 {id:"12-1", t:"Soziales Lernen und Modelle", html:`
 <p>Allgemein ist Lernen eine Änderung von Verhalten, die durch Erfahrung bedingt ist. <b>Banduras Theorie des sozialen Lernens</b> betont: Höhere Lebewesen lernen nicht in Isolation, sondern zunächst und vor allem <b>eingebettet in soziale Kontexte</b>.</p>
@@ -191,6 +222,10 @@ KREUZ.push(
   ["Bei negativer Verstärkung wird ein aversiver Reiz entfernt.", true, "Das Verhalten wird häufiger, weil etwas Unangenehmes wegfällt."],
   ["Negative Bestrafung bedeutet, dass ein unangenehmer Reiz dargeboten wird.", false, "Das ist <b>positive</b> Bestrafung. Bei negativer Bestrafung wird ein <b>appetitiver</b> Reiz entzogen."],
   ["Wenn positive Bestrafung eingesetzt wird, dann ohne Verzögerung und nicht intermittierend.", true, "So die Bedingungen auf der Folie."]]},
+ {id:"x11-04", ch:11, stem:"Für Verstärker und instrumentelles Lernen gilt:", s:[
+  ["Sekundäre Verstärker erwerben ihre Wirkung durch gelernte Assoziation mit primären Verstärkern.", true, "Deshalb heißen sie auch konditionierte Verstärker."],
+  ["Laut Thorndikes Gesetz der Wirkung ist die Verhaltenswahrscheinlichkeit eine Funktion der Verhaltenskonsequenzen.", true, "So auf der Folie."],
+  ["Soziale Verstärker wie Lob sind eindeutig primäre Verstärker.", false, "Sie sind <b>nicht eindeutig</b> einer Kategorie zuzuordnen."]]},
  {id:"x11-03", ch:11, stem:"Für das instrumentelle Lernen gilt:", s:[
   ["Je größer der zeitliche Abstand zwischen Verhalten und Verstärkung, desto schneller der Erwerb.", false, "Kontiguität: Je <b>geringer</b> der Abstand, desto schneller der Erwerb."],
   ["Zentral für erlernte Hilflosigkeit ist ein Mangel an Kontingenz von Verhalten und Konsequenz.", true, "Die Person erfährt, dass ihre Reaktion die Konsequenz nicht kontrolliert."],

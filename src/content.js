@@ -13,7 +13,7 @@ const CHAPTERS=[
   {n:7,  teil:1, title:"Aufmerksamkeit", teaser:"Selektive und geteilte Aufmerksamkeit, Aufmerksamkeitssteuerung."},
   {n:8,  teil:1, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
   {n:9,  teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Reflexe, Habituation und Sensitivierung."},
-  {n:10, teil:2, title:"Klassische Konditionierung", teaser:"Neutrale und konditionierte Reize, Generalisierung, Konditionierung höherer Ordnung."},
+  {n:10, teil:2, title:"Klassische Konditionierung", teaser:"US, UR, NS, CS, CR, Little Albert, Extinktion, Generalisierung, Konditionierung zweiter Ordnung, Matheangst."},
   {n:11, teil:2, title:"Operante Konditionierung", teaser:"Die vier Konsequenzen, Verstärkungspläne, Bestrafung, erlernte Hilflosigkeit, Fallbeispiele aus der Klausur."},
   {n:12, teil:2, title:"Lernen am Modell", teaser:"Soziales Lernen nach Bandura, Arten von Modellen, Abgrenzung, Determinanten, Selbstwirksamkeitserwartung."},
   {n:13, teil:2, title:"Wissenserwerb", teaser:"Wie Wissen im Unterricht aufgebaut wird."},
@@ -134,6 +134,7 @@ UPLOADS.push(
  {base:true, known:false, items:[{k:"Lehrbuch", t:"Urhahne/Dresel/Fischer 2019", ok:true},{k:"Altklausuren", t:"WiSe 17/18, 18/19, 22/23, 24/25", ok:true},{k:"Fragenkatalog", t:"„Fragen Heine“", ok:true}]},
  {no:1, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 1: Einführung, Schwerpunkte, Psychologie als Wissenschaft", ok:true}]},
  {no:2, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 2: Psychologie als Wissenschaft, Lernen", ok:true}]},
+ {no:3, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 3: Lernen 2 (41 Folien)", ok:true}]},
  {no:4, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 4: Lernen 3 & Gedächtnis 1 (34 Folien)", ok:true}]},
  {no:5, added:"2026-11-10", known:true, items:[{k:"Folien", t:"Sitzung 5: Gedächtnis 2 (30 Folien)", ok:true}]}
 );
