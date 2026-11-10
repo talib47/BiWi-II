@@ -1,6 +1,9 @@
 /* ================= Einstellungen nur dieser App für die gemeinsamen Bausteine (status.js) ================= */
 const APP={
  name:"BiWi II",
+ /* Unterlagen-Muster, hergeleitet aus den Uploads bis 21.10.: Heine stellt einen Foliensatz in Moodle, der jede Woche
+    um die neue Sitzung wächst. Darum immer die ganze, neueste Datei hochladen. Rhythmus wöchentlich, Wochentag unbekannt. */
+ expect:(h,L)=>weeklyAfter(L,{grow:true, end:"2027-02-06", items:["neuester Foliensatz aus Moodle (eine Datei, sie wächst jede Woche)"]}),
  halves:false,
  chap:n=>CHAPTERS.find(c=>c.n===n),
  unit:()=>"Sitzung",

@@ -132,6 +132,6 @@ CALC[16]=["zwert","iq","skalen","nv","pr","prrev","vergleich"];
 /* Hochgeladen-Übersicht (status.js): Folien je Vorlesungssitzung, dazu die Grundlagen. Neue Sitzung hier eintragen. */
 UPLOADS.push(
  {base:true, known:false, items:[{k:"Lehrbuch", t:"Urhahne/Dresel/Fischer 2019", ok:true},{k:"Altklausuren", t:"WiSe 17/18, 18/19, 22/23, 24/25", ok:true},{k:"Fragenkatalog", t:"„Fragen Heine“", ok:true}]},
- {no:1, known:false, items:[{k:"Folien", t:"Sitzung 1: Einführung, Schwerpunkte, Psychologie als Wissenschaft", ok:true}]},
- {no:2, known:false, items:[{k:"Folien", t:"Sitzung 2: Psychologie als Wissenschaft, Lernen", ok:true}]}
+ {no:1, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 1: Einführung, Schwerpunkte, Psychologie als Wissenschaft", ok:true}]},
+ {no:2, added:"2026-10-21", known:false, items:[{k:"Folien", t:"Sitzung 2: Psychologie als Wissenschaft, Lernen", ok:true}]}
 );
