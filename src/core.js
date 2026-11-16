@@ -37,7 +37,7 @@ async function pull(){
   if(!ghToken) return null;
   const r=await fetch(GH.api+"?ref="+GH.branch+"&_="+Date.now(),{headers:ghHeaders(),cache:"no-store"});
   if(r.status===404){ remoteSha=null; return {}; }
-  if(r.status===401){ syncStatus="schluessel"; return null; }
+  if(r.status===401||r.status===403){ syncStatus="schluessel"; return null; }  // 403: Schlüssel ohne Zugriff auf dieses Repository
   if(!r.ok) throw new Error(r.status);
   const d=await r.json(); remoteSha=d.sha;
   return JSON.parse(b64dec(d.content));
@@ -52,7 +52,7 @@ async function push(){
       if(remoteSha) body.sha=remoteSha;
       const r=await fetch(GH.api,{method:"PUT",headers:ghHeaders(),body:JSON.stringify(body)});
       if(r.ok){ const d=await r.json(); remoteSha=d.content.sha; syncStatus="ok"; lastSync=new Date(); break; }
-      if(r.status===401){ syncStatus="schluessel"; break; }
+      if(r.status===401||r.status===403){ syncStatus="schluessel"; break; }
       if(r.status===404){ if(!(await ensureBranch())){ syncStatus="fehler"; break; } continue; }  // Zweig fehlt noch: anlegen
       if(r.status===409||r.status===422){ await pull(); continue; }  // veraltete Version: neu holen und nochmal
       syncStatus="fehler"; break;
@@ -91,7 +91,7 @@ function syncBox(){
     <button class="btn" id="tkGo" style="margin-top:8px">Gerät verbinden</button></div>`;
   const msg={ok:`Dieses Gerät ist verbunden und gleicht automatisch ab${lastSync?", zuletzt um "+lastSync.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}):""}.`,
     fehler:"Abgleich gerade nicht möglich, etwa ohne Internet. Dein Stand bleibt auf diesem Gerät und wird später abgeglichen.",
-    schluessel:"Der Schlüssel funktioniert nicht. Prüfe, ob er Zugriff auf das Repository BiWi-II hat, oder verbinde mit einem neuen Schlüssel.",
+    schluessel:"Der Schlüssel hat keinen Schreibzugriff auf BiWi-II. Auf GitHub unter Settings → Developer settings → Fine-grained tokens beim Schlüssel „BiWi-II“ hinzufügen (Contents: Read and write), dann „Jetzt abgleichen“.",
     aus:"Wird abgeglichen …"}[syncStatus];
   return `<div class="block"><h3>Geräte-Abgleich</h3>
     <p class="small" ${syncStatus==="ok"?'style="color:var(--muted)"':'style="color:var(--bad)"'}>${msg}</p>
