@@ -19,7 +19,7 @@ const CARD_INFO={
 function cardInfoHTML(id){
   const t=CARD_INFO[id]; if(!t) return "";
   const lines=t.split("\n").map(l=>{ const m=l.match(/^([^:]{1,32}): (.*)$/); return m?`<span class="cl"><b>${m[1]}</b> ${m[2]}</span>`:`<span class="cl">${l}</span>`; }).join("");
-  return `<div class="cinfo"><span class="ci">i</span><div>${lines}</div></div>`;
+  return `<div class="cinfo"><svg class="ci" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="10" cy="5.9" r="1.15" fill="currentColor"/><rect x="9.1" y="8.4" width="1.8" height="6.4" rx=".9" fill="currentColor"/></svg><div>${lines}</div></div>`;
 }
 
 /* Kontext auf der Vorderseite: worum es bei der Frage überhaupt geht */

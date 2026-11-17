@@ -33,7 +33,18 @@ html{font-size:calc(var(--base,100%) * var(--z,1))}
 .cinfo .cl{display:block}
 .cinfo .cl+.cl{margin-top:3px}
 .cinfo b{color:var(--ink);font-weight:600}
-.cinfo .ci{flex:none;width:18px;height:18px;border-radius:50%;border:1px solid var(--muted);font:600 .7rem/16px var(--serif);font-style:italic;text-align:center;margin-top:1px}
+.cinfo .ci{flex:none;width:18px;height:18px;margin-top:1px;color:var(--muted)}
+/* Daumenleiste (Muster 17.11.): Auf dem iPad mit Touch stehen Umdrehen bzw. Sicher/Nicht sicher rechts oben,
+   wo der Daumen liegt, wenn die Hand das iPad oben rechts hält. Auf dem Handy und mit Maus bleibt alles wie bisher. */
+@media (min-width:768px) and (pointer:coarse){
+  main .grade,main .fliprow{position:fixed;z-index:30;right:max(20px,env(safe-area-inset-right,0px));top:max(96px,18vh);width:156px;display:flex;flex-direction:column;gap:12px}
+  main .grade{flex-direction:column-reverse}
+  main .grade .btn,main .fliprow .btn{min-height:76px;flex:none!important;font-size:1.0625rem}
+  .fliprow .tylink{align-self:center}
+}
+@media (min-width:768px) and (max-width:1120px) and (pointer:coarse){
+  main:has(#theCard){padding-right:200px}
+}
 .wlink{color:var(--accent);text-decoration:none;font-weight:600;font-size:.92rem;line-height:1.4}
 .wlink:hover{text-decoration:underline}
 .mc .idk{border-style:dashed;color:var(--muted);text-align:center}
