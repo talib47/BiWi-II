@@ -443,18 +443,19 @@ document.addEventListener("keydown",e=>{
   else if(k==="ArrowRight") hit("#yes"); else if(k==="ArrowLeft") hit("#mid"); else if(k==="z"||k==="Z") hit("#cprev");
 });
 
-/* Wischen neben der Karte (Muster 17.11.): Auf dem Touch-Bildschirm wirkt ein waagerechtes Wischen irgendwo außerhalb der Karte
-   wie auf der Karte: aufgedeckt rechts = sicher, links = nicht sicher; zugedeckt dreht es die Karte um. */
-(function(){ let x0=null,y0=0,on=false,id=null;
-  const ok=e=>view==="cards"&&e.pointerType!=="mouse"&&$("#theCard")&&!e.target.closest("#theCard,textarea,input,#sessbar,#focusbar,nav");
-  document.addEventListener("pointerdown",e=>{ if(!ok(e)) return; x0=e.clientX; y0=e.clientY; on=false; id=e.pointerId; },{passive:true});
-  document.addEventListener("pointermove",e=>{ if(x0===null||e.pointerId!==id) return; const d=e.clientX-x0;
+/* Tippen und Wischen getrennt (Muster 17.11.): Auf dem Touch-Bildschirm dreht ein Tippen irgendwo außerhalb der Karte
+   die Karte um (nur zugedeckt; die Karte selbst dreht sich beim Antippen wie bisher). Waagerechtes Wischen bewertet nur
+   die aufgedeckte Karte, auf oder neben ihr: rechts sicher, links nicht sicher. Zugedeckt bewirkt Wischen nichts. */
+(function(){ let x0=null,y0=0,t0=0,on=false,id=null;
+  const ok=e=>view==="cards"&&e.pointerType!=="mouse"&&$("#theCard")&&!e.target.closest("#theCard,textarea,input,a,button,#sessbar,#focusbar,nav");
+  document.addEventListener("pointerdown",e=>{ if(!ok(e)) return; x0=e.clientX; y0=e.clientY; t0=performance.now(); on=false; id=e.pointerId; },{passive:true});
+  document.addEventListener("pointermove",e=>{ if(x0===null||e.pointerId!==id||!cur.flip) return; const d=e.clientX-x0;
     if(!on){ if(Math.abs(d)>12&&Math.abs(d)>1.4*Math.abs(e.clientY-y0)){ on=true; x0+=d>0?12:-12; if(cur.drag) cur.drag.start(); } else return; }
     if(cur.drag) cur.drag.move(e.clientX-x0); },{passive:true});
-  const up=e=>{ if(x0===null) return; const d=e.clientX-x0, was=on; x0=null; on=false; if(!was) return;
-    window.__noClick=Date.now();
-    if(cur.drag) cur.drag.end(); else if(!cur.flip&&Math.abs(d)>40){ cur.flip=true; renderCards(); } };
+  const up=e=>{ if(x0===null) return; const was=on, far=Math.hypot(e.clientX-x0,e.clientY-y0), quick=performance.now()-t0<500; x0=null; on=false;
+    if(was){ window.__noClick=Date.now(); if(cur.drag) cur.drag.end(); return; }
+    if(e.type==="pointerup"&&far<10&&quick&&!cur.flip){ window.__noClick=Date.now(); cur.flip=true; renderCards(); } };
   document.addEventListener("pointerup",up); document.addEventListener("pointercancel",up);
-  /* Nach einem Wisch kein versehentlicher Klick auf „Sicher“/„Nicht sicher“ */
+  /* Nach einem Wisch oder Tipp kein zusätzlicher Klick auf etwas darunter */
   document.addEventListener("click",e=>{ if(window.__noClick&&Date.now()-window.__noClick<400){ e.stopPropagation(); e.preventDefault(); } },true);
 })();
