@@ -265,6 +265,7 @@ function renderCards(){
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
       <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}${c.erg?` <span class="erg">Ergänzung</span>`:""}</div>
       ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${c.erg?`<p class="small muted">Ergänzung: nicht wörtlich auf den Folien, vermutlich mündlich zu einer Bild- oder Grafikfolie erklärt.</p>`:""}${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:(fresh?`<span class="tapnote">Tippen zum Umdrehen</span>`:"")}</div></div>
+    ${cur.flip?`<p class="swipehint" aria-hidden="true"><span>← Nicht sicher</span><span>Sicher →</span></p>`:""}
     ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid"><span class="arr">← </span>Nicht sicher</button><button class="btn" id="yes">Sicher<span class="arr"> →</span></button></div>`
       :`${cur.tyOpen||cur.typed?`<textarea id="cty" class="cty" rows="1" placeholder="Deine Antwort …" aria-label="Antwort tippen">${esc(cur.typed)}</textarea>`:""}
       <div class="row fliprow"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button></div>${fresh?`<p class="hint">Erst antworten, dann aufdecken.</p>`:""}`}`;

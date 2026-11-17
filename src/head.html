@@ -42,19 +42,13 @@ html{font-size:calc(var(--base,100%) * var(--z,1))}
 @media (min-width:768px){
   main:has(#theCard){min-height:calc(100dvh - 72px);display:flex;flex-direction:column;justify-content:center;padding-bottom:20vh}
 }
-/* Daumenleiste: Auf dem iPad mit Touch stehen „Antwort zeigen“ bzw. „Sicher“/„Nicht sicher“ rechts neben der Karte,
-   auf Höhe ihrer Mitte (etwas über der Bildschirmmitte, wo der Daumen liegt). Handy und Maus wie bisher. */
-@media (min-width:768px) and (pointer:coarse){
-  main:has(#theCard){max-width:calc(42rem + 208px);padding-right:208px}
-  body:has(#theCard) #focusbar .fbin,body:has(#theCard) #sessbar .sbin,body:has(#theCard) #sessbar .sbs{max-width:calc(42rem + 208px);padding-right:208px}
-  main .grade,main .fliprow{position:fixed;z-index:30;right:max(24px,env(safe-area-inset-right,0px));top:44vh;transform:translateY(-50%);
-    width:168px;display:flex;flex-direction:column;gap:10px;margin:0}
-  main .grade{flex-direction:column-reverse}
-  main .grade .btn,main .fliprow .btn{min-height:64px;flex:none!important;border-radius:18px;font-size:1rem;padding:8px 12px;white-space:nowrap}
-  main .grade .btn.ghost{background:color-mix(in srgb,var(--accent) 14%,var(--surface));color:var(--accent)}
-  main .grade .arr{display:none}
-  body:has(#theCard),main .grade .btn,main .fliprow .btn{touch-action:pan-y}
-  main .fliprow .btn{width:100%;min-height:72px}
+/* Touch (iPad, Handy): bewertet wird durch Wischen (auch neben der Karte), umgedreht durch Tippen.
+   Die Knöpfe bleiben für VoiceOver erhalten, sind aber unsichtbar; darunter ein leiser Hinweis zur Richtung. */
+.swipehint{display:none}
+@media (pointer:coarse){
+  main .grade,main .fliprow{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0;padding:0}
+  .swipehint{display:flex;justify-content:space-between;margin:10px 4px 0;font-size:.8125rem;color:var(--muted)}
+  body:has(#theCard){touch-action:pan-y}
 }
 .wlink{color:var(--accent);text-decoration:none;font-weight:600;font-size:.92rem;line-height:1.4}
 .wlink:hover{text-decoration:underline}
