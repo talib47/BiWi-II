@@ -261,7 +261,7 @@ function renderCards(){
   $("#app").innerHTML=`
     <div class="row between ctop"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?` · Stufe ${b} von 5`:" · neu"}</p><span class="crt">${cur.hist.length?`<button class="cundo" id="cprev" aria-label="Eine Karte zurück" title="Eine Karte zurück"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><span>Zurück</span></button>`:""}</span></div>
     <div class="swipewrap">
-    <div class="block card${cur.enter?" enter":""}" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen"><i class="tint" aria-hidden="true"></i>
+    <div class="block card${cur.enter?" enter":""}" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen"><i class="tint" aria-hidden="true"><b class="stamp"></b></i>
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
       <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}${c.erg?` <span class="erg">Ergänzung</span>`:""}</div>
       ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${c.erg?`<p class="small muted">Ergänzung: nicht wörtlich auf den Folien, vermutlich mündlich zu einer Bild- oder Grafikfolie erklärt.</p>`:""}${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:(fresh?`<span class="tapnote">Tippen zum Umdrehen</span>`:"")}</div></div>
@@ -278,25 +278,34 @@ function renderCards(){
   cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } else if(cur.flip&&e.key==="ArrowRight") grade(2); else if(cur.flip&&e.key==="ArrowLeft") grade(1); };
   /* Wischen wie bei Dating-Apps, erst nach dem Aufdecken: rechts sicher, links nicht sicher.
      Die Karte folgt dem Finger, eine leichte Tönung zeigt die Richtung an. */
-  if(cur.flip){ const tint=cd.querySelector(".tint"); let x0=null, y0=0, dx=0, raf=0, w=360, dir=0;
-    /* Pro Bild nur transform und opacity ändern: beides läuft auf dem Grafikchip, nichts wird neu gezeichnet */
-    const paint=()=>{ raf=0; const k=Math.min(1,Math.abs(dx)/(w*.35)), d=dx>0?1:-1;
-      if(d!==dir){ dir=d; tint.className="tint "+(d>0?"ok":"no"); }
-      cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/45}deg)`; tint.style.opacity=k; };
+  if(cur.flip){ const tint=cd.querySelector(".tint"), stamp=tint.querySelector(".stamp");
+    let x0=null, y0=0, dx=0, raf=0, w=360, dir=0, hist=[], done=false;
+    /* Pro Bild nur transform und opacity ändern (läuft auf dem Grafikchip). Die Tönung erreicht schon bei einem Fünftel
+       der Kartenbreite volle Stärke, dazu ein Stempel „Sicher“/„Nicht sicher“ wie bei Dating-Apps. */
+    const paint=()=>{ raf=0; const k=Math.min(1,Math.abs(dx)/(w*.2)), d=dx>0?1:-1;
+      if(d!==dir){ dir=d; tint.className="tint "+(d>0?"ok":"no"); stamp.textContent=d>0?"Sicher":"Nicht sicher"; }
+      cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/40}deg)`; tint.style.opacity=k; };
+    const track=x=>{ const t=performance.now(); hist.push([t,x]); while(hist.length>2&&t-hist[0][0]>90) hist.shift(); };
+    const speed=()=>{ if(hist.length<2) return 0; const [t1,x1]=hist[0],[t2,x2]=hist[hist.length-1]; return t2>t1?(x2-x1)/(t2-t1):0; };  /* px pro ms */
+    const begin=()=>{ dx=0; hist=[]; w=cd.offsetWidth||360; cd.style.transition="none"; tint.style.transition="none"; cd.classList.add("drag"); };
+    const release=()=>{ if(raf){ cancelAnimationFrame(raf); raf=0; paint(); }
+      const v=speed(), lim=Math.min(90,w*.22);
+      /* Ausgelöst wird durch Weite oder durch einen schnellen Schwung in dieselbe Richtung */
+      const go=Math.abs(dx)>lim || (Math.abs(v)>.45 && Math.abs(dx)>24 && Math.sign(v)===Math.sign(dx));
+      if(go&&!done){ done=true; const sgn=Math.sign(dx)||Math.sign(v), out=sgn*(window.innerWidth*.6+w);
+        const ms=Math.round(Math.max(160,Math.min(320,Math.abs(out-dx)/Math.max(1.4,Math.abs(v)))));
+        tint.style.opacity=1; cd.style.transition=`transform ${ms}ms cubic-bezier(.25,.8,.35,1), opacity ${ms}ms linear`;
+        cd.style.transform=`translate3d(${out}px,0,0) rotate(${sgn*16}deg)`; cd.style.opacity="0";
+        let fired=false; const fin=()=>{ if(fired) return; fired=true; cur.enter=true; grade(sgn>0?2:1); };
+        cd.addEventListener("transitionend",fin,{once:true}); setTimeout(fin,ms+40); }
+      else { cd.classList.remove("drag"); cd.style.transition="transform .42s cubic-bezier(.2,1.5,.4,1)"; tint.style.transition="opacity .2s"; cd.style.transform=""; tint.style.opacity="0"; setTimeout(()=>{ moved=false; },0); } };
     /* Wischen auch außerhalb der Karte (iPad: Daumen rechts neben der Karte): cur.drag nimmt die Bewegung an */
-    cur.drag={start:()=>{ dx=0; w=cd.offsetWidth||360; cd.style.transition="none"; tint.style.transition="none"; },
-      move:d=>{ dx=d; if(!raf) raf=requestAnimationFrame(paint); },
-      end:()=>{ moved=true; x0=0; cd.onpointerup(); }};
-    cd.onpointerdown=e=>{ if(e.target.closest("a")) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; w=cd.offsetWidth||360; };
+    cur.drag={start:begin, move:d=>{ dx=d; track(d); if(!raf) raf=requestAnimationFrame(paint); }, end:()=>{ moved=true; release(); }};
+    cd.onpointerdown=e=>{ if(e.target.closest("a")||done) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; };
     cd.onpointermove=e=>{ if(x0===null) return; const d=e.clientX-x0;
-      if(!moved){ if(Math.abs(d)>6&&Math.abs(d)>Math.abs(e.clientY-y0)){ moved=true; x0+=d>0?6:-6; try{cd.setPointerCapture(e.pointerId);}catch(x){} cd.style.transition="none"; tint.style.transition="none"; } else return; }
-      e.preventDefault(); dx=e.clientX-x0; if(!raf) raf=requestAnimationFrame(paint); };
-    cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null; if(!moved) return; if(raf){ cancelAnimationFrame(raf); raf=0; }
-      const lim=Math.min(100,w*.25);
-      if(Math.abs(dx)>lim){ const out=(dx>0?1:-1)*(window.innerWidth+100);
-        cd.style.transition="transform .3s cubic-bezier(.2,.7,.3,1), opacity .3s ease-out"; cd.style.transform=`translate3d(${out}px,0,0) rotate(${dx>0?12:-12}deg)`; cd.style.opacity="0";
-        setTimeout(()=>{ cur.enter=true; grade(dx>0?2:1); },220); }
-      else { cd.style.transition="transform .35s cubic-bezier(.3,1.4,.5,1)"; tint.style.transition="opacity .25s"; cd.style.transform=""; tint.style.opacity="0"; setTimeout(()=>{ moved=false; },0); } };
+      if(!moved){ if(Math.abs(d)>6&&Math.abs(d)>Math.abs(e.clientY-y0)){ moved=true; x0+=d>0?6:-6; try{cd.setPointerCapture(e.pointerId);}catch(x){} begin(); } else return; }
+      e.preventDefault(); dx=e.clientX-x0; track(dx); if(!raf) raf=requestAnimationFrame(paint); };
+    cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null; if(!moved) return; release(); };
   }
   /* Bewertung: 2 sicher (nächstes Fach), 1 nicht sicher (ein Fach zurück, morgen wieder, in dieser Runde noch einmal) */
   function grade(lv){ state.box=state.box||{}; state.due=state.due||{}; state.lapses=state.lapses||{};

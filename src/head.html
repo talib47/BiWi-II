@@ -308,8 +308,13 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .swipewrap{position:relative;overflow-x:clip;overflow-y:visible;margin:0 -16px;padding:0 16px}
 .swipewrap .card{touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;will-change:transform;position:relative;overflow:hidden;backface-visibility:hidden}
 .card .tint{position:absolute;inset:0;opacity:0;pointer-events:none;border-radius:inherit;border:2px solid transparent;will-change:opacity}
-.card .tint.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 7%,transparent)}
-.card .tint.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 7%,transparent)}
+.card .tint.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 22%,transparent)}
+.card .tint.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 20%,transparent)}
+.card .tint{border-width:3px!important}
+.card .tint .stamp{position:absolute;top:18px;padding:4px 12px;border:2.5px solid currentColor;border-radius:10px;font:800 1.125rem/1.2 var(--sans);letter-spacing:.02em;background:var(--surface)}
+.card .tint.ok .stamp{left:18px;color:var(--good);transform:rotate(-8deg)}
+.card .tint.no .stamp{right:18px;color:var(--bad);transform:rotate(8deg)}
+
 .card.enter{animation:cardIn .22s ease-out}
 @keyframes cardIn{from{opacity:0;transform:translate3d(0,8px,0) scale(.985)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.card.enter{animation:none}}
