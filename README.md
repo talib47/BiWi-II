@@ -17,6 +17,7 @@ python3 build.py      # erzeugt index.html neu
 
 Vier Teile à 30 Punkte (120): Einführung, Lehr-Lernpsychologie, Diagnostik, Inklusion.
 Jeder Teil: Kreuzaufgaben (drei Aussagen wahr/falsch, je richtiges Kreuz 1 P., alle drei richtig +1 Zusatzpunkt, keine Minuspunkte), danach eine offene Aufgabe (Fallbeispiel, Rechnung, Grafik; Teil 4: Fallanalyse nach ICD-10 F81, 14 P.).
+Muster der Kreuzaufgaben: etwa die Hälfte der Aussagen wahr, oft nur eine von drei, selten alle oder keine; falsche Aussagen sind knapp daneben (vertauschte Begriffe, umgedrehte Richtung, „nur“/„jede“/„unabhängig“). Kein „Alle/Keine der genannten“. Bearbeitungszeit unbekannt.
 
 ## Aufbau von `src/`
 
@@ -29,6 +30,7 @@ Jeder Teil: Kreuzaufgaben (drei Aussagen wahr/falsch, je richtiges Kreuz 1 P., a
 | `content.js` | Kapitelliste nach Heines vier Schwerpunkten (`teil` = Klausurteil), Kapitel 16 Normwerte |
 | `content1.js`, `content2.js` | Kapitel 1 (Psychologie als Wissenschaft) und 9 (Lernen, nicht-assoziatives Lernen), je mit Karten, Kreuz- und offenen Aufgaben |
 | `content3.js`, `content4.js`, `content5.js` | Kapitel 11 (Operante Konditionierung), 12 (Lernen am Modell), 2 (Gedächtnis), 3 (Vergessen und Abruf), 10 (Klassische Konditionierung) aus Sitzung 3–5 |
+| `content6.js` | Klausurschärfung (17.11.): Kreuzaufgaben nach dem Muster 24/25 (eine, keine oder alle Aussagen wahr), Verbindungsfragen `xv-…`, Karten zu Bild- und Grafikfolien als Ergänzung (`erg:true`) |
 | `cardinfo.js` | Kontextzeile (Vorderseite) und dezente i-Infos (Rückseite) je Karte |
 | `diag.js` | Rechentrainer Diagnostik: z-Wert, Abweichungs-IQ, Normskalen, Normalverteilung, Prozentrang, Testvergleich |
 | `gfx.js` | SVG-Grafiken (Normalverteilung) |

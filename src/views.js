@@ -89,6 +89,7 @@ function renderHome(){
         <b>Aufbau</b><span>wie WiSe 24/25: vier Teile mit je 30 Punkten, passend zu den vier Schwerpunkten</span>
       </div>
       <p class="small muted" style="margin:0 0 6px">Jeder Teil beginnt mit Kreuzaufgaben (drei Aussagen, je wahr oder falsch), dann folgt eine offene Aufgabe, die du tippst.</p>
+      <p class="small muted">Muster aus 24/25: Etwa die Hälfte der Aussagen ist wahr. Oft ist nur eine von drei wahr, selten alle oder keine. Falsche Aussagen sind knapp daneben: vertauschte Begriffe (proaktiv statt retroaktiv), umgedrehte Richtung („je tiefer, desto schwieriger“) oder ein Wort wie „nur“, „jede“, „unabhängig“, „belegt“. Auswahlfragen mit „Alle/Keine der genannten“ gab es nicht.</p>
       <div class="partlist">
         <span>Teil 1</span><span>Einführung: 5 Kreuzaufgaben, offene Aufgabe (2024: Emotion nach Russell)</span><b>30&nbsp;P.</b>
         <span>Teil 2</span><span>Lehr-Lernpsychologie: 5 Kreuzaufgaben, offene Aufgabe (2024: operante Konditionierung)</span><b>30&nbsp;P.</b>
@@ -261,8 +262,8 @@ function renderCards(){
     <div class="swipewrap">
     <div class="block card${cur.enter?" enter":""}" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen"><i class="tint" aria-hidden="true"></i>
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
-      <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}</div>
-      ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div></div>
+      <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}${c.erg?` <span class="erg">Ergänzung</span>`:""}</div>
+      ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${c.erg?`<p class="small muted">Ergänzung: nicht wörtlich auf den Folien, vermutlich mündlich zu einer Bild- oder Grafikfolie erklärt.</p>`:""}${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div></div>
     ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid">← Nicht sicher</button><button class="btn" id="yes">Sicher →</button></div>`
       :`${cur.tyOpen||cur.typed?`<textarea id="cty" class="cty" rows="1" placeholder="Deine Antwort …" aria-label="Antwort tippen">${esc(cur.typed)}</textarea>`:""}
       <div class="row"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button>${cur.tyOpen||cur.typed?"":`<button class="tylink" id="tyO">Tippen</button>`}</div><p class="hint">Erst antworten, dann aufdecken.</p>`}`;

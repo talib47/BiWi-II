@@ -22,8 +22,8 @@ LESSONS[9]=[
 <div><span class="ml"><span class="vd f">falsch</span></span><span>„Jede beobachtbare Veränderung des Verhaltens ist das Ergebnis von Lernprozessen.“<br><span class="small muted">Grund: Reifung, Ermüdung</span></span></div>
 <div><span class="ml"><span class="vd t">wahr</span></span><span>„Ein Lernprozess führt nicht unbedingt zu einer unmittelbar beobachtbaren Veränderung des Verhaltens.“<br><span class="small muted">Grund: Verhaltenspotenzial</span></span></div></div></div>`,
 check:[
- {q:"Ein Kind kann nach den Ferien plötzlich höher springen. Warum ist das nicht automatisch Lernen?", o:["Weil Springen kein Verhalten ist","Weil die Veränderung auch auf Reifung, also körperlichem Wachstum, beruhen kann","Weil Lernen immer bewusst ist","Weil die Veränderung zu dauerhaft ist"], a:1, ex:"Nicht jede beobachtbare Verhaltensänderung ist Lernen. Reifung ist nicht erfahrungsbasiert."},
- {q:"Eine Schülerin hat eine Rechenstrategie verstanden, wendet sie in der Arbeit aber vor Aufregung nicht an. Was liegt vor?", o:["Kein Lernen","Lernen auf der Ebene des Verhaltenspotenzials","Habituation","Reifung"], a:1, ex:"Gelernt ist gelernt, auch wenn es sich (noch) nicht im Verhalten zeigt. Deshalb spricht Definition 3 von Verhalten bzw. Verhaltenspotenzial."}
+ {q:"Ein Kind kann nach den Ferien plötzlich höher springen. Warum ist das nicht automatisch Lernen?", o:["Weil Lernen immer eine bewusste Absicht voraussetzt","Weil die Veränderung auch auf Reifung beruhen kann","Weil Lernen nur das Verhaltenspotenzial, nie das Verhalten ändert","Weil die Veränderung nur in einer einzigen Situation auftritt"], a:1, ex:"Nicht jede beobachtbare Verhaltensänderung ist Lernen. Reifung ist nicht erfahrungsbasiert.", w:["Lernen muss nicht bewusst sein (siehe Habituation oder Beobachtungslernen).",null,"Lernen kann Verhalten oder Verhaltenspotenzial ändern.","Das Kind springt allgemein höher; die Frage ist, ob Erfahrung oder Reifung die Ursache ist."]},
+ {q:"Eine Schülerin hat eine Rechenstrategie verstanden, wendet sie in der Arbeit aber vor Aufregung nicht an. Was liegt vor?", o:["Kein Lernen, weil sich das Verhalten nicht ändert","Lernen auf der Ebene des Verhaltenspotenzials","Habituation an die Prüfungssituation","Eine reifungsbedingte Veränderung"], a:1, ex:"Gelernt ist gelernt, auch wenn es sich (noch) nicht im Verhalten zeigt. Deshalb spricht Definition 3 von Verhalten bzw. Verhaltenspotenzial.", w:["Gelerntes kann als Verhaltenspotenzial vorliegen, ohne gezeigt zu werden.",null,"Habituation wäre eine schwächere Reaktion auf einen wiederholten Reiz; hier fehlt nur die Ausführung.","Das Verstehen der Strategie beruht auf Erfahrung, nicht auf Reifung."]}
 ]},
 {id:"9-2", t:"Arten des Lernens im Überblick", html:`
 <p>Grundsätzlich unterscheidet man zwei Typen:</p>
@@ -32,15 +32,15 @@ check:[
  <ul><li>zwischen zwei Reizen, S → S: <b>klassische Konditionierung</b>,</li>
  <li>zwischen einer Reaktion und einem Reiz, R → S: <b>operante Konditionierung</b>.</li></ul></li></ul>
 <table class="kvq"><tr><th>Nichtassoziativ</th><th>Assoziativ</th></tr>
-<tr><td>Habituation, Sensitivierung</td><td>klassische Konditionierung (S1 → S2)</td></tr>
-<tr><td>Lernen durch wiederholte Reizdarbietung: perzeptuelles Lernen, Priming, „mere exposure“</td><td>operante Konditionierung (R → S)</td></tr></table>
-<p class="small muted">S = Stimulus (Reiz), R = Response (Reaktion). Weitere Formen auf Heines Übersicht: Diskriminationstraining, räumliches Lernen.</p>
+<tr><td><b>Lernen infolge wiederholter Stimulusdarbietung:</b> Habituation, Sensitivierung, Priming</td><td>klassische Konditionierung (S1 → S2)</td></tr>
+<tr><td><b>Perzeptuelles Lernen:</b> „mere exposure“, Diskriminationstraining, räumliches Lernen</td><td>operante Konditionierung (R → S)</td></tr></table>
+<p class="small muted">S = Stimulus (Reiz), R = Response (Reaktion). So steht es in Heines Baum „Strukturierung des Schwerpunkts Lernen“ (Sitzung 2, 3 und 4). <span class="erg">Ergänzung</span> Grau gedruckt sind Priming und das ganze perzeptuelle Lernen, vermutlich also nicht vertieft; rot umkreist ist jeweils der Teil, um den es in der Sitzung geht.</p>
 <div class="merk"><b>Merksatz</b><div class="mrows">
 <div><span class="ml">Nichtassoziativ</span><span>ein Reiz, oft wiederholt, die Reaktion ändert sich</span></div>
 <div><span class="ml">Assoziativ</span><span>zwei Ereignisse, die zusammen auftreten, werden verknüpft</span></div></div></div>`,
 check:[
- {q:"Was wird beim assoziativen Lernen gelernt?", o:["Reaktionen auf einen einzigen wiederholten Reiz","Kontingenzen, also das gemeinsame Auftreten von Ereignissen","Reflexe","Reifungsprozesse"], a:1, ex:"Zum Beispiel, dass auf einen Ton Futter folgt (klassisch) oder dass auf ein Verhalten Lob folgt (operant)."},
- {q:"Welche Form gehört zum nichtassoziativen Lernen?", o:["Klassische Konditionierung","Operante Konditionierung","Habituation","Lernen am Modell"], a:2, ex:"Habituation und Sensitivierung sind die beiden basalen nichtassoziativen Lernprozesse."}
+ {q:"Was wird beim assoziativen Lernen gelernt?", o:["Reaktionen auf einen einzigen wiederholten Reiz","Kontingenzen, also das gemeinsame Auftreten von Ereignissen","Veränderte Reflexstärken durch wiederholte Reizdarbietung","Einzelne Reize, die durch Wiederholung vertraut werden"], a:1, ex:"Zum Beispiel, dass auf einen Ton Futter folgt (klassisch) oder dass auf ein Verhalten Lob folgt (operant).", w:["Das ist nichtassoziatives Lernen (Habituation, Sensitivierung).",null,"Das ist nichtassoziatives Lernen.","Das ist „mere exposure“, laut Heines Baum perzeptuelles Lernen, also nichtassoziativ."]},
+ {q:"Welche Form gehört zum nichtassoziativen Lernen?", o:["Klassische Konditionierung","Operante Konditionierung","Habituation","Lernen am Modell"], a:2, ex:"Habituation und Sensitivierung sind die beiden basalen nichtassoziativen Lernprozesse.", w:["Klassische Konditionierung ist assoziativ (S → S).","Operante Konditionierung ist assoziativ (R → S).",null,"Lernen am Modell ist kein nichtassoziatives Lernen infolge wiederholter Reizdarbietung."]}
 ]},
 {id:"9-3", t:"Reflexe und Habituation", html:`
 <p>Betrachtet werden die einfachsten Reaktionen auf Reize, die angeborenen <b>Reflexe</b>. Reflexe sind <b>unwillkürlich</b>, <b>invariant</b> (immer gleich ablaufend) und <b>schnell</b>. Drei Arten:</p>
@@ -56,8 +56,8 @@ check:[
 <li>Der Effekt ist <b>anfangs stark</b> (steiler Abfall der Reaktion) und flacht dann ab.</li>
 <li><b>Stimulusspezifisch:</b> Bei einem neuen, unbekannten Reiz ist die ursprüngliche Reaktion sofort wieder da (<b>Dishabituation</b>).</li></ul>`,
 check:[
- {q:"Welcher Reflex ist durch Lernen nicht veränderbar?", o:["Lidschlussreflex","Schreckreflex","Patellarreflex","Alle sind veränderbar"], a:2, ex:"Beim Eigenreflex sind Reiz- und Effektort gleich; laut Folie ist keine lernbedingte Veränderung möglich."},
- {q:"Eine Klasse hat sich an das Brummen des Beamers gewöhnt. Plötzlich piept der Rauchmelder, und alle schrecken hoch. Welche Eigenschaft der Habituation zeigt sich?", o:["Spontanerholung","Stimulusspezifität (Dishabituation)","Sensitivierung","Reversibilität"], a:1, ex:"Die Habituation gilt nur für den gewohnten Reiz. Ein neuer Reiz löst die volle Reaktion aus."}
+ {q:"Welcher Reflex ist durch Lernen nicht veränderbar?", o:["Lidschlussreflex","Schreckreflex","Patellarreflex","Alle sind veränderbar"], a:2, ex:"Beim Eigenreflex sind Reiz- und Effektort gleich; laut Folie ist keine lernbedingte Veränderung möglich.", w:["Der Lidschlussreflex ist ein Fremdreflex und lässt sich verändern, etwa konditionieren.","Auch der Schreckreflex verändert sich, etwa durch Habituation.",null,"Der Patellarreflex als Eigenreflex ist laut Folie nicht lernbedingt veränderbar."]},
+ {q:"Eine Klasse hat sich an das Brummen des Beamers gewöhnt. Plötzlich piept der Rauchmelder, und alle schrecken hoch. Welche Eigenschaft der Habituation zeigt sich?", o:["Spontanerholung nach einer Pause","Stimulusspezifität (Dishabituation)","Sensitivierung durch hohe Erregung","Reversibilität durch Zeitablauf"], a:1, ex:"Die Habituation gilt nur für den gewohnten Reiz. Ein neuer Reiz löst die volle Reaktion aus.", w:["Spontanerholung kommt nach einer Pause mit demselben Reiz; hier ist es ein neuer Reiz.",null,"Die Klasse reagiert nicht stärker auf das Brummen, sondern voll auf einen neuen Reiz.","Reversibilität zeigt sich nach einer Pause, nicht bei einem neuen Reiz."]}
 ]},
 {id:"9-4", t:"Sensitivierung und der Schulalltag", html:`
 <p><b>Sensitivierung</b> ist das Gegenstück zur Habituation: Die Reflexreaktion auf einen Reiz wird bei wiederholter Darbietung <b>stärker</b> (Reaktionsstärke, Häufigkeit).</p>
@@ -74,8 +74,8 @@ check:[
 <div class="merk"><b>Beispiel aus der Vorlesung</b>Im normalen Lernalltag stört das Schniefen des Sitznachbarn nicht (Habituation). In der Klausur ist das Erregungsniveau hoch: Man nimmt das Geräusch plötzlich wahr, kann es nicht mehr ausblenden, und es wirkt immer lauter (Sensitivierung).</div>
 <p><b>Schulbezug:</b> In ersten Klassen wurden im Unterricht durchschnittlich 60 bis 85 dB gemessen (Schönwälder et al., 2004), eine Bohrmaschine liegt bei etwa 90 dB. Lärm und Prüfungsstress erhöhen das Erregungsniveau und begünstigen damit Sensitivierung. Für Lehrkräfte heißt das: Lärm senken und eine ruhige Atmosphäre schaffen, besonders in Prüfungen.</p>`,
 check:[
- {q:"Unter welchen Bedingungen ist Sensitivierung besonders wahrscheinlich?", o:["Geringe Reizintensität, niedriges Erregungsniveau","Hohe Reizintensität, hohes Erregungsniveau","Viele regelmäßige Wiederholungen eines schwachen Reizes","Wenn der Reiz neu ist"], a:1, ex:"Bei schwachen, regelmäßigen Reizen und niedrigem Arousal tritt eher Habituation auf."},
- {q:"Nach einem lauten Knall zuckt man auch bei einer zufallenden Tür stark zusammen. Welche Eigenschaft der Sensitivierung zeigt sich?", o:["Stimulusspezifität","Sie ist weniger stimulusspezifisch","Spontanerholung","Dishabituation"], a:1, ex:"Das allgemeine Erregungsniveau ist gestiegen, deshalb wirkt sich die Sensitivierung auch auf andere Reize aus."}
+ {q:"Unter welchen Bedingungen ist Sensitivierung besonders wahrscheinlich?", o:["Geringe Reizintensität, niedriges Erregungsniveau","Hohe Reizintensität, hohes Erregungsniveau","Viele regelmäßige Wiederholungen eines schwachen Reizes","Wenn der Reiz neu ist"], a:1, ex:"Bei schwachen, regelmäßigen Reizen und niedrigem Arousal tritt eher Habituation auf.", w:["Umgekehrt: Geringe Intensität und niedrige Erregung begünstigen Habituation.",null,"Viele Wiederholungen eines schwachen Reizes führen eher zu Habituation.","Neuheit allein reicht nicht; entscheidend sind Intensität und Erregungsniveau."]},
+ {q:"Nach einem lauten Knall zuckt man auch bei einer zufallenden Tür stark zusammen. Welche Eigenschaft der Sensitivierung zeigt sich?", o:["Sie ist streng stimulusspezifisch","Sie ist weniger stimulusspezifisch","Spontanerholung nach dem Knall","Dishabituation durch einen neuen Reiz"], a:1, ex:"Das allgemeine Erregungsniveau ist gestiegen, deshalb wirkt sich die Sensitivierung auch auf andere Reize aus.", w:["Gerade nicht: Sensitivierung auf S1 verstärkt auch die Reaktion auf S2.",null,"Spontanerholung gehört zur Habituation und braucht eine Pause.","Dishabituation setzt eine vorherige Habituation voraus."]}
 ]}
 ];
 
@@ -143,7 +143,7 @@ KREUZ.push(
  {id:"x9-06", ch:9, stem:"Für die Unterscheidung von Lernformen gilt:", s:[
   ["Beim assoziativen Lernen werden Kontingenzen von Ereignissen gelernt.", true, "Also das gemeinsame Auftreten, z. B. Reiz und Reiz oder Reaktion und Reiz."],
   ["Bei der operanten Konditionierung wird eine Verbindung zwischen zwei Reizen (S → S) gelernt.", false, "S → S ist die <b>klassische</b> Konditionierung. Operant wird R → S gelernt."],
-  ["Priming und „mere exposure“ gehören zum Lernen infolge wiederholter Reizdarbietung.", true, "So geordnet in Heines Übersicht, neben Habituation und Sensitivierung."]]}
+  ["„Mere exposure“ gehört wie Habituation zum Lernen infolge wiederholter Stimulusdarbietung.", false, "In Heines Baum steht „mere exposure“ unter <b>perzeptuellem Lernen</b> (mit Diskriminationstraining und räumlichem Lernen). Unter wiederholter Stimulusdarbietung stehen Habituation, Sensitivierung und Priming."]]}
 );
 
 KURZ.push(
