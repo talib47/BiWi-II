@@ -311,9 +311,9 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .card .tint.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 22%,transparent)}
 .card .tint.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 20%,transparent)}
 .card .tint{border-width:3px!important}
-.card .tint .stamp{position:absolute;top:18px;padding:4px 12px;border:2.5px solid currentColor;border-radius:10px;font:800 1.125rem/1.2 var(--sans);letter-spacing:.02em;background:var(--surface)}
-.card .tint.ok .stamp{left:18px;color:var(--good);transform:rotate(-8deg)}
-.card .tint.no .stamp{right:18px;color:var(--bad);transform:rotate(8deg)}
+.block.today{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease-out}
+.block.today:active{transform:scale(.985)}
+@media (prefers-reduced-motion:reduce){.block.today:active{transform:none}}
 
 .card.enter{animation:cardIn .22s ease-out}
 @keyframes cardIn{from{opacity:0;transform:translate3d(0,8px,0) scale(.985)}to{opacity:1;transform:none}}

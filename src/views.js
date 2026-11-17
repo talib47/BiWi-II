@@ -100,6 +100,8 @@ function renderHome(){
   bindReview();
   $("#goNext").onclick=nx.go;
   $("#goSess").onclick=()=>{ if(sess) runStep(); else startSession(); };
+  /* Die ganze Platte „Heute“ startet die Einheit, nicht nur der Knopf */
+  const td=$(".block.today"); if(td) td.onclick=e=>{ if(e.target.closest("a,button")) return; $("#goSess").click(); };
   document.querySelectorAll(".chap").forEach(b=>b.onclick=()=>{ if(b.disabled) return; cur.ch=+b.dataset.n; go("chapter"); });
 }
 /* Startseite: als unklar markierte Lektionen */
@@ -261,7 +263,7 @@ function renderCards(){
   $("#app").innerHTML=`
     <div class="row between ctop"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?` · Stufe ${b} von 5`:" · neu"}</p><span class="crt">${cur.hist.length?`<button class="cundo" id="cprev" aria-label="Eine Karte zurück" title="Eine Karte zurück"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><span>Zurück</span></button>`:""}</span></div>
     <div class="swipewrap">
-    <div class="block card${cur.enter?" enter":""}" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen"><i class="tint" aria-hidden="true"><b class="stamp"></b></i>
+    <div class="block card${cur.enter?" enter":""}" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen"><i class="tint" aria-hidden="true"></i>
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
       <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}${c.erg?` <span class="erg">Ergänzung</span>`:""}</div>
       ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${c.erg?`<p class="small muted">Ergänzung: nicht wörtlich auf den Folien, vermutlich mündlich zu einer Bild- oder Grafikfolie erklärt.</p>`:""}${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:(fresh?`<span class="tapnote">Tippen zum Umdrehen</span>`:"")}</div></div>
@@ -278,12 +280,12 @@ function renderCards(){
   cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } else if(cur.flip&&e.key==="ArrowRight") grade(2); else if(cur.flip&&e.key==="ArrowLeft") grade(1); };
   /* Wischen wie bei Dating-Apps, erst nach dem Aufdecken: rechts sicher, links nicht sicher.
      Die Karte folgt dem Finger, eine leichte Tönung zeigt die Richtung an. */
-  if(cur.flip){ const tint=cd.querySelector(".tint"), stamp=tint.querySelector(".stamp");
+  if(cur.flip){ const tint=cd.querySelector(".tint");
     let x0=null, y0=0, dx=0, raf=0, w=360, dir=0, hist=[], done=false;
     /* Pro Bild nur transform und opacity ändern (läuft auf dem Grafikchip). Die Tönung erreicht schon bei einem Fünftel
-       der Kartenbreite volle Stärke, dazu ein Stempel „Sicher“/„Nicht sicher“ wie bei Dating-Apps. */
+       der Kartenbreite volle Stärke. */
     const paint=()=>{ raf=0; const k=Math.min(1,Math.abs(dx)/(w*.2)), d=dx>0?1:-1;
-      if(d!==dir){ dir=d; tint.className="tint "+(d>0?"ok":"no"); stamp.textContent=d>0?"Sicher":"Nicht sicher"; }
+      if(d!==dir){ dir=d; tint.className="tint "+(d>0?"ok":"no"); }
       cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/40}deg)`; tint.style.opacity=k; };
     const track=x=>{ const t=performance.now(); hist.push([t,x]); while(hist.length>2&&t-hist[0][0]>90) hist.shift(); };
     const speed=()=>{ if(hist.length<2) return 0; const [t1,x1]=hist[0],[t2,x2]=hist[hist.length-1]; return t2>t1?(x2-x1)/(t2-t1):0; };  /* px pro ms */
