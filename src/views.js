@@ -444,7 +444,7 @@ document.addEventListener("keydown",e=>{
 });
 
 /* Tippen und Wischen getrennt (Muster 17.11.): Auf dem Touch-Bildschirm dreht ein Tippen irgendwo außerhalb der Karte
-   die Karte um (nur zugedeckt; die Karte selbst dreht sich beim Antippen wie bisher). Waagerechtes Wischen bewertet nur
+   die Karte um, hin und zurück, genau wie ein Tipp auf die Karte. Waagerechtes Wischen bewertet nur
    die aufgedeckte Karte, auf oder neben ihr: rechts sicher, links nicht sicher. Zugedeckt bewirkt Wischen nichts. */
 (function(){ let x0=null,y0=0,t0=0,on=false,id=null;
   const ok=e=>view==="cards"&&e.pointerType!=="mouse"&&$("#theCard")&&!e.target.closest("#theCard,textarea,input,a,button,#sessbar,#focusbar,nav");
@@ -454,7 +454,7 @@ document.addEventListener("keydown",e=>{
     if(cur.drag) cur.drag.move(e.clientX-x0); },{passive:true});
   const up=e=>{ if(x0===null) return; const was=on, far=Math.hypot(e.clientX-x0,e.clientY-y0), quick=performance.now()-t0<500; x0=null; on=false;
     if(was){ window.__noClick=Date.now(); if(cur.drag) cur.drag.end(); return; }
-    if(e.type==="pointerup"&&far<10&&quick&&!cur.flip){ window.__noClick=Date.now(); cur.flip=true; renderCards(); } };
+    if(e.type==="pointerup"&&far<10&&quick){ window.__noClick=Date.now(); cur.flip=!cur.flip; renderCards(); } };
   document.addEventListener("pointerup",up); document.addEventListener("pointercancel",up);
   /* Nach einem Wisch oder Tipp kein zusätzlicher Klick auf etwas darunter */
   document.addEventListener("click",e=>{ if(window.__noClick&&Date.now()-window.__noClick<400){ e.stopPropagation(); e.preventDefault(); } },true);
