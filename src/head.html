@@ -53,6 +53,7 @@ html{font-size:calc(var(--base,100%) * var(--z,1))}
   main .grade .btn,main .fliprow .btn{min-height:64px;flex:none!important;border-radius:18px;font-size:1rem;padding:8px 12px;white-space:nowrap}
   main .grade .btn.ghost{background:color-mix(in srgb,var(--accent) 14%,var(--surface));color:var(--accent)}
   main .grade .arr{display:none}
+  body:has(#theCard),main .grade .btn,main .fliprow .btn{touch-action:pan-y}
   main .fliprow .btn{width:100%;min-height:72px}
 }
 .wlink{color:var(--accent);text-decoration:none;font-weight:600;font-size:.92rem;line-height:1.4}

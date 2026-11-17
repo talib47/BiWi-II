@@ -272,7 +272,7 @@ function renderCards(){
   if($("#tyO")) $("#tyO").onclick=()=>{ cur.tyOpen=true; renderCards(); $("#cty").focus(); };
   const ta=$("#cty"); if(ta){ const fit=()=>{ ta.style.height="auto"; ta.style.height=ta.scrollHeight+"px"; }; fit(); ta.oninput=()=>{ cur.typed=ta.value; fit(); }; }
   if($("#flip")) $("#flip").onclick=()=>{ cur.flip=true; renderCards(); };
-  const cd=$("#theCard"); let moved=false;
+  const cd=$("#theCard"); let moved=false; cur.drag=null;
   cd.onclick=e=>{ if(e.target.closest("a")||moved) return; cur.flip=!cur.flip; renderCards(); };
   cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } else if(cur.flip&&e.key==="ArrowRight") grade(2); else if(cur.flip&&e.key==="ArrowLeft") grade(1); };
   /* Wischen wie bei Dating-Apps, erst nach dem Aufdecken: rechts sicher, links nicht sicher.
@@ -282,6 +282,10 @@ function renderCards(){
     const paint=()=>{ raf=0; const k=Math.min(1,Math.abs(dx)/(w*.35)), d=dx>0?1:-1;
       if(d!==dir){ dir=d; tint.className="tint "+(d>0?"ok":"no"); }
       cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/45}deg)`; tint.style.opacity=k; };
+    /* Wischen auch außerhalb der Karte (iPad: Daumen rechts neben der Karte): cur.drag nimmt die Bewegung an */
+    cur.drag={start:()=>{ dx=0; w=cd.offsetWidth||360; cd.style.transition="none"; tint.style.transition="none"; },
+      move:d=>{ dx=d; if(!raf) raf=requestAnimationFrame(paint); },
+      end:()=>{ moved=true; x0=0; cd.onpointerup(); }};
     cd.onpointerdown=e=>{ if(e.target.closest("a")) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; w=cd.offsetWidth||360; };
     cd.onpointermove=e=>{ if(x0===null) return; const d=e.clientX-x0;
       if(!moved){ if(Math.abs(d)>6&&Math.abs(d)>Math.abs(e.clientY-y0)){ moved=true; x0+=d>0?6:-6; try{cd.setPointerCapture(e.pointerId);}catch(x){} cd.style.transition="none"; tint.style.transition="none"; } else return; }
@@ -426,3 +430,19 @@ document.addEventListener("keydown",e=>{
   if(k===" "||k==="Enter"){ e.preventDefault(); c.click(); }
   else if(k==="ArrowRight") hit("#yes"); else if(k==="ArrowLeft") hit("#mid"); else if(k==="z"||k==="Z") hit("#cprev");
 });
+
+/* Wischen neben der Karte (Muster 17.11.): Auf dem Touch-Bildschirm wirkt ein waagerechtes Wischen irgendwo außerhalb der Karte
+   wie auf der Karte: aufgedeckt rechts = sicher, links = nicht sicher; zugedeckt dreht es die Karte um. */
+(function(){ let x0=null,y0=0,on=false,id=null;
+  const ok=e=>view==="cards"&&e.pointerType!=="mouse"&&$("#theCard")&&!e.target.closest("#theCard,textarea,input,#sessbar,#focusbar,nav");
+  document.addEventListener("pointerdown",e=>{ if(!ok(e)) return; x0=e.clientX; y0=e.clientY; on=false; id=e.pointerId; },{passive:true});
+  document.addEventListener("pointermove",e=>{ if(x0===null||e.pointerId!==id) return; const d=e.clientX-x0;
+    if(!on){ if(Math.abs(d)>12&&Math.abs(d)>1.4*Math.abs(e.clientY-y0)){ on=true; x0+=d>0?12:-12; if(cur.drag) cur.drag.start(); } else return; }
+    if(cur.drag) cur.drag.move(e.clientX-x0); },{passive:true});
+  const up=e=>{ if(x0===null) return; const d=e.clientX-x0, was=on; x0=null; on=false; if(!was) return;
+    window.__noClick=Date.now();
+    if(cur.drag) cur.drag.end(); else if(!cur.flip&&Math.abs(d)>40){ cur.flip=true; renderCards(); } };
+  document.addEventListener("pointerup",up); document.addEventListener("pointercancel",up);
+  /* Nach einem Wisch kein versehentlicher Klick auf „Sicher“/„Nicht sicher“ */
+  document.addEventListener("click",e=>{ if(window.__noClick&&Date.now()-window.__noClick<400){ e.stopPropagation(); e.preventDefault(); } },true);
+})();
