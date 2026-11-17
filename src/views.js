@@ -266,7 +266,7 @@ function renderCards(){
       ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${c.erg?`<p class="small muted">Ergänzung: nicht wörtlich auf den Folien, vermutlich mündlich zu einer Bild- oder Grafikfolie erklärt.</p>`:""}${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:`<span class="tapnote">Tippen zum Umdrehen</span>`}</div></div>
     ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid"><span class="arr">← </span>Nicht sicher</button><button class="btn" id="yes">Sicher<span class="arr"> →</span></button></div>`
       :`${cur.tyOpen||cur.typed?`<textarea id="cty" class="cty" rows="1" placeholder="Deine Antwort …" aria-label="Antwort tippen">${esc(cur.typed)}</textarea>`:""}
-      <div class="row fliprow"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button>${cur.tyOpen||cur.typed?"":`<button class="tylink" id="tyO">Tippen</button>`}</div><p class="hint">Erst antworten, dann aufdecken.</p>`}`;
+      <div class="row fliprow"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button></div><p class="hint">Erst antworten, dann aufdecken.</p>`}`;
   bindCrumb(()=>deckBack(n));
   if($("#tyO")) $("#tyO").onclick=()=>{ cur.tyOpen=true; renderCards(); $("#cty").focus(); };
   const ta=$("#cty"); if(ta){ const fit=()=>{ ta.style.height="auto"; ta.style.height=ta.scrollHeight+"px"; }; fit(); ta.oninput=()=>{ cur.typed=ta.value; fit(); }; }
