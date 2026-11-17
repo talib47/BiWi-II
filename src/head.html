@@ -37,13 +37,14 @@ html{font-size:calc(var(--base,100%) * var(--z,1))}
 /* Daumenleiste (Muster 17.11.): Auf dem iPad mit Touch stehen Umdrehen bzw. Sicher/Nicht sicher rechts oben,
    wo der Daumen liegt, wenn die Hand das iPad oben rechts hält. Auf dem Handy und mit Maus bleibt alles wie bisher. */
 @media (min-width:768px) and (pointer:coarse){
-  main .grade,main .fliprow{position:fixed;z-index:30;right:max(20px,env(safe-area-inset-right,0px));top:max(96px,18vh);width:156px;display:flex;flex-direction:column;gap:12px}
+  main:has(#theCard){max-width:calc(42rem + 212px);padding-right:212px}
+  body:has(#theCard) #focusbar .fbin,body:has(#theCard) #sessbar .sbin,body:has(#theCard) #sessbar .sbs{max-width:calc(42rem + 212px);padding-right:212px}
+  main .grade,main .fliprow{position:fixed;z-index:30;right:max(20px,env(safe-area-inset-right,0px));top:max(96px,18vh);width:164px;display:flex;flex-direction:column;gap:12px}
   main .grade{flex-direction:column-reverse}
   main .grade .btn,main .fliprow .btn{min-height:76px;flex:none!important;font-size:1.0625rem}
-  .fliprow .tylink{align-self:center}
-}
-@media (min-width:768px) and (max-width:1120px) and (pointer:coarse){
-  main:has(#theCard){padding-right:200px}
+  main .grade .btn.ghost{background:color-mix(in srgb,var(--accent) 16%,var(--surface))}
+  main .grade .arr{display:none}
+  main .fliprow .tylink{align-self:center}
 }
 .wlink{color:var(--accent);text-decoration:none;font-weight:600;font-size:.92rem;line-height:1.4}
 .wlink:hover{text-decoration:underline}
