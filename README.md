@@ -30,6 +30,7 @@ Muster der Kreuzaufgaben: etwa die Hälfte der Aussagen wahr, oft nur eine von d
 | `content.js` | Kapitelliste nach Heines vier Schwerpunkten (`teil` = Klausurteil), Kapitel 16 Normwerte |
 | `content1.js`, `content2.js` | Kapitel 1 (Psychologie als Wissenschaft) und 9 (Lernen, nicht-assoziatives Lernen), je mit Karten, Kreuz- und offenen Aufgaben |
 | `content3.js`, `content4.js`, `content5.js` | Kapitel 11 (Operante Konditionierung), 12 (Lernen am Modell), 2 (Gedächtnis), 3 (Vergessen und Abruf), 10 (Klassische Konditionierung) aus Sitzung 3–5 |
+| `content7.js` | Kapitel 6 (Exekutive Funktionen und Selbststeuerung) aus Sitzung 6 |
 | `content6.js` | Klausurschärfung (17.11.): Kreuzaufgaben nach dem Muster 24/25 (eine, keine oder alle Aussagen wahr), Verbindungsfragen `xv-…`, Karten zu Bild- und Grafikfolien als Ergänzung (`erg:true`) |
 | `cardinfo.js` | Kontextzeile (Vorderseite) und dezente i-Infos (Rückseite) je Karte |
 | `diag.js` | Rechentrainer Diagnostik: z-Wert, Abweichungs-IQ, Normskalen, Normalverteilung, Prozentrang, Testvergleich |
@@ -38,7 +39,7 @@ Muster der Kreuzaufgaben: etwa die Hälfte der Aussagen wahr, oft nur eine von d
 | `kreuz.js` | Kreuzaufgaben im Klausurformat, mit Wiederholungsplan, Rückmeldung je Aussage und Markierung „geraten“ (zählt nicht als gewusst) |
 | `symbols.js` | Zeichen der Diagnostik-Statistik: Karten in beide Richtungen und Lexikon |
 | `recall.js` | Verständnisfragen: erst abrufen, dann Auswahl; Rückmeldung je falscher Option (`w`); eigener Wiederholungsplan (`state.qbox`) |
-| `who.js` | Zuordnen: Beispiele dem richtigen Begriff zuordnen (Lernformen, operante Konsequenzen, Gedächtnissysteme, Vergessen) |
+| `who.js` | Zuordnen: Beispiele dem richtigen Begriff zuordnen (Lernformen, operante Konsequenzen, Gedächtnissysteme, Vergessen, exekutive Kontrolle, Phasen nach Pintrich) |
 | `session.js` | Tägliche Einheit „Heute“ mit Schrittleiste |
 | `plan.js` | Klausurtermin (Vorgabe 17.02.2027), Probeklausur-Plan, Schwachstellen |
 | `exam.js` | Offene Aufgaben (Schreiben mit Erwartungshorizont) und Probeklausur mit Timer |
@@ -53,7 +54,7 @@ Muster der Kreuzaufgaben: etwa die Hälfte der Aussagen wahr, oft nur eine von d
 ## Stand der Inhalte
 
 Grundlage: Folien Heine WiSe 26/27, Lehrbuch Urhahne/Dresel/Fischer (2019, im Projekt), Altklausuren (WiSe 17/18, 18/19, 22/23, 24/25), Fragenkatalog „Fragen Heine“. Studentische Unterlagen nur nach Prüfung.
-Fertig: Kapitel 1 und 9 (Sitzungen 1–2), Kapitel 2, 3, 10, 11 und 12 (Sitzungen 3–5) sowie Kapitel 16 (Normwerte). Übrige Kapitel stehen im Lernpfad als „folgt“.
+Fertig: Kapitel 1 und 9 (Sitzungen 1–2), Kapitel 2, 3, 10, 11 und 12 (Sitzungen 3–5), Kapitel 6 (Sitzung 6) sowie Kapitel 16 (Normwerte). Übrige Kapitel stehen im Lernpfad als „folgt“.
 
 ## Updates
 

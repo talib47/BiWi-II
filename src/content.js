@@ -9,7 +9,7 @@ const CHAPTERS=[
   {n:3,  teil:1, title:"Vergessen und Abruf", teaser:"Enkodierung, Gedächtnis als Konstruktion, Abruf-Cues, Interferenz, Cue-Overload, abrufinduziertes Vergessen."},
   {n:4,  teil:1, title:"Emotion", teaser:"Circumplexmodell nach Russell (Valenz und Erregung) und Strategien der Emotionsregulation."},
   {n:5,  teil:1, title:"Motivation", teaser:"Intrinsisch und extrinsisch, Erwartungs-Wert-Modell nach Atkinson, Attribution und Feedback."},
-  {n:6,  teil:1, title:"Volition und Selbststeuerung", teaser:"Exekutive Funktionen (Inhibition, Updating, Shifting) und selbstreguliertes Lernen."},
+  {n:6,  teil:1, title:"Exekutive Funktionen und Selbststeuerung", teaser:"Frontalhirnsyndrom, Updating, Inhibition, Shifting, Entwicklung und Förderung, Selbstregulation und Selbstkontrolle, Modelle selbstregulierten Lernens."},
   {n:7,  teil:1, title:"Aufmerksamkeit", teaser:"Selektive und geteilte Aufmerksamkeit, Aufmerksamkeitssteuerung."},
   {n:8,  teil:1, title:"Intelligenz", teaser:"Von Binet bis Wechsler, Generalfaktor, fluide und kristalline Intelligenz, Anlage und Umwelt nach Plomin."},
   {n:9,  teil:2, title:"Lernen und nicht-assoziatives Lernen", teaser:"Was Lernen ist und was nicht, Reflexe, Habituation und Sensitivierung."},
