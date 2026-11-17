@@ -34,20 +34,26 @@ html{font-size:calc(var(--base,100%) * var(--z,1))}
 .cinfo .cl+.cl{margin-top:3px}
 .cinfo b{color:var(--ink);font-weight:600}
 .cinfo .ci{flex:none;width:18px;height:18px;margin-top:1px;color:var(--muted)}
-/* Daumenleiste (Muster 17.11.): Auf dem iPad mit Touch stehen Umdrehen bzw. Sicher/Nicht sicher rechts oben,
-   wo der Daumen liegt, wenn die Hand das iPad oben rechts hält. Auf dem Handy und mit Maus bleibt alles wie bisher. */
+/* Kartenansicht (Muster 17.11.): ruhiger, Karte mittig, Antwortzeilen nicht zu lang, Zurück als Wort mit großer Tippfläche */
+.crt .cundo{display:inline-flex;align-items:center;gap:5px;min-height:44px;padding:0 10px;margin:-10px -10px -10px 0;font:600 .8125rem var(--sans);opacity:1}
+.card .back,.card .front,.card .cctx,.card .cinfo{max-width:62ch}
+@media (prefers-color-scheme:dark){ .card{box-shadow:var(--lift),inset 0 0 0 .5px rgba(255,255,255,.07)} }
+#sessbar #sbNext{background:transparent;color:var(--accent);padding-inline:10px}
+@media (min-width:768px){
+  main:has(#theCard){min-height:calc(100dvh - 72px);display:flex;flex-direction:column;justify-content:center;padding-bottom:20vh}
+}
+/* Daumenleiste: Auf dem iPad mit Touch stehen „Antwort zeigen“ bzw. „Sicher“/„Nicht sicher“ rechts neben der Karte,
+   auf Höhe ihrer Mitte (etwas über der Bildschirmmitte, wo der Daumen liegt). Handy und Maus wie bisher. */
 @media (min-width:768px) and (pointer:coarse){
-  main:has(#theCard){max-width:calc(42rem + 184px);padding-right:184px}
-  body:has(#theCard) #focusbar .fbin,body:has(#theCard) #sessbar .sbin,body:has(#theCard) #sessbar .sbs{max-width:calc(42rem + 184px);padding-right:184px}
-  /* schwebende Glas-Kapsel wie die Tableiste, Mitte etwas über der Bildschirmmitte (dort liegt der Daumen) */
-  main .grade,main .fliprow{position:fixed;z-index:30;right:max(18px,env(safe-area-inset-right,0px));top:42vh;transform:translateY(-50%);
-    width:144px;display:flex;flex-direction:column;gap:4px;padding:6px;margin:0;border-radius:30px;background:var(--glass);
-    -webkit-backdrop-filter:saturate(180%) blur(24px);backdrop-filter:saturate(180%) blur(24px);box-shadow:var(--float),inset 0 0 0 .5px var(--glass-line)}
+  main:has(#theCard){max-width:calc(42rem + 208px);padding-right:208px}
+  body:has(#theCard) #focusbar .fbin,body:has(#theCard) #sessbar .sbin,body:has(#theCard) #sessbar .sbs{max-width:calc(42rem + 208px);padding-right:208px}
+  main .grade,main .fliprow{position:fixed;z-index:30;right:max(24px,env(safe-area-inset-right,0px));top:44vh;transform:translateY(-50%);
+    width:168px;display:flex;flex-direction:column;gap:10px;margin:0}
   main .grade{flex-direction:column-reverse}
-  main .grade .btn,main .fliprow .btn{min-height:60px;flex:none!important;border-radius:24px;font-size:1rem;padding:8px 10px}
-  main .grade .btn.ghost{background:transparent;color:var(--accent)}
+  main .grade .btn,main .fliprow .btn{min-height:64px;flex:none!important;border-radius:18px;font-size:1rem;padding:8px 12px;white-space:nowrap}
+  main .grade .btn.ghost{background:color-mix(in srgb,var(--accent) 14%,var(--surface));color:var(--accent)}
   main .grade .arr{display:none}
-  main .fliprow .tylink{align-self:center;min-height:40px}
+  main .fliprow .btn{width:100%;min-height:72px}
 }
 .wlink{color:var(--accent);text-decoration:none;font-weight:600;font-size:.92rem;line-height:1.4}
 .wlink:hover{text-decoration:underline}
