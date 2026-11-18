@@ -48,7 +48,7 @@ html{font-size:calc(var(--base,100%) * var(--z,1))}
 @media (pointer:coarse){
   main .grade,main .fliprow{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0;padding:0}
   .swipehint{display:flex;justify-content:space-between;margin:10px 4px 0;font-size:.8125rem;color:var(--muted)}
-  body:has(#theCard){touch-action:pan-y}
+  body:has(#theCard),.swipewrap .card{touch-action:pan-y}
 }
 .wlink{color:var(--accent);text-decoration:none;font-weight:600;font-size:.92rem;line-height:1.4}
 .wlink:hover{text-decoration:underline}
@@ -311,6 +311,14 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .card .tint.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 22%,transparent)}
 .card .tint.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 20%,transparent)}
 .card .tint{border-width:3px!important}
+/* Kopfschütteln, wenn auf der zugedeckten Karte gewischt wird */
+.card.buzz{animation:buzz .4s cubic-bezier(.36,.07,.19,.97);box-shadow:var(--lift),inset 0 0 0 2.5px color-mix(in srgb,var(--bad) 75%,transparent)}
+@keyframes buzz{10%,90%{transform:translate3d(-2px,0,0)}20%,80%{transform:translate3d(5px,0,0)}30%,50%,70%{transform:translate3d(-9px,0,0)}40%,60%{transform:translate3d(9px,0,0)}}
+@media (prefers-reduced-motion:reduce){.card.buzz{animation:none}}
+/* Beispiel auf der Kartenrückseite: abgesetzt, mit Etikett und eigener Linie */
+.cb-ex{display:flex;flex-direction:column;gap:2px;margin:14px 0 0;padding:8px 0 8px 12px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 8%,transparent);border-radius:0 8px 8px 0}
+.cb-ex .exl{font-size:.75rem;font-weight:650;color:var(--gold)}
+.cb .cb-ex + .cb-ex{margin-top:8px}
 .block.today{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease-out}
 .block.today:active{transform:scale(.985)}
 @media (prefers-reduced-motion:reduce){.block.today:active{transform:none}}
@@ -856,7 +864,7 @@ function judge(step,raw){
       known:false = nur bekannt, dass das Hochgeladene dazugehört.
    2. Erledigt-Liste (APP.todos je Hälfte), abgehakt in state.todo[id] = Zeitstempel.
    3. Motivationssatz unter der Wochenübersicht.
-   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-17", "a": "BiWi II", "w": "Tippen und Wischen getrennt: Tippen (auf die Karte oder irgendwo daneben) dreht die Karte um, Wischen bewertet nur die aufgedeckte Karte (rechts sicher, links nicht sicher); zugedeckt bewirkt Wischen nichts mehr; ein Tipp daneben dreht hin und zurück wie ein Tipp auf die Karte", "y": "Talib: Umdrehen per Wisch war doppelt, zweimal Tippen soll hin und zurück drehen"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Platte „Heute“ im Lernpfad startet die Einheit beim Antippen irgendwo auf der Fläche (nicht nur über den Knopf), mit leichtem Eindrücken; Stempel beim Wischen wieder entfernt, die kräftigere Tönung bleibt", "y": "Talib will nicht zum Knopf scrollen; Stempel unnötig"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen flüssiger und deutlicher: Schwung zählt (schneller kurzer Wisch ab etwa 0,45 px/ms löst aus), Karte fliegt mit ihrer Geschwindigkeit hinaus und die nächste kommt erst nach Ende der Bewegung (`transitionend` statt fester 220 ms), federndes Zurückschnappen; Tönung grün/rot deutlich kräftiger (22/20 % statt 7 %, 3-px-Rand, volle Stärke schon nach einem Fünftel der Kartenbreite)", "y": "Talib: Wischen stockte, Farben zu dezent"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Karten auf Touch-Geräten ohne Knöpfe: Bewerten nur noch durch Wischen (auf oder neben der Karte), Umdrehen durch Tippen oder Wischen; „Sicher“/„Nicht sicher“ und „Antwort zeigen“ sind auf iPad und Handy unsichtbar (für VoiceOver erhalten), unter der aufgedeckten Karte ein leiser Hinweis „← Nicht sicher", "y": "Sicher →“; Karte wieder in voller Breite; Laptop mit Maus unverändert mit Knöpfen und Pfeiltasten · Talib: Wischen ersetzt die Knöpfe"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen neben der Karte: Auf Touch-Bildschirmen wirkt ein waagerechtes Wischen außerhalb der Karte (z. B. über der Daumenleiste) wie auf der Karte: aufgedeckt rechts sicher, links nicht sicher, die Karte fliegt mit; zugedeckt dreht es die Karte um; nach einem Wisch wird kein Knopf ausgelöst (`cur.drag` und Block am Ende von `views.js`)", "y": "Talib wischt mit dem Daumen oft rechts neben der Karte"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Muster „ruhige Kartenansicht“ nach Talibs Fotos vom iPad: Karte auf dem iPad senkrecht mittig, Daumenleiste ohne Glas-Kapsel als zwei Knöpfe auf Höhe der Kartenmitte (44 % der Höhe), „Nächster Schritt“ in der Leiste der Tageseinheit nur noch als Text (nur ein gefüllter Knopf je Bildschirm), kein Zurück-Link über der Karte (oben gibt es Schließen bzw. ✕), Fach-Punkte ersetzt durch „Stufe x von 5“, „Zurück“ als Wort mit 44-px-Tippfläche, „Tippen zum Umdrehen“ und „Erst antworten …“ nur in den ersten Runden (unter 30 gesehenen Karten), Antwortzeilen höchstens 62 Zeichen breit, Karte im Dunkelmodus mit feiner Kante (CSS in `src/head.html`)", "y": "Talib: wirkte nicht durchdacht, zu viel Doppeltes, unten leer; nach Freigabe in `design.css` und alle Apps"}]).
+   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-18", "a": "BiWi II", "w": "Karten schlichter: keine Hinweise mehr („Tippen zum Umdrehen“, „Erst antworten …“, „← Nicht sicher", "y": "Sicher →“); Wischen auf der zugedeckten Karte (auf oder neben ihr) lässt sie kurz rot den Kopf schütteln (Animation `buzz`, auf Android zusätzlich Vibration; iPad/iPhone können aus dem Browser nicht vibrieren), statt dass nichts passiert oder die Seite wackelt; Beispiele auf der Kartenrückseite (Zeilen mit „Beispiel …:“, „Bsp.“, „z. B.“ am Anfang) stehen abgesetzt mit Etikett und goldener Linie (`EXRE`/`exHTML` in `views.js`, auch in `richText`) · Talib: kennt die App, will nur das Wesentliche; vergisst manchmal das Umdrehen; Beispiel wirkte wie ein weiterer Listenpunkt"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Tippen und Wischen getrennt: Tippen (auf die Karte oder irgendwo daneben) dreht die Karte um, Wischen bewertet nur die aufgedeckte Karte (rechts sicher, links nicht sicher); zugedeckt bewirkt Wischen nichts mehr; ein Tipp daneben dreht hin und zurück wie ein Tipp auf die Karte", "y": "Talib: Umdrehen per Wisch war doppelt, zweimal Tippen soll hin und zurück drehen"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Platte „Heute“ im Lernpfad startet die Einheit beim Antippen irgendwo auf der Fläche (nicht nur über den Knopf), mit leichtem Eindrücken; Stempel beim Wischen wieder entfernt, die kräftigere Tönung bleibt", "y": "Talib will nicht zum Knopf scrollen; Stempel unnötig"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen flüssiger und deutlicher: Schwung zählt (schneller kurzer Wisch ab etwa 0,45 px/ms löst aus), Karte fliegt mit ihrer Geschwindigkeit hinaus und die nächste kommt erst nach Ende der Bewegung (`transitionend` statt fester 220 ms), federndes Zurückschnappen; Tönung grün/rot deutlich kräftiger (22/20 % statt 7 %, 3-px-Rand, volle Stärke schon nach einem Fünftel der Kartenbreite)", "y": "Talib: Wischen stockte, Farben zu dezent"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Karten auf Touch-Geräten ohne Knöpfe: Bewerten nur noch durch Wischen (auf oder neben der Karte), Umdrehen durch Tippen oder Wischen; „Sicher“/„Nicht sicher“ und „Antwort zeigen“ sind auf iPad und Handy unsichtbar (für VoiceOver erhalten), unter der aufgedeckten Karte ein leiser Hinweis „← Nicht sicher", "y": "Sicher →“; Karte wieder in voller Breite; Laptop mit Maus unverändert mit Knöpfen und Pfeiltasten · Talib: Wischen ersetzt die Knöpfe"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen neben der Karte: Auf Touch-Bildschirmen wirkt ein waagerechtes Wischen außerhalb der Karte (z. B. über der Daumenleiste) wie auf der Karte: aufgedeckt rechts sicher, links nicht sicher, die Karte fliegt mit; zugedeckt dreht es die Karte um; nach einem Wisch wird kein Knopf ausgelöst (`cur.drag` und Block am Ende von `views.js`)", "y": "Talib wischt mit dem Daumen oft rechts neben der Karte"}]).
    5. Abstände vor der Prüfung (spaceDays), siehe unten.
    6. Symbole der Tableiste (NAV_ICONS), Gestaltung in design.css.
    7. Lernmodus ohne Ablenkung (focusBar): Ansichten aus APP.focus.views und die ganze Tageseinheit blenden Tableiste und „Aa“ aus.
@@ -985,7 +993,7 @@ document.addEventListener("keydown",e=>{ if(e.key!=="Escape"||!document.body.cla
   const a=document.activeElement; if(a&&/^(TEXTAREA|INPUT|SELECT)$/.test(a.tagName)) return; const x=document.getElementById("fx"); if(x){ e.preventDefault(); x.click(); } });
 
 /* Claude-Brücke: was zuletzt an dieser App geändert wurde und warum (aus CLAUDE.md, beim Bauen übernommen) */
-const BRUECKE=[{"d": "2026-11-17", "a": "BiWi II", "w": "Tippen und Wischen getrennt: Tippen (auf die Karte oder irgendwo daneben) dreht die Karte um, Wischen bewertet nur die aufgedeckte Karte (rechts sicher, links nicht sicher); zugedeckt bewirkt Wischen nichts mehr; ein Tipp daneben dreht hin und zurück wie ein Tipp auf die Karte", "y": "Talib: Umdrehen per Wisch war doppelt, zweimal Tippen soll hin und zurück drehen"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Platte „Heute“ im Lernpfad startet die Einheit beim Antippen irgendwo auf der Fläche (nicht nur über den Knopf), mit leichtem Eindrücken; Stempel beim Wischen wieder entfernt, die kräftigere Tönung bleibt", "y": "Talib will nicht zum Knopf scrollen; Stempel unnötig"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen flüssiger und deutlicher: Schwung zählt (schneller kurzer Wisch ab etwa 0,45 px/ms löst aus), Karte fliegt mit ihrer Geschwindigkeit hinaus und die nächste kommt erst nach Ende der Bewegung (`transitionend` statt fester 220 ms), federndes Zurückschnappen; Tönung grün/rot deutlich kräftiger (22/20 % statt 7 %, 3-px-Rand, volle Stärke schon nach einem Fünftel der Kartenbreite)", "y": "Talib: Wischen stockte, Farben zu dezent"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Karten auf Touch-Geräten ohne Knöpfe: Bewerten nur noch durch Wischen (auf oder neben der Karte), Umdrehen durch Tippen oder Wischen; „Sicher“/„Nicht sicher“ und „Antwort zeigen“ sind auf iPad und Handy unsichtbar (für VoiceOver erhalten), unter der aufgedeckten Karte ein leiser Hinweis „← Nicht sicher", "y": "Sicher →“; Karte wieder in voller Breite; Laptop mit Maus unverändert mit Knöpfen und Pfeiltasten · Talib: Wischen ersetzt die Knöpfe"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen neben der Karte: Auf Touch-Bildschirmen wirkt ein waagerechtes Wischen außerhalb der Karte (z. B. über der Daumenleiste) wie auf der Karte: aufgedeckt rechts sicher, links nicht sicher, die Karte fliegt mit; zugedeckt dreht es die Karte um; nach einem Wisch wird kein Knopf ausgelöst (`cur.drag` und Block am Ende von `views.js`)", "y": "Talib wischt mit dem Daumen oft rechts neben der Karte"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Muster „ruhige Kartenansicht“ nach Talibs Fotos vom iPad: Karte auf dem iPad senkrecht mittig, Daumenleiste ohne Glas-Kapsel als zwei Knöpfe auf Höhe der Kartenmitte (44 % der Höhe), „Nächster Schritt“ in der Leiste der Tageseinheit nur noch als Text (nur ein gefüllter Knopf je Bildschirm), kein Zurück-Link über der Karte (oben gibt es Schließen bzw. ✕), Fach-Punkte ersetzt durch „Stufe x von 5“, „Zurück“ als Wort mit 44-px-Tippfläche, „Tippen zum Umdrehen“ und „Erst antworten …“ nur in den ersten Runden (unter 30 gesehenen Karten), Antwortzeilen höchstens 62 Zeichen breit, Karte im Dunkelmodus mit feiner Kante (CSS in `src/head.html`)", "y": "Talib: wirkte nicht durchdacht, zu viel Doppeltes, unten leer; nach Freigabe in `design.css` und alle Apps"}];
+const BRUECKE=[{"d": "2026-11-18", "a": "BiWi II", "w": "Karten schlichter: keine Hinweise mehr („Tippen zum Umdrehen“, „Erst antworten …“, „← Nicht sicher", "y": "Sicher →“); Wischen auf der zugedeckten Karte (auf oder neben ihr) lässt sie kurz rot den Kopf schütteln (Animation `buzz`, auf Android zusätzlich Vibration; iPad/iPhone können aus dem Browser nicht vibrieren), statt dass nichts passiert oder die Seite wackelt; Beispiele auf der Kartenrückseite (Zeilen mit „Beispiel …:“, „Bsp.“, „z. B.“ am Anfang) stehen abgesetzt mit Etikett und goldener Linie (`EXRE`/`exHTML` in `views.js`, auch in `richText`) · Talib: kennt die App, will nur das Wesentliche; vergisst manchmal das Umdrehen; Beispiel wirkte wie ein weiterer Listenpunkt"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Tippen und Wischen getrennt: Tippen (auf die Karte oder irgendwo daneben) dreht die Karte um, Wischen bewertet nur die aufgedeckte Karte (rechts sicher, links nicht sicher); zugedeckt bewirkt Wischen nichts mehr; ein Tipp daneben dreht hin und zurück wie ein Tipp auf die Karte", "y": "Talib: Umdrehen per Wisch war doppelt, zweimal Tippen soll hin und zurück drehen"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Platte „Heute“ im Lernpfad startet die Einheit beim Antippen irgendwo auf der Fläche (nicht nur über den Knopf), mit leichtem Eindrücken; Stempel beim Wischen wieder entfernt, die kräftigere Tönung bleibt", "y": "Talib will nicht zum Knopf scrollen; Stempel unnötig"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen flüssiger und deutlicher: Schwung zählt (schneller kurzer Wisch ab etwa 0,45 px/ms löst aus), Karte fliegt mit ihrer Geschwindigkeit hinaus und die nächste kommt erst nach Ende der Bewegung (`transitionend` statt fester 220 ms), federndes Zurückschnappen; Tönung grün/rot deutlich kräftiger (22/20 % statt 7 %, 3-px-Rand, volle Stärke schon nach einem Fünftel der Kartenbreite)", "y": "Talib: Wischen stockte, Farben zu dezent"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Karten auf Touch-Geräten ohne Knöpfe: Bewerten nur noch durch Wischen (auf oder neben der Karte), Umdrehen durch Tippen oder Wischen; „Sicher“/„Nicht sicher“ und „Antwort zeigen“ sind auf iPad und Handy unsichtbar (für VoiceOver erhalten), unter der aufgedeckten Karte ein leiser Hinweis „← Nicht sicher", "y": "Sicher →“; Karte wieder in voller Breite; Laptop mit Maus unverändert mit Knöpfen und Pfeiltasten · Talib: Wischen ersetzt die Knöpfe"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen neben der Karte: Auf Touch-Bildschirmen wirkt ein waagerechtes Wischen außerhalb der Karte (z. B. über der Daumenleiste) wie auf der Karte: aufgedeckt rechts sicher, links nicht sicher, die Karte fliegt mit; zugedeckt dreht es die Karte um; nach einem Wisch wird kein Knopf ausgelöst (`cur.drag` und Block am Ende von `views.js`)", "y": "Talib wischt mit dem Daumen oft rechts neben der Karte"}];
 function bridgeBlock(){
   if(!BRUECKE.length) return "";
   const f=s=>{ const [y,m,d]=s.split("-"); return +d+"."+(+m)+"."; };
@@ -1037,6 +1045,7 @@ function richText(b){
     if(l.startsWith("|")){ flush(); const rows=[];
       while(i<L.length&&L[i].trim().startsWith("|")){ rows.push(L[i].trim().replace(/^\||\|$/g,"").split("|").map(x=>x.trim())); i++; }
       i--; out+=cmp(rows); continue; }
+    if(typeof EXRE!=="undefined"&&EXRE.test(l)){ flush(); out+=exHTML(l); continue; }
     if((m=l.match(/^[-•] (.*)$/))){ open("ul"); items.push(termInline(m[1])); continue; }
     if((m=l.match(/^\d+[.)] (.*)$/))){ open("ol"); items.push(termInline(m[1])); continue; }
     if((m=l.match(TERM))){ open("dl"); items.push(`<b>${inl(m[1])}</b><span>${inl(m[2])}</span>`); continue; }
@@ -1560,11 +1569,14 @@ function logDay(){ const k=today(); state.days[k]=(state.days[k]||0)+1; }
 /* ================= Karten (Karteikasten, Fächer 0–5) ================= */
 /* Rückseite aus Zeilen aufbauen: „Begriff: Text“ wird zum Begriffspaar, „1. …“ zur nummerierten Liste,
    mehrere einfache Zeilen zur Aufzählung, „A vs. B“ mit „Merkmal: a / b“ zur Vergleichstabelle */
+/* Beispiele heben sich von Aufzählungen ab: eigener Absatz mit Etikett, damit „drei Merkmale + Beispiel“ nicht wie vier Merkmale wirkt */
+const EXRE=/^(Beispiele?|Bsp\.|z\. ?B\.)(\s+[^:]{1,24})?:?\s+/i;
+function exHTML(l){ const m=l.match(EXRE), lab=(m[1]+(m[2]||"")).replace(/^Bsp\.$/i,"Beispiel").replace(/^z\. ?B\.$/i,"Beispiel"); return `<div class="cb-ex"><span class="exl">${inl(lab)}</span><span>${inl(l.slice(m[0].length))}</span></div>`; }
 function cardBackHTML(c){
   if(c.rt) return richText(c.b);
   const lines=c.b.split("\n").map(s=>s.trim()).filter(Boolean);
   const kvRe=/^([^:]{1,38}):\s+(.+)$/, numRe=/^\d+\.\s+(.+)$/;
-  const kind=l=>{ if(/^\$ /.test(l)) return "eq"; if(/^[-•] /.test(l)) return "plain"; if(numRe.test(l)) return "num"; const m=l.match(kvRe); if(m&&!/,\s|\sheißt/.test(m[1])&&!/[.!?]$/.test(m[1])) return "kv"; if(/ = /.test(l)&&l.length<44) return "eq"; return "plain"; };
+  const kind=l=>{ if(EXRE.test(l)) return "ex"; if(/^\$ /.test(l)) return "eq"; if(/^[-•] /.test(l)) return "plain"; if(numRe.test(l)) return "num"; const m=l.match(kvRe); if(m&&!/,\s|\sheißt/.test(m[1])&&!/[.!?]$/.test(m[1])) return "kv"; if(/ = /.test(l)&&l.length<44) return "eq"; return "plain"; };
   const clean=l=>l.replace(/^[-•$] /,"");
   if(lines.length===1) return `<p>${inl(clean(lines[0]))}</p>`;
   const vs=c.f.split(/\s+vs\.\s+/);
@@ -1579,6 +1591,7 @@ function cardBackHTML(c){
     if(g.k==="num") return `<ol class="cb-ol">${g.l.map(l=>`<li><span>${nm(l.match(numRe)[1])}</span></li>`).join("")}</ol>`;
     if(g.k==="kv") return `<dl class="cb-dl">${g.l.map(l=>{ const m=l.match(kvRe); return `<div><dt>${inl(m[1])}</dt><dd>${inl(m[2])}</dd></div>`; }).join("")}</dl>`;
     if(g.k==="eq") return `<div class="eq">${fx(clean(g.l[0]))}</div>`;
+    if(g.k==="ex") return g.l.map(exHTML).join("");
     if(g.l.length===1) return `<p>${inl(clean(g.l[0]))}</p>`;
     return `<ul class="cb-ul">${g.l.map(l=>`<li>${nm(clean(l))}</li>`).join("")}</ul>`;
   }).join("");
@@ -1622,18 +1635,16 @@ function renderCards(){
   const c=D[cur.ci], b=cardBox(c.id), ch=cardChapter(c.id), sym=/^[sr]-/.test(c.id);
   const ctx=CARD_CTX[c.id]||(ch?ch.title:"");
   const esc=t=>t.replace(/&/g,"&amp;").replace(/</g,"&lt;");
-  const fresh=Object.keys(state.box||{}).length<30;  /* Hinweise nur in den ersten Runden */
   $("#app").innerHTML=`
     <div class="row between ctop"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?` · Stufe ${b} von 5`:" · neu"}</p><span class="crt">${cur.hist.length?`<button class="cundo" id="cprev" aria-label="Eine Karte zurück" title="Eine Karte zurück"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><span>Zurück</span></button>`:""}</span></div>
     <div class="swipewrap">
     <div class="block card${cur.enter?" enter":""}" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen"><i class="tint" aria-hidden="true"></i>
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
       <div class="front${sym&&c.id.startsWith("s-")?" symf":""}">${inl(c.f)}${c.erg?` <span class="erg">Ergänzung</span>`:""}</div>
-      ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${c.erg?`<p class="small muted">Ergänzung: nicht wörtlich auf den Folien, vermutlich mündlich zu einer Bild- oder Grafikfolie erklärt.</p>`:""}${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:(fresh?`<span class="tapnote">Tippen zum Umdrehen</span>`:"")}</div></div>
-    ${cur.flip?`<p class="swipehint" aria-hidden="true"><span>← Nicht sicher</span><span>Sicher →</span></p>`:""}
+      ${cur.flip?`${cur.typed.trim()?`<div class="typed"><span class="small muted">Deine Antwort</span><p>${esc(cur.typed)}</p></div>`:""}<div class="back cb">${c.erg?`<p class="small muted">Ergänzung: nicht wörtlich auf den Folien, vermutlich mündlich zu einer Bild- oder Grafikfolie erklärt.</p>`:""}${cardBackHTML(c)}</div>${cardInfoHTML(c.id)}`:""}</div></div>
     ${cur.flip?`<div class="grade"><button class="btn ghost" id="mid"><span class="arr">← </span>Nicht sicher</button><button class="btn" id="yes">Sicher<span class="arr"> →</span></button></div>`
       :`${cur.tyOpen||cur.typed?`<textarea id="cty" class="cty" rows="1" placeholder="Deine Antwort …" aria-label="Antwort tippen">${esc(cur.typed)}</textarea>`:""}
-      <div class="row fliprow"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button></div>${fresh?`<p class="hint">Erst antworten, dann aufdecken.</p>`:""}`}`;
+      <div class="row fliprow"><button class="btn" id="flip" style="flex:1">Antwort zeigen</button></div>`}`;
   bindCrumb(()=>deckBack(n));
   if($("#tyO")) $("#tyO").onclick=()=>{ cur.tyOpen=true; renderCards(); $("#cty").focus(); };
   const ta=$("#cty"); if(ta){ const fit=()=>{ ta.style.height="auto"; ta.style.height=ta.scrollHeight+"px"; }; fit(); ta.oninput=()=>{ cur.typed=ta.value; fit(); }; }
@@ -1643,6 +1654,12 @@ function renderCards(){
   cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cd.click(); } else if(cur.flip&&e.key==="ArrowRight") grade(2); else if(cur.flip&&e.key==="ArrowLeft") grade(1); };
   /* Wischen wie bei Dating-Apps, erst nach dem Aufdecken: rechts sicher, links nicht sicher.
      Die Karte folgt dem Finger, eine leichte Tönung zeigt die Richtung an. */
+  /* Zugedeckt: Wischen bewertet noch nicht. Die Karte schüttelt kurz den Kopf (rot), auf Android vibriert es dazu. */
+  if(!cur.flip){ let fx=null,fy=0,shook=false;
+    cd.onpointerdown=e=>{ fx=e.clientX; fy=e.clientY; shook=false; };
+    cd.onpointermove=e=>{ if(fx===null||shook) return; const d=e.clientX-fx; if(Math.abs(d)>28&&Math.abs(d)>1.4*Math.abs(e.clientY-fy)){ shook=true; buzz(); } };
+    cd.onpointerup=cd.onpointercancel=()=>{ if(shook) window.__noClick=Date.now(); fx=null; };
+  }
   if(cur.flip){ const tint=cd.querySelector(".tint");
     let x0=null, y0=0, dx=0, raf=0, w=360, dir=0, hist=[], done=false;
     /* Pro Bild nur transform und opacity ändern (läuft auf dem Grafikchip). Die Tönung erreicht schon bei einem Fünftel
@@ -1809,13 +1826,19 @@ document.addEventListener("keydown",e=>{
 /* Tippen und Wischen getrennt (Muster 17.11.): Auf dem Touch-Bildschirm dreht ein Tippen irgendwo außerhalb der Karte
    die Karte um, hin und zurück, genau wie ein Tipp auf die Karte. Waagerechtes Wischen bewertet nur
    die aufgedeckte Karte, auf oder neben ihr: rechts sicher, links nicht sicher. Zugedeckt bewirkt Wischen nichts. */
-(function(){ let x0=null,y0=0,t0=0,on=false,id=null;
+/* Kurzes Kopfschütteln der Karte: Hinweis, dass sie noch zugedeckt ist */
+function buzz(){ const cd=$("#theCard"); if(!cd||cd.classList.contains("buzz")) return;
+  cd.classList.add("buzz"); try{ navigator.vibrate&&navigator.vibrate([18,40,18]); }catch(x){}
+  setTimeout(()=>cd.classList.remove("buzz"),420); }
+(function(){ let x0=null,y0=0,t0=0,on=false,id=null,shook=false;
   const ok=e=>view==="cards"&&e.pointerType!=="mouse"&&$("#theCard")&&!e.target.closest("#theCard,textarea,input,a,button,#sessbar,#focusbar,nav");
-  document.addEventListener("pointerdown",e=>{ if(!ok(e)) return; x0=e.clientX; y0=e.clientY; t0=performance.now(); on=false; id=e.pointerId; },{passive:true});
-  document.addEventListener("pointermove",e=>{ if(x0===null||e.pointerId!==id||!cur.flip) return; const d=e.clientX-x0;
+  document.addEventListener("pointerdown",e=>{ if(!ok(e)) return; x0=e.clientX; y0=e.clientY; t0=performance.now(); on=false; shook=false; id=e.pointerId; },{passive:true});
+  document.addEventListener("pointermove",e=>{ if(x0===null||e.pointerId!==id) return;
+    if(!cur.flip){ const d=e.clientX-x0; if(!shook&&Math.abs(d)>28&&Math.abs(d)>1.4*Math.abs(e.clientY-y0)){ shook=true; buzz(); } return; }
+    const d=e.clientX-x0;
     if(!on){ if(Math.abs(d)>12&&Math.abs(d)>1.4*Math.abs(e.clientY-y0)){ on=true; x0+=d>0?12:-12; if(cur.drag) cur.drag.start(); } else return; }
     if(cur.drag) cur.drag.move(e.clientX-x0); },{passive:true});
-  const up=e=>{ if(x0===null) return; const was=on, far=Math.hypot(e.clientX-x0,e.clientY-y0), quick=performance.now()-t0<500; x0=null; on=false;
+  const up=e=>{ if(x0===null) return; if(shook){ x0=null; shook=false; window.__noClick=Date.now(); return; } const was=on, far=Math.hypot(e.clientX-x0,e.clientY-y0), quick=performance.now()-t0<500; x0=null; on=false;
     if(was){ window.__noClick=Date.now(); if(cur.drag) cur.drag.end(); return; }
     if(e.type==="pointerup"&&far<10&&quick){ window.__noClick=Date.now(); cur.flip=!cur.flip; renderCards(); } };
   document.addEventListener("pointerup",up); document.addEventListener("pointercancel",up);
@@ -4147,7 +4170,7 @@ if("serviceWorker" in navigator){ window.addEventListener("load", ()=>navigator.
    Beim Start lädt die App eine neue Version sofort. Beim Zurückkehren nur, wenn gerade nichts läuft;
    mitten in Karten, Aufgaben oder Probeklausur erscheint stattdessen ein Hinweis zum Antippen. Der Lernstand liegt im Gerät und wird vorher abgeglichen. */
 (function(){
-  var V="9683bcd00072", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
+  var V="72451e5a943d", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
   function busy(){ try{ return BUSY.indexOf(view)>=0; }catch(e){ return false; } }
   function syncing(){ try{ return !!(pushTimer||pushing); }catch(e){ return false; } }
   function reload(t){ try{ sessionStorage.setItem("upd-"+t,"1"); }catch(e){} location.replace(location.pathname+"?v="+t+location.hash); }
