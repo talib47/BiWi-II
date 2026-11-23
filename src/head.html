@@ -466,6 +466,14 @@ h1,h2,h3,.card .front{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto
 @media (prefers-reduced-motion:reduce){.dictbtn.on{animation:none}}
 .dictlive{margin:8px 0 0;font-size:.92rem;color:var(--muted);font-style:italic}
 .dictlive.hint{font-style:normal}
+
+/* Abkürzungen zum Antippen (Muster 23.11., nur BiWi II) */
+abbr.ab{text-decoration:underline dotted color-mix(in srgb,var(--accent) 70%,transparent);text-decoration-thickness:1.5px;text-underline-offset:3px;cursor:help;-webkit-tap-highlight-color:transparent;border-radius:3px}
+abbr.ab:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.abpop{position:absolute;z-index:60;padding:10px 12px;border-radius:12px;background:var(--surface);color:var(--ink);box-shadow:0 8px 28px rgba(0,0,0,.18),0 0 0 .5px var(--line);font-family:var(--sans,inherit);font-size:.92rem;line-height:1.4;animation:abin .14s ease-out}
+.abpop b{color:var(--accent)}.abpop span{display:block;margin-top:2px;color:var(--muted)}
+@keyframes abin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.abpop{animation:none}}
 </style>
 <style>
 /*__DESIGN__*/
