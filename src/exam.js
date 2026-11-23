@@ -63,8 +63,8 @@ function renderKurz(){
   if($("#kd")) $("#kd").onclick=()=>{ cur.kzt=$("#kt").value; cur.kzph="bewerten"; renderKurz(); window.scrollTo(0,0); };
   if($("#kn0")) $("#kn0").onclick=()=>openKurz(n);
   document.querySelectorAll(".check input").forEach(c=>c.onchange=()=>{ cur.kzc[+c.id.slice(1)]=c.checked; $("#kp").textContent=`${pts()} von ${x.pts} Punkten`; });
-  if($("#ks")) $("#ks").onclick=()=>{ state.kurz=state.kurz||{}; const p=pts(); state.kurz[x.id]={p,max:x.pts,t:Date.now()}; logDay(); save(); toast(`${String(p).replace(".",",")} von ${x.pts} Punkten gespeichert`); sess?sessNext():openKurz(n); };
-  if($("#kn")) $("#kn").onclick=()=>sess?sessNext():openKurz(n);
+  if($("#ks")) $("#ks").onclick=()=>{ state.kurz=state.kurz||{}; const p=pts(); state.kurz[x.id]={p,max:x.pts,t:Date.now()}; logDay(); save(); toast(`${String(p).replace(".",",")} von ${x.pts} Punkten gespeichert`); sess?sessNext(true):openKurz(n); };
+  if($("#kn")) $("#kn").onclick=()=>sess?sessNext(false):openKurz(n);
   if($("#kcl")) $("#kcl").onclick=()=>copyForClaude(`Bewerte bitte meine Antwort auf eine Klausuraufgabe im Modul Bildungswissenschaften II (UDE, Prof. Heine, Pädagogische Psychologie).\n\nAufgabe (${x.pts} Punkte):\n${x.q}\n\nErwartungshorizont:\n${x.k.map(k=>"- "+k).join("\n")}\n\nMeine Antwort:\n${cur.kzt}\n\nGib mir: Punktzahl mit Begründung je Kriterium, was fehlt oder fachlich ungenau ist, und eine verbesserte Formulierung.`,"#kcopy");
 }
 async function copyForClaude(prompt,box){

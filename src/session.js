@@ -40,7 +40,7 @@ function mixDone(){ const M=cur.mx; cur.mx=null; view="mixdone"; renderNav();
     <p class="small muted">Was nicht saß, kommt morgen wieder.</p><div class="row">${sess?sessBtn():`<button class="btn" id="mxOut">Fertig</button>`}</div></div>`;
   if($("#mxOut")) $("#mxOut").onclick=()=>go("practice"); window.scrollTo(0,0);
 }
-function startSession(){ sess={steps:planToday(), i:0, t0:Date.now()}; runStep(); }
+function startSession(){ sess={steps:planToday(), i:0, t0:Date.now(), done:[]}; runStep(); }
 function runStep(){
   if(!sess) return; const s=sess.steps[sess.i]; updateSessBar();
   if(!s){ return finishSession(); }
@@ -52,13 +52,18 @@ function runStep(){
     lesson:()=>s.go()})[s.k]();
   window.scrollTo(0,0);
 }
-function sessNext(){ if(!sess) return; sess.i++; runStep(); }
+/* done = Schritt wirklich bis zum Ende bearbeitet (Abschlussseite oder Speichern); „Nächster Schritt“ oben zählt als übersprungen */
+function sessNext(done){ if(!sess) return; (sess.done=sess.done||[])[sess.i]=done===true; sess.i++; runStep(); }
 function endSession(){ cur.mx=null; sess=null; updateSessBar(); go("home"); }
 function finishSession(){
-  const min=Math.max(1,Math.round((Date.now()-sess.t0)/60000)); state.sessions=state.sessions||{}; state.sessions[today()]=min; save();
+  const min=Math.max(1,Math.round((Date.now()-sess.t0)/60000)), n=sess.steps.length, d=(sess.done||[]).filter(Boolean).length, all=d===n;
+  if(all){ state.sessions=state.sessions||{}; state.sessions[today()]=min; save(); }
   sess=null; updateSessBar(); view="sessdone"; renderNav();
-  $("#app").innerHTML=`<p class="eyebrow">Heute</p><h1>Geschafft</h1><div class="block"><p>Deine Einheit ist fertig, etwa ${min} Minuten.</p>
+  $("#app").innerHTML=all?`<p class="eyebrow">Heute</p><h1>Geschafft</h1><div class="block"><p>Deine Einheit ist fertig, etwa ${min} Minuten.</p>
     <p class="small muted">Morgen stellt die App eine neue Einheit zusammen. Was du heute nicht sicher wusstest, ist dann wieder dabei.${new Date().getHours()>=18?" Abends gelernt? Dann mach morgen früh kurz die fälligen Karten: Mit Schlaf zwischen zwei Runden sitzt der Stoff schneller und länger.":""}</p>
+    <div class="row"><button class="btn" id="sdHome">Zum Lernpfad</button></div></div>`
+   :`<p class="eyebrow">Heute</p><h1>${d?"Noch nicht ganz":"Nichts bearbeitet"}</h1><div class="block"><p>${d} von ${n} Schritten bearbeitet.</p>
+    <p class="small muted">Übersprungenes zählt nicht als gelernt und steht weiter unter „Heute“.</p>
     <div class="row"><button class="btn" id="sdHome">Zum Lernpfad</button></div></div>`;
   $("#sdHome").onclick=()=>go("home"); window.scrollTo(0,0);
 }
@@ -68,10 +73,10 @@ function updateSessBar(){
   const s=sess.steps[sess.i];
   b.hidden=false;
   b.innerHTML=`<div class="sbin"><span class="sbt"><b>Heute ${sess.i+1}/${sess.steps.length}</b> · ${s.t}</span><button class="btn ghost small" id="sbNext">${sess.i<sess.steps.length-1?"Nächster Schritt":"Abschließen"}</button><button class="btn ghost small" id="sbEnd" aria-label="Einheit beenden">✕</button></div><div class="sbs" aria-hidden="true">${sess.steps.map((_,j)=>`<i class="${j<sess.i?"on":j===sess.i?"now":""}"></i>`).join("")}</div>`;
-  $("#sbNext").onclick=sessNext; $("#sbEnd").onclick=endSession;
+  $("#sbNext").onclick=()=>sessNext(false); $("#sbEnd").onclick=endSession;
 }
 const sessBtn=()=>`<button class="btn" id="sessGo">${sess&&sess.i<sess.steps.length-1?"Weiter zum nächsten Schritt":"Einheit abschließen"}</button>`;
-document.addEventListener("click",e=>{ if(e.target.closest("#sessGo")) sessNext(); });
+document.addEventListener("click",e=>{ if(e.target.closest("#sessGo")) sessNext(true); });
 /* Block auf der Startseite */
 function todayBlock(){
   const done=(state.sessions||{})[today()], S=planToday(), min=S.reduce((a,s)=>a+s.min,0);
