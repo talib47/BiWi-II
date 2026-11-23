@@ -37,9 +37,10 @@ function qBlock(c,key,a,shown,first){
     ${a!==undefined?feedback(c,a):""}</div>`;
 }
 /* Übungsmodus: fällige Verständnisfragen aus allen Lektionen */
-function openRecall(list){ const L=list||qDue().slice(0,8); cur.rq={list:L, i:0, ans:undefined, shown:false, right:0}; go("recall"); }
+function openRecall(list){ cur.mx=null; const L=list||qDue().slice(0,8); cur.rq={list:L, i:0, ans:undefined, shown:false, right:0}; go("recall"); }
 function renderRecall(){
   const R=cur.rq, L=R.list;
+  if(R.i>=L.length&&cur.mx) return mixNext(R.right>0);
   if(R.i>=L.length){
     const left=qDue().length;
     $("#app").innerHTML=`${backTo("Üben")}<h1>${L.length?"Runde geschafft":"Nichts fällig"}</h1><div class="block">
@@ -53,7 +54,7 @@ function renderRecall(){
   const q=L[R.i], c=q.c, ch=CHAPTERS.find(x=>x.n===q.n), a=R.ans, done=a!==undefined; if(!done) R.st0=qInfo(q.id); const st=R.st0;
   const ok=done&&a===c.a, why=done&&a>=0&&c.w&&c.w[a];
   qcRender({
-    eye:`Frage ${R.i+1} von ${L.length}${st?` · Stufe ${st.b} von 5`:" · neu"}`,
+    eye:`${cur.mx?"Verständnisfrage":`Frage ${R.i+1} von ${L.length}`}${st?` · Stufe ${st.b} von 5`:" · neu"}`,
     ctx:`${ch.title} · ${q.lt}`, front:inl(c.q),
     phase:done?"done":R.shown?"open":"front", idk:true,
     opts:c.o.map((l,k)=>({k:String(k),l})),
@@ -63,7 +64,7 @@ function renderRecall(){
       :{t:"Falsch.",s:[`Du: ${inl(c.o[a])}`,`Richtig: ${inl(c.o[c.a])}`]},
     why:done?`${why?`<p><b>Warum nicht:</b> ${inl(why)}</p>`:""}<p>${inl(c.ex)}</p>`:"",
     more:done?`<button class="qlink" id="rLes">Zur Lektion</button>`:"",
-    next:R.i<L.length-1?"Nächste Frage":"Auswertung",
+    next:cur.mx||R.i<L.length-1?"Weiter":"Auswertung",
     reveal:()=>{ R.shown=true; renderRecall(); }, hide:()=>{ R.shown=false; renderRecall(); },
     pick:k=>{ if(R.ans!==undefined) return; const n=k==="__idk"?-1:+k; R.ans=n; const good=n===c.a; if(good) R.right++; logDay(); qGrade(q.id,good); renderRecall(); if(n>=0&&!good) buzz(); },
     go:()=>{ R.i++; R.ans=undefined; R.shown=false; renderRecall(); window.scrollTo(0,0); },

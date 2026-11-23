@@ -17,8 +17,8 @@ const APP={
   views:["cards","recall","who","kreuz","kurz","task","graph","exam"],
   prog:()=>{ const P={cards:()=>cur.deck&&{i:cur.ci,n:cur.deck.length}, recall:()=>cur.rq&&{i:cur.rq.i,n:cur.rq.list.length},
     who:()=>cur.wh&&{i:cur.wh.i,n:cur.wh.list.length}, kreuz:()=>cur.kr&&{i:cur.kr.i,n:cur.kr.items.length}}[view];
-    const r=P&&P(); return r&&r.n?r:null; },
-  title:()=>({cards:"Karten",recall:"Verständnisfragen",who:"Zuordnen",kreuz:"Kreuzaufgaben",kurz:"Offene Aufgabe",task:"Rechenaufgabe",graph:"Grafik",exam:"Probeklausur"})[view]||"",
+    const r=cur.mx&&["recall","who","kreuz"].includes(view)?{i:cur.mx.i,n:cur.mx.list.length}:P&&P(); return r&&r.n?r:null; },
+  title:()=>cur.mx&&["recall","who","kreuz"].includes(view)?"Fragen":({cards:"Karten",recall:"Verständnisfragen",who:"Zuordnen",kreuz:"Kreuzaufgaben",kurz:"Offene Aufgabe",task:"Rechenaufgabe",graph:"Grafik",exam:"Probeklausur"})[view]||"",
   exit:()=>go(TAB_OF[view]||"home")
  },
  todos:{main:[

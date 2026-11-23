@@ -104,9 +104,10 @@ function whoPick(n){
   while(out.length<Math.min(n,pool.length)){ let q=Math.random()*w.reduce((a,b)=>a+b,0), i=0; for(;i<pool.length;i++){ q-=w[i]; if(q<=0) break; } i=Math.min(i,pool.length-1); out.push(pool.splice(i,1)[0]); w.splice(i,1); }
   return out;
 }
-function openWho(n){ cur.wh={list:whoPick(n||8).map(x=>({x,o:whoOptions(x)})), i:0, a:null, right:0}; go("who"); }
+function openWho(n){ cur.mx=null; cur.wh={list:whoPick(n||8).map(x=>({x,o:whoOptions(x)})), i:0, a:null, right:0}; go("who"); }
 function renderWho(){
   const W=cur.wh, L=W.list;
+  if(W.i>=L.length&&cur.mx) return mixNext(W.right>0);
   if(W.i>=L.length){
     $("#app").innerHTML=`${backTo("Üben")}<h1>Runde geschafft</h1><div class="block"><p>${W.right} von ${L.length} richtig zugeordnet.</p>
       <p class="small muted">Falsch zugeordnete Beispiele kommen in den nächsten Runden häufiger.</p>
@@ -116,13 +117,13 @@ function renderWho(){
   /* Zuordnen als Auswahlkarte: Beispiel auf der Karte, Kategorien darunter, Urteil auf der Karte, weiter mit Tippen oder Wischen */
   const {x,o}=L[W.i], S=WHO_SETS[x.set], C=S.cats, done=W.a!==null, ok=done&&W.a===x.s;
   qcRender({
-    eye:`Zuordnen · ${S.t} · ${W.i+1} von ${L.length}`, stem:S.q,
+    eye:`Zuordnen · ${S.t}${cur.mx?"":` · ${W.i+1} von ${L.length}`}`, stem:S.q,
     front:inl(x.t), phase:done?"done":"open",
     opts:o.map(k=>({k,l:C[k]})), hint:`Tipp: ${S.hint}`,
     ok:!done?undefined:ok,
     verdict:!done?null:ok?{t:"Richtig.",s:[C[x.s]]}:{t:"Falsch.",s:[`Du: ${C[W.a]}`,`Richtig: ${C[x.s]}`]},
     why:done?`<p>${inl(x.ex)}</p>`:"",
-    next:W.i<L.length-1?"Nächstes Beispiel":"Auswertung",
+    next:cur.mx||W.i<L.length-1?"Weiter":"Auswertung",
     pick:k=>{ if(W.a!==null) return; W.a=k; const good=k===x.s; if(good) W.right++;
       state.who=state.who||{}; const h=state.who[x.id]||{n:0,r:0}; h.n++; if(good) h.r++; h.last=good; if(!good) h.conf=k; state.who[x.id]=h; logDay(); save(); renderWho(); if(!good) buzz(); },
     go:()=>{ W.i++; W.a=null; renderWho(); window.scrollTo(0,0); }

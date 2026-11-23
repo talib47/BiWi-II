@@ -47,7 +47,7 @@ function pickKreuz(n,k){
   }
   return out;
 }
-function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, j:0, ans:{}, prev:null, pts:[], sure:[]}; if(QC) QC.enter=false; go("kreuz"); }
+function openKreuz(n,k,ids){ cur.mx=null; cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, j:0, ans:{}, prev:null, pts:[], sure:[]}; if(QC) QC.enter=false; go("kreuz"); }
 function kzBlock(item,ans,shown,key,gs){
   return item.s.map((st,j)=>{ const a=ans[j], g=gs&&gs[j];
     const cls=v=>shown?(st[1]===v?"r":(a===v?"w":"")):"";
@@ -68,19 +68,21 @@ let QC=null;
 function qcRender(o){
   const ph=o.phase, done=ph==="done";
   const vcls=!done?"":o.ok===true?" ok":o.ok===null?" idk":" no";
-  const v=o.verdict;
+  const v=o.verdict, compact=!o.binary&&ph!=="front";
+  const maxL=o.opts?Math.max(...o.opts.map(x=>String(x.l).replace(/<[^>]+>/g,"").length)):99, grid=maxL<=22?" g2":maxL<=64?" g2w":"";
   $("#app").innerHTML=`
     <div class="row between ctop"><p class="eyebrow" style="margin:0">${o.eye}</p>${o.right||""}</div>
     ${o.stem?`<p class="kzstem">${o.stem}</p>`:""}
-    <div class="swipewrap"><div class="block card qc${vcls}${QC&&QC.enter?" enter":""}" id="theCard" role="button" tabindex="0" aria-label="${ph==="front"?"Auswahl zeigen":done?"Weiter":"Karte"}"><i class="tint" aria-hidden="true"></i>
+    <div class="swipewrap"><div class="block card qc${vcls}${compact?" cmp":""}${QC&&QC.enter?" enter":""}" id="theCard" role="button" tabindex="0" aria-label="${ph==="front"?"Auswahl zeigen":done?"Weiter":"Karte"}"><i class="tint" aria-hidden="true"></i>
+      ${o.idk&&!done?`<button class="qidk" data-qk="__idk" aria-label="Weiß ich nicht" title="Weiß ich nicht"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.6-3 4.5"/><circle cx="12" cy="17.6" r=".6" fill="currentColor"/></svg></button>`:""}
       ${o.ctx?`<p class="cctx">${o.ctx}</p>`:""}
       <div class="front">${o.front}${o.erg?` <span class="erg">Ergänzung</span>`:""}</div>
       ${done?`<div class="kzv${vcls}"><span class="ic" aria-hidden="true">${o.ok===true?"✓":o.ok===null?"?":"✕"}</span><div><b>${v.t}</b>${v.s.map(x=>`<span>${x}</span>`).join("")}</div></div>${o.why?`<div class="kzwhy">${o.why}</div>`:""}${o.more||""}`:""}
     </div></div>
     ${ph==="front"?`<div class="row fliprow"><button class="btn" id="qcShow" style="flex:1">Auswahl zeigen</button></div>`
       :ph==="open"?`${o.binary?`<div class="kzans" role="group" aria-label="Ist die Aussage wahr oder falsch?">${o.opts.map(x=>`<button class="btn ghost" data-qk="${x.k}">${x.l}</button>`).join("")}</div>`
-          :`<div class="mc qcopts">${o.opts.map(x=>`<button data-qk="${x.k}">${inl(x.l)}</button>`).join("")}</div>`}
-        ${o.idk?`<button class="kzidk" data-qk="__idk">Weiß ich nicht</button>`:""}${o.hint?`<p class="small muted qchint">${o.hint}</p>`:""}`
+          :`<div class="qcopts${grid}">${o.opts.map((x,i)=>`<button data-qk="${x.k}"><span class="ql" aria-hidden="true">${"ABCDEFGH"[i]}</span><span class="qt">${inl(x.l)}</span></button>`).join("")}</div>`}
+        ${o.hint?`<p class="small muted qchint">${o.hint}</p>`:""}`
       :`<div class="qnext"><button class="btn" id="qcNext">${o.next||"Weiter"}</button></div>${o.below||""}`}`;
   const cd=$("#theCard");
   QC={cd, enter:false,
@@ -116,13 +118,14 @@ function qcRender(o){
     cd.classList.remove("drag"); cd.style.transition="transform .42s cubic-bezier(.2,1.5,.4,1)"; cd.style.transform=""; if(tint){ tint.style.transition="opacity .2s"; tint.style.opacity=0; }
     if(act==="snap") setTimeout(()=>QC.swipe(d),120); };
   document.addEventListener("pointerup",up,{passive:true}); document.addEventListener("pointercancel",up,{passive:true});
-  /* Tastatur: Leertaste/Enter aufdecken bzw. weiter; → wahr, ← falsch bzw. „Weiß ich nicht“; 1–5 wählt eine Antwort */
+  /* Tastatur: Leertaste/Enter aufdecken bzw. weiter; → wahr, ← falsch bzw. „Weiß ich nicht“; 1–8 oder A–H wählt eine Antwort, ? heißt „Weiß ich nicht“ */
   document.addEventListener("keydown",e=>{
     if(!views.includes(view)||!QC||e.metaKey||e.ctrlKey||e.altKey||(e.target.closest&&e.target.closest("textarea,input,select"))||document.activeElement===QC.cd) return;
     const k=e.key;
     if(k===" "||k==="Enter"){ if(document.activeElement&&document.activeElement.tagName==="BUTTON") return; e.preventDefault(); QC.tap(); }
     else if(k==="ArrowRight"||k==="ArrowLeft"){ const d=k==="ArrowRight"?1:-1, a=QC.can(d); if(a){ e.preventDefault(); if(a==="fly"){ QC.enter=true; } QC.swipe(d); } }
-    else if(/^[1-9]$/.test(k)){ const b=document.querySelectorAll(".qcopts [data-qk]")[+k-1]; if(b){ e.preventDefault(); b.click(); } }
+    else if(/^[1-8a-hA-H]$/.test(k)){ const ix=/\d/.test(k)?+k-1:"abcdefgh".indexOf(k.toLowerCase()), b=document.querySelectorAll(".qcopts [data-qk]")[ix]; if(b){ e.preventDefault(); b.click(); } }
+    else if(k==="?"){ const b=document.querySelector(".qidk"); if(b){ e.preventDefault(); b.click(); } }
   });
 })();
 
@@ -141,6 +144,7 @@ function renderKreuz(){
   const K=cur.kr, back=K.n?"Kapitel "+K.n:"Üben", backFn=()=>{ if(K.n){ cur.ch=K.n; go("chapter"); } else go("practice"); };
   if(K.j===undefined) K.j=0;
   if(!K.items.length){ $("#app").innerHTML=`${backTo(back)}<h1>Noch keine Kreuzaufgaben</h1><p class="muted">Für diesen Bereich gibt es noch keine Aufgaben.</p>`; bindCrumb(backFn); return; }
+  if(K.i>=K.items.length&&cur.mx) return mixNext(null,K.pts.reduce((a,b)=>a+b,0));
   if(K.i>=K.items.length){
     const sum=K.pts.reduce((a,b)=>a+b,0), max=K.items.length*4;
     $("#app").innerHTML=`${backTo(back)}<h1>Runde geschafft</h1>
@@ -155,7 +159,7 @@ function renderKreuz(){
   const dots=[0,1,2].map(k=>{ const d=k in K.ans, r=d&&K.ans[k]===item.s[k][1], q=d&&K.ans[k]===null;
     return `<i class="${q?"idk":d?(r?"ok":"no"):k===j?"now":""}" aria-label="Aussage ${KZ_DOT[k]}${q?" nicht gewusst":d?(r?" richtig":" falsch"):""}">${q?"?":d?(r?"✓":"✕"):KZ_DOT[k]}</i>`; }).join("");
   qcRender({
-    eye:`Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}`,
+    eye:`${cur.mx?"Kreuzaufgabe":`Aufgabe ${K.i+1} von ${K.items.length}`} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}`,
     right:`<span class="kzdots">${dots}</span>`, stem:item.stem, erg:item.erg,
     ctx:`Aussage ${KZ_DOT[j]})${K.prev&&j===0&&!done?` · zuletzt ${K.prev.p} von 4 Punkten`:""}`,
     front:inl(st[0]), phase:done?"done":"open", binary:true, idk:true,
@@ -165,7 +169,7 @@ function renderKreuz(){
       :a===null?{t:"Nicht gewusst.",s:[`Die Aussage ist ${word(st[1])}.`]}
       :{t:"Falsch.",s:[`Du hast „${word(a)}“ gewählt, die Aussage ist aber ${word(st[1])}.`]},
     why:done?st[2]:"",
-    next:!last?"Weiter":K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung",
+    next:!last||cur.mx||K.i<K.items.length-1?"Weiter":"Auswertung",
     below:done&&last?`<p class="kzsum">Diese Aufgabe: ${K.pts[K.i]} von 4 Punkten</p>`:"",
     pick:k=>{ if(j in K.ans) return; K.ans[j]=k==="__idk"?null:k==="1"; if(j===2) kzFinish(K,item); renderKreuz(); if(K.ans[j]!==null&&K.ans[j]!==st[1]) buzz(); },
     go:kzNext
