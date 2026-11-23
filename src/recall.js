@@ -54,7 +54,7 @@ function renderRecall(){
   const q=L[R.i], c=q.c, ch=CHAPTERS.find(x=>x.n===q.n), a=R.ans, done=a!==undefined; if(!done) R.st0=qInfo(q.id); const st=R.st0;
   const ok=done&&a===c.a, why=done&&a>=0&&c.w&&c.w[a];
   qcRender({
-    eye:`${cur.mx?"Verständnisfrage":`Frage ${R.i+1} von ${L.length}`}${st?` · Stufe ${st.b} von 5`:" · neu"}`,
+    eye:`${cur.mx?"Verständnisfrage":`Frage ${R.i+1} von ${L.length}`}${st?lvlDots(st.b):` <span class="lvnew">neu</span>`}`,
     ctx:`${ch.title} · ${q.lt}`, front:inl(c.q),
     phase:done?"done":R.shown?"open":"front", idk:true,
     opts:c.o.map((l,k)=>({k:String(k),l})),

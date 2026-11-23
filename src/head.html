@@ -474,6 +474,12 @@ abbr.ab:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .abpop b{color:var(--accent)}.abpop span{display:block;margin-top:2px;color:var(--muted)}
 @keyframes abin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.abpop{animation:none}}
+
+/* Lernstand als Punkte (23.11., nur BiWi II) */
+.lvl{display:inline-flex;gap:3px;margin-left:8px;vertical-align:middle;position:relative;top:-1px}
+.lvl i{width:6px;height:6px;border-radius:50%;background:color-mix(in srgb,var(--muted) 28%,transparent)}
+.lvl i.on{background:var(--accent)}
+.lvnew{margin-left:6px;padding:1px 7px;border-radius:999px;font-size:.72rem;font-weight:600;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
 </style>
 <style>
 /*__DESIGN__*/

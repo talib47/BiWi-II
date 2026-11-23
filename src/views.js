@@ -248,6 +248,8 @@ function buildDeck(n){
   }
   return deck;
 }
+/* Lernstand einer Karte oder Frage als fünf kleine Punkte statt „Stufe x von 5“: gefüllt = wie gut sie sitzt */
+const lvlDots=b=>`<span class="lvl" role="img" aria-label="Sitzt ${b} von 5" title="Sitzt ${b} von 5">${[1,2,3,4,5].map(k=>`<i class="${k<=b?"on":""}"></i>`).join("")}</span>`;
 function renderCards(){
   const D=cur.deck, n=cur.cardCh;
   if(cur.ci>=D.length){
@@ -264,7 +266,7 @@ function renderCards(){
   const ctx=CARD_CTX[c.id]||(ch?ch.title:"");
   const esc=t=>t.replace(/&/g,"&amp;").replace(/</g,"&lt;");
   $("#app").innerHTML=`
-    <div class="row between ctop"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?` · Stufe ${b} von 5`:" · neu"}</p><span class="crt">${cur.hist.length?`<button class="cundo" id="cprev" aria-label="Eine Karte zurück" title="Eine Karte zurück"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><span>Zurück</span></button>`:""}</span></div>
+    <div class="row between ctop"><p class="eyebrow" style="margin:0">Karte ${cur.ci+1} von ${D.length}${cur.free?" · freiwillig":isSeen(c.id)?lvlDots(b):` <span class="lvnew">neu</span>`}</p><span class="crt">${cur.hist.length?`<button class="cundo" id="cprev" aria-label="Eine Karte zurück" title="Eine Karte zurück"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><span>Zurück</span></button>`:""}</span></div>
     <div class="swipewrap">
     <div class="block card${cur.enter?" enter":""}" id="theCard" style="margin-top:8px" role="button" tabindex="0" aria-label="Karte umdrehen"><i class="tint" aria-hidden="true"></i>
       ${ctx?`<p class="cctx">${inl(ctx)}</p>`:""}
