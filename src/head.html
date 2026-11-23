@@ -455,6 +455,17 @@ h1,h2,h3,.card .front{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto
 .kzans .btn{padding:16px 6px;font-size:1.06rem;min-height:56px}
 .kzidk{display:block;margin:8px auto 0;background:none;border:0;color:var(--muted);font:inherit;font-size:.92rem;min-height:44px;padding:0 14px;cursor:pointer}
 .kzsum{text-align:center;margin:10px 0 0;font-size:.92rem;color:var(--muted)}
+
+/* Diktieren (Muster 23.11., nur BiWi II) */
+.dictwrap{position:relative;margin-top:6px}
+.dictwrap textarea{display:block;width:100%;margin:0!important;padding-right:56px;padding-bottom:56px}
+.dictbtn{position:absolute;right:8px;bottom:8px;width:44px;height:44px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);-webkit-tap-highlight-color:transparent;transition:transform .1s}
+.dictbtn:active{transform:scale(.94)}
+.dictbtn.on{color:var(--surface);background:var(--bad);animation:dictpulse 1.4s ease-in-out infinite}
+@keyframes dictpulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--bad) 45%,transparent)}50%{box-shadow:0 0 0 8px transparent}}
+@media (prefers-reduced-motion:reduce){.dictbtn.on{animation:none}}
+.dictlive{margin:8px 0 0;font-size:.92rem;color:var(--muted);font-style:italic}
+.dictlive.hint{font-style:normal}
 </style>
 <style>
 /*__DESIGN__*/

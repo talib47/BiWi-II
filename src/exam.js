@@ -59,6 +59,7 @@ function renderKurz(){
       <div class="block lesson"><h3>Musterlösung</h3>${solHTML(x.m)}</div>`}
     </div>`;
   bindCrumb(backFn);
+  if($("#kt")){ attachDictation($("#kt")); $("#kt").addEventListener("input",()=>{ cur.kzt=$("#kt").value; }); }
   if($("#kd")) $("#kd").onclick=()=>{ cur.kzt=$("#kt").value; cur.kzph="bewerten"; renderKurz(); window.scrollTo(0,0); };
   if($("#kn0")) $("#kn0").onclick=()=>openKurz(n);
   document.querySelectorAll(".check input").forEach(c=>c.onchange=()=>{ cur.kzc[+c.id.slice(1)]=c.checked; $("#kp").textContent=`${pts()} von ${x.pts} Punkten`; });
