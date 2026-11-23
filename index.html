@@ -408,6 +408,28 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .srow.ch{grid-template-columns:1fr auto}
 .srow.ch .small{grid-column:1/-1;grid-row:2}
 h1,h2,h3,.card .front{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
+
+/* Kreuzaufgaben als Karte (Muster 23.11., nur BiWi II) */
+.kzdots{display:flex;gap:6px;flex:none}
+.kzdots i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.75rem;font-weight:650;color:var(--muted);background:color-mix(in srgb,var(--muted) 14%,transparent)}
+.kzdots i.now{color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.kzdots i.ok{color:var(--surface);background:var(--good)}.kzdots i.idk{color:var(--surface);background:var(--gold)}.kzdots i.no{color:var(--surface);background:var(--bad)}
+.kzstem{font-family:var(--serif);font-size:1.05rem;color:var(--muted);margin:14px 0 8px;text-wrap:balance}
+.kzc{min-height:11rem}
+.kzc.ok{box-shadow:var(--lift),inset 0 0 0 2.5px color-mix(in srgb,var(--good) 75%,transparent)}
+.kzc.no{box-shadow:var(--lift),inset 0 0 0 2.5px color-mix(in srgb,var(--bad) 75%,transparent)}
+.kzc.idk{box-shadow:var(--lift),inset 0 0 0 2.5px color-mix(in srgb,var(--gold) 60%,transparent)}
+.kzv{display:flex;gap:12px;align-items:flex-start;border-top:1px solid var(--line);padding-top:12px;max-width:62ch}
+.kzv .ic{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:var(--surface)}
+.kzv.ok .ic{background:var(--good)}.kzv.no .ic{background:var(--bad)}.kzv.idk .ic{background:var(--gold)}
+.kzv b{display:block;font-size:1.1rem;line-height:1.3}.kzv.ok b{color:var(--good)}.kzv.no b{color:var(--bad)}.kzv.idk b{color:var(--gold)}
+.kzv span{display:block;margin-top:2px}
+.kzwhy{margin:0;max-width:62ch;color:var(--muted)}
+.kzans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.kzans .btn{padding:16px 6px;font-size:1.06rem;min-height:56px}
+.kzidk{display:block;margin:8px auto 0;background:none;border:0;color:var(--muted);font:inherit;font-size:.92rem;min-height:44px;padding:0 14px;cursor:pointer}
+#kzNext{display:block;width:100%;margin-top:16px;min-height:56px;font-size:1.06rem}
+.kzsum{text-align:center;margin:10px 0 0;font-size:.92rem;color:var(--muted)}
 </style>
 <style>
 /* ===================== Gemeinsames Design aller Lern-Apps („Die Reihe“) =====================
@@ -864,7 +886,7 @@ function judge(step,raw){
       known:false = nur bekannt, dass das Hochgeladene dazugehört.
    2. Erledigt-Liste (APP.todos je Hälfte), abgehakt in state.todo[id] = Zeitstempel.
    3. Motivationssatz unter der Wochenübersicht.
-   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-23", "a": "BiWi II", "w": "Seidel-Karte c1-21 geteilt: c1-21 nur noch die drei Blöcke, neu c1-23 (drei Arten von Wissensbeständen, mit Beispiel) und c1-24 (Pfeile „bestimmen“/„formen“, mit Beispiel); Lernprinzip 10 „Eine Karte, eine Frage“", "y": "Talib: Karte zu lang, Frage nach drei Blöcken, aber fünf Zeilen, die die Frage nicht beantworten; wünscht Beispiele bei theorielastigen Karten (Muster, Rest erst nach Freigabe)"}, {"d": "2026-11-18", "a": "BiWi II", "w": "Karten schlichter: keine Hinweise mehr („Tippen zum Umdrehen“, „Erst antworten …“, „← Nicht sicher", "y": "Sicher →“); Wischen auf der zugedeckten Karte (auf oder neben ihr) lässt sie kurz rot den Kopf schütteln (Animation `buzz`, auf Android zusätzlich Vibration; iPad/iPhone können aus dem Browser nicht vibrieren), statt dass nichts passiert oder die Seite wackelt; Beispiele auf der Kartenrückseite (Zeilen mit „Beispiel …:“, „Bsp.“, „z. B.“ am Anfang) stehen abgesetzt mit Etikett und goldener Linie (`EXRE`/`exHTML` in `views.js`, auch in `richText`) · Talib: kennt die App, will nur das Wesentliche; vergisst manchmal das Umdrehen; Beispiel wirkte wie ein weiterer Listenpunkt"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Tippen und Wischen getrennt: Tippen (auf die Karte oder irgendwo daneben) dreht die Karte um, Wischen bewertet nur die aufgedeckte Karte (rechts sicher, links nicht sicher); zugedeckt bewirkt Wischen nichts mehr; ein Tipp daneben dreht hin und zurück wie ein Tipp auf die Karte", "y": "Talib: Umdrehen per Wisch war doppelt, zweimal Tippen soll hin und zurück drehen"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Platte „Heute“ im Lernpfad startet die Einheit beim Antippen irgendwo auf der Fläche (nicht nur über den Knopf), mit leichtem Eindrücken; Stempel beim Wischen wieder entfernt, die kräftigere Tönung bleibt", "y": "Talib will nicht zum Knopf scrollen; Stempel unnötig"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen flüssiger und deutlicher: Schwung zählt (schneller kurzer Wisch ab etwa 0,45 px/ms löst aus), Karte fliegt mit ihrer Geschwindigkeit hinaus und die nächste kommt erst nach Ende der Bewegung (`transitionend` statt fester 220 ms), federndes Zurückschnappen; Tönung grün/rot deutlich kräftiger (22/20 % statt 7 %, 3-px-Rand, volle Stärke schon nach einem Fünftel der Kartenbreite)", "y": "Talib: Wischen stockte, Farben zu dezent"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Karten auf Touch-Geräten ohne Knöpfe: Bewerten nur noch durch Wischen (auf oder neben der Karte), Umdrehen durch Tippen oder Wischen; „Sicher“/„Nicht sicher“ und „Antwort zeigen“ sind auf iPad und Handy unsichtbar (für VoiceOver erhalten), unter der aufgedeckten Karte ein leiser Hinweis „← Nicht sicher", "y": "Sicher →“; Karte wieder in voller Breite; Laptop mit Maus unverändert mit Knöpfen und Pfeiltasten · Talib: Wischen ersetzt die Knöpfe"}]).
+   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-23", "a": "BiWi II", "w": "Muster „Kreuzaufgabe als Karte“: eine Aussage nach der anderen auf einer Lernkarte, große Knöpfe falsch/wahr und „Weiß ich nicht“ (ersetzt „geraten“), sofort Urteil auf der Karte mit Symbol, deiner Wahl und Lösung, rote Karte schüttelt bei Fehler, Weiter an derselben Stelle oder Tippen/Wischen, Punkte nach der dritten Aussage wie in der Klausur; Probeklausur unverändert (`kzBlock`)", "y": "Talib: Kreuzaufgaben wirkten gegenüber den Karten veraltet, zu viele Klicks, unklar, ob die eigene Antwort falsch war; Verständnisfragen, Zuordnen und offene Aufgaben folgen nach Freigabe"}, {"d": "2026-11-23", "a": "BiWi II", "w": "49 theorielastige Karten mit Beispielzeile aus dem Schulalltag (IDs gleich); Regel 12 „Übernehmen“ und neue Zeilen in „Bausteine“, damit die anderen Apps die Karten-Muster holen", "y": "Talib wünscht Beispiele bei Theorie und will die Optimierungen in allen Apps"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Seidel-Karte c1-21 geteilt: c1-21 nur noch die drei Blöcke, neu c1-23 (drei Arten von Wissensbeständen, mit Beispiel) und c1-24 (Pfeile „bestimmen“/„formen“, mit Beispiel); Lernprinzip 10 „Eine Karte, eine Frage“", "y": "Talib: Karte zu lang, Frage nach drei Blöcken, aber fünf Zeilen, die die Frage nicht beantworten; wünscht Beispiele bei theorielastigen Karten (Muster, Rest erst nach Freigabe)"}, {"d": "2026-11-18", "a": "BiWi II", "w": "Karten schlichter: keine Hinweise mehr („Tippen zum Umdrehen“, „Erst antworten …“, „← Nicht sicher", "y": "Sicher →“); Wischen auf der zugedeckten Karte (auf oder neben ihr) lässt sie kurz rot den Kopf schütteln (Animation `buzz`, auf Android zusätzlich Vibration; iPad/iPhone können aus dem Browser nicht vibrieren), statt dass nichts passiert oder die Seite wackelt; Beispiele auf der Kartenrückseite (Zeilen mit „Beispiel …:“, „Bsp.“, „z. B.“ am Anfang) stehen abgesetzt mit Etikett und goldener Linie (`EXRE`/`exHTML` in `views.js`, auch in `richText`) · Talib: kennt die App, will nur das Wesentliche; vergisst manchmal das Umdrehen; Beispiel wirkte wie ein weiterer Listenpunkt"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Tippen und Wischen getrennt: Tippen (auf die Karte oder irgendwo daneben) dreht die Karte um, Wischen bewertet nur die aufgedeckte Karte (rechts sicher, links nicht sicher); zugedeckt bewirkt Wischen nichts mehr; ein Tipp daneben dreht hin und zurück wie ein Tipp auf die Karte", "y": "Talib: Umdrehen per Wisch war doppelt, zweimal Tippen soll hin und zurück drehen"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Platte „Heute“ im Lernpfad startet die Einheit beim Antippen irgendwo auf der Fläche (nicht nur über den Knopf), mit leichtem Eindrücken; Stempel beim Wischen wieder entfernt, die kräftigere Tönung bleibt", "y": "Talib will nicht zum Knopf scrollen; Stempel unnötig"}]).
    5. Abstände vor der Prüfung (spaceDays), siehe unten.
    6. Symbole der Tableiste (NAV_ICONS), Gestaltung in design.css.
    7. Lernmodus ohne Ablenkung (focusBar): Ansichten aus APP.focus.views und die ganze Tageseinheit blenden Tableiste und „Aa“ aus.
@@ -993,7 +1015,7 @@ document.addEventListener("keydown",e=>{ if(e.key!=="Escape"||!document.body.cla
   const a=document.activeElement; if(a&&/^(TEXTAREA|INPUT|SELECT)$/.test(a.tagName)) return; const x=document.getElementById("fx"); if(x){ e.preventDefault(); x.click(); } });
 
 /* Claude-Brücke: was zuletzt an dieser App geändert wurde und warum (aus CLAUDE.md, beim Bauen übernommen) */
-const BRUECKE=[{"d": "2026-11-23", "a": "BiWi II", "w": "Seidel-Karte c1-21 geteilt: c1-21 nur noch die drei Blöcke, neu c1-23 (drei Arten von Wissensbeständen, mit Beispiel) und c1-24 (Pfeile „bestimmen“/„formen“, mit Beispiel); Lernprinzip 10 „Eine Karte, eine Frage“", "y": "Talib: Karte zu lang, Frage nach drei Blöcken, aber fünf Zeilen, die die Frage nicht beantworten; wünscht Beispiele bei theorielastigen Karten (Muster, Rest erst nach Freigabe)"}, {"d": "2026-11-18", "a": "BiWi II", "w": "Karten schlichter: keine Hinweise mehr („Tippen zum Umdrehen“, „Erst antworten …“, „← Nicht sicher", "y": "Sicher →“); Wischen auf der zugedeckten Karte (auf oder neben ihr) lässt sie kurz rot den Kopf schütteln (Animation `buzz`, auf Android zusätzlich Vibration; iPad/iPhone können aus dem Browser nicht vibrieren), statt dass nichts passiert oder die Seite wackelt; Beispiele auf der Kartenrückseite (Zeilen mit „Beispiel …:“, „Bsp.“, „z. B.“ am Anfang) stehen abgesetzt mit Etikett und goldener Linie (`EXRE`/`exHTML` in `views.js`, auch in `richText`) · Talib: kennt die App, will nur das Wesentliche; vergisst manchmal das Umdrehen; Beispiel wirkte wie ein weiterer Listenpunkt"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Tippen und Wischen getrennt: Tippen (auf die Karte oder irgendwo daneben) dreht die Karte um, Wischen bewertet nur die aufgedeckte Karte (rechts sicher, links nicht sicher); zugedeckt bewirkt Wischen nichts mehr; ein Tipp daneben dreht hin und zurück wie ein Tipp auf die Karte", "y": "Talib: Umdrehen per Wisch war doppelt, zweimal Tippen soll hin und zurück drehen"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Platte „Heute“ im Lernpfad startet die Einheit beim Antippen irgendwo auf der Fläche (nicht nur über den Knopf), mit leichtem Eindrücken; Stempel beim Wischen wieder entfernt, die kräftigere Tönung bleibt", "y": "Talib will nicht zum Knopf scrollen; Stempel unnötig"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Wischen flüssiger und deutlicher: Schwung zählt (schneller kurzer Wisch ab etwa 0,45 px/ms löst aus), Karte fliegt mit ihrer Geschwindigkeit hinaus und die nächste kommt erst nach Ende der Bewegung (`transitionend` statt fester 220 ms), federndes Zurückschnappen; Tönung grün/rot deutlich kräftiger (22/20 % statt 7 %, 3-px-Rand, volle Stärke schon nach einem Fünftel der Kartenbreite)", "y": "Talib: Wischen stockte, Farben zu dezent"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Karten auf Touch-Geräten ohne Knöpfe: Bewerten nur noch durch Wischen (auf oder neben der Karte), Umdrehen durch Tippen oder Wischen; „Sicher“/„Nicht sicher“ und „Antwort zeigen“ sind auf iPad und Handy unsichtbar (für VoiceOver erhalten), unter der aufgedeckten Karte ein leiser Hinweis „← Nicht sicher", "y": "Sicher →“; Karte wieder in voller Breite; Laptop mit Maus unverändert mit Knöpfen und Pfeiltasten · Talib: Wischen ersetzt die Knöpfe"}];
+const BRUECKE=[{"d": "2026-11-23", "a": "BiWi II", "w": "Muster „Kreuzaufgabe als Karte“: eine Aussage nach der anderen auf einer Lernkarte, große Knöpfe falsch/wahr und „Weiß ich nicht“ (ersetzt „geraten“), sofort Urteil auf der Karte mit Symbol, deiner Wahl und Lösung, rote Karte schüttelt bei Fehler, Weiter an derselben Stelle oder Tippen/Wischen, Punkte nach der dritten Aussage wie in der Klausur; Probeklausur unverändert (`kzBlock`)", "y": "Talib: Kreuzaufgaben wirkten gegenüber den Karten veraltet, zu viele Klicks, unklar, ob die eigene Antwort falsch war; Verständnisfragen, Zuordnen und offene Aufgaben folgen nach Freigabe"}, {"d": "2026-11-23", "a": "BiWi II", "w": "49 theorielastige Karten mit Beispielzeile aus dem Schulalltag (IDs gleich); Regel 12 „Übernehmen“ und neue Zeilen in „Bausteine“, damit die anderen Apps die Karten-Muster holen", "y": "Talib wünscht Beispiele bei Theorie und will die Optimierungen in allen Apps"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Seidel-Karte c1-21 geteilt: c1-21 nur noch die drei Blöcke, neu c1-23 (drei Arten von Wissensbeständen, mit Beispiel) und c1-24 (Pfeile „bestimmen“/„formen“, mit Beispiel); Lernprinzip 10 „Eine Karte, eine Frage“", "y": "Talib: Karte zu lang, Frage nach drei Blöcken, aber fünf Zeilen, die die Frage nicht beantworten; wünscht Beispiele bei theorielastigen Karten (Muster, Rest erst nach Freigabe)"}, {"d": "2026-11-18", "a": "BiWi II", "w": "Karten schlichter: keine Hinweise mehr („Tippen zum Umdrehen“, „Erst antworten …“, „← Nicht sicher", "y": "Sicher →“); Wischen auf der zugedeckten Karte (auf oder neben ihr) lässt sie kurz rot den Kopf schütteln (Animation `buzz`, auf Android zusätzlich Vibration; iPad/iPhone können aus dem Browser nicht vibrieren), statt dass nichts passiert oder die Seite wackelt; Beispiele auf der Kartenrückseite (Zeilen mit „Beispiel …:“, „Bsp.“, „z. B.“ am Anfang) stehen abgesetzt mit Etikett und goldener Linie (`EXRE`/`exHTML` in `views.js`, auch in `richText`) · Talib: kennt die App, will nur das Wesentliche; vergisst manchmal das Umdrehen; Beispiel wirkte wie ein weiterer Listenpunkt"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Tippen und Wischen getrennt: Tippen (auf die Karte oder irgendwo daneben) dreht die Karte um, Wischen bewertet nur die aufgedeckte Karte (rechts sicher, links nicht sicher); zugedeckt bewirkt Wischen nichts mehr; ein Tipp daneben dreht hin und zurück wie ein Tipp auf die Karte", "y": "Talib: Umdrehen per Wisch war doppelt, zweimal Tippen soll hin und zurück drehen"}, {"d": "2026-11-17", "a": "BiWi II", "w": "Platte „Heute“ im Lernpfad startet die Einheit beim Antippen irgendwo auf der Fläche (nicht nur über den Knopf), mit leichtem Eindrücken; Stempel beim Wischen wieder entfernt, die kräftigere Tönung bleibt", "y": "Talib will nicht zum Knopf scrollen; Stempel unnötig"}];
 function bridgeBlock(){
   if(!BRUECKE.length) return "";
   const f=s=>{ const [y,m,d]=s.split("-"); return +d+"."+(+m)+"."; };
@@ -1180,11 +1202,11 @@ CARDS[16]=[
  {id:"c10-02", f:"Mittelwert und Standardabweichung der IQ-Skala", b:"Mittelwert 100, Standardabweichung 15. Der IQ ist in der Bevölkerung annähernd normalverteilt."},
  {id:"c10-03", f:"Flächenanteile der Normalverteilung", b:"Mittelwert bis ±1 SD: je 34,13 % (zusammen 68,26 %)\n1 bis 2 SD: je 13,59 %\n2 bis 3 SD: je 2,14 %\njenseits von 3 SD: je 0,13 %"},
  {id:"c10-04", f:"Deskriptive Einordnung von IQ-Werten", b:"unter 70: weit unterdurchschnittlich (z. B. geistige Behinderung)\n70–85: unterdurchschnittlich\n85–115: durchschnittlich\n115–130: überdurchschnittlich\nüber 130: weit überdurchschnittlich (z. B. Hochbegabung)"},
- {id:"c10-05", f:"Formel des z-Werts und Bedeutung der Variablen", b:"z = (x − μ) / σ\nx: Rohwert der Person\nμ: Mittelwert der Referenzgruppe\nσ: Standardabweichung (Streuung) der Referenzgruppe\nz sagt, um wie viele Standardabweichungen der Wert vom Mittel abweicht."},
+ {id:"c10-05", f:"Formel des z-Werts und Bedeutung der Variablen", b:"z = (x − μ) / σ\nx: Rohwert der Person\nμ: Mittelwert der Referenzgruppe\nσ: Standardabweichung (Streuung) der Referenzgruppe\nz sagt, um wie viele Standardabweichungen der Wert vom Mittel abweicht.\nBeispiel: x = 115, μ = 100, σ = 15 → z = 15 / 15 = 1."},
  {id:"c10-06", f:"Abweichungs-IQ: Formel und Urheber", b:"AIQ = 100 + 15 · (x − μ) / σ\nKurz: 100 + 15 · z\nUrheber: David Wechsler (1939)"},
  {id:"c10-07", f:"Mittelwert und SD der Standardskalen", b:"z-Skala: 0 und 1\nIQ-Skala: 100 und 15\nT-Skala: 50 und 10\nC-Skala: 5 und 2\nUmrechnung immer: Mittelwert + SD · z"},
- {id:"c10-08", f:"IQ nach Stern", b:"IQ = Intelligenzalter / Lebensalter · 100.\nDas Intelligenzalter (mentale Alter, z. B. „löst Aufgaben wie ein Achtjähriger“) geht auf Binet zurück. Für Erwachsene ungeeignet, deshalb abgelöst vom Abweichungs-IQ."},
- {id:"c10-09", f:"Formel des Prozentrangs und Bedeutung der Variablen", b:"PR = cumf / N · 100\ncumf: kumulierte Häufigkeit, also Anzahl der Werte bis einschließlich des gesuchten Werts\nN: Gesamtzahl der Werte (Probanden)"},
+ {id:"c10-08", f:"IQ nach Stern", b:"IQ = Intelligenzalter / Lebensalter · 100.\nDas Intelligenzalter (mentale Alter, z. B. „löst Aufgaben wie ein Achtjähriger“) geht auf Binet zurück. Für Erwachsene ungeeignet, deshalb abgelöst vom Abweichungs-IQ.\nBeispiel: Ein 8-Jähriger löst Aufgaben wie ein 10-Jähriger: 10 / 8 · 100 = 125."},
+ {id:"c10-09", f:"Formel des Prozentrangs und Bedeutung der Variablen", b:"PR = cumf / N · 100\ncumf: kumulierte Häufigkeit, also Anzahl der Werte bis einschließlich des gesuchten Werts\nN: Gesamtzahl der Werte (Probanden)\nBeispiel: 18 von 20 Schülern haben gleich viele oder weniger Punkte: PR = 18 / 20 · 100 = 90."},
  {id:"c10-10", f:"Was bedeutet ein Prozentrang von 90?", b:"90 % der Referenzgruppe haben gleich gut oder schlechter abgeschnitten, nur 10 % besser."},
  {id:"c10-11", f:"Anteil der Bevölkerung mit IQ 85 bis 115", b:"68,26 % (zweimal 34,13 %), also der durchschnittliche Leistungsbereich."},
  {id:"c10-12", f:"Anteil mit IQ ≥ 130 und mit IQ ≥ 70", b:"IQ ≥ 130: 2,27 % (2,14 + 0,13)\nIQ ≥ 70: 97,73 % (100 − 2,27)"},
@@ -1895,7 +1917,7 @@ function pickKreuz(n,k){
   }
   return out;
 }
-function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, ans:{}, gs:{}, shown:false, pts:[], sure:[]}; go("kreuz"); }
+function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, j:0, ans:{}, prev:null, pts:[], sure:[]}; go("kreuz"); }
 function kzBlock(item,ans,shown,key,gs){
   return item.s.map((st,j)=>{ const a=ans[j], g=gs&&gs[j];
     const cls=v=>shown?(st[1]===v?"r":(a===v?"w":"")):"";
@@ -1905,32 +1927,80 @@ function kzBlock(item,ans,shown,key,gs){
         :a===st[1]?`<div class="fb idk"><p class="fh">Richtig geraten. Zählt noch nicht als gewusst.</p><p style="margin:0">${st[2]}</p></div>`
         :`<div class="fb ${a===undefined?"idk":"bad"}"><p class="fh">${a===undefined?"Nicht angekreuzt. ":""}Die Aussage ist ${st[1]?"wahr":"falsch"}.</p><p style="margin:0">${st[2]}</p></div>`}</div>`; }).join("");
 }
+/* Kreuzaufgaben im Stil der Lernkarten (Muster 23.11.): eine Aussage nach der anderen auf einer Karte,
+   darunter „falsch“ und „wahr“ als große Knöpfe; nach dem Tippen sofort ein klares Urteil auf der Karte
+   (grün „Richtig.“ bzw. rot „Falsch.“ mit deiner Wahl und der Lösung), dann „Weiter“ an derselben Stelle,
+   Tippen auf die Karte oder Wischen. Punkte wie in der Klausur nach der dritten Aussage.
+   „Weiß ich nicht“ zählt keinen Punkt. Tastatur: ← falsch, → wahr, Enter weiter. */
+const KZ_DOT="abc";
+function kzFinish(K,item){
+  const p=kzPoints(item,K.ans); K.pts[K.i]=p; K.sure[K.i]=p;
+  const s=kzStat(item.id)||{n:0,best:0}, b=p===4?Math.min(5,(s.b||1)+1):1;
+  state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now(),b,due:dayStart()+(p===4?spaceDays(s.b===5?35:INTERVAL[b]):1)*864e5}; logDay(); save();
+}
+function kzNext(){ const K=cur.kr; if(!(K.j in K.ans)) return;
+  if(K.j<2){ K.j++; } else { K.i++; K.j=0; K.ans={}; K.prev=null; }
+  K.enter=true; renderKreuz(); window.scrollTo(0,0); }
 function renderKreuz(){
   const K=cur.kr, back=K.n?"Kapitel "+K.n:"Üben", backFn=()=>{ if(K.n){ cur.ch=K.n; go("chapter"); } else go("practice"); };
+  if(K.j===undefined) K.j=0;
   if(!K.items.length){ $("#app").innerHTML=`${backTo(back)}<h1>Noch keine Kreuzaufgaben</h1><p class="muted">Für diesen Bereich gibt es noch keine Aufgaben.</p>`; bindCrumb(backFn); return; }
   if(K.i>=K.items.length){
     const sum=K.pts.reduce((a,b)=>a+b,0), max=K.items.length*4;
     $("#app").innerHTML=`${backTo(back)}<h1>Runde geschafft</h1>
-      <div class="block"><p class="pbadge">${sum} von ${max} Punkten</p>${K.sure.reduce((a,b)=>a+b,0)<sum?`<p class="small" style="margin:6px 0 0">Ohne Geratenes: ${K.sure.reduce((a,b)=>a+b,0)} von ${max}. Mit diesem Wert rechnet der Lernstand.</p>`:""}
+      <div class="block"><p class="pbadge">${sum} von ${max} Punkten</p>
       <p class="small muted">So wird auch in der Klausur gezählt: je richtiges Kreuz ein Punkt, alle drei Aussagen einer Aufgabe richtig ein Zusatzpunkt. Aufgaben mit Fehlern kommen bevorzugt wieder.</p>
       <div class="row">${sess?sessBtn():`<button class="btn" id="again">Neue Runde</button><button class="btn ghost" id="out">Fertig</button>`}</div></div>`;
     bindCrumb(backFn); if($("#again")) $("#again").onclick=()=>openKreuz(K.n); if($("#out")) $("#out").onclick=backFn; return;
   }
-  const item=KREUZ.find(x=>x.id===K.items[K.i]), all=[0,1,2].every(j=>K.ans[j]!==undefined), ch=CHAPTERS.find(c=>c.n===item.ch);
-  if(!K.shown) K.prev=kzStat(item.id);
-  $("#app").innerHTML=`${backTo(back)}
-    <div class="row between"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}${item.erg?` <span class="erg">Ergänzung</span>`:""}</p>${K.prev?`<span class="chip">zuletzt ${K.prev.p}/4</span>`:""}</div>
-    <div class="block" style="margin-top:8px"><h3 style="margin:0 0 4px">${item.stem}</h3>${kzBlock(item,K.ans,K.shown,"s",K.gs)}</div>
-    ${K.shown?`<div class="row between"><span class="pbadge">${K.pts[K.i]} von 4 Punkten${K.sure[K.i]<K.pts[K.i]?` · ohne Geratenes ${K.sure[K.i]}`:""}</span><button class="btn" id="nx">${K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button></div>`
-      :`<button class="btn" id="ev" style="width:100%" ${all?"":"disabled"}>Auswerten</button><p class="hint">Keine Minuspunkte, im Zweifel ankreuzen. „geraten“ zählt nicht als gewusst.</p>`}`;
+  const item=KREUZ.find(x=>x.id===K.items[K.i]), ch=CHAPTERS.find(c=>c.n===item.ch), j=K.j, st=item.s[j];
+  if(j===0&&!(0 in K.ans)&&K.prev===null) K.prev=kzStat(item.id)||false;
+  const done=j in K.ans, a=K.ans[j], ok=done&&a===st[1], last=j===2;
+  const word=v=>v?"wahr":"falsch";
+  const dots=[0,1,2].map(k=>{ const d=k in K.ans, r=d&&K.ans[k]===item.s[k][1], q=d&&K.ans[k]===null;
+    return `<i class="${q?"idk":d?(r?"ok":"no"):k===j?"now":""}" aria-label="Aussage ${KZ_DOT[k]}${q?" nicht gewusst":d?(r?" richtig":" falsch"):""}">${q?"?":d?(r?"✓":"✕"):KZ_DOT[k]}</i>`; }).join("");
+  const verdict=!done?"":ok
+      ? `<div class="kzv ok"><span class="ic" aria-hidden="true">✓</span><div><b>Richtig.</b><span>Die Aussage ist ${word(st[1])}.</span></div></div>`
+      : a===null
+      ? `<div class="kzv idk"><span class="ic" aria-hidden="true">?</span><div><b>Nicht gewusst.</b><span>Die Aussage ist ${word(st[1])}.</span></div></div>`
+      : `<div class="kzv no"><span class="ic" aria-hidden="true">✕</span><div><b>Falsch.</b><span>Du hast „${word(a)}“ gewählt, die Aussage ist aber ${word(st[1])}.</span></div></div>`;
+  $("#app").innerHTML=`
+    <div class="row between ctop"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}${item.erg?` <span class="erg">Ergänzung</span>`:""}</p><span class="kzdots">${dots}</span></div>
+    <p class="kzstem">${item.stem}</p>
+    <div class="swipewrap"><div class="block card kzc${done?(ok?" ok":a===null?" idk":" no"):""}${K.enter?" enter":""}" id="theCard" ${done?`role="button" tabindex="0" aria-label="Weiter"`:""}>
+      <p class="cctx">Aussage ${KZ_DOT[j]})${K.prev&&j===0&&!done?` · zuletzt ${K.prev.p} von 4 Punkten`:""}</p>
+      <div class="front">${inl(st[0])}</div>
+      ${done?`${verdict}<p class="kzwhy">${st[2]}</p>`:""}
+    </div></div>
+    ${done?`<button class="btn" id="kzNext">${!last?"Weiter":K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button>${last?`<p class="kzsum">Diese Aufgabe: ${K.pts[K.i]} von 4 Punkten</p>`:""}`
+      :`<div class="kzans" role="group" aria-label="Ist die Aussage wahr oder falsch?"><button class="btn ghost" data-kv="0">falsch</button><button class="btn ghost" data-kv="1">wahr</button></div><button class="kzidk" data-kv="x">Weiß ich nicht</button>`}`;
+  K.enter=false;
   bindCrumb(backFn);
-  document.querySelectorAll("[data-kz]").forEach(b=>b.onclick=()=>{ K.ans[+b.dataset.kz.split(":").pop()]=b.dataset.v==="1"; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
-  document.querySelectorAll("[data-kg]").forEach(b=>b.onclick=()=>{ const j=+b.dataset.kg; K.gs[j]=!K.gs[j]; const y=window.scrollY; renderKreuz(); window.scrollTo(0,y); });
-  if($("#ev")) $("#ev").onclick=()=>{ K.pts[K.i]=kzPoints(item,K.ans); const p=kzPoints(item,K.ans,K.gs); K.sure[K.i]=p; K.shown=true;
-    const s=kzStat(item.id)||{n:0,best:0}, b=p===4?Math.min(5,(s.b||1)+1):1;
-    state.kreuz[item.id]={n:s.n+1,p,best:Math.max(s.best||0,p),t:Date.now(),b,due:dayStart()+(p===4?spaceDays(s.b===5?35:INTERVAL[b]):1)*864e5}; logDay(); save(); renderKreuz(); };
-  if($("#nx")) $("#nx").onclick=()=>{ K.i++; K.ans={}; K.gs={}; K.shown=false; renderKreuz(); window.scrollTo(0,0); };
+  document.querySelectorAll("[data-kv]").forEach(b=>b.onclick=()=>{ if(j in K.ans) return; const v=b.dataset.kv; K.ans[j]=v==="x"?null:v==="1";
+    if(j===2) kzFinish(K,item); renderKreuz(); if(K.ans[j]!==null&&K.ans[j]!==st[1]) buzz(); });
+  if($("#kzNext")) $("#kzNext").onclick=kzNext;
+  const cd=$("#theCard"); let x0=null,y0=0,dx=0,drag=false,shook=false;
+  cd.onclick=()=>{ if(drag||Date.now()-(window.__noClick||0)<350) return; if(done) kzNext(); };
+  cd.onkeydown=e=>{ if(done&&(e.key==="Enter"||e.key===" ")){ e.preventDefault(); kzNext(); } };
+  cd.onpointerdown=e=>{ x0=e.clientX; y0=e.clientY; dx=0; drag=false; shook=false; };
+  cd.onpointermove=e=>{ if(x0===null) return; const d=e.clientX-x0;
+    if(!drag){ if(Math.abs(d)>14&&Math.abs(d)>1.4*Math.abs(e.clientY-y0)){ if(!done){ if(!shook){ shook=true; buzz(); } return; } drag=true; cd.style.transition="none"; } else return; }
+    dx=d; cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/40}deg)`; };
+  cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null; if(shook) window.__noClick=Date.now();
+    if(!drag) return; window.__noClick=Date.now();
+    if(Math.abs(dx)>Math.min(90,cd.offsetWidth*.22)){ const out=Math.sign(dx)*(window.innerWidth*.6+cd.offsetWidth);
+      cd.style.transition="transform .24s cubic-bezier(.25,.8,.35,1), opacity .24s linear"; cd.style.transform=`translate3d(${out}px,0,0) rotate(${Math.sign(dx)*16}deg)`; cd.style.opacity="0";
+      let f=false; const fin=()=>{ if(f) return; f=true; kzNext(); }; cd.addEventListener("transitionend",fin,{once:true}); setTimeout(fin,300); }
+    else { cd.style.transition="transform .42s cubic-bezier(.2,1.5,.4,1)"; cd.style.transform=""; setTimeout(()=>{ drag=false; },0); } };
 }
+document.addEventListener("keydown",e=>{
+  if(view!=="kreuz"||e.metaKey||e.ctrlKey||e.altKey||(e.target.closest&&e.target.closest("textarea,input,select"))) return;
+  const K=cur.kr; if(!K||K.i>=K.items.length) return; const hit=sel=>{ const b=$(sel); if(b){ e.preventDefault(); b.click(); } };
+  if(K.j in K.ans){ if(e.key==="Enter"||e.key===" "||e.key==="ArrowRight") hit("#kzNext"); }
+  else if(e.key==="ArrowLeft"||e.key==="f"||e.key==="F") hit('[data-kv="0"]');
+  else if(e.key==="ArrowRight"||e.key==="w"||e.key==="W") hit('[data-kv="1"]');
+  else if(e.key==="?") hit('[data-kv="x"]');
+});
 
 /* ================= Offene Aufgaben (Schreiben) und Probeklausur ================= */
 const KURZ=[
@@ -2182,24 +2252,24 @@ check:[
 
 CARDS[1]=[
  {id:"c1-01", f:"Was beschreiben operationalisierte Lernziele?", b:"Das beabsichtigte Verhalten, das Lernende nach Abschluss des Lernprozesses zeigen sollen (Ingenkamp & Lissmann, 2008)."},
- {id:"c1-02", f:"Drei Bestandteile eines operationalisierten Lernziels", b:"beobachtbare Verhaltensweisen\nBedingungen, unter denen das Verhalten überprüft wird (worauf, in welcher Zeit …)\nBewertungsmaßstab für die Zielerreichung"},
+ {id:"c1-02", f:"Drei Bestandteile eines operationalisierten Lernziels", b:"beobachtbare Verhaltensweisen\nBedingungen, unter denen das Verhalten überprüft wird (worauf, in welcher Zeit …)\nBewertungsmaßstab für die Zielerreichung\nBeispiel: „Nennt (Verhalten) ohne Buch in 5 Minuten (Bedingung) mindestens drei der vier Ziele der Psychologie (Maßstab).“"},
  {id:"c1-03", f:"Die sechs Lernzielstufen nach Bloom (1956)", b:"1. Wissen / Erinnerung (Remembering)\n2. Verständnis (Comprehending)\n3. Anwendung (Applying)\n4. Analyse (Analyzing)\n5. Synthese (Synthesizing)\n6. Bewertung (Evaluating)"},
  {id:"c1-04", f:"Kompetenz nach Weinert (2001)", b:"Verfügbare oder erlernbare kognitive Fähigkeiten und Fertigkeiten, um Probleme zu lösen, samt motivationaler, volitionaler (willensbezogener) und sozialer Bereitschaft, die Lösungen in variablen Situationen erfolgreich und verantwortungsvoll zu nutzen."},
- {id:"c1-05", f:"Drei Bestandteile von Kompetenz", b:"Wissen (verstehen)\nFertigkeiten (können)\nmotivationale Orientierungen und Emotionen (wollen)"},
+ {id:"c1-05", f:"Drei Bestandteile von Kompetenz", b:"Wissen (verstehen)\nFertigkeiten (können)\nmotivationale Orientierungen und Emotionen (wollen)\nBeispiel: Du weißt, was Verstärkung ist (Wissen), kannst Lob gezielt einsetzen (Fertigkeit) und willst es im Unterricht auch tun (Wollen)."},
  {id:"c1-06", f:"Kompetenz vs. Performanz", b:"Kompetenz: die Voraussetzung (Disposition) für Handeln.\nPerformanz: das tatsächlich gezeigte Handeln (z. B. die Klausurleistung an einem bestimmten Tag)."},
  {id:"c1-07", f:"Vier Teile der Handlungskompetenz (KMK, 1999)", b:"Sachkompetenz (Fachwissen, Methodenkenntnis)\nMethodenkompetenz (selbstständig arbeiten, Transfer, Wissenslücken erkennen)\nSozialkompetenz (kommunizieren, Perspektivwechsel)\nSelbstkompetenz (Verantwortung, Selbstkritik, Berufsethos)"},
- {id:"c1-08", f:"Noticing und Reasoning (Seidel, 2022)", b:"Noticing: Aufmerksamkeit gezielt auf lernrelevante Ereignisse im Klassenraum richten.\nReasoning: das Wahrgenommene auf Basis von Fachwissen deuten und erklären."},
+ {id:"c1-08", f:"Noticing und Reasoning (Seidel, 2022)", b:"Noticing: Aufmerksamkeit gezielt auf lernrelevante Ereignisse im Klassenraum richten.\nReasoning: das Wahrgenommene auf Basis von Fachwissen deuten und erklären.\nBeispiel: Ein Schüler schaut ständig aus dem Fenster. Noticing: Du bemerkst es als lernrelevant. Reasoning: Du deutest es mit Fachwissen, etwa als Überforderung."},
  {id:"c1-09", f:"Gegenstand der Psychologie", b:"Menschliches Erleben und Verhalten."},
- {id:"c1-10", f:"Die vier Ziele der Psychologie", b:"beschreiben (Deskription)\nerklären (Explikation)\nvorhersagen (Prognose)\nggf. verändern (Intervention)"},
- {id:"c1-11", f:"Was heißt „empirisch“?", b:"Mögliche Antworten auf Fragen werden als Hypothesen formuliert und systematisch mit der Realität konfrontiert (Beobachtung, Messung)."},
+ {id:"c1-10", f:"Die vier Ziele der Psychologie", b:"beschreiben (Deskription)\nerklären (Explikation)\nvorhersagen (Prognose)\nggf. verändern (Intervention)\nBeispiel: Leseschwäche: beschreiben, wie viele betroffen sind; erklären, woran es liegt; vorhersagen, wer gefährdet ist; durch Förderung verändern."},
+ {id:"c1-11", f:"Was heißt „empirisch“?", b:"Mögliche Antworten auf Fragen werden als Hypothesen formuliert und systematisch mit der Realität konfrontiert (Beobachtung, Messung).\nBeispiel: Hypothese „Lob steigert die Mitarbeit“, dann in der Klasse zählen, wie oft sich die Schüler melden."},
  {id:"c1-12", f:"Beschreiben: was gehört dazu?", b:"Phänomen benennen und definieren\nordnen und klassifizieren\nArt und Intensität angeben\nZusammenhänge (Korrelationen) darstellen, z. B. Fachwissen und Motivation hängen zusammen"},
  {id:"c1-13", f:"Erklären: unabhängiger und abhängiger Indikator", b:"Erklären heißt, Bedingungsverhältnisse anzugeben: A bedingt B.\nUnabhängiger Indikator: die Ursache (z. B. Frustration)\nAbhängiger Indikator: die Wirkung (z. B. Aggression; Dollard et al.)"},
  {id:"c1-14", f:"Vorhersagen: Prädiktor und Kriterium", b:"Prädiktoren: Variablen, mit denen vorhergesagt wird (z. B. phonologische Bewusstheit und Wortschatz bei Einschulung)\nKriterium: das Vorhergesagte (z. B. späterer Schriftspracherwerb; Elbro, 1996)"},
  {id:"c1-15", f:"Drei Formen des Veränderns", b:"Korrektur: negativen Ausgangszustand ausgleichen\nFörderung: Sachverhalt allgemein verbessern\nPrävention: Verschlechterung verhindern\nBeispiel: „Hören, lauschen, lernen“ (Küspert)"},
  {id:"c1-16", f:"Psychologisches Konstrukt", b:"Eine angenommene, nicht direkt beobachtbare Eigenschaft von Personen (z. B. Intelligenz, Motivation), mit der man beobachtbares Verhalten beschreibt, erklärt oder vorhersagt. Ein Erklärungszugang, keine reale Entität."},
- {id:"c1-17", f:"Distale vs. proximale Merkmale", b:"Distal: das Konstrukt selbst, der direkten Beobachtung nicht zugänglich (Brunswik, 1956).\nProximal: beobachtbare, messbare Indikatoren, aus denen auf das Konstrukt geschlossen wird."},
+ {id:"c1-17", f:"Distale vs. proximale Merkmale", b:"Distal: das Konstrukt selbst, der direkten Beobachtung nicht zugänglich (Brunswik, 1956).\nProximal: beobachtbare, messbare Indikatoren, aus denen auf das Konstrukt geschlossen wird.\nBeispiel: Motivation (distal) erschließt man aus beobachtbarer Ausdauer bei Aufgaben (proximal)."},
  {id:"c1-18", f:"Operationalisierung", b:"Übersetzung eines Konstrukts in beobachtbare bzw. messbare Indikatoren, die es abbilden können (z. B. Wissensniveau → Punktzahl in einem Fachtest)."},
- {id:"c1-19", f:"Indikatoren für Lernmotivation", b:"Aufmerksamkeit, Anstrengung, Latenz (Zeit bis zum Beginn), Persistenz (Ausdauer), Präferenz, Verhaltenswahrscheinlichkeit, emotionaler Ausdruck.\nBei hoher Motivation: Latenz kurz, alles andere hoch bzw. positiv."},
+ {id:"c1-19", f:"Indikatoren für Lernmotivation", b:"Aufmerksamkeit, Anstrengung, Latenz (Zeit bis zum Beginn), Persistenz (Ausdauer), Präferenz, Verhaltenswahrscheinlichkeit, emotionaler Ausdruck.\nBei hoher Motivation: Latenz kurz, alles andere hoch bzw. positiv.\nBeispiel: Eine motivierte Schülerin fängt sofort an (kurze Latenz) und bleibt dran, wenn es schwierig wird (hohe Persistenz)."},
  {id:"c1-20", f:"Traits vs. States", b:"Traits: zeitlich stabile Merkmale von Personen (z. B. Intelligenz).\nStates: situationsabhängige Zustände (z. B. aktuelle Nervosität)."}
 ];
 
@@ -2363,15 +2433,15 @@ CARDS[9]=[
  {id:"c9-03", f:"Warum ist nicht jede Verhaltensänderung Lernen?", b:"Sie kann auch auf Reifung (langfristig, z. B. Wachstum) oder Ermüdung (kurzfristig) beruhen. Auch Krankheit, Alkohol oder Drogen erzeugen Veränderungen, die kein Lernen sind (Lehrbuch Kap. 1)."},
  {id:"c9-04", f:"Warum zeigt sich nicht jedes Lernen im Verhalten?", b:"Gelerntes kann als Verhaltenspotenzial vorhanden sein, ohne ausgeführt zu werden, weil die tatsächliche Ausführung von vielen Faktoren abhängt (z. B. Motivation, Aufregung). Ein messtheoretisches Problem."},
  {id:"c9-05", f:"Lernen vs. Reifung", b:"Lernen: erfahrungsabhängig. Informationen werden aufgenommen, verarbeitet und gespeichert (daher die Bedeutung des Gedächtnisses).\nReifung: nicht erfahrungsabhängig (z. B. Krabbeln, Laufen beim Kleinkind).\nProblem: Die Abgrenzung ist schwierig, weil auch manche Reifung umweltabhängig ist (frühe Entwicklung des Sehens)."},
- {id:"c9-06", f:"Nichtassoziatives vs. assoziatives Lernen", b:"Nichtassoziativ: Stärke oder Art einer Reaktion auf einen Reiz ändert sich durch wiederholte Darbietung (Habituation, Sensitivierung).\nAssoziativ: Lernen von Kontingenzen (gemeinsamem Auftreten) von Ereignissen, S → S (klassisch) oder R → S (operant)."},
- {id:"c9-07", f:"Kontingenz", b:"Das zeitliche Zusammenfallen bzw. die regelhafte Verknüpfung von Ereignissen, etwa Verhalten und Konsequenz."},
+ {id:"c9-06", f:"Nichtassoziatives vs. assoziatives Lernen", b:"Nichtassoziativ: Stärke oder Art einer Reaktion auf einen Reiz ändert sich durch wiederholte Darbietung (Habituation, Sensitivierung).\nAssoziativ: Lernen von Kontingenzen (gemeinsamem Auftreten) von Ereignissen, S → S (klassisch) oder R → S (operant).\nBeispiel: Man hört die Uhr im Raum irgendwann nicht mehr (nichtassoziativ). Ein Kind meldet sich häufiger, weil es gelobt wird (assoziativ)."},
+ {id:"c9-07", f:"Kontingenz", b:"Das zeitliche Zusammenfallen bzw. die regelhafte Verknüpfung von Ereignissen, etwa Verhalten und Konsequenz.\nBeispiel: Jedes Mal, wenn ein Schüler reinruft, wird er drangenommen."},
  {id:"c9-08", f:"Drei Eigenschaften von Reflexen", b:"unwillkürlich\ninvariant (stereotyp, immer gleich)\nschnell"},
  {id:"c9-09", f:"Eigenreflex, Fremdreflex, koordinierter Reflex", b:"Eigenreflex: Reizort = Effektort, z. B. Patellarreflex, nicht lernbar veränderbar\nFremdreflex: Reizort ≠ Effektort, z. B. Lidschlussreflex, veränderbar\nKoordinierte Reflexbewegung: z. B. Schreckreflex, veränderbar"},
  {id:"c9-10", f:"Habituation", b:"Abschwächung einer Reflexreaktion (Stärke, Häufigkeit) auf einen Reiz bei wiederholter Darbietung. Ermöglicht die Anpassung an eine bestimmte Umwelt (z. B. Gewöhnung an Straßenlärm)."},
  {id:"c9-11", f:"Vier Determinanten des Habituationsverlaufs", b:"Intensität des Reizes\nRegelmäßigkeit des Auftretens\nAuftretensintervall\ntonischer Zustand des Organismus (allgemeines Erregungsniveau, Arousal)"},
- {id:"c9-12", f:"Spontanerholung", b:"Nach einer Pause kehrt die habituierte Reaktion teilweise zurück. Die erneute Habituation erfolgt dann schneller, ein Hinweis darauf, dass gelernt wurde."},
- {id:"c9-13", f:"Dishabituation", b:"Weil Habituation stimulusspezifisch ist, zeigt sich bei einem neuen, unbekannten Reiz wieder die ursprüngliche volle Reaktion."},
- {id:"c9-14", f:"Sensitivierung", b:"Verstärkung einer Reflexreaktion (Stärke, Häufigkeit) auf einen Reiz bei wiederholter Darbietung."},
+ {id:"c9-12", f:"Spontanerholung", b:"Nach einer Pause kehrt die habituierte Reaktion teilweise zurück. Die erneute Habituation erfolgt dann schneller, ein Hinweis darauf, dass gelernt wurde.\nBeispiel: Nach den Ferien fällt dir das Ticken der Klassenzimmeruhr wieder auf, du gewöhnst dich aber schneller daran."},
+ {id:"c9-13", f:"Dishabituation", b:"Weil Habituation stimulusspezifisch ist, zeigt sich bei einem neuen, unbekannten Reiz wieder die ursprüngliche volle Reaktion.\nBeispiel: An den Straßenlärm gewöhnt, schreckst du bei einer Sirene wieder voll auf."},
+ {id:"c9-14", f:"Sensitivierung", b:"Verstärkung einer Reflexreaktion (Stärke, Häufigkeit) auf einen Reiz bei wiederholter Darbietung.\nBeispiel: Nach einem Schreck zuckst du bei jedem weiteren Geräusch stärker zusammen."},
  {id:"c9-15", f:"Eigenschaften der Sensitivierung", b:"hohe Reizintensität und hohes allgemeines Erregungsniveau als Determinante\nnur geringe Expositionsraten nötig\nweniger stimulusspezifisch (S1 kann Reaktion auf S2 verstärken)\n„Failure-to-habituate“-Theorie, z. B. bei PTBS"},
  {id:"c9-16", f:"Habituation vs. Sensitivierung im Vergleich", b:"Reaktion: wird schwächer / wird stärker\nReizintensität: eher gering / hoch\nErregungsniveau: eher niedrig / hoch\nSpezifität: stimulusspezifisch / weniger spezifisch"},
  {id:"c9-17", f:"Sensitivierung in der Klausursituation", b:"Hohes Erregungsniveau (Stress) begünstigt Sensitivierung: Geräusche, die man sonst nicht bemerkt (Schniefen, Tüte), werden wahrgenommen, nicht mehr ausgeblendet und wirken immer lauter.\nSchulbezug: Unterrichtslärm von 60–85 dB in ersten Klassen (Schönwälder et al., 2004)."}
@@ -2538,22 +2608,22 @@ CARDS[11]=[
  {id:"c11-18", f:"Gesetz der Wirkung (Thorndike)", b:"Je größer die resultierende Befriedigung/Frustration, desto stärker die Stärkung/Schwächung der Assoziation zwischen Situation (Stimulus) und Verhaltensweise (Reaktion). Verhaltenswahrscheinlichkeit = Funktion der Konsequenzen."},
  {id:"c11-19", f:"Instrumentelles Lernen (Definition)", b:"Latenz, Geschwindigkeit, Wahrscheinlichkeit bzw. Häufigkeit eines Verhaltens verändern sich, nachdem eine Verstärkung kontingent zu diesem Verhalten gemacht wird (assoziatives Lernen)."},
  {id:"c11-20", f:"Operantes Verhalten (Skinner) vs. instrumentelles Lernen", b:"Skinner: komplexeres Verhalten, das auf die Umwelt wirkt („operates on“), im Unterschied zum reflexartigen Verhalten der klassischen Konditionierung. „Instrumentelles Lernen“ eher für natürliche Situationen, Skinner vor allem kontrollierte Experimente."},
- {id:"c11-21", f:"Primäre, sekundäre und soziale Verstärker", b:"Primär: befriedigen physiologische Bedürfnisse (Hunger, Durst, Wärme)\nSekundär (konditioniert): wirken durch Assoziation mit primären; generalisierte Verstärker wie Geld, Tokens\nSozial: Aufmerksamkeit, Lob, Liebe, nicht eindeutig zuzuordnen"},
+ {id:"c11-21", f:"Primäre, sekundäre und soziale Verstärker", b:"Primär: befriedigen physiologische Bedürfnisse (Hunger, Durst, Wärme)\nSekundär (konditioniert): wirken durch Assoziation mit primären; generalisierte Verstärker wie Geld, Tokens\nSozial: Aufmerksamkeit, Lob, Liebe, nicht eindeutig zuzuordnen\nBeispiel: Süßigkeit (primär), Stempel im Heft (sekundär, Token), Lob vor der Klasse (sozial)."},
  {id:"c11-01", f:"Operante Konditionierung: was wird gelernt?", b:"Die Verknüpfung von Verhalten und Konsequenz (R → S). Die Konsequenz bestimmt, ob das Verhalten künftig häufiger oder seltener auftritt."},
- {id:"c11-02", f:"„Positiv“ und „negativ“ bei operanten Konsequenzen", b:"Positiv: Ein Reiz wird dargeboten.\nNegativ: Ein Reiz wird entzogen.\nKeine Wertung („gut“/„schlecht“)."},
+ {id:"c11-02", f:"„Positiv“ und „negativ“ bei operanten Konsequenzen", b:"Positiv: Ein Reiz wird dargeboten.\nNegativ: Ein Reiz wird entzogen.\nKeine Wertung („gut“/„schlecht“).\nBeispiel: Strafarbeit geben ist positiv (etwas kommt dazu), Pausenentzug negativ (etwas wird weggenommen)."},
  {id:"c11-03", f:"Positive Verstärkung", b:"Präsentation einer appetitiven Konsequenz, Zunahme der Frequenz.\nBeispiel Heine: Nachbereitung führt zu besserer Note, Nachbereitung wird häufiger."},
  {id:"c11-04", f:"Negative Verstärkung", b:"Entzug einer aversiven Konsequenz, Zunahme der Frequenz.\nBeispiel Heine: Rückzug aus lauter Lernumgebung bringt Ruhe, Rückzug wird häufiger."},
  {id:"c11-05", f:"Positive Bestrafung", b:"Präsentation einer aversiven Konsequenz, Abnahme der Frequenz.\nBeispiel Heine: Abschreiben führt zu Ärger mit dem Dozenten, es wird seltener abgeschrieben."},
  {id:"c11-06", f:"Negative Bestrafung", b:"Entzug einer appetitiven Konsequenz, Abnahme der Frequenz.\nBeispiel Heine: Schlafen in der Vorlesung, spannende Inhalte verpasst; Klausur 24/25: Trainingsverbot."},
- {id:"c11-07", f:"Kontinuierliche Verstärkung (CRF)", b:"Jede einzelne Verhaltensäußerung wird verstärkt.\nEffekt: rascher Erwerb, aber schnelle Extinktion, wenn die Verstärkung ausbleibt."},
- {id:"c11-08", f:"Die vier intermittierenden Verstärkungspläne", b:"Feste Quote (FQ): exakt jede x-te Reaktion\nVariable Quote (VQ): ungefähr jede x-te Reaktion\nFestes Intervall (FI): erste Reaktion nach x Minuten\nVariables Intervall (VI): durchschnittlich alle x Minuten"},
- {id:"c11-09", f:"Partieller Verstärkungseffekt", b:"Intermittierend verstärktes Verhalten ist extinktionsresistenter als kontinuierlich verstärktes. Basis von Fading/Thinning."},
+ {id:"c11-07", f:"Kontinuierliche Verstärkung (CRF)", b:"Jede einzelne Verhaltensäußerung wird verstärkt.\nEffekt: rascher Erwerb, aber schnelle Extinktion, wenn die Verstärkung ausbleibt.\nBeispiel: Jede Meldung wird gelobt. Hört das Lob auf, meldet sich das Kind bald nicht mehr."},
+ {id:"c11-08", f:"Die vier intermittierenden Verstärkungspläne", b:"Feste Quote (FQ): exakt jede x-te Reaktion\nVariable Quote (VQ): ungefähr jede x-te Reaktion\nFestes Intervall (FI): erste Reaktion nach x Minuten\nVariables Intervall (VI): durchschnittlich alle x Minuten\nBeispiel: Jeder 10. Kaffee gratis (FQ), Spielautomat (VQ), fester Vokabeltest jeden Freitag (FI), unangekündigte Tests (VI)."},
+ {id:"c11-09", f:"Partieller Verstärkungseffekt", b:"Intermittierend verstärktes Verhalten ist extinktionsresistenter als kontinuierlich verstärktes. Basis von Fading/Thinning.\nBeispiel: Wer am Spielautomaten nur manchmal gewinnt, spielt auch nach vielen Nieten weiter."},
  {id:"c11-10", f:"Effekte der vier Pläne", b:"FQ: hohe Raten, Nachverstärkungspause (PRE)\nVQ: hohe, gleichmäßige Raten, geringe PRE\nFI: moderate Raten, FI-Bögen\nVI: moderate, gleichmäßige Raten"},
- {id:"c11-11", f:"FI-Bogen", b:"Typischer Verlauf beim festen Intervall: Nach der Verstärkung eine Pause (PRE), dann immer schnellere Reaktion bis zum nächsten Verstärkungszeitpunkt."},
+ {id:"c11-11", f:"FI-Bogen", b:"Typischer Verlauf beim festen Intervall: Nach der Verstärkung eine Pause (PRE), dann immer schnellere Reaktion bis zum nächsten Verstärkungszeitpunkt.\nBeispiel: Vor dem festen Freitagstest wird erst kaum, dann immer mehr gelernt."},
  {id:"c11-12", f:"Vier Variablen, die die Lernkurve beeinflussen", b:"Kontiguität (zeitliche Nähe von Verhalten und Verstärkung)\nKontingenz (Regelmäßigkeit der Verstärkung)\nMotivation (momentane Lage, z. B. Hunger)\nVerstärkereigenschaften (Potenz des Verstärkers)"},
  {id:"c11-13", f:"Probleme positiver Bestrafung im Alltag", b:"keine Stärkung erwünschten Verhaltens\nBestrafer wird gemieden bzw. Verhalten nur in seiner Anwesenheit unterdrückt\nemotionale Reaktionen wie Aggression\nEffekt verstärkt auch das Bestrafungsverhalten"},
  {id:"c11-14", f:"Bedingungen, wenn positiv bestraft wird", b:"ohne Verzögerung\nnicht intermittierend\nvon Beginn an mit notwendiger Intensität\nmit gleichzeitiger Verstärkung erwünschten Verhaltens\nbei Menschen mit Erklärungen"},
- {id:"c11-15", f:"Erlernte Hilflosigkeit (Seligman)", b:"Mögliche Folge wiederholter, als unkontrollierbar erlebter aversiver Reize. Symptome: Stress, Angst, Apathie, Depression, psychosomatische Erkrankungen, verminderte Lernfähigkeit.\nZentral: Mangel an Kontingenz von Verhalten und Konsequenz."},
+ {id:"c11-15", f:"Erlernte Hilflosigkeit (Seligman)", b:"Mögliche Folge wiederholter, als unkontrollierbar erlebter aversiver Reize. Symptome: Stress, Angst, Apathie, Depression, psychosomatische Erkrankungen, verminderte Lernfähigkeit.\nZentral: Mangel an Kontingenz von Verhalten und Konsequenz.\nBeispiel: Ein Schüler bekommt trotz Lernen immer schlechte Noten und strengt sich irgendwann gar nicht mehr an."},
  {id:"c11-16", f:"Fall Michael (Klausur 24/25): Ohrfeige → zwei Wochen Trainingsverbot", b:"Negative Bestrafung: Eine appetitive Konsequenz (Fußballspielen) wird entnommen. Die Auftretenshäufigkeit des Verhaltens sinkt: Michael schlägt beim nächsten Foul nicht mehr."}
 ];
 Object.assign(CARD_INFO,{
@@ -2630,14 +2700,14 @@ CARDS[12]=[
  {id:"c12-01", f:"Banduras Theorie des sozialen Lernens: Kernannahme", b:"Höhere Lebewesen lernen nicht in Isolation, sondern zunächst und vor allem eingebettet in soziale Kontexte."},
  {id:"c12-02", f:"Drei Begriffe unter dem Dach des sozialen Lernens", b:"Beobachtungslernen (observational learning)\nImitationslernen (imitation learning)\nstellvertretendes Lernen (vicarious learning)"},
  {id:"c12-03", f:"Modell (beim sozialen Lernen)", b:"Eine Verhaltensvorgabe, die vom Beobachter erworben werden soll."},
- {id:"c12-04", f:"Die vier Arten von Modellen", b:"Real: ein Anderer zeigt Verhalten und Konsequenz\nSymbolisch-verbal: ein Anderer beschreibt und instruiert\nSymbolisch-bildhaft: ein Medium (Film) zeigt das Verhalten\nImaginär: ein vorgestellter Anderer als Vorbild"},
+ {id:"c12-04", f:"Die vier Arten von Modellen", b:"Real: ein Anderer zeigt Verhalten und Konsequenz\nSymbolisch-verbal: ein Anderer beschreibt und instruiert\nSymbolisch-bildhaft: ein Medium (Film) zeigt das Verhalten\nImaginär: ein vorgestellter Anderer als Vorbild\nBeispiel: Lehrerin rechnet vor (real), Anleitung im Buch (symbolisch-verbal), Erklärvideo (symbolisch-bildhaft), „Wie würde mein Vorbild das machen?“ (imaginär)."},
  {id:"c12-05", f:"Beobachtungslernen", b:"Verhaltensänderung (Verhaltenskopie), nachdem ein Individuum ein Modell bei der Ausführung einer Handlung beobachtet hat. Unabhängig davon, ob Beobachter oder Modell sich des Lernens bewusst sind."},
  {id:"c12-06", f:"Wo wird Beobachtungslernen gezielt genutzt?", b:"Im Sport und in der Verhaltenstherapie, weil die Leistung davon profitiert, ein (im Idealfall kompetenteres) Modell zu beobachten."},
  {id:"c12-07", f:"Verhaltensansteckung", b:"Ausführung (mehr oder weniger) instinktiver Verhaltensmuster nach Beobachtung bei einem Artgenossen, z. B. gähnen, fliehen, lachen. Kurzfristig, kein Beobachtungslernen."},
  {id:"c12-08", f:"Aufmerksamkeitslenkung", b:"Verhaltensänderung, weil das Verhalten eines Artgenossen die Salienz eines Reizes verändert, z. B. durch Zeigegesten. Kurzfristig, kein Beobachtungslernen."},
- {id:"c12-09", f:"Fünf Determinanten des Beobachtungslernens", b:"beobachtete Konsequenzen für das Modell\nKonsequenzen für den Beobachter\nEigenschaften des Modells (attraktiv, ähnlich)\nFähigkeiten des Beobachters\nLerngeschichte des Beobachters"},
+ {id:"c12-09", f:"Fünf Determinanten des Beobachtungslernens", b:"beobachtete Konsequenzen für das Modell\nKonsequenzen für den Beobachter\nEigenschaften des Modells (attraktiv, ähnlich)\nFähigkeiten des Beobachters\nLerngeschichte des Beobachters\nBeispiel: Schüler ahmen eher eine beliebte Mitschülerin nach, die fürs Mitarbeiten gelobt wird."},
  {id:"c12-10", f:"Bobo-Doll-Experimente (1960er)", b:"Beleg für „see aggression, do aggression“: Kinder übernehmen beobachtetes aggressives Verhalten, besonders wenn die Konsequenzen positiv sind."},
- {id:"c12-11", f:"Selbstwirksamkeitserwartung", b:"Beurteilung der eigenen Fähigkeiten zur Planung und Ausführung eines Zielverhaltens. Relevant ist nicht das tatsächliche Können, sondern die eigene Beurteilung. Positive Erwartung macht Lernen wahrscheinlicher."}
+ {id:"c12-11", f:"Selbstwirksamkeitserwartung", b:"Beurteilung der eigenen Fähigkeiten zur Planung und Ausführung eines Zielverhaltens. Relevant ist nicht das tatsächliche Können, sondern die eigene Beurteilung. Positive Erwartung macht Lernen wahrscheinlicher.\nBeispiel: Zwei gleich starke Schülerinnen: Wer sich die Matheaufgabe zutraut, fängt eher an und bleibt dran."}
 ];
 Object.assign(CARD_INFO,{
  "c12-01":"Albert Bandura (1925–2021), kanadisch-amerikanischer Psychologe.",
@@ -2815,29 +2885,29 @@ check:[
 CARDS[2]=[
  {id:"c2-01", f:"Gedächtnis (Definition)", b:"Das Fortbestehen aufgenommener Information über die Zeit, das deren Verfügbarmachung ermöglicht."},
  {id:"c2-02", f:"Strukturelle vs. prozedurale Sicht auf Gedächtnis", b:"Strukturell: Gedächtnis ist ein Ort, an dem Information aufbewahrt wird (räumliche Metaphern).\nProzedural: Gedächtnis sind die Prozesse, durch die Inhalte entstehen (dynamisch)."},
- {id:"c2-03", f:"Die drei zentralen Gedächtnisprozesse", b:"Enkodierung\nSpeicherung\nAbruf"},
+ {id:"c2-03", f:"Die drei zentralen Gedächtnisprozesse", b:"Enkodierung\nSpeicherung\nAbruf\nBeispiel: Vokabel lernen (Enkodierung), bis zum Test behalten (Speicherung), im Test einfallen lassen (Abruf)."},
  {id:"c2-04", f:"Vergessen (Definition)", b:"Verlust von zugreifbarer Information."},
  {id:"c2-05", f:"Modales Modell (Atkinson & Shiffrin, 1968): Worin unterscheiden sich die Speicher?", b:"zeitliche Constraints\nKapazitäts-Constraints\nVergessensmechanismen\nneuroanatomische Basis"},
  {id:"c2-06", f:"Die drei Speicher im modalen Modell mit Dauer", b:"Sensorischer Speicher: unter 1 Sekunde\nKurzzeitspeicher: mehrere Sekunden (aber Rehearsal)\nLangzeitgedächtnis: beliebige Dauer"},
- {id:"c2-07", f:"Deklaratives Langzeitgedächtnis", b:"Explizit, bewusst und berichtbar.\nEpisodisch: persönliche Erlebnisse\nSemantisch: Weltwissen, Sprache"},
- {id:"c2-08", f:"Non-deklaratives Langzeitgedächtnis", b:"Implizit, wirkt sich auf Verhalten aus, ohne zwangsläufig bewusst zu werden.\nProzedural (motorische Fertigkeiten), perzeptuelles Priming (PRS), klassische Konditionierung, non-assoziatives Lernen"},
+ {id:"c2-07", f:"Deklaratives Langzeitgedächtnis", b:"Explizit, bewusst und berichtbar.\nEpisodisch: persönliche Erlebnisse\nSemantisch: Weltwissen, Sprache\nBeispiel: Episodisch: deine Einschulung. Semantisch: Berlin ist die Hauptstadt."},
+ {id:"c2-08", f:"Non-deklaratives Langzeitgedächtnis", b:"Implizit, wirkt sich auf Verhalten aus, ohne zwangsläufig bewusst zu werden.\nProzedural (motorische Fertigkeiten), perzeptuelles Priming (PRS), klassische Konditionierung, non-assoziatives Lernen\nBeispiel: Fahrradfahren, ohne erklären zu können, wie genau es geht (prozedural)."},
  {id:"c2-09", f:"Transientes Gedächtnis", b:"Sensorische Register, Kurzzeit- und Arbeitsgedächtnis. Das prozedurale Gedächtnis gehört nicht dazu (Klausur 24/25)."},
- {id:"c2-10", f:"Spreading-Activation-Modell (Collins & Loftus, 1975)", b:"Semantische Konzepte in einem nicht-hierarchischen Netzwerk. Mehr gemeinsame Eigenschaften → mehr Verbindungen. Aktivierung breitet sich auf nahe Knoten aus und nimmt mit Entfernung und Zeit ab."},
+ {id:"c2-10", f:"Spreading-Activation-Modell (Collins & Loftus, 1975)", b:"Semantische Konzepte in einem nicht-hierarchischen Netzwerk. Mehr gemeinsame Eigenschaften → mehr Verbindungen. Aktivierung breitet sich auf nahe Knoten aus und nimmt mit Entfernung und Zeit ab.\nBeispiel: „Feuerwehr“ aktiviert „rot“ stark, über „rot“ schwächer auch „Rose“."},
  {id:"c2-11", f:"Episodisches Gedächtnis", b:"Enkodierung, Speicherung und Abruf von Wissen um spezifische, selbst erlebte Ereignisse. Enthält neben dem „was“ auch wann, wo und wie. Kontextgebunden (Quellengedächtnis)."},
- {id:"c2-12", f:"Godden & Baddeley (1975)", b:"Abruf ist am besten, wenn Enkodierungs- und Abrufsituation ähnlich sind (Umgebung). Mentales Simulieren des Kontexts reicht häufig aus."},
+ {id:"c2-12", f:"Godden & Baddeley (1975)", b:"Abruf ist am besten, wenn Enkodierungs- und Abrufsituation ähnlich sind (Umgebung). Mentales Simulieren des Kontexts reicht häufig aus.\nBeispiel: In der Klausur hilft es, sich den Raum vorzustellen, in dem man gelernt hat."},
  {id:"c2-13", f:"Kontexteffekte des physischen Status", b:"Godwin et al. (1969): unter Alkohol Gelerntes wird unter Alkohol besser abgerufen (auch andere psychotrope Substanzen).\nMiles & Hardman (1998): gleicher kardiovaskulärer Status verbessert die Gedächtnisleistung."},
- {id:"c2-14", f:"Stimmungsabhängigkeit vs. Stimmungskongruenz", b:"Abhängigkeit (Eich et al., 1994): Abruf am besten bei gleicher Stimmung bei Enkodierung und Abruf.\nKongruenz: Bias, bei positiver bzw. negativer Stimmung vor allem positive bzw. negative Ereignisse zu erinnern (→ Depression)."},
+ {id:"c2-14", f:"Stimmungsabhängigkeit vs. Stimmungskongruenz", b:"Abhängigkeit (Eich et al., 1994): Abruf am besten bei gleicher Stimmung bei Enkodierung und Abruf.\nKongruenz: Bias, bei positiver bzw. negativer Stimmung vor allem positive bzw. negative Ereignisse zu erinnern (→ Depression).\nBeispiel: Wer niedergeschlagen ist, erinnert vor allem misslungene Klassenarbeiten (Kongruenz)."},
  {id:"c2-15", f:"Implizites Gedächtnis (Schacter, 1987)", b:"Teil des Gedächtnisses, der sich auf Verhalten auswirkt, ohne zwangsläufig ins Bewusstsein zu treten. Abgrenzung: explizites Gedächtnis mit bewussten, berichtbaren (deklarativen) Inhalten."},
  {id:"c2-16", f:"Prozedurales Gedächtnis", b:"Durch Übung erworbenes Wissen um automatisierte motorische Muster bzw. Handlungsabläufe wie Gehen, Sprechen, Jonglieren."},
- {id:"c2-17", f:"Drei Phasen des Erwerbs prozeduralen Wissens", b:"Kognitiv: explizit, oft verbal, starke Aufmerksamkeit nötig\nAssoziativ: durch Üben zunehmend automatisierte Antwortmuster\nAutonom: genau und schnell, ohne Aufmerksamkeit"},
+ {id:"c2-17", f:"Drei Phasen des Erwerbs prozeduralen Wissens", b:"Kognitiv: explizit, oft verbal, starke Aufmerksamkeit nötig\nAssoziativ: durch Üben zunehmend automatisierte Antwortmuster\nAutonom: genau und schnell, ohne Aufmerksamkeit\nBeispiel: Tippen am PC: erst jede Taste suchen (kognitiv), dann flüssiger (assoziativ), schließlich blind (autonom)."},
  {id:"c2-18", f:"Schlaf und Konsolidierung: SWS vs. REM", b:"Früher, SWS-reicher Schlaf (Non-REM, Stadien III/IV, langsame EEG-Wellen): vor allem deklarative Inhalte.\nSpäter REM-Schlaf (schnelle EEG-Wellen, Augenbewegungen): vor allem nicht-deklarative Inhalte."},
  {id:"c2-19", f:"Sensorisches Gedächtnis: Eigenschaften", b:"streng modalitätsspezifisch\nsehr kurze Speicherdauer\nrelativ hohe Kapazität (z. B. > 7)\nunabhängig von Aufmerksamkeit/Bewusstsein\nVergessen durch Spurenzerfall"},
  {id:"c2-20", f:"Kurzzeitgedächtnis: Eigenschaften", b:"bewusste Verarbeitungsstufe, leicht zugreifbar\nVerlust nach etwa 20 Sekunden, außer bei Rehearsal\nKapazität 7 ± 2 Einheiten bei Ungeübten (Miller, 1956)\nChunking erlaubt größere Mengen"},
  {id:"c2-21", f:"Chunking", b:"Bündelung einfacher Elemente zu größeren Einheiten (Stimuluskomplexen). Setzt Zugriff auf Vorwissen aus dem LZG voraus (Klausur 24/25: wahr). Beispiel Lehrbuch: i-t-b-m-w → IT, BMW."},
  {id:"c2-22", f:"Vergessen im KZG: zwei Erklärungen", b:"Spurenverlust in Abhängigkeit von der Zeit (Peterson & Peterson, 1959).\nWahrscheinlicher: Interferenz zwischen Elementen im KZG (Waugh & Norman, 1965)."},
  {id:"c2-23", f:"Zwei Schwächen des modalen Modells (KZG)", b:"Annahme eines passiven Speichers: Wie geht aktive Manipulation beim Problemlösen?\nAnnahme eines unitären Speichers: Dual-Task-Studien zeigen, dass bestimmte Aufgabentypen kaum interferieren."},
- {id:"c2-24", f:"Arbeitsgedächtnis (Baddeley & Hitch, 1974)", b:"Aktives, multikomponentielles Verarbeitungssystem, das die für die aktuelle Aufgabe nötige Information temporär bereitstellt und manipuliert, nicht nur ein passiver Kurzzeitspeicher."},
- {id:"c2-25", f:"Die vier Subsysteme des Arbeitsgedächtnisses", b:"Phonologische Schleife: sprachbasierte Information\nRäumlich-visueller Notizblock: visuell-räumliche Information\nEpisodischer Puffer: multimodal, Binding\nZentrale Exekutive: überwacht, verteilt Ressourcen, lenkt Aufmerksamkeit"},
+ {id:"c2-24", f:"Arbeitsgedächtnis (Baddeley & Hitch, 1974)", b:"Aktives, multikomponentielles Verarbeitungssystem, das die für die aktuelle Aufgabe nötige Information temporär bereitstellt und manipuliert, nicht nur ein passiver Kurzzeitspeicher.\nBeispiel: Kopfrechnen 17 · 4: Zwischenergebnis halten und gleichzeitig weiterrechnen."},
+ {id:"c2-25", f:"Die vier Subsysteme des Arbeitsgedächtnisses", b:"Phonologische Schleife: sprachbasierte Information\nRäumlich-visueller Notizblock: visuell-räumliche Information\nEpisodischer Puffer: multimodal, Binding\nZentrale Exekutive: überwacht, verteilt Ressourcen, lenkt Aufmerksamkeit\nBeispiel: Telefonnummer innerlich wiederholen (phonologische Schleife), Schulweg im Kopf abgehen (Notizblock)."},
  {id:"c2-26", f:"Zentrale Exekutive: wann ist sie gefragt?", b:"Angelehnt an das supervisory attentional system (Norman & Shallice, 1986). Relevant bei nicht-automatisierten Handlungen und bei Konflikten, wenn unerwünschte Tendenzen unterdrückt werden müssen."}
 ];
 Object.assign(CARD_INFO,{
@@ -2928,20 +2998,20 @@ check:[
 CARDS[3]=[
  {id:"c3-01", f:"Enkodierung", b:"Prozess des Abspeicherns von Information, noch während der Stimulus präsent ist."},
  {id:"c3-02", f:"Vier Faktoren für die Qualität der Enkodierung", b:"Verarbeitungstiefe (levels of processing, deep/shallow encoding)\nPassung der Enkodierungs- und Abrufprozesse\nVorwissen\nLernrate"},
- {id:"c3-03", f:"Verarbeitungstiefe", b:"Je tiefer (z. B. semantisch) Information bei der Enkodierung verarbeitet wird, desto besser wird sie behalten. Die Gegenaussage („desto schwieriger der Abruf“) war 24/25 falsch."},
- {id:"c3-04", f:"Gedächtnis als konstruktiver Prozess", b:"Gedächtnisinhalte sind keine objektiven Abbildungen (Augenzeugenberichte!). Schemata und Skripte lenken die Enkodierung (Selektion, Abstraktion, Interpretation, Integration) und den Abruf (Rekonstruktion)."},
- {id:"c3-05", f:"Schemata und Skripte", b:"Gelernte Muster von Ereignisabfolgen, die als „Situationsmodelle“ Enkodierung und Abruf lenken."},
+ {id:"c3-03", f:"Verarbeitungstiefe", b:"Je tiefer (z. B. semantisch) Information bei der Enkodierung verarbeitet wird, desto besser wird sie behalten. Die Gegenaussage („desto schwieriger der Abruf“) war 24/25 falsch.\nBeispiel: Wer über die Bedeutung eines Fachbegriffs nachdenkt, behält ihn besser als wer nur das Schriftbild abschreibt."},
+ {id:"c3-04", f:"Gedächtnis als konstruktiver Prozess", b:"Gedächtnisinhalte sind keine objektiven Abbildungen (Augenzeugenberichte!). Schemata und Skripte lenken die Enkodierung (Selektion, Abstraktion, Interpretation, Integration) und den Abruf (Rekonstruktion).\nBeispiel: Zwei Schüler schildern denselben Streit ganz unterschiedlich, und beide sind überzeugt."},
+ {id:"c3-05", f:"Schemata und Skripte", b:"Gelernte Muster von Ereignisabfolgen, die als „Situationsmodelle“ Enkodierung und Abruf lenken.\nBeispiel: Skript „Restaurantbesuch“: Platz nehmen, bestellen, essen, zahlen. Fehlt ein Schritt in einer Geschichte, wird er oft dazu erinnert."},
  {id:"c3-06", f:"Behaltensleistung: permastore", b:"Nach anfänglichem Abfall in den ersten 2–3 Jahren bleibt semantisches Gedächtnis relativ stabil. Abruf wirkt konservierend, ggf. wird aber das zuletzt Erinnerte erinnert, nicht das Original."},
  {id:"c3-07", f:"Abruf und retrieval cue", b:"Beim Abruf wird ein Gedächtnisinhalt nach einem Schlüsselreiz reproduziert, z. B. „agua“ nach dem Cue „water“."},
  {id:"c3-08", f:"Vier Faktoren des Abrufs (erste Folie)", b:"Aufmerksamkeitslenkung (unbeachteter Cue senkt den Erfolg)\nCue-Relevanz (Ähnlichkeit von Enkodierung und Abruf)\nassoziative Stärke von Cue und Target\nAnzahl der Cues (Kombinationen wirken besser)"},
  {id:"c3-09", f:"Drei weitere Faktoren des Abrufs", b:"Stärke der Gedächtnisspur\nAbrufstrategie (ähnlich der Enkodierungsstrategie)\nmentaler Modus (aktiviertes Schema lenkt auf relevante Cues)"},
  {id:"c3-10", f:"Drei Ursachen inzidentellen Vergessens", b:"Spurenzerfall (unklar, ob es ihn gibt)\nKontextfluktuation (Abruf-Cues gehen verloren)\nInterferenz (ähnliche Information stört den Abruf)"},
  {id:"c3-11", f:"Spurenzerfall im LZG", b:"Graduelles Abschwächen der Gedächtnisspur. Unklar, ob es existiert, weil es nicht zu untersuchen ist: Abruf führt zu Konsolidierung."},
- {id:"c3-12", f:"Kontextfluktuation", b:"Verlust von Abruf-Cues durch Veränderung des Kontextes. Bedingt Vergessen (Klausur 24/25: wahr)."},
- {id:"c3-13", f:"Cue-Competition und Cue-Overload-Prinzip", b:"Cue-Competition: Ein Cue ist mit mehr als einer Spur verknüpft, die Inhalte blockieren sich.\nCue-Overload: Die Abrufleistung sinkt systematisch mit der Anzahl der Einheiten an einem Cue."},
- {id:"c3-14", f:"Retroaktive Interferenz", b:"Neu erworbene Information stört den Abruf früher erworbener Inhalte."},
- {id:"c3-15", f:"Proaktive Interferenz", b:"Früher erworbene Information stört den Abruf später erworbener Inhalte (Klausur 24/25: wahr)."},
- {id:"c3-16", f:"Abrufinduziertes Vergessen", b:"Der Abruf bestimmter Teilinformationen behindert einen späteren Abruf anderer Informationsteile."}
+ {id:"c3-12", f:"Kontextfluktuation", b:"Verlust von Abruf-Cues durch Veränderung des Kontextes. Bedingt Vergessen (Klausur 24/25: wahr).\nBeispiel: In den Ferien Gelerntes fällt im Klassenraum schwerer ein, weil die Abruf-Cues von damals fehlen."},
+ {id:"c3-13", f:"Cue-Competition und Cue-Overload-Prinzip", b:"Cue-Competition: Ein Cue ist mit mehr als einer Spur verknüpft, die Inhalte blockieren sich.\nCue-Overload: Die Abrufleistung sinkt systematisch mit der Anzahl der Einheiten an einem Cue.\nBeispiel: Cue-Overload: Je mehr Vokabeln unter „Kapitel 3“ abgelegt sind, desto schlechter findest du eine einzelne."},
+ {id:"c3-14", f:"Retroaktive Interferenz", b:"Neu erworbene Information stört den Abruf früher erworbener Inhalte.\nBeispiel: Nach dem Lernen der neuen Handynummer fällt dir die alte nicht mehr ein."},
+ {id:"c3-15", f:"Proaktive Interferenz", b:"Früher erworbene Information stört den Abruf später erworbener Inhalte (Klausur 24/25: wahr).\nBeispiel: Die alte Handynummer drängt sich auf, wenn du die neue nennen willst."},
+ {id:"c3-16", f:"Abrufinduziertes Vergessen", b:"Der Abruf bestimmter Teilinformationen behindert einen späteren Abruf anderer Informationsteile.\nBeispiel: Wer vor der Klausur nur einige Themen abfragt, erinnert verwandte, nicht geübte Themen danach schlechter."}
 ];
 Object.assign(CARD_INFO,{
  "c3-02":"Ergänzung (nicht auf der Folie): Der Ansatz „levels of processing“ geht auf Craik & Lockhart (1972) zurück.",
@@ -3078,12 +3148,12 @@ CARDS[10]=[
  {id:"ckk-04", f:"Appetitive vs. aversive Konditionierung", b:"Appetitiv: Pawlows Hunde, US Futter, UR/CR Speichelfluss, CS Metronom.\nAversiv: „Little Albert“, US lauter Ton, UR Schreckreaktion, CS Ratte, CR Angstreaktion."},
  {id:"ckk-05", f:"„Little Albert“ (Watson & Rayner)", b:"Beispiel für Furchtkonditionierung bzw. „Conditioned Emotional Response“ (CER): Eine Ratte (NS) wird mit einem lauten Ton (US) gekoppelt und löst danach Angst aus (CR)."},
  {id:"ckk-06", f:"Klassische Konditionierung: nur Verstärkung von Verhalten?", b:"Nein, auch Unterdrückung: Ton (CS) kündigt Schock (US) an und löst danach Freezing aus.\nStandard: zeitlich verzögerte Darbietung des US, der CS ist prädiktiv."},
- {id:"ckk-07", f:"Extinktion (klassische Konditionierung)", b:"Vollständige oder teilweise Abschwächung einer CR durch wiederholte Darbietung des CS (Glocke) ohne den US (Futter). Etablierte CRs sind aber sehr stabil."},
- {id:"ckk-08", f:"Spontanerholung (klassische Konditionierung)", b:"Das Wiederaufflackern einer gelöschten CR auf den CS nach einer Ruhephase."},
+ {id:"ckk-07", f:"Extinktion (klassische Konditionierung)", b:"Vollständige oder teilweise Abschwächung einer CR durch wiederholte Darbietung des CS (Glocke) ohne den US (Futter). Etablierte CRs sind aber sehr stabil.\nBeispiel: Der Lehrer (CS) tadelt nicht mehr, die Angst vor ihm lässt allmählich nach."},
+ {id:"ckk-08", f:"Spontanerholung (klassische Konditionierung)", b:"Das Wiederaufflackern einer gelöschten CR auf den CS nach einer Ruhephase.\nBeispiel: Nach den Sommerferien ist die schon gelöschte Angst vor dem Lehrer kurz wieder da."},
  {id:"ckk-09", f:"Generalisierung und Generalisierungsgradient", b:"Die CR folgt auch auf Reize, die dem CS ähneln. Ihre Stärke hängt von der Ähnlichkeit zum CS ab (Gradient), z. B. CS 1000 Hz, schwächere CR auf 900 oder 1100 Hz."},
  {id:"ckk-10", f:"Diskriminierungstraining", b:"Ziel: die CR auf den CS fokussieren. Basis: konditionierte Inhibition, d. h. ein CS2 sagt das Ausbleiben des US vorher."},
  {id:"ckk-11", f:"Drei Parameter der Konditionierungsstärke nach Pawlow", b:"Kontiguität (zeitliche Nähe der Reize, vor allem)\nIntensität des US (bestimmt Intensität der CR)\nHäufigkeit des gemeinsamen Auftretens (Ausnahme: erlernte Geschmacksaversion)"},
- {id:"ckk-12", f:"Kontingenz nach Rescorla", b:"Wahrscheinlichkeit des US bei Anwesenheit des CS im Verhältnis zur Wahrscheinlichkeit des US ohne CS. Frage: Ist der CS ein zuverlässiger Prädiktor?"},
+ {id:"ckk-12", f:"Kontingenz nach Rescorla", b:"Wahrscheinlichkeit des US bei Anwesenheit des CS im Verhältnis zur Wahrscheinlichkeit des US ohne CS. Frage: Ist der CS ein zuverlässiger Prädiktor?\nBeispiel: Kommt der Schock ohne Ton genauso oft wie mit Ton, sagt der Ton nichts vorher, es wird kaum gelernt."},
  {id:"ckk-13", f:"Konditionierung zweiter Ordnung", b:"Durch Assoziation mit einem CS erwirbt ein bisher neutraler dritter Reiz die Kapazität eines (abgeschwächten) CS. Lernen ohne US! Beispiel: Licht wird mit dem Ton gekoppelt."},
  {id:"ckk-14", f:"Matheangst als klassische Konditionierung", b:"Schritt 1: Lehrer (NS) + Tadel (US) → Angst (UR); danach Lehrer (CS) → Angst (CR).\nSchritt 2: „Zahlen“ (NS) + Lehrer (CS) → Angst; danach „Zahlen“ (CS) → Angst (CR). Konditionierung zweiter Ordnung."}
 ];
@@ -3271,7 +3341,7 @@ CARDS[10].push(
  {id:"ckk-15", erg:true, f:"Folie mit Ratte, Ton und Kurve (Sitzung 3): Was zeigt sie?", b:"Prä: Schock (US) löst Freezing (UR) aus, der Ton (NS) nicht.\nPost: Der Ton (CS) löst Freezing (CR) aus; die Kurve zeigt, dass die Aktivität auf den Ton hin einbricht.\nAussage: Klassische Konditionierung kann Verhalten auch unterdrücken.\nZeitleiste darunter: Der Ton beginnt vor dem Futter (verzögerte Darbietung), so wird der CS prädiktiv."}
 );
 CARDS[2].push(
- {id:"c2-27", f:"Wie gelangt Information aus dem KZG ins LZG?", b:"Durch Elaboration, also Enkodierung in ein bestimmtes Format (z. B. visuell, semantisch)."},
+ {id:"c2-27", f:"Wie gelangt Information aus dem KZG ins LZG?", b:"Durch Elaboration, also Enkodierung in ein bestimmtes Format (z. B. visuell, semantisch).\nBeispiel: „Habituation“ mit dem eigenen Gewöhnen an Straßenlärm verknüpfen, statt die Definition nur auswendig zu lernen."},
  {id:"c2-28", erg:true, f:"Schlafstudie (Sitzung 5): Wie ist das Paradigma aufgebaut?", b:"Frühschlaf: lernen 22–23 Uhr, Behaltensintervall 23–2 Uhr mit Schlaf (SWS-reich) oder wach, Abruf 2:30–3 Uhr\nSpätschlaf: erst schlafen, lernen 2:30–3 Uhr, Behaltensintervall 3–6 Uhr mit Schlaf (REM-reich) oder wach, Abruf 6:30–7 Uhr\nLernstoff: Wortpaare (deklarativ) und Nachzeichnen eines Sterns im Spiegel (prozedural)\nErgebnis: deklarativ profitiert vom Frühschlaf, prozedural vom Spätschlaf"},
  {id:"c2-29", erg:true, f:"Grafik Hippocampus und Kortex (Sitzung 5): Was passiert mit der Zeit?", b:"Anfangs verbindet der Hippocampus die verteilten Kortex-Anteile einer Erinnerung (starke Linien nach unten).\nMit der Zeit, vor allem im Schlaf, werden die Verbindungen im Kortex selbst stärker.\nAm Ende ist die Erinnerung im Kortex verankert, der Hippocampus wird weniger gebraucht."}
 );
@@ -3421,12 +3491,12 @@ check:[
 CARDS[6]=[
  {id:"c6-01", f:"Phineas Gage und das Frontalhirnsyndrom", b:"Phineas Gage (1823–1869): Verhaltensänderung nach Verletzung des Stirnhirns.\nICD-10 F07.2: dysexekutives Syndrom (nach Schädelhirntrauma)."},
  {id:"c6-02", f:"Sechs Merkmale des dysexekutiven Syndroms (F07.2)", b:"Impulsivität (mangelnde inhibitorische Kontrolle)\nmangelnde kognitive Flexibilität (Perseveration)\neingeschränkte Planungsfähigkeit\nmangelnde Überwachung der Zielerreichung\nverminderte Parallelverarbeitung (Fehler beim Dual-Tasking)\nUnfähigkeit, Regeln zu beachten (kognitiv, emotional, sozial)"},
- {id:"c6-03", f:"Exekutive Funktionen (Definition)", b:"Set kognitiver Prozesse, die andere kognitive Prozesse (z. B. Wahrnehmung, Gedächtnis) kontrollieren bzw. deren Zusammenspiel optimieren, um zielgerichtetes Verhalten zu ermöglichen. Deshalb metakognitive Funktionen."},
+ {id:"c6-03", f:"Exekutive Funktionen (Definition)", b:"Set kognitiver Prozesse, die andere kognitive Prozesse (z. B. Wahrnehmung, Gedächtnis) kontrollieren bzw. deren Zusammenspiel optimieren, um zielgerichtetes Verhalten zu ermöglichen. Deshalb metakognitive Funktionen.\nBeispiel: Bei einer Textaufgabe planen, ablenkende Gedanken unterdrücken und den Lösungsweg überwachen."},
  {id:"c6-04", f:"Exekutive Funktionen als „Sammelbecken“: Was gehört dazu?", b:"Handlungsplanung, Problemlösen, Aufmerksamkeitssteuerung, Inhibition, mentale Flexibilität, Multi-Tasking, Monitoring-Prozesse usw."},
  {id:"c6-05", f:"Zentrale Exekutive als erstes Modell exekutiver Kontrolle", b:"Teil des Arbeitsgedächtnismodells (Baddeley & Hitch, 1974). Unitäres System, das untergeordneten Systemen Ressourcen zuordnet, v. a. für Fokussierung und Teilung von Aufmerksamkeit und für die Verbindung zum LZG."},
  {id:"c6-06", f:"Vier Aufgaben der zentralen Exekutive (Baddeley, 1996)", b:"Koordination unter Dual-Task-Bedingungen\nflexibles Wechseln zwischen Strategien\nAufmerksamkeitsfokussierung und Inhibition\nselektive Aktivierung, Aufrechterhaltung und Manipulation von Information aus dem LZG"},
  {id:"c6-07", f:"„Unity and Diversity“ (Miyake et al., 2000): Ausgangspunkt", b:"Leistung bei komplexen Aufgaben, die exekutive Kontrolle fordern, ist zu unterscheiden von Leistung bei Aufgaben, die nur auf einzelne Aspekte laden. Komplexe Aufgaben erfordern das Zusammenspiel der Aspekte."},
- {id:"c6-08", f:"Die drei Aspekte exekutiver Kontrolle (Diversity)", b:"Updating: Überwachung und Aktualisierung von Arbeitsgedächtnisrepräsentationen\nInhibition: Unterdrückung aktuell vorherrschender (kognitiver und motorischer) Antworttendenzen\nSwitching/Shifting: kognitive Flexibilität, zwischen Strategien und mentalen Zuständen zu wechseln"},
+ {id:"c6-08", f:"Die drei Aspekte exekutiver Kontrolle (Diversity)", b:"Updating: Überwachung und Aktualisierung von Arbeitsgedächtnisrepräsentationen\nInhibition: Unterdrückung aktuell vorherrschender (kognitiver und motorischer) Antworttendenzen\nSwitching/Shifting: kognitive Flexibilität, zwischen Strategien und mentalen Zuständen zu wechseln\nBeispiel: Beim Mitschreiben neue Punkte ergänzen (Updating), nicht reinrufen (Inhibition), von Mathe auf Deutsch umschalten (Shifting)."},
  {id:"c6-09", f:"Der „Unity“-Part", b:"Die drei Aspekte sind eindeutig zu trennen (clusteranalytisch), aber moderat korreliert. Vermutung: Inhibitorische Prozesse liegen allen drei Teilfunktionen zugrunde."},
  {id:"c6-10", f:"Wann ist Steuerung unter Aufmerksamkeitsressourcen nötig? (Fragenkatalog)", b:"bei unbekannten oder unerwarteten Situationen\nbei kognitiven Konflikten\nfür die Unterdrückung präpotenter Antwortmuster"},
  {id:"c6-11", f:"Wisconsin Card Sorting-Test (WCST)", b:"Klassisches komplexes Maß (Monchi et al., 2001). Fordert Updating eines Situationsmodells, Wechseln der Strategie und Unterdrücken alter Antworttendenzen.\nMaß: Perseveration."},
@@ -3439,7 +3509,7 @@ CARDS[6]=[
  {id:"c6-18", f:"Marshmallow-Experiment (Mischel)", b:"Studien der 1970er Jahre. Gratifikationsaufschub als Maß für Selbststeuerung: die (meist kindliche) Kapazität, kurzfristige Bedürfnisbefriedigung zugunsten langfristiger Zielerreichung aufzuschieben."},
  {id:"c6-19", f:"Warum ist Selbststeuerung entwicklungspsychologisch bedeutsam?", b:"Querschnittlich: sagt zu jedem Zeitpunkt psychologisches Well-Being vorher.\nLängsschnittlich: früher Prädiktor vieler Entwicklungsoutcomes (akademische Leistung, Zufriedenheit in Partnerschaften, Substanzmissbrauch)."},
  {id:"c6-20", f:"Selbststeuerung im Kindesalter: Unterschiede und Entwicklung", b:"Massive Unterschiede: interindividuell (Korrelation mit IQ), innerindividuell, interkulturell, entwicklungsbezogen.\nErste Ansätze mit etwa einem Jahr (basale Affektkontrolle), Hauptphase 3. bis 6. Lebensjahr.\nFolge: Relevanz früher Ko-Regulation (Erwachsene, kompetente Peers)."},
- {id:"c6-21", f:"Selbststeuerung nach Fröhlich & Kuhl (2003)", b:"Zwei Komponenten:\nSelbstregulation: Bilden und Aufrechterhalten selbstkongruenter Ziele\nSelbstkontrolle: durch explizite Absichten vermittelte Zielverfolgung"},
+ {id:"c6-21", f:"Selbststeuerung nach Fröhlich & Kuhl (2003)", b:"Zwei Komponenten:\nSelbstregulation: Bilden und Aufrechterhalten selbstkongruenter Ziele\nSelbstkontrolle: durch explizite Absichten vermittelte Zielverfolgung\nBeispiel: Sich vornehmen, fürs Abi zu lernen (Selbstregulation), dann das Handy weglegen, obwohl ein Spiel lockt (Selbstkontrolle)."},
  {id:"c6-22", f:"Selbstregulation (Definition)", b:"Mentale Funktion, die die bewusste oder unbewusste Lenkung eigener kognitiver, affektiver, motivationaler, behavioraler und motorischer Aktionen und Reaktionen im Sinne übergeordneter, willentlich angestrebter kurz-, mittel- und langfristiger Ziele ermöglicht. Fokus: Handlungssteuerung, mit Regulation von Kognitionen, Emotionen/Motivation und Kontext."},
  {id:"c6-23", f:"Fähigkeiten der Selbstregulation", b:"Ziele setzen\nHandlungsoptionen auswählen und umsetzen\nHandlung überwachen\nSoll- und Ist-Zustand abgleichen\nSystem mit Handlungsimpetus/-energie ausstatten"},
  {id:"c6-24", f:"Selbstkontrolle: wann und was?", b:"Wann: im Konflikt zwischen zielkongruenten und attraktiven zielinkongruenten Alternativen.\nWas: eingeschliffene Reaktionstendenzen unterdrücken bzw. Reizvolles ignorieren, Alternativen im AG aktualisieren, alternative Handlungspfade initiieren."},
@@ -4172,7 +4242,7 @@ if("serviceWorker" in navigator){ window.addEventListener("load", ()=>navigator.
    Beim Start lädt die App eine neue Version sofort. Beim Zurückkehren nur, wenn gerade nichts läuft;
    mitten in Karten, Aufgaben oder Probeklausur erscheint stattdessen ein Hinweis zum Antippen. Der Lernstand liegt im Gerät und wird vorher abgeglichen. */
 (function(){
-  var V="85bce61f4965", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
+  var V="8bdb69e69365", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
   function busy(){ try{ return BUSY.indexOf(view)>=0; }catch(e){ return false; } }
   function syncing(){ try{ return !!(pushTimer||pushing); }catch(e){ return false; } }
   function reload(t){ try{ sessionStorage.setItem("upd-"+t,"1"); }catch(e){} location.replace(location.pathname+"?v="+t+location.hash); }

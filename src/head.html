@@ -408,6 +408,28 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .srow.ch{grid-template-columns:1fr auto}
 .srow.ch .small{grid-column:1/-1;grid-row:2}
 h1,h2,h3,.card .front{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
+
+/* Kreuzaufgaben als Karte (Muster 23.11., nur BiWi II) */
+.kzdots{display:flex;gap:6px;flex:none}
+.kzdots i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.75rem;font-weight:650;color:var(--muted);background:color-mix(in srgb,var(--muted) 14%,transparent)}
+.kzdots i.now{color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.kzdots i.ok{color:var(--surface);background:var(--good)}.kzdots i.idk{color:var(--surface);background:var(--gold)}.kzdots i.no{color:var(--surface);background:var(--bad)}
+.kzstem{font-family:var(--serif);font-size:1.05rem;color:var(--muted);margin:14px 0 8px;text-wrap:balance}
+.kzc{min-height:11rem}
+.kzc.ok{box-shadow:var(--lift),inset 0 0 0 2.5px color-mix(in srgb,var(--good) 75%,transparent)}
+.kzc.no{box-shadow:var(--lift),inset 0 0 0 2.5px color-mix(in srgb,var(--bad) 75%,transparent)}
+.kzc.idk{box-shadow:var(--lift),inset 0 0 0 2.5px color-mix(in srgb,var(--gold) 60%,transparent)}
+.kzv{display:flex;gap:12px;align-items:flex-start;border-top:1px solid var(--line);padding-top:12px;max-width:62ch}
+.kzv .ic{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:var(--surface)}
+.kzv.ok .ic{background:var(--good)}.kzv.no .ic{background:var(--bad)}.kzv.idk .ic{background:var(--gold)}
+.kzv b{display:block;font-size:1.1rem;line-height:1.3}.kzv.ok b{color:var(--good)}.kzv.no b{color:var(--bad)}.kzv.idk b{color:var(--gold)}
+.kzv span{display:block;margin-top:2px}
+.kzwhy{margin:0;max-width:62ch;color:var(--muted)}
+.kzans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.kzans .btn{padding:16px 6px;font-size:1.06rem;min-height:56px}
+.kzidk{display:block;margin:8px auto 0;background:none;border:0;color:var(--muted);font:inherit;font-size:.92rem;min-height:44px;padding:0 14px;cursor:pointer}
+#kzNext{display:block;width:100%;margin-top:16px;min-height:56px;font-size:1.06rem}
+.kzsum{text-align:center;margin:10px 0 0;font-size:.92rem;color:var(--muted)}
 </style>
 <style>
 /*__DESIGN__*/
