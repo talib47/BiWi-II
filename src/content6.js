@@ -136,7 +136,7 @@ CARDS[1].push(
  {id:"c1-22", erg:true, f:"Phrenologie-Foto (Sitzung 1 und 2): Wofür steht es?", b:"Ein Mann vermisst mit einem Gerät den Schädel einer Person.\nDie Phrenologie wollte geistige Eigenschaften an Schädelformen ablesen, als säßen sie als Organe im Kopf.\nLehre für die Klausur: Konstrukte sind Erklärungszugänge, keine realen, lokalisierbaren Dinge."}
 );
 CARDS[9].push(
- {id:"c9-18", erg:true, f:"Heines Baum zum Schwerpunkt Lernen: Was steht wo?", b:"Nichtassoziativ, Lernen infolge wiederholter Stimulusdarbietung: Habituation, Sensitivierung, Priming\nNichtassoziativ, perzeptuelles Lernen: „mere exposure“, Diskriminationstraining, räumliches Lernen\nAssoziativ (E1 → E2): klassische Konditionierung (S1 → S2), operante Konditionierung (R → S)\nGrau gedruckt: Priming und perzeptuelles Lernen, vermutlich nicht vertieft\nRot umkreist: das Thema der jeweiligen Sitzung"}
+ {id:"c9-18", erg:true, f:"Heines Baum zum Schwerpunkt Lernen: Was steht wo?", b:"Nichtassoziativ (Wiederholung): Habituation, Sensitivierung, Priming\nNichtassoziativ (perzeptuell): „mere exposure“, Diskriminationstraining, räumliches Lernen\nAssoziativ (E1 → E2): klassisch (S1 → S2), operant (R → S)\nGrau gedruckt: Priming und perzeptuelles Lernen, vermutlich nicht vertieft"}
 );
 CARDS[10].push(
  {id:"ckk-15", erg:true, f:"Folie mit Ratte, Ton und Kurve (Sitzung 3): Was zeigt sie?", b:"Prä: Schock (US) löst Freezing (UR) aus, der Ton (NS) nicht.\nPost: Der Ton (CS) löst Freezing (CR) aus; die Kurve zeigt, dass die Aktivität auf den Ton hin einbricht.\nAussage: Klassische Konditionierung kann Verhalten auch unterdrücken.\nZeitleiste darunter: Der Ton beginnt vor dem Futter (verzögerte Darbietung), so wird der CS prädiktiv."}

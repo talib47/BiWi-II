@@ -66,19 +66,19 @@ check:[
 ];
 
 CARDS[10]=[
- {id:"ckk-01", f:"Klassische Konditionierung (Definition)", b:"Ein ursprünglich neutraler Reiz (NS → CS), der eine antizipatorische Reaktion nicht auslöst, löst durch Assoziation mit einem Reiz, der diese Reaktion unbedingt auslöst (US), ebenfalls eine antizipatorische Reaktion (CR) aus."},
+ {id:"ckk-01", f:"Klassische Konditionierung (Definition)", b:"Vorher: ein neutraler Reiz (NS) löst die antizipatorische Reaktion nicht aus\nKopplung: mit einem Reiz, der sie unbedingt auslöst (US)\nNachher: der frühere NS ist ein CS und löst die Reaktion aus (CR)"},
  {id:"ckk-02", f:"US, UR, NS, CS, CR", b:"US: unkonditionierter Reiz\nUR: unkonditionierte, reflexartige Reaktion\nNS: neutraler Reiz\nCS: konditionierter Reiz\nCR: konditionierte Reaktion"},
  {id:"ckk-03", f:"Schema des Erwerbs (Pawlow)", b:"Vorher: Ton (NS) → keine Reaktion; Futter (US) → Speichelfluss (UR)\nLernen: Ton + Futter → Speichelfluss\nNachher: Ton (CS) → Speichelfluss (CR)"},
  {id:"ckk-04", f:"Appetitive vs. aversive Konditionierung", b:"Appetitiv: Pawlows Hunde, US Futter, UR/CR Speichelfluss, CS Metronom.\nAversiv: „Little Albert“, US lauter Ton, UR Schreckreaktion, CS Ratte, CR Angstreaktion."},
  {id:"ckk-05", f:"„Little Albert“ (Watson & Rayner)", b:"Beispiel für Furchtkonditionierung bzw. „Conditioned Emotional Response“ (CER): Eine Ratte (NS) wird mit einem lauten Ton (US) gekoppelt und löst danach Angst aus (CR)."},
  {id:"ckk-06", f:"Klassische Konditionierung: nur Verstärkung von Verhalten?", b:"Nein, auch Unterdrückung: Ton (CS) kündigt Schock (US) an und löst danach Freezing aus.\nStandard: zeitlich verzögerte Darbietung des US, der CS ist prädiktiv."},
- {id:"ckk-07", f:"Extinktion (klassische Konditionierung)", b:"Vollständige oder teilweise Abschwächung einer CR durch wiederholte Darbietung des CS (Glocke) ohne den US (Futter). Etablierte CRs sind aber sehr stabil.\nBeispiel: Der Lehrer (CS) tadelt nicht mehr, die Angst vor ihm lässt allmählich nach."},
+ {id:"ckk-07", f:"Extinktion (klassische Konditionierung)", b:"Wie: CS (Glocke) wiederholt ohne US (Futter) darbieten\nFolge: CR schwächt sich ganz oder teilweise ab\nAber: etablierte CRs sind sehr stabil\nBeispiel: Der Lehrer (CS) tadelt nicht mehr, die Angst vor ihm lässt allmählich nach."},
  {id:"ckk-08", f:"Spontanerholung (klassische Konditionierung)", b:"Das Wiederaufflackern einer gelöschten CR auf den CS nach einer Ruhephase.\nBeispiel: Nach den Sommerferien ist die schon gelöschte Angst vor dem Lehrer kurz wieder da."},
- {id:"ckk-09", f:"Generalisierung und Generalisierungsgradient", b:"Die CR folgt auch auf Reize, die dem CS ähneln. Ihre Stärke hängt von der Ähnlichkeit zum CS ab (Gradient), z. B. CS 1000 Hz, schwächere CR auf 900 oder 1100 Hz."},
+ {id:"ckk-09", f:"Generalisierung und Generalisierungsgradient", b:"Generalisierung: die CR folgt auch auf Reize, die dem CS ähneln\nGradient: je ähnlicher dem CS, desto stärker die CR\nBeispiel: CS 1000 Hz, schwächere CR auf 900 oder 1100 Hz."},
  {id:"ckk-10", f:"Diskriminierungstraining", b:"Ziel: die CR auf den CS fokussieren. Basis: konditionierte Inhibition, d. h. ein CS2 sagt das Ausbleiben des US vorher."},
  {id:"ckk-11", f:"Drei Parameter der Konditionierungsstärke nach Pawlow", b:"Kontiguität (zeitliche Nähe der Reize, vor allem)\nIntensität des US (bestimmt Intensität der CR)\nHäufigkeit des gemeinsamen Auftretens (Ausnahme: erlernte Geschmacksaversion)"},
  {id:"ckk-12", f:"Kontingenz nach Rescorla", b:"Wahrscheinlichkeit des US bei Anwesenheit des CS im Verhältnis zur Wahrscheinlichkeit des US ohne CS. Frage: Ist der CS ein zuverlässiger Prädiktor?\nBeispiel: Kommt der Schock ohne Ton genauso oft wie mit Ton, sagt der Ton nichts vorher, es wird kaum gelernt."},
- {id:"ckk-13", f:"Konditionierung zweiter Ordnung", b:"Durch Assoziation mit einem CS erwirbt ein bisher neutraler dritter Reiz die Kapazität eines (abgeschwächten) CS. Lernen ohne US! Beispiel: Licht wird mit dem Ton gekoppelt."},
+ {id:"ckk-13", f:"Konditionierung zweiter Ordnung", b:"Was: ein neutraler dritter Reiz wird mit einem CS gekoppelt und wird selbst zum (abgeschwächten) CS\nBesonders: Lernen ohne US\nBeispiel: Licht wird mit dem Ton gekoppelt."},
  {id:"ckk-14", f:"Matheangst als klassische Konditionierung", b:"Schritt 1: Lehrer (NS) + Tadel (US) → Angst (UR); danach Lehrer (CS) → Angst (CR).\nSchritt 2: „Zahlen“ (NS) + Lehrer (CS) → Angst; danach „Zahlen“ (CS) → Angst (CR). Konditionierung zweiter Ordnung."}
 ];
 Object.assign(CARD_INFO,{
