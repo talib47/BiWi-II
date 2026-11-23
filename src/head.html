@@ -409,7 +409,15 @@ svg .fillB{fill:var(--accent-soft);opacity:.55;stroke:none}
 .srow.ch .small{grid-column:1/-1;grid-row:2}
 h1,h2,h3,.card .front{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
 
-/* Kreuzaufgaben als Karte (Muster 23.11., nur BiWi II) */
+/* Auswahlkarten (Kreuzaufgaben, Verständnisfragen, Zuordnen) wie Lernkarten (Muster 23.11., nur BiWi II) */
+.card.qc .front{font-size:1.18rem}
+.qcopts{margin-top:14px}
+.qcopts button{min-height:52px;font-size:1rem}
+.qchint{margin:10px 0 0}
+.kzwhy p{margin:0 0 6px}.kzwhy p:last-child{margin:0}
+.qlink{align-self:flex-start;background:none;border:0;padding:0 2px;min-height:44px;color:var(--accent);font:inherit;font-size:.92rem;font-weight:600;cursor:pointer}
+@media (pointer:coarse){ main .qnext{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0;padding:0} }
+.qnext .btn{display:block;width:100%;margin-top:16px;min-height:56px;font-size:1.06rem}
 .kzdots{display:flex;gap:6px;flex:none}
 .kzdots i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.75rem;font-weight:650;color:var(--muted);background:color-mix(in srgb,var(--muted) 14%,transparent)}
 .kzdots i.now{color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);box-shadow:inset 0 0 0 1.5px var(--accent)}
@@ -428,7 +436,6 @@ h1,h2,h3,.card .front{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto
 .kzans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .kzans .btn{padding:16px 6px;font-size:1.06rem;min-height:56px}
 .kzidk{display:block;margin:8px auto 0;background:none;border:0;color:var(--muted);font:inherit;font-size:.92rem;min-height:44px;padding:0 14px;cursor:pointer}
-#kzNext{display:block;width:100%;margin-top:16px;min-height:56px;font-size:1.06rem}
 .kzsum{text-align:center;margin:10px 0 0;font-size:.92rem;color:var(--muted)}
 </style>
 <style>

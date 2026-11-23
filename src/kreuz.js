@@ -47,7 +47,7 @@ function pickKreuz(n,k){
   }
   return out;
 }
-function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, j:0, ans:{}, prev:null, pts:[], sure:[]}; go("kreuz"); }
+function openKreuz(n,k,ids){ cur.kr={n, items:ids||pickKreuz(n,k||5).map(x=>x.id), i:0, j:0, ans:{}, prev:null, pts:[], sure:[]}; if(QC) QC.enter=false; go("kreuz"); }
 function kzBlock(item,ans,shown,key,gs){
   return item.s.map((st,j)=>{ const a=ans[j], g=gs&&gs[j];
     const cls=v=>shown?(st[1]===v?"r":(a===v?"w":"")):"";
@@ -57,11 +57,77 @@ function kzBlock(item,ans,shown,key,gs){
         :a===st[1]?`<div class="fb idk"><p class="fh">Richtig geraten. Zählt noch nicht als gewusst.</p><p style="margin:0">${st[2]}</p></div>`
         :`<div class="fb ${a===undefined?"idk":"bad"}"><p class="fh">${a===undefined?"Nicht angekreuzt. ":""}Die Aussage ist ${st[1]?"wahr":"falsch"}.</p><p style="margin:0">${st[2]}</p></div>`}</div>`; }).join("");
 }
-/* Kreuzaufgaben im Stil der Lernkarten (Muster 23.11.): eine Aussage nach der anderen auf einer Karte,
-   darunter „falsch“ und „wahr“ als große Knöpfe; nach dem Tippen sofort ein klares Urteil auf der Karte
-   (grün „Richtig.“ bzw. rot „Falsch.“ mit deiner Wahl und der Lösung), dann „Weiter“ an derselben Stelle,
-   Tippen auf die Karte oder Wischen. Punkte wie in der Klausur nach der dritten Aussage.
-   „Weiß ich nicht“ zählt keinen Punkt. Tastatur: ← falsch, → wahr, Enter weiter. */
+/* ================= Auswahlkarte: Fragen wie Lernkarten (Muster 23.11.) =================
+   Gilt für Kreuzaufgaben, Verständnisfragen und Zuordnen. Gleiche Gesten wie bei den Karten:
+   Tippen (auf die Karte oder daneben) deckt auf bzw. geht weiter, Wischen wie gewohnt:
+   - Kreuzaufgabe: rechts wahr, links falsch (Tönung grün/rot wie bei „sicher“/„nicht sicher“).
+   - Verständnisfrage: erst selbst überlegen, Tippen zeigt die Auswahl; links wischen = „Weiß ich nicht“.
+   - Nach der Antwort: Tippen oder Wischen in eine Richtung, die Karte fliegt hinaus, die nächste kommt.
+   Wischen, wenn noch nichts geht, lässt die Karte rot den Kopf schütteln. Auf Touch keine „Weiter“-Knöpfe. */
+let QC=null;
+function qcRender(o){
+  const ph=o.phase, done=ph==="done";
+  const vcls=!done?"":o.ok===true?" ok":o.ok===null?" idk":" no";
+  const v=o.verdict;
+  $("#app").innerHTML=`
+    <div class="row between ctop"><p class="eyebrow" style="margin:0">${o.eye}</p>${o.right||""}</div>
+    ${o.stem?`<p class="kzstem">${o.stem}</p>`:""}
+    <div class="swipewrap"><div class="block card qc${vcls}${QC&&QC.enter?" enter":""}" id="theCard" role="button" tabindex="0" aria-label="${ph==="front"?"Auswahl zeigen":done?"Weiter":"Karte"}"><i class="tint" aria-hidden="true"></i>
+      ${o.ctx?`<p class="cctx">${o.ctx}</p>`:""}
+      <div class="front">${o.front}${o.erg?` <span class="erg">Ergänzung</span>`:""}</div>
+      ${done?`<div class="kzv${vcls}"><span class="ic" aria-hidden="true">${o.ok===true?"✓":o.ok===null?"?":"✕"}</span><div><b>${v.t}</b>${v.s.map(x=>`<span>${x}</span>`).join("")}</div></div>${o.why?`<div class="kzwhy">${o.why}</div>`:""}${o.more||""}`:""}
+    </div></div>
+    ${ph==="front"?`<div class="row fliprow"><button class="btn" id="qcShow" style="flex:1">Auswahl zeigen</button></div>`
+      :ph==="open"?`${o.binary?`<div class="kzans" role="group" aria-label="Ist die Aussage wahr oder falsch?">${o.opts.map(x=>`<button class="btn ghost" data-qk="${x.k}">${x.l}</button>`).join("")}</div>`
+          :`<div class="mc qcopts">${o.opts.map(x=>`<button data-qk="${x.k}">${inl(x.l)}</button>`).join("")}</div>`}
+        ${o.idk?`<button class="kzidk" data-qk="__idk">Weiß ich nicht</button>`:""}${o.hint?`<p class="small muted qchint">${o.hint}</p>`:""}`
+      :`<div class="qnext"><button class="btn" id="qcNext">${o.next||"Weiter"}</button></div>${o.below||""}`}`;
+  const cd=$("#theCard");
+  QC={cd, enter:false,
+    tap:()=>{ if(ph==="front") o.reveal(); else if(ph==="open"&&o.reveal&&o.hide) o.hide(); else if(done) o.go(); },
+    can:d=>done?"fly":ph==="open"&&o.binary?"snap":ph==="open"&&o.idk&&d<0?"snap":false,
+    tint:d=>ph==="open"&&o.binary?(d>0?"ok":"no"):"",
+    swipe:d=>{ if(done){ QC.enter=true; o.go(); } else if(o.binary) o.pick(o.opts[d>0?1:0].k); else if(d<0&&o.idk) o.pick("__idk"); } };
+  document.querySelectorAll("[data-qk]").forEach(b=>b.onclick=()=>o.pick(b.dataset.qk));
+  if($("#qcShow")) $("#qcShow").onclick=o.reveal;
+  if($("#qcNext")) $("#qcNext").onclick=()=>{ QC.enter=true; o.go(); };
+  cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); QC.tap(); } };
+  if(o.after) o.after();
+}
+/* Gesten für alle Auswahlkarten: auf der Karte und daneben, wie bei den Lernkarten */
+(function(){ let x0=null,y0=0,t0=0,id=null,on=false,shook=false,dx=0,hist=[],mouseOut=false;
+  const views=["kreuz","recall","who"];
+  const ok=e=>views.includes(view)&&QC&&QC.cd&&document.body.contains(QC.cd)&&!e.target.closest("button,a,textarea,input,select,label,#sessbar,#focusbar,nav,details");
+  const speed=()=>{ if(hist.length<2) return 0; const [t1,a]=hist[0],[t2,b]=hist[hist.length-1]; return t2>t1?(b-a)/(t2-t1):0; };
+  document.addEventListener("pointerdown",e=>{ if(!ok(e)) return; mouseOut=e.pointerType==="mouse"&&!e.target.closest("#theCard"); x0=e.clientX; y0=e.clientY; t0=performance.now(); id=e.pointerId; on=false; shook=false; dx=0; hist=[]; },{passive:true});
+  document.addEventListener("pointermove",e=>{ if(x0===null||e.pointerId!==id||mouseOut) return; const d=e.clientX-x0, cd=QC.cd;
+    if(!on){ if(Math.abs(d)>12&&Math.abs(d)>1.4*Math.abs(e.clientY-y0)){ if(!QC.can(d>0?1:-1)){ if(!shook){ shook=true; buzz(); } return; } on=true; x0+=d>0?12:-12; cd.style.transition="none"; cd.classList.add("drag"); } else return; }
+    dx=e.clientX-x0; const t=performance.now(); hist.push([t,e.clientX]); while(hist.length>2&&t-hist[0][0]>90) hist.shift();
+    const tc=QC.tint(dx>0?1:-1), tint=cd.querySelector(".tint"); if(tint){ tint.className="tint "+tc; tint.style.opacity=tc?Math.min(1,Math.abs(dx)/(cd.offsetWidth*.2)):0; }
+    cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/40}deg)`; },{passive:true});
+  const up=e=>{ if(x0===null||e.pointerId!==id) return; const cd=QC.cd, was=on, far=Math.hypot(e.clientX-x0,e.clientY-y0), quick=performance.now()-t0<500; x0=null; on=false;
+    if(shook){ window.__noClick=Date.now(); return; }
+    if(!was){ if(!mouseOut&&far<10&&quick&&e.type==="pointerup") QC.tap(); return; }
+    window.__noClick=Date.now(); const v=speed(), lim=Math.min(90,cd.offsetWidth*.22), d=Math.sign(dx)||Math.sign(v);
+    const go=Math.abs(dx)>lim||(Math.abs(v)>.45&&Math.abs(dx)>24&&Math.sign(v)===Math.sign(dx)), act=go&&QC.can(d);
+    const tint=cd.querySelector(".tint");
+    if(act==="fly"){ const out=d*(window.innerWidth*.6+cd.offsetWidth); cd.style.transition="transform .24s cubic-bezier(.25,.8,.35,1), opacity .24s linear"; cd.style.transform=`translate3d(${out}px,0,0) rotate(${d*16}deg)`; cd.style.opacity="0";
+      let f=false; const fin=()=>{ if(f) return; f=true; QC.swipe(d); }; cd.addEventListener("transitionend",fin,{once:true}); setTimeout(fin,300); return; }
+    cd.classList.remove("drag"); cd.style.transition="transform .42s cubic-bezier(.2,1.5,.4,1)"; cd.style.transform=""; if(tint){ tint.style.transition="opacity .2s"; tint.style.opacity=0; }
+    if(act==="snap") setTimeout(()=>QC.swipe(d),120); };
+  document.addEventListener("pointerup",up,{passive:true}); document.addEventListener("pointercancel",up,{passive:true});
+  /* Tastatur: Leertaste/Enter aufdecken bzw. weiter; → wahr, ← falsch bzw. „Weiß ich nicht“; 1–5 wählt eine Antwort */
+  document.addEventListener("keydown",e=>{
+    if(!views.includes(view)||!QC||e.metaKey||e.ctrlKey||e.altKey||(e.target.closest&&e.target.closest("textarea,input,select"))||document.activeElement===QC.cd) return;
+    const k=e.key;
+    if(k===" "||k==="Enter"){ if(document.activeElement&&document.activeElement.tagName==="BUTTON") return; e.preventDefault(); QC.tap(); }
+    else if(k==="ArrowRight"||k==="ArrowLeft"){ const d=k==="ArrowRight"?1:-1, a=QC.can(d); if(a){ e.preventDefault(); if(a==="fly"){ QC.enter=true; } QC.swipe(d); } }
+    else if(/^[1-9]$/.test(k)){ const b=document.querySelectorAll(".qcopts [data-qk]")[+k-1]; if(b){ e.preventDefault(); b.click(); } }
+  });
+})();
+
+/* Kreuzaufgaben als Auswahlkarte: eine Aussage nach der anderen, Punkte wie in der Klausur nach der dritten Aussage.
+   „Weiß ich nicht“ zählt keinen Punkt. */
 const KZ_DOT="abc";
 function kzFinish(K,item){
   const p=kzPoints(item,K.ans); K.pts[K.i]=p; K.sure[K.i]=p;
@@ -70,7 +136,7 @@ function kzFinish(K,item){
 }
 function kzNext(){ const K=cur.kr; if(!(K.j in K.ans)) return;
   if(K.j<2){ K.j++; } else { K.i++; K.j=0; K.ans={}; K.prev=null; }
-  K.enter=true; renderKreuz(); window.scrollTo(0,0); }
+  renderKreuz(); window.scrollTo(0,0); }
 function renderKreuz(){
   const K=cur.kr, back=K.n?"Kapitel "+K.n:"Üben", backFn=()=>{ if(K.n){ cur.ch=K.n; go("chapter"); } else go("practice"); };
   if(K.j===undefined) K.j=0;
@@ -85,49 +151,23 @@ function renderKreuz(){
   }
   const item=KREUZ.find(x=>x.id===K.items[K.i]), ch=CHAPTERS.find(c=>c.n===item.ch), j=K.j, st=item.s[j];
   if(j===0&&!(0 in K.ans)&&K.prev===null) K.prev=kzStat(item.id)||false;
-  const done=j in K.ans, a=K.ans[j], ok=done&&a===st[1], last=j===2;
-  const word=v=>v?"wahr":"falsch";
+  const done=j in K.ans, a=K.ans[j], ok=done&&a===st[1], last=j===2, word=v=>v?"wahr":"falsch";
   const dots=[0,1,2].map(k=>{ const d=k in K.ans, r=d&&K.ans[k]===item.s[k][1], q=d&&K.ans[k]===null;
     return `<i class="${q?"idk":d?(r?"ok":"no"):k===j?"now":""}" aria-label="Aussage ${KZ_DOT[k]}${q?" nicht gewusst":d?(r?" richtig":" falsch"):""}">${q?"?":d?(r?"✓":"✕"):KZ_DOT[k]}</i>`; }).join("");
-  const verdict=!done?"":ok
-      ? `<div class="kzv ok"><span class="ic" aria-hidden="true">✓</span><div><b>Richtig.</b><span>Die Aussage ist ${word(st[1])}.</span></div></div>`
-      : a===null
-      ? `<div class="kzv idk"><span class="ic" aria-hidden="true">?</span><div><b>Nicht gewusst.</b><span>Die Aussage ist ${word(st[1])}.</span></div></div>`
-      : `<div class="kzv no"><span class="ic" aria-hidden="true">✕</span><div><b>Falsch.</b><span>Du hast „${word(a)}“ gewählt, die Aussage ist aber ${word(st[1])}.</span></div></div>`;
-  $("#app").innerHTML=`
-    <div class="row between ctop"><p class="eyebrow" style="margin:0">Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}${item.erg?` <span class="erg">Ergänzung</span>`:""}</p><span class="kzdots">${dots}</span></div>
-    <p class="kzstem">${item.stem}</p>
-    <div class="swipewrap"><div class="block card kzc${done?(ok?" ok":a===null?" idk":" no"):""}${K.enter?" enter":""}" id="theCard" ${done?`role="button" tabindex="0" aria-label="Weiter"`:""}>
-      <p class="cctx">Aussage ${KZ_DOT[j]})${K.prev&&j===0&&!done?` · zuletzt ${K.prev.p} von 4 Punkten`:""}</p>
-      <div class="front">${inl(st[0])}</div>
-      ${done?`${verdict}<p class="kzwhy">${st[2]}</p>`:""}
-    </div></div>
-    ${done?`<button class="btn" id="kzNext">${!last?"Weiter":K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung"}</button>${last?`<p class="kzsum">Diese Aufgabe: ${K.pts[K.i]} von 4 Punkten</p>`:""}`
-      :`<div class="kzans" role="group" aria-label="Ist die Aussage wahr oder falsch?"><button class="btn ghost" data-kv="0">falsch</button><button class="btn ghost" data-kv="1">wahr</button></div><button class="kzidk" data-kv="x">Weiß ich nicht</button>`}`;
-  K.enter=false;
-  bindCrumb(backFn);
-  document.querySelectorAll("[data-kv]").forEach(b=>b.onclick=()=>{ if(j in K.ans) return; const v=b.dataset.kv; K.ans[j]=v==="x"?null:v==="1";
-    if(j===2) kzFinish(K,item); renderKreuz(); if(K.ans[j]!==null&&K.ans[j]!==st[1]) buzz(); });
-  if($("#kzNext")) $("#kzNext").onclick=kzNext;
-  const cd=$("#theCard"); let x0=null,y0=0,dx=0,drag=false,shook=false;
-  cd.onclick=()=>{ if(drag||Date.now()-(window.__noClick||0)<350) return; if(done) kzNext(); };
-  cd.onkeydown=e=>{ if(done&&(e.key==="Enter"||e.key===" ")){ e.preventDefault(); kzNext(); } };
-  cd.onpointerdown=e=>{ x0=e.clientX; y0=e.clientY; dx=0; drag=false; shook=false; };
-  cd.onpointermove=e=>{ if(x0===null) return; const d=e.clientX-x0;
-    if(!drag){ if(Math.abs(d)>14&&Math.abs(d)>1.4*Math.abs(e.clientY-y0)){ if(!done){ if(!shook){ shook=true; buzz(); } return; } drag=true; cd.style.transition="none"; } else return; }
-    dx=d; cd.style.transform=`translate3d(${dx}px,0,0) rotate(${dx/40}deg)`; };
-  cd.onpointerup=cd.onpointercancel=()=>{ if(x0===null) return; x0=null; if(shook) window.__noClick=Date.now();
-    if(!drag) return; window.__noClick=Date.now();
-    if(Math.abs(dx)>Math.min(90,cd.offsetWidth*.22)){ const out=Math.sign(dx)*(window.innerWidth*.6+cd.offsetWidth);
-      cd.style.transition="transform .24s cubic-bezier(.25,.8,.35,1), opacity .24s linear"; cd.style.transform=`translate3d(${out}px,0,0) rotate(${Math.sign(dx)*16}deg)`; cd.style.opacity="0";
-      let f=false; const fin=()=>{ if(f) return; f=true; kzNext(); }; cd.addEventListener("transitionend",fin,{once:true}); setTimeout(fin,300); }
-    else { cd.style.transition="transform .42s cubic-bezier(.2,1.5,.4,1)"; cd.style.transform=""; setTimeout(()=>{ drag=false; },0); } };
+  qcRender({
+    eye:`Aufgabe ${K.i+1} von ${K.items.length} · Kap. ${item.ch} ${ch.title}${item.klausur?" · Klausur "+item.klausur:""}`,
+    right:`<span class="kzdots">${dots}</span>`, stem:item.stem, erg:item.erg,
+    ctx:`Aussage ${KZ_DOT[j]})${K.prev&&j===0&&!done?` · zuletzt ${K.prev.p} von 4 Punkten`:""}`,
+    front:inl(st[0]), phase:done?"done":"open", binary:true, idk:true,
+    opts:[{k:"0",l:"falsch"},{k:"1",l:"wahr"}],
+    ok:!done?undefined:a===null?null:ok,
+    verdict:!done?null:ok?{t:"Richtig.",s:[`Die Aussage ist ${word(st[1])}.`]}
+      :a===null?{t:"Nicht gewusst.",s:[`Die Aussage ist ${word(st[1])}.`]}
+      :{t:"Falsch.",s:[`Du hast „${word(a)}“ gewählt, die Aussage ist aber ${word(st[1])}.`]},
+    why:done?st[2]:"",
+    next:!last?"Weiter":K.i<K.items.length-1?"Nächste Aufgabe":"Auswertung",
+    below:done&&last?`<p class="kzsum">Diese Aufgabe: ${K.pts[K.i]} von 4 Punkten</p>`:"",
+    pick:k=>{ if(j in K.ans) return; K.ans[j]=k==="__idk"?null:k==="1"; if(j===2) kzFinish(K,item); renderKreuz(); if(K.ans[j]!==null&&K.ans[j]!==st[1]) buzz(); },
+    go:kzNext
+  });
 }
-document.addEventListener("keydown",e=>{
-  if(view!=="kreuz"||e.metaKey||e.ctrlKey||e.altKey||(e.target.closest&&e.target.closest("textarea,input,select"))) return;
-  const K=cur.kr; if(!K||K.i>=K.items.length) return; const hit=sel=>{ const b=$(sel); if(b){ e.preventDefault(); b.click(); } };
-  if(K.j in K.ans){ if(e.key==="Enter"||e.key===" "||e.key==="ArrowRight") hit("#kzNext"); }
-  else if(e.key==="ArrowLeft"||e.key==="f"||e.key==="F") hit('[data-kv="0"]');
-  else if(e.key==="ArrowRight"||e.key==="w"||e.key==="W") hit('[data-kv="1"]');
-  else if(e.key==="?") hit('[data-kv="x"]');
-});

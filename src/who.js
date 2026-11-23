@@ -113,16 +113,18 @@ function renderWho(){
       <div class="row">${sess?sessBtn():`<button class="btn" id="wAgain">Neue Runde</button><button class="btn ghost" id="wOut">Fertig</button>`}</div></div>`;
     bindCrumb(()=>go("practice")); if($("#wAgain")) $("#wAgain").onclick=()=>openWho(8); if($("#wOut")) $("#wOut").onclick=()=>go("practice"); return;
   }
-  const {x,o}=L[W.i], S=WHO_SETS[x.set], C=S.cats;
-  $("#app").innerHTML=`${backTo("Üben")}
-    <p class="eyebrow">Zuordnen · ${S.t} · ${W.i+1} von ${L.length}</p>
-    <div class="block"><p class="small muted" style="margin:0 0 6px">${S.q}</p><p class="who">${inl(x.t)}</p>
-      <div class="mc">${o.map(k=>{ const cls=W.a===null?"":(k===x.s?"r":(k===W.a?"w":"")); return `<button data-s="${k}" class="${cls}" ${W.a!==null?"disabled":""}>${C[k]}</button>`; }).join("")}</div>
-      ${W.a===null?"":W.a===x.s?`<div class="fb good"><p class="fh">Richtig.</p><p style="margin:0">${inl(x.ex)}</p></div>`
-        :`<div class="fb bad"><p class="fh">Nicht ganz.</p><div class="dlist"><b>Richtig</b><span>${C[x.s]}</span><b>Warum</b><span>${inl(x.ex)}</span></div></div>`}</div>
-    ${W.a!==null?`<button class="btn" id="wNext">Weiter</button>`:`<p class="small muted">Tipp: ${S.hint}</p>`}`;
-  bindCrumb(()=>go("practice"));
-  document.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{ if(W.a!==null) return; W.a=b.dataset.s; const ok=W.a===x.s; if(ok) W.right++;
-    state.who=state.who||{}; const h=state.who[x.id]||{n:0,r:0}; h.n++; if(ok) h.r++; h.last=ok; if(!ok) h.conf=W.a; state.who[x.id]=h; logDay(); save(); renderWho(); });
-  if($("#wNext")) $("#wNext").onclick=()=>{ W.i++; W.a=null; renderWho(); window.scrollTo(0,0); };
+  /* Zuordnen als Auswahlkarte: Beispiel auf der Karte, Kategorien darunter, Urteil auf der Karte, weiter mit Tippen oder Wischen */
+  const {x,o}=L[W.i], S=WHO_SETS[x.set], C=S.cats, done=W.a!==null, ok=done&&W.a===x.s;
+  qcRender({
+    eye:`Zuordnen · ${S.t} · ${W.i+1} von ${L.length}`, stem:S.q,
+    front:inl(x.t), phase:done?"done":"open",
+    opts:o.map(k=>({k,l:C[k]})), hint:`Tipp: ${S.hint}`,
+    ok:!done?undefined:ok,
+    verdict:!done?null:ok?{t:"Richtig.",s:[C[x.s]]}:{t:"Falsch.",s:[`Du: ${C[W.a]}`,`Richtig: ${C[x.s]}`]},
+    why:done?`<p>${inl(x.ex)}</p>`:"",
+    next:W.i<L.length-1?"Nächstes Beispiel":"Auswertung",
+    pick:k=>{ if(W.a!==null) return; W.a=k; const good=k===x.s; if(good) W.right++;
+      state.who=state.who||{}; const h=state.who[x.id]||{n:0,r:0}; h.n++; if(good) h.r++; h.last=good; if(!good) h.conf=k; state.who[x.id]=h; logDay(); save(); renderWho(); if(!good) buzz(); },
+    go:()=>{ W.i++; W.a=null; renderWho(); window.scrollTo(0,0); }
+  });
 }
