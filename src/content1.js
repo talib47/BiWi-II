@@ -87,7 +87,7 @@ CARDS[1]=[
  {id:"c1-01", f:"Was beschreiben operationalisierte Lernziele?", b:"Das beabsichtigte Verhalten, das Lernende nach Abschluss des Lernprozesses zeigen sollen (Ingenkamp & Lissmann, 2008)."},
  {id:"c1-02", f:"Drei Bestandteile eines operationalisierten Lernziels", b:"beobachtbare Verhaltensweisen\nBedingungen, unter denen das Verhalten überprüft wird (worauf, in welcher Zeit …)\nBewertungsmaßstab für die Zielerreichung\nBeispiel: „Nennt (Verhalten) ohne Buch in 5 Minuten (Bedingung) mindestens drei der vier Ziele der Psychologie (Maßstab).“"},
  {id:"c1-03", f:"Die sechs Lernzielstufen nach Bloom (1956)", b:"1. Wissen / Erinnerung (Remembering)\n2. Verständnis (Comprehending)\n3. Anwendung (Applying)\n4. Analyse (Analyzing)\n5. Synthese (Synthesizing)\n6. Bewertung (Evaluating)"},
- {id:"c1-04", f:"Kompetenz nach Weinert (2001)", b:"Verfügbare oder erlernbare kognitive Fähigkeiten und Fertigkeiten, um Probleme zu lösen, samt motivationaler, volitionaler (willensbezogener) und sozialer Bereitschaft, die Lösungen in variablen Situationen erfolgreich und verantwortungsvoll zu nutzen."},
+ {id:"c1-04", f:"Kompetenz nach Weinert (2001)", b:"Können: verfügbare oder erlernbare kognitive Fähigkeiten und Fertigkeiten, um Probleme zu lösen\nWollen: motivationale, volitionale (willensbezogene) und soziale Bereitschaft\nWozu: die Lösungen in variablen Situationen erfolgreich und verantwortungsvoll nutzen"},
  {id:"c1-05", f:"Drei Bestandteile von Kompetenz", b:"Wissen (verstehen)\nFertigkeiten (können)\nmotivationale Orientierungen und Emotionen (wollen)\nBeispiel: Du weißt, was Verstärkung ist (Wissen), kannst Lob gezielt einsetzen (Fertigkeit) und willst es im Unterricht auch tun (Wollen)."},
  {id:"c1-06", f:"Kompetenz vs. Performanz", b:"Kompetenz: die Voraussetzung (Disposition) für Handeln.\nPerformanz: das tatsächlich gezeigte Handeln (z. B. die Klausurleistung an einem bestimmten Tag)."},
  {id:"c1-07", f:"Vier Teile der Handlungskompetenz (KMK, 1999)", b:"Sachkompetenz (Fachwissen, Methodenkenntnis)\nMethodenkompetenz (selbstständig arbeiten, Transfer, Wissenslücken erkennen)\nSozialkompetenz (kommunizieren, Perspektivwechsel)\nSelbstkompetenz (Verantwortung, Selbstkritik, Berufsethos)"},
@@ -102,7 +102,8 @@ CARDS[1]=[
  {id:"c1-16", f:"Psychologisches Konstrukt", b:"Eine angenommene, nicht direkt beobachtbare Eigenschaft von Personen (z. B. Intelligenz, Motivation), mit der man beobachtbares Verhalten beschreibt, erklärt oder vorhersagt. Ein Erklärungszugang, keine reale Entität."},
  {id:"c1-17", f:"Distale vs. proximale Merkmale", b:"Distal: das Konstrukt selbst, der direkten Beobachtung nicht zugänglich (Brunswik, 1956).\nProximal: beobachtbare, messbare Indikatoren, aus denen auf das Konstrukt geschlossen wird.\nBeispiel: Motivation (distal) erschließt man aus beobachtbarer Ausdauer bei Aufgaben (proximal)."},
  {id:"c1-18", f:"Operationalisierung", b:"Übersetzung eines Konstrukts in beobachtbare bzw. messbare Indikatoren, die es abbilden können (z. B. Wissensniveau → Punktzahl in einem Fachtest)."},
- {id:"c1-19", f:"Indikatoren für Lernmotivation", b:"Aufmerksamkeit, Anstrengung, Latenz (Zeit bis zum Beginn), Persistenz (Ausdauer), Präferenz, Verhaltenswahrscheinlichkeit, emotionaler Ausdruck.\nBei hoher Motivation: Latenz kurz, alles andere hoch bzw. positiv.\nBeispiel: Eine motivierte Schülerin fängt sofort an (kurze Latenz) und bleibt dran, wenn es schwierig wird (hohe Persistenz)."},
+ {id:"c1-19", f:"Die sieben Indikatoren für Lernmotivation", b:"- Aufmerksamkeit\n- Anstrengung\n- Latenz (Zeit bis zum Beginn)\n- Persistenz (Ausdauer)\n- Präferenz\n- Verhaltenswahrscheinlichkeit\n- emotionaler Ausdruck"},
+ {id:"c1-25", f:"Hohe Lernmotivation: Wie fallen die Indikatoren aus?", b:"Latenz kurz, alle anderen hoch bzw. positiv.\nBeispiel: Eine motivierte Schülerin fängt sofort an (kurze Latenz) und bleibt dran, wenn es schwierig wird (hohe Persistenz)."},
  {id:"c1-20", f:"Traits vs. States", b:"Traits: zeitlich stabile Merkmale von Personen (z. B. Intelligenz).\nStates: situationsabhängige Zustände (z. B. aktuelle Nervosität)."}
 ];
 
@@ -129,7 +130,7 @@ Object.assign(CARD_CTX,{
  "c1-07":"Welche Kompetenzen Lehrkräfte brauchen","c1-08":"Professionelle Unterrichtswahrnehmung","c1-09":"Womit sich Psychologie befasst",
  "c1-10":"Was Psychologie leisten will","c1-11":"Wie Psychologie zu Wissen kommt","c1-12":"Erstes Ziel der Psychologie","c1-13":"Zweites Ziel der Psychologie",
  "c1-14":"Drittes Ziel der Psychologie","c1-15":"Viertes Ziel der Psychologie","c1-16":"Grundbegriff für alles, was in der Diagnostik gemessen wird",
- "c1-17":"Wie Konstrukte und Messung zusammenhängen","c1-18":"Vom Begriff zur Messung","c1-19":"Klausur WiSe 22/23: ein Konstrukt operationalisieren","c1-20":"Stabile und schwankende Merkmale"
+ "c1-17":"Wie Konstrukte und Messung zusammenhängen","c1-18":"Vom Begriff zur Messung","c1-19":"Klausur WiSe 22/23: ein Konstrukt operationalisieren","c1-25":"Klausur WiSe 22/23: ein Konstrukt operationalisieren","c1-20":"Stabile und schwankende Merkmale"
 });
 
 KREUZ.push(

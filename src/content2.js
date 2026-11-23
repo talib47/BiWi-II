@@ -96,7 +96,7 @@ CARDS[9]=[
  {id:"c9-14", f:"Sensitivierung", b:"Verstärkung einer Reflexreaktion (Stärke, Häufigkeit) auf einen Reiz bei wiederholter Darbietung.\nBeispiel: Nach einem Schreck zuckst du bei jedem weiteren Geräusch stärker zusammen."},
  {id:"c9-15", f:"Eigenschaften der Sensitivierung", b:"hohe Reizintensität und hohes allgemeines Erregungsniveau als Determinante\nnur geringe Expositionsraten nötig\nweniger stimulusspezifisch (S1 kann Reaktion auf S2 verstärken)\n„Failure-to-habituate“-Theorie, z. B. bei PTBS"},
  {id:"c9-16", f:"Habituation vs. Sensitivierung im Vergleich", b:"Reaktion: wird schwächer / wird stärker\nReizintensität: eher gering / hoch\nErregungsniveau: eher niedrig / hoch\nSpezifität: stimulusspezifisch / weniger spezifisch"},
- {id:"c9-17", f:"Sensitivierung in der Klausursituation", b:"Hohes Erregungsniveau (Stress) begünstigt Sensitivierung: Geräusche, die man sonst nicht bemerkt (Schniefen, Tüte), werden wahrgenommen, nicht mehr ausgeblendet und wirken immer lauter.\nSchulbezug: Unterrichtslärm von 60–85 dB in ersten Klassen (Schönwälder et al., 2004)."}
+ {id:"c9-17", f:"Sensitivierung in der Klausursituation", b:"Ursache: hohes Erregungsniveau (Stress) begünstigt Sensitivierung\nFolge: sonst unbemerkte Geräusche (Schniefen, Tüte) werden nicht mehr ausgeblendet und wirken immer lauter\nSchulbezug: Unterrichtslärm von 60–85 dB in ersten Klassen (Schönwälder et al., 2004)."}
 ];
 
 Object.assign(CARD_INFO,{
