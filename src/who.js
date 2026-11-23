@@ -119,7 +119,7 @@ function renderWho(){
   qcRender({
     eye:`Zuordnen · ${S.t}${cur.mx?"":` · ${W.i+1} von ${L.length}`}`, stem:S.q,
     front:inl(x.t), phase:done?"done":"open",
-    opts:o.map(k=>({k,l:C[k]})), hint:`Tipp: ${S.hint}`,
+    opts:o.map(k=>({k,l:C[k]})), hint:S.hint,
     ok:!done?undefined:ok,
     verdict:!done?null:ok?{t:"Richtig.",s:[C[x.s]]}:{t:"Falsch.",s:[`Du: ${C[W.a]}`,`Richtig: ${C[x.s]}`]},
     why:done?`<p>${inl(x.ex)}</p>`:"",

@@ -69,20 +69,25 @@ function qcRender(o){
   const ph=o.phase, done=ph==="done";
   const vcls=!done?"":o.ok===true?" ok":o.ok===null?" idk":" no";
   const v=o.verdict, compact=!o.binary&&ph!=="front";
-  const maxL=o.opts?Math.max(...o.opts.map(x=>String(x.l).replace(/<[^>]+>/g,"").length)):99, grid=maxL<=22?" g2":maxL<=64?" g2w":"";
+  const plain=o.opts?o.opts.map(x=>String(x.l).replace(/<[^>]+>/g,"")):[], maxL=plain.length?Math.max(...plain.map(t=>t.length)):99,
+    maxW=plain.length?Math.max(...plain.map(t=>Math.max(...t.split(/[\s\/]+/).map(w=>w.length)))):99;
+  /* Zwei Spalten nur, wenn kein Wort umbrochen werden muss: Handy bis 24 Zeichen und Wörter bis 11 Zeichen, iPad bis 64 und 22 */
+  const grid=maxL<=24&&maxW<=11?" g2":maxL<=64&&maxW<=22?" g2w":"";
   $("#app").innerHTML=`
     <div class="row between ctop"><p class="eyebrow" style="margin:0">${o.eye}</p>${o.right||""}</div>
     ${o.stem?`<p class="kzstem">${o.stem}</p>`:""}
     <div class="swipewrap"><div class="block card qc${vcls}${compact?" cmp":""}${QC&&QC.enter?" enter":""}" id="theCard" role="button" tabindex="0" aria-label="${ph==="front"?"Auswahl zeigen":done?"Weiter":"Karte"}"><i class="tint" aria-hidden="true"></i>
+      ${o.hint&&!done?`<button class="qhint${o.idk?" two":""}" aria-label="Tipp zeigen" aria-expanded="false" title="Tipp"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg></button>`:""}
       ${o.idk&&!done?`<button class="qidk" data-qk="__idk" aria-label="Weiß ich nicht" title="Weiß ich nicht"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.6-3 4.5"/><circle cx="12" cy="17.6" r=".6" fill="currentColor"/></svg></button>`:""}
       ${o.ctx?`<p class="cctx">${o.ctx}</p>`:""}
       <div class="front">${o.front}${o.erg?` <span class="erg">Ergänzung</span>`:""}</div>
+      ${o.hint&&!done?`<p class="qhtxt" hidden>${o.hint}</p>`:""}
       ${done?`<div class="kzv${vcls}"><span class="ic" aria-hidden="true">${o.ok===true?"✓":o.ok===null?"?":"✕"}</span><div><b>${v.t}</b>${v.s.map(x=>`<span>${x}</span>`).join("")}</div></div>${o.why?`<div class="kzwhy">${o.why}</div>`:""}${o.more||""}`:""}
     </div></div>
     ${ph==="front"?`<div class="row fliprow"><button class="btn" id="qcShow" style="flex:1">Auswahl zeigen</button></div>`
       :ph==="open"?`${o.binary?`<div class="kzans" role="group" aria-label="Ist die Aussage wahr oder falsch?">${o.opts.map(x=>`<button class="btn ghost" data-qk="${x.k}">${x.l}</button>`).join("")}</div>`
-          :`<div class="qcopts${grid}">${o.opts.map((x,i)=>`<button data-qk="${x.k}"><span class="ql" aria-hidden="true">${"ABCDEFGH"[i]}</span><span class="qt">${inl(x.l)}</span></button>`).join("")}</div>`}
-        ${o.hint?`<p class="small muted qchint">${o.hint}</p>`:""}`
+          :`<div class="qcopts${grid}">${o.opts.map((x,i)=>`<button data-qk="${x.k}"><span class="ql" aria-hidden="true">${"ABCDEFGH"[i]}</span><span class="qt">${inl(String(x.l).replace(/ → /g,"\u00a0→\u00a0"))}</span></button>`).join("")}</div>`}
+`
       :`<div class="qnext"><button class="btn" id="qcNext">${o.next||"Weiter"}</button></div>${o.below||""}`}`;
   const cd=$("#theCard");
   QC={cd, enter:false,
@@ -92,6 +97,7 @@ function qcRender(o){
     swipe:d=>{ if(done){ QC.enter=true; o.go(); } else if(o.binary) o.pick(o.opts[d>0?1:0].k); else if(d<0&&o.idk) o.pick("__idk"); } };
   document.querySelectorAll("[data-qk]").forEach(b=>b.onclick=()=>o.pick(b.dataset.qk));
   if($("#qcShow")) $("#qcShow").onclick=o.reveal;
+  const hb=$(".qhint"); if(hb) hb.onclick=()=>{ const t=$(".qhtxt"), on=t.hidden; t.hidden=!on; hb.setAttribute("aria-expanded",on); hb.classList.toggle("on",on); };
   if($("#qcNext")) $("#qcNext").onclick=()=>{ QC.enter=true; o.go(); };
   cd.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); QC.tap(); } };
   if(o.after) o.after();
