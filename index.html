@@ -480,6 +480,65 @@ abbr.ab:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .lvl i{width:6px;height:6px;border-radius:50%;background:color-mix(in srgb,var(--muted) 28%,transparent)}
 .lvl i.on{background:var(--accent)}
 .lvnew{margin-left:6px;padding:1px 7px;border-radius:999px;font-size:.72rem;font-weight:600;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+
+/* Rechenaufgaben wie Karten, eigene Zahlentastatur mit Minus (Muster 28.11., nur BiWi II) */
+.thead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px}
+.thead .eyebrow{margin:0}
+.tlex{background:none;border:0;color:var(--accent);font:inherit;font-size:.9rem;font-weight:600;min-height:44px;padding:0 4px;cursor:pointer}
+.seg.tlvl{display:flex;width:100%;margin:0 0 14px}
+.seg.tlvl button{flex:1;min-height:36px;padding:6px 4px;white-space:nowrap}
+.card.tq,.card.tstep{min-height:0;cursor:default;justify-content:flex-start;margin:0 0 14px}
+.card.tq{box-shadow:none;background:var(--surface);gap:10px}
+.card.tq .front{font-size:1.12rem;margin:2px 0 0}
+.tintro{margin:0;color:var(--muted);font-size:.95rem}
+.card.tq .tablewrap{margin:0}
+.card.tstep{position:relative;gap:8px}
+.card.tstep>p{margin:0}
+.card.tstep .cctx{padding-right:44px}
+.card.tstep .front{font-size:1.18rem;padding-right:0}
+.twhy{margin:0;color:var(--muted);font-size:.95rem;max-width:62ch}
+.tform{display:flex;flex-direction:column;gap:4px;padding:8px 0 0 12px;border-left:3px solid var(--gold)}
+.tform span{font-size:.75rem;font-weight:650;color:var(--gold)}
+.tform .eq{background:transparent;padding:0}
+.nfield{display:flex;align-items:center;justify-content:flex-end;min-height:56px;margin-top:6px;padding:8px 14px;border-radius:14px;background:var(--bg);font-family:var(--mono);font-size:1.5rem;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:anywhere;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--accent) 35%,transparent)}
+.nfield.bad{box-shadow:inset 0 0 0 1.5px var(--bad)}
+.nfield .caret{display:inline-block;width:2px;height:1.2em;margin-left:2px;background:var(--accent);animation:caret 1s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.nfield .caret{animation:none}}
+.card.tstep .kzv{margin-top:6px}
+.card.tstep .kzv .qlink{min-height:40px;margin-top:2px}
+.npad{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 14px;-webkit-user-select:none;user-select:none}
+.npad .nk{min-height:56px;border:0;border-radius:14px;background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.08);color:var(--ink);font:500 1.45rem var(--sans);font-variant-numeric:tabular-nums;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .08s,background .15s;touch-action:manipulation}
+.npad .nk.op{background:color-mix(in srgb,var(--accent) 12%,var(--surface));color:var(--accent);font-weight:600}
+.npad .nk.n0{grid-column:span 2}
+.npad .nk.go{grid-column:span 2;background:var(--accent);color:var(--accent-ink,#fff);font-size:1.06rem;font-weight:650}
+.npad .nk:active{transform:scale(.95)}
+@media (min-width:768px){ .npad{max-width:26rem;margin-left:auto;margin-right:auto}.npad .nk{min-height:60px} }
+@media (hover:hover) and (pointer:fine){ .npad .nk:not(.go){display:none}.npad{grid-template-columns:1fr;max-width:none}.npad .nk.go{grid-column:auto;min-height:48px} }
+.tdlist{display:flex;flex-direction:column;gap:2px;margin:0 0 12px}
+.tdone{display:flex;gap:12px;align-items:flex-start;padding:10px 2px;border-top:1px solid var(--line)}
+.tdone:first-child{border-top:0}
+.tdone .ic{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:700;color:var(--surface);background:var(--good)}
+.tdone.no .ic{background:var(--bad)}
+.tdone>div{min-width:0;flex:1}
+.tdone .tl{font-size:.9rem;font-weight:600;margin-bottom:4px}
+.tdone .eq{padding:4px 8px}
+.tflds{display:flex;flex-direction:column;gap:10px}
+.tfld{display:flex;flex-direction:column;align-items:stretch;gap:4px;text-align:left;background:none;border:0;padding:0;font:inherit;color:var(--ink);cursor:pointer}
+.tfld .tl{font-weight:600;font-size:.95rem}
+.tfld .nfield{margin:0;box-shadow:inset 0 0 0 1px var(--line);font-size:1.3rem;min-height:52px}
+.tfld.on .nfield{box-shadow:inset 0 0 0 2px var(--accent)}
+.tfld.ok .nfield{box-shadow:inset 0 0 0 2px var(--good)}
+.tfld.no .nfield{box-shadow:inset 0 0 0 2px var(--bad)}
+.tfld:disabled{cursor:default}
+.tfix{font-size:.9rem;color:var(--bad)}
+.tlh{font-weight:600}
+.npad .nk.op{font-size:1.6rem}
+@media (pointer:coarse){
+  .npad{position:sticky;bottom:0;z-index:3;margin:0 -16px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);box-shadow:0 -1px 0 var(--line)}
+  .card.tstep{scroll-margin-bottom:300px;scroll-margin-top:80px}
+}
+@media (pointer:coarse) and (min-width:768px){ .npad{margin:0 auto;max-width:28rem;border-radius:20px 20px 0 0} }
 </style>
 <style>
 /* ===================== Gemeinsames Design aller Lern-Apps („Die Reihe“) =====================
@@ -936,7 +995,7 @@ function judge(step,raw){
       known:false = nur bekannt, dass das Hochgeladene dazugehört.
    2. Erledigt-Liste (APP.todos je Hälfte), abgehakt in state.todo[id] = Zeitstempel.
    3. Motivationssatz unter der Wochenübersicht.
-   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-23", "a": "BiWi II", "w": "Lernstand bei Karten und Verständnisfragen als fünf kleine Punkte neben „Karte x von y“ (gefüllt = wie gut sie sitzt, `lvlDots` in `views.js`) statt Text „Stufe x von 5“; neue Karten mit kleinem Etikett „neu“", "y": "Talib: „Stufe 1“ war unverständlich und unschön"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Abkürzungen zum Antippen: 29 Kürzel (NS, US, UR, CS, CR, KZG, LZG, AG, EF, SWS, REM, CRF, FQ/VQ/FI/VI, SD, PR, S → S, R → S u. a.) werden überall automatisch gepunktet unterstrichen (`src/glossary.js`, auch Mehrzahl wie „CRs“); Tippen zeigt eine Blase mit Langform und Bedeutung, ohne die Karte zu drehen; in Antwortknöpfen nicht markiert", "y": "Talib: Kürzel wie NS, CR, US sagen ihm nichts, kommen aber in vielen Karten und Fragen vor"}, {"d": "2026-11-23", "a": "BiWi II", "w": "43 weitere dichte Karten nach dem Muster gegliedert (Leitwort-Zeilen wie Was/Wozu/Ursache/Folge/Abgrenzung, Aufzählungen eine je Zeile, Beispiel immer zuletzt; Inhalt vollständig, IDs gleich); bereits gegliederte Bild- und Grafikkarten (Schlafstudie, Ratte/Ton, Landmann & Schmitz u. a.) unverändert", "y": "Talib hat das Muster freigegeben"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Überspringen zählt nicht mehr als geschafft: Ein Schritt gilt nur als erledigt, wenn er bis zur Abschlussseite bearbeitet wurde (bzw. offene Aufgabe gespeichert); „Nächster Schritt“ oben zählt als übersprungen (`sessNext(done)` in `session.js`); „Für heute erledigt“ erst, wenn alle Schritte erledigt sind, sonst Abschluss „x von y Schritten bearbeitet“", "y": "Talib: Durchklicken ohne Bearbeiten zeigte trotzdem „Für heute erledigt“"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Muster „Karten abrufbar gliedern“ an 4 Karten: c1-19 Indikatoren als Liste (eine je Zeile, Anzahl vorne), Nebenaussage „bei hoher Motivation“ mit Beispiel als neue Karte c1-25; c1-04 Weinert, c6-22 Selbstregulation, c9-17 Sensitivierung in Leitwort-Zeilen (Können/Wollen/Wozu, Was/Welche/Wozu/Fokus, Ursache/Folge); danach freigegeben", "y": "Talib: Fließtext-Karten sind schwer abrufbar, Gehirn soll weniger Mühe mit der Form haben, Inhalt bleibt"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Erklärsatz „Ergänzung: nicht wörtlich auf den Folien …“ auf der Kartenrückseite entfernt, das Etikett „Ergänzung“ auf der Vorderseite bleibt", "y": "Talib kennt das Etikett, der Satz auf jeder Karte war überflüssig"}]).
+   4. Claude-Brücke: letzte Logbuch-Einträge dieser App aus CLAUDE.md (build.py ersetzt [{"d": "2026-11-28", "a": "BiWi II", "w": "Rechenaufgaben im Stil der Karten (Muster): eigene Zahlentastatur unten (7–9, 4–6, 1–3, 0, ⌫, −, Komma, Prüfen bzw. Abgeben; auf Touch am unteren Rand angeheftet, am Laptop nur Tastatur und Knopf), Schmierzettel entfernt, aktueller Schritt als Karte („Schritt x von y“, Formel hinter der Glühbirne, Antwortfeld groß, „Noch nicht.“ auf der Karte mit Kopfschütteln und „Schritt zeigen“), erledigte Schritte als Liste mit Häkchen, Stufe als volle Leiste, „← Liste“ weg (oben gibt es Schließen); Stufe Frei mit antippbaren Feldern und Urteil je Feld; Probeklausur-Felder mit normaler Tastatur statt Zahlenfeld", "y": "Talib: am Handy und iPad ließ sich kein Minus eingeben, Schmierzettel unnötig, Design hielt die Qualität der übrigen Schritte nicht"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Lernstand bei Karten und Verständnisfragen als fünf kleine Punkte neben „Karte x von y“ (gefüllt = wie gut sie sitzt, `lvlDots` in `views.js`) statt Text „Stufe x von 5“; neue Karten mit kleinem Etikett „neu“", "y": "Talib: „Stufe 1“ war unverständlich und unschön"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Abkürzungen zum Antippen: 29 Kürzel (NS, US, UR, CS, CR, KZG, LZG, AG, EF, SWS, REM, CRF, FQ/VQ/FI/VI, SD, PR, S → S, R → S u. a.) werden überall automatisch gepunktet unterstrichen (`src/glossary.js`, auch Mehrzahl wie „CRs“); Tippen zeigt eine Blase mit Langform und Bedeutung, ohne die Karte zu drehen; in Antwortknöpfen nicht markiert", "y": "Talib: Kürzel wie NS, CR, US sagen ihm nichts, kommen aber in vielen Karten und Fragen vor"}, {"d": "2026-11-23", "a": "BiWi II", "w": "43 weitere dichte Karten nach dem Muster gegliedert (Leitwort-Zeilen wie Was/Wozu/Ursache/Folge/Abgrenzung, Aufzählungen eine je Zeile, Beispiel immer zuletzt; Inhalt vollständig, IDs gleich); bereits gegliederte Bild- und Grafikkarten (Schlafstudie, Ratte/Ton, Landmann & Schmitz u. a.) unverändert", "y": "Talib hat das Muster freigegeben"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Überspringen zählt nicht mehr als geschafft: Ein Schritt gilt nur als erledigt, wenn er bis zur Abschlussseite bearbeitet wurde (bzw. offene Aufgabe gespeichert); „Nächster Schritt“ oben zählt als übersprungen (`sessNext(done)` in `session.js`); „Für heute erledigt“ erst, wenn alle Schritte erledigt sind, sonst Abschluss „x von y Schritten bearbeitet“", "y": "Talib: Durchklicken ohne Bearbeiten zeigte trotzdem „Für heute erledigt“"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Muster „Karten abrufbar gliedern“ an 4 Karten: c1-19 Indikatoren als Liste (eine je Zeile, Anzahl vorne), Nebenaussage „bei hoher Motivation“ mit Beispiel als neue Karte c1-25; c1-04 Weinert, c6-22 Selbstregulation, c9-17 Sensitivierung in Leitwort-Zeilen (Können/Wollen/Wozu, Was/Welche/Wozu/Fokus, Ursache/Folge); danach freigegeben", "y": "Talib: Fließtext-Karten sind schwer abrufbar, Gehirn soll weniger Mühe mit der Form haben, Inhalt bleibt"}]).
    5. Abstände vor der Prüfung (spaceDays), siehe unten.
    6. Symbole der Tableiste (NAV_ICONS), Gestaltung in design.css.
    7. Lernmodus ohne Ablenkung (focusBar): Ansichten aus APP.focus.views und die ganze Tageseinheit blenden Tableiste und „Aa“ aus.
@@ -1065,7 +1124,7 @@ document.addEventListener("keydown",e=>{ if(e.key!=="Escape"||!document.body.cla
   const a=document.activeElement; if(a&&/^(TEXTAREA|INPUT|SELECT)$/.test(a.tagName)) return; const x=document.getElementById("fx"); if(x){ e.preventDefault(); x.click(); } });
 
 /* Claude-Brücke: was zuletzt an dieser App geändert wurde und warum (aus CLAUDE.md, beim Bauen übernommen) */
-const BRUECKE=[{"d": "2026-11-23", "a": "BiWi II", "w": "Lernstand bei Karten und Verständnisfragen als fünf kleine Punkte neben „Karte x von y“ (gefüllt = wie gut sie sitzt, `lvlDots` in `views.js`) statt Text „Stufe x von 5“; neue Karten mit kleinem Etikett „neu“", "y": "Talib: „Stufe 1“ war unverständlich und unschön"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Abkürzungen zum Antippen: 29 Kürzel (NS, US, UR, CS, CR, KZG, LZG, AG, EF, SWS, REM, CRF, FQ/VQ/FI/VI, SD, PR, S → S, R → S u. a.) werden überall automatisch gepunktet unterstrichen (`src/glossary.js`, auch Mehrzahl wie „CRs“); Tippen zeigt eine Blase mit Langform und Bedeutung, ohne die Karte zu drehen; in Antwortknöpfen nicht markiert", "y": "Talib: Kürzel wie NS, CR, US sagen ihm nichts, kommen aber in vielen Karten und Fragen vor"}, {"d": "2026-11-23", "a": "BiWi II", "w": "43 weitere dichte Karten nach dem Muster gegliedert (Leitwort-Zeilen wie Was/Wozu/Ursache/Folge/Abgrenzung, Aufzählungen eine je Zeile, Beispiel immer zuletzt; Inhalt vollständig, IDs gleich); bereits gegliederte Bild- und Grafikkarten (Schlafstudie, Ratte/Ton, Landmann & Schmitz u. a.) unverändert", "y": "Talib hat das Muster freigegeben"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Überspringen zählt nicht mehr als geschafft: Ein Schritt gilt nur als erledigt, wenn er bis zur Abschlussseite bearbeitet wurde (bzw. offene Aufgabe gespeichert); „Nächster Schritt“ oben zählt als übersprungen (`sessNext(done)` in `session.js`); „Für heute erledigt“ erst, wenn alle Schritte erledigt sind, sonst Abschluss „x von y Schritten bearbeitet“", "y": "Talib: Durchklicken ohne Bearbeiten zeigte trotzdem „Für heute erledigt“"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Muster „Karten abrufbar gliedern“ an 4 Karten: c1-19 Indikatoren als Liste (eine je Zeile, Anzahl vorne), Nebenaussage „bei hoher Motivation“ mit Beispiel als neue Karte c1-25; c1-04 Weinert, c6-22 Selbstregulation, c9-17 Sensitivierung in Leitwort-Zeilen (Können/Wollen/Wozu, Was/Welche/Wozu/Fokus, Ursache/Folge); danach freigegeben", "y": "Talib: Fließtext-Karten sind schwer abrufbar, Gehirn soll weniger Mühe mit der Form haben, Inhalt bleibt"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Erklärsatz „Ergänzung: nicht wörtlich auf den Folien …“ auf der Kartenrückseite entfernt, das Etikett „Ergänzung“ auf der Vorderseite bleibt", "y": "Talib kennt das Etikett, der Satz auf jeder Karte war überflüssig"}];
+const BRUECKE=[{"d": "2026-11-28", "a": "BiWi II", "w": "Rechenaufgaben im Stil der Karten (Muster): eigene Zahlentastatur unten (7–9, 4–6, 1–3, 0, ⌫, −, Komma, Prüfen bzw. Abgeben; auf Touch am unteren Rand angeheftet, am Laptop nur Tastatur und Knopf), Schmierzettel entfernt, aktueller Schritt als Karte („Schritt x von y“, Formel hinter der Glühbirne, Antwortfeld groß, „Noch nicht.“ auf der Karte mit Kopfschütteln und „Schritt zeigen“), erledigte Schritte als Liste mit Häkchen, Stufe als volle Leiste, „← Liste“ weg (oben gibt es Schließen); Stufe Frei mit antippbaren Feldern und Urteil je Feld; Probeklausur-Felder mit normaler Tastatur statt Zahlenfeld", "y": "Talib: am Handy und iPad ließ sich kein Minus eingeben, Schmierzettel unnötig, Design hielt die Qualität der übrigen Schritte nicht"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Lernstand bei Karten und Verständnisfragen als fünf kleine Punkte neben „Karte x von y“ (gefüllt = wie gut sie sitzt, `lvlDots` in `views.js`) statt Text „Stufe x von 5“; neue Karten mit kleinem Etikett „neu“", "y": "Talib: „Stufe 1“ war unverständlich und unschön"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Abkürzungen zum Antippen: 29 Kürzel (NS, US, UR, CS, CR, KZG, LZG, AG, EF, SWS, REM, CRF, FQ/VQ/FI/VI, SD, PR, S → S, R → S u. a.) werden überall automatisch gepunktet unterstrichen (`src/glossary.js`, auch Mehrzahl wie „CRs“); Tippen zeigt eine Blase mit Langform und Bedeutung, ohne die Karte zu drehen; in Antwortknöpfen nicht markiert", "y": "Talib: Kürzel wie NS, CR, US sagen ihm nichts, kommen aber in vielen Karten und Fragen vor"}, {"d": "2026-11-23", "a": "BiWi II", "w": "43 weitere dichte Karten nach dem Muster gegliedert (Leitwort-Zeilen wie Was/Wozu/Ursache/Folge/Abgrenzung, Aufzählungen eine je Zeile, Beispiel immer zuletzt; Inhalt vollständig, IDs gleich); bereits gegliederte Bild- und Grafikkarten (Schlafstudie, Ratte/Ton, Landmann & Schmitz u. a.) unverändert", "y": "Talib hat das Muster freigegeben"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Überspringen zählt nicht mehr als geschafft: Ein Schritt gilt nur als erledigt, wenn er bis zur Abschlussseite bearbeitet wurde (bzw. offene Aufgabe gespeichert); „Nächster Schritt“ oben zählt als übersprungen (`sessNext(done)` in `session.js`); „Für heute erledigt“ erst, wenn alle Schritte erledigt sind, sonst Abschluss „x von y Schritten bearbeitet“", "y": "Talib: Durchklicken ohne Bearbeiten zeigte trotzdem „Für heute erledigt“"}, {"d": "2026-11-23", "a": "BiWi II", "w": "Muster „Karten abrufbar gliedern“ an 4 Karten: c1-19 Indikatoren als Liste (eine je Zeile, Anzahl vorne), Nebenaussage „bei hoher Motivation“ mit Beispiel als neue Karte c1-25; c1-04 Weinert, c6-22 Selbstregulation, c9-17 Sensitivierung in Leitwort-Zeilen (Können/Wollen/Wozu, Was/Welche/Wozu/Fokus, Ursache/Folge); danach freigegeben", "y": "Talib: Fließtext-Karten sind schwer abrufbar, Gehirn soll weniger Mühe mit der Form haben, Inhalt bleibt"}];
 function bridgeBlock(){
   if(!BRUECKE.length) return "";
   const f=s=>{ const [y,m,d]=s.split("-"); return +d+"."+(+m)+"."; };
@@ -2283,7 +2342,7 @@ function openRun(o,pi,no){
       <textarea data-op="${pi}" style="width:100%;min-height:9rem;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:10px;font:1rem/1.5 var(--sans)">${esc(o.ans)}</textarea></div>`; }
   const d=o.data, F=d.steps.map((s,i)=>[s,i]).filter(([s])=>s.final);
   return `<div class="block"><p style="margin:0 0 6px"><b>${no}. ${o.title}</b> <span class="small muted">(${o.pts} P.)</span></p><p class="small" style="margin:0">${d.intro}</p>${d.table}<p style="margin:8px 0 0"><b>${d.q}</b></p>
-    ${F.map(([s,i])=>`<div style="margin-top:8px"><label class="small" style="font-weight:600" for="op${pi}_${i}">${s.lab}</label><div class="inp" style="margin-top:4px"><input id="op${pi}_${i}" data-op="${pi}" data-i="${i}" inputmode="decimal" autocomplete="off" value="${esc(o.ans[i]||"")}"></div></div>`).join("")}</div>`;
+    ${F.map(([s,i])=>`<div style="margin-top:8px"><label class="small" style="font-weight:600" for="op${pi}_${i}">${s.lab}</label><div class="inp" style="margin-top:4px"><input id="op${pi}_${i}" data-op="${pi}" data-i="${i}" inputmode="text" enterkeyhint="done" autocapitalize="off" spellcheck="false" autocomplete="off" value="${esc(o.ans[i]||"")}"></div></div>`).join("")}</div>`;
 }
 function calcPts(o){ const F=o.data.steps.map((s,i)=>[s,i]).filter(([s])=>s.final); const ok=F.filter(([s,i])=>judge(s,o.ans[i]||"")).length; return {ok,n:F.length,p:Math.round(o.pts*ok/F.length*2)/2}; }
 function renderExamGrade(){
@@ -4263,24 +4322,54 @@ function record(ok){
 }
 function head(){
   const T=TYPES[task.t], d=task.data;
-  return `<div class="row between" style="margin-bottom:8px">
-      <button class="btn ghost small" id="back">← Liste</button>
-      <div class="seg" role="group" aria-label="Stufe">${[1,2,3].map(l=>`<button data-l="${l}" aria-pressed="${task.lvl===l}">${LVL[l]}</button>`).join("")}</div>
+  return `<div class="thead">
+      <p class="eyebrow">${task.mix?"Gemischt · ":""}${T.name}</p>
+      <button class="tlex" id="lex" aria-label="Zeichen und Formeln">Zeichen</button>
     </div>
-    <div class="row between" style="margin:0 0 .3em"><p class="eyebrow" style="margin:0">${task.mix?"Gemischt · ":""}${T.name}</p><button class="btn ghost small" id="lex">Zeichen</button></div>
-    <div class="block">
-      <p class="small">${d.intro}</p>
+    <div class="seg tlvl" role="group" aria-label="Stufe">${[1,2,3].map(l=>`<button data-l="${l}" aria-pressed="${task.lvl===l}">${LVL[l]}</button>`).join("")}</div>
+    <div class="card tq">
+      <p class="tintro">${d.intro}</p>
       ${d.table}
-      <p style="margin:10px 0 0"><b>${d.q}</b></p>
+      <p class="front">${d.q}</p>
     </div>`;
 }
 function bindHead(){
-  $("#back").onclick=()=>go("calc");
   $("#lex").onclick=showLexicon;
-  document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{ const l=+b.dataset.l; state.lvl[task.t]=l; state.streak[task.t]=0; save(); task.lvl=l; task.cur=0; task.shown=0; task.first={}; task.done=false; task.checks={}; render(); });
+  document.querySelectorAll(".tlvl button").forEach(b=>b.onclick=()=>{ const l=+b.dataset.l; state.lvl[task.t]=l; state.streak[task.t]=0; save(); task.lvl=l; task.cur=0; task.shown=0; task.first={}; task.done=false; task.checks={}; task.val=""; task.vals={}; task.act=null; render(); });
 }
+
+/* ================= Zahlentastatur (iPad und Handy haben im Zahlenfeld kein Minus) ================= */
+const NKEYS=[["7","7"],["8","8"],["9","9"],["del","⌫"],["4","4"],["5","5"],["6","6"],["neg","−"],["1","1"],["2","2"],["3","3"],[",",","],["0","0"]];
+function padKeys(go){ return `<div class="npad" role="group" aria-label="Zahlentastatur">${NKEYS.map(([k,l])=>`<button class="nk${k==="0"?" n0":""}${/\d/.test(k)?"":" op"}" data-k="${k}" aria-label="${k==="del"?"Löschen":k==="neg"?"Vorzeichen":k===","?"Komma":l}">${l}</button>`).join("")}<button class="nk go" id="npGo">${go}</button></div>`; }
+const showNum=v=>v? esc(v.replace(/^-/,"−")) : "";
+function editNum(v,k){
+  v=v||"";
+  if(k==="del") return v.slice(0,-1);
+  if(k==="neg") return v.startsWith("-")? v.slice(1) : "-"+v;
+  if(k===","){ if(v.includes(",")) return v; return v.replace(/^-?$/,m=>m+"0")+","; }
+  if(v.replace(/[-,]/g,"").length>=9) return v;
+  if(/^-?0$/.test(v)) return v.slice(0,-1)+k;
+  return v+k;
+}
+/* Tastatur am Laptop oder am iPad mit Tastatur */
+let npHandler=null;
+document.addEventListener("keydown",e=>{
+  if(!npHandler||view!=="task"||e.metaKey||e.ctrlKey||e.altKey) return;
+  if(document.activeElement&&/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) return;
+  let k=null;
+  if(/^\d$/.test(e.key)) k=e.key; else if(e.key===","||e.key===".") k=","; else if(e.key==="-"||e.key==="−") k="neg";
+  else if(e.key==="Backspace") k="del"; else if(e.key==="Enter") k="go"; else if(e.key==="Tab"&&task&&task.lvl===3&&!task.done) k="tab";
+  if(k){ e.preventDefault(); npHandler(k); }
+});
+function bindPadKeys(onKey){
+  npHandler=onKey;
+  document.querySelectorAll(".npad .nk").forEach(b=>b.onclick=()=>onKey(b.id==="npGo"?"go":b.dataset.k));
+}
+function buzzEl(el){ if(!el) return; el.classList.remove("buzz"); void el.offsetWidth; el.classList.add("buzz"); if(navigator.vibrate) try{navigator.vibrate(30);}catch(e){} }
+
 function renderTask(){
-  const T=TYPES[task.t];
+  const T=TYPES[task.t]; npHandler=null;
+  if(task.val==null) task.val=""; if(!task.vals) task.vals={};
   if(T.self) return renderSelf();
   if(task.lvl===1) return renderWorked();
   if(task.lvl===2) return renderGuided();
@@ -4304,58 +4393,74 @@ function renderWorked(){
   if($("#self")) $("#self").onclick=()=>{ state.lvl[task.t]=2; state.streak[task.t]=0; save(); startTask(task.t,task.mix); };
 }
 
-/* Stufe 2: geführt, ein Schritt nach dem anderen mit Eingabe */
+/* Stufe 2: geführt, ein Schritt nach dem anderen, Eingabe über die eigene Zahlentastatur */
+function doneRow(s,i,ok){ return `<div class="tdone ${ok?"ok":"no"}"><span class="ic" aria-hidden="true">${ok?"✓":"!"}</span><div><div class="tl">${i+1}. ${s.lab}</div>${eqLine(s)}</div></div>`; }
 function renderGuided(){
-  const S=task.data.steps, cur=task.cur;
-  const html=S.map((s,i)=>{
-    if(i>cur) return "";
-    if(i<cur){ const ok=task.first[i]; return `<div class="step ${ok?"ok":"no"}"><div class="lab">${i+1}. ${s.lab}</div>${eqLine(s)}</div>`; }
-    return `<div class="step" id="curStep"><div class="lab">${i+1}. ${s.lab}</div><div class="why">${s.why}</div>
-      <div class="inp"><input id="in" inputmode="decimal" autocomplete="off" aria-label="${esc(s.lab.replace(/<[^>]+>/g,""))}"><button class="btn small" id="chk">Prüfen</button><button class="btn ghost small" id="hint">Formel</button></div>
-      <div id="out"></div></div>`;
-  }).join("");
-  $("#app").innerHTML=head()+`<div class="stack">${html}</div>
-    ${task.done?deutBox(task.data)+finishBox():padHTML()}`;
-  bindHead(); bindPad();
+  const S=task.data.steps, cur=task.cur, s=S[cur];
+  const prev=S.slice(0,Math.min(cur,S.length)).map((x,i)=>doneRow(x,i,task.first[i])).join("");
+  let body;
+  if(task.done) body=deutBox(task.data)+finishBox();
+  else body=`<div class="card tstep" id="tstep">
+      <button class="qhint" id="hint" aria-label="Formel zeigen" aria-pressed="${!!task.hint}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/></svg></button>
+      <p class="cctx">Schritt ${cur+1} von ${S.length}</p>
+      <p class="front">${s.lab}</p>
+      <p class="twhy">${s.why}</p>
+      ${task.hint?`<div class="tform"><span>Formel</span><div class="eq">${esc(s.f)}</div></div>`:""}
+      <div class="nfield${task.wrong?" bad":""}" role="textbox" aria-readonly="true" aria-label="Deine Antwort">${showNum(task.val)}<i class="caret" aria-hidden="true"></i></div>
+      ${task.wrong?`<div class="kzv no"><span class="ic">!</span><div><b>Noch nicht.</b><span>${s.sign?"Achte auch aufs Vorzeichen. ":""}Versuch es nochmal oder lass dir den Schritt zeigen.</span><button class="qlink" id="reveal">Schritt zeigen</button></div></div>`:""}
+    </div>
+    ${padKeys("Prüfen")}`;
+  $("#app").innerHTML=head()+(prev?`<div class="tdlist">${prev}</div>`:"")+body;
+  bindHead();
   if(task.done){ bindFinish(); return; }
-  const inp=$("#in"); inp.focus({preventScroll:true});
-  const s=S[cur];
+  if(cur>0||task.wrong) $("#tstep").scrollIntoView({block:"nearest",behavior:"instant"});
+  const field=()=>$(".nfield");
   const check=()=>{
-    const res=judge(s,inp.value);
-    if(res===null){ $("#out").innerHTML=`<p class="res bad">Bitte eine Zahl eingeben, Komma oder Punkt geht beides.</p>`; return; }
+    const res=judge(s,task.val);
+    if(res===null){ buzzEl($("#tstep")); return; }
     if(!(cur in task.first)) task.first[cur]=res;
-    if(res){ task.cur++; if(task.cur>=S.length){ task.done=true; record(Object.values(task.first).every(Boolean)); } renderGuided(); }
-    else{ $("#out").innerHTML=`<p class="res bad">Noch nicht. ${s.sign?"Achte auch aufs Vorzeichen. ":""}Versuch es nochmal oder lass dir den Schritt zeigen.</p><button class="btn ghost small" id="reveal">Schritt zeigen</button>`;
-      $("#reveal").onclick=()=>{ task.first[cur]=false; task.cur++; if(task.cur>=S.length){ task.done=true; record(false); } renderGuided(); }; }
+    if(res){ task.cur++; task.val=""; task.wrong=false; task.hint=false; if(task.cur>=S.length){ task.done=true; record(Object.values(task.first).every(Boolean)); } renderGuided(); }
+    else{ task.wrong=true; renderGuided(); buzzEl($("#tstep")); }
   };
-  $("#chk").onclick=check; inp.onkeydown=e=>{ if(e.key==="Enter") check(); };
-  $("#hint").onclick=()=>{ $("#out").innerHTML=`<p class="hint muted">Formel:</p><div class="eq">${esc(s.f)}</div>`; };
+  bindPadKeys(k=>{ if(k==="tab") return; if(k==="go") return check(); task.val=editNum(task.val,k); if(task.wrong){ task.wrong=false; renderGuided(); return; } field().innerHTML=showNum(task.val)+'<i class="caret" aria-hidden="true"></i>'; });
+  $("#hint").onclick=()=>{ task.hint=!task.hint; renderGuided(); };
+  if($("#reveal")) $("#reveal").onclick=()=>{ task.first[cur]=false; task.cur++; task.val=""; task.wrong=false; task.hint=false; if(task.cur>=S.length){ task.done=true; record(false); } renderGuided(); };
 }
 
-/* Stufe 3: frei, nur die Klausurgrößen */
+/* Stufe 3: frei, nur die Klausurgrößen; Feld antippen, dann tippen */
 function renderFree(){
   const S=task.data.steps, F=S.map((s,i)=>[s,i]).filter(([s])=>s.final);
+  if(task.act==null||!F.some(([,i])=>i===task.act)) task.act=F[0][1];
+  const fields=F.map(([s,i])=>{
+    const res=task.done? judge(s,task.vals[i]||"") : null;
+    return `<button class="tfld${!task.done&&task.act===i?" on":""}${task.done?(res?" ok":" no"):""}" data-i="${i}" ${task.done?"disabled":""}>
+      <span class="tl">${s.lab}</span>
+      <span class="nfield">${showNum(task.vals[i]||"")||(task.done?"–":"")}${!task.done&&task.act===i?'<i class="caret" aria-hidden="true"></i>':""}</span>
+      ${task.done&&!res?`<span class="tfix">Richtig wäre ${fmt(s.ans)}${s.rate?" (= "+fmt(s.ans*100)+" Prozentpunkte)":""}${s.pct?" %":""}</span>`:""}
+    </button>`;
+  }).join("");
+  const all=task.done&&F.every(([s,i])=>judge(s,task.vals[i]||""));
   $("#app").innerHTML=head()+`
-    ${padHTML()}
-    <div class="block stack">${F.map(([s,i])=>`<div>
-      <label class="lab" for="f${i}" style="font-weight:600">${s.lab}</label>
-      <div class="inp" style="margin-top:4px"><input id="f${i}" inputmode="decimal" autocomplete="off" ${task.done?"disabled":""}></div>
-      <div id="o${i}"></div></div>`).join("")}
-      ${task.done?"":`<button class="btn" id="chkAll">Abgeben</button>`}
+    <div class="card tstep" id="tstep">
+      <p class="cctx">${task.done?(all?"Alles richtig":"Ausgewertet"):"Nur die Ergebnisse, den Weg rechnest du selbst"}</p>
+      <div class="tflds">${fields}</div>
     </div>
-    <div id="sol"></div>`;
-  bindHead(); bindPad();
-  if(task.done) return;
-  $("#chkAll").onclick=()=>{
-    let all=true, empty=false;
-    F.forEach(([s,i])=>{ const v=$("#f"+i).value; const res=judge(s,v); if(res===null) empty=true; });
+    ${task.done?`<div class="block"><h3>Lösungsweg</h3><div class="stack">${S.map((s,i)=>`<div><div class="small tlh">${i+1}. ${s.lab}</div>${stepRows(s)}</div>`).join("")}</div>${deutBox(task.data)}</div>`+finishBox(all):padKeys("Abgeben")}`;
+  bindHead();
+  if(task.done){ bindFinish(); return; }
+  document.querySelectorAll(".tfld").forEach(b=>b.onclick=()=>{ task.act=+b.dataset.i; renderFree(); });
+  const submit=()=>{
+    const empty=F.some(([s,i])=>judge(s,task.vals[i]||"")===null);
     if(empty && !task.confirmEmpty){ task.confirmEmpty=true; toast("Noch leere Felder. Nochmal tippen zum Abgeben."); return; }
-    F.forEach(([s,i])=>{ const el=$("#f"+i), res=judge(s,el.value); if(!res) all=false;
-      el.disabled=true; $("#o"+i).innerHTML=`<p class="res ${res?"good":"bad"}">${res?"Richtig":"Richtig wäre "+fmt(s.ans)+(s.rate?" (= "+fmt(s.ans*100)+" Prozentpunkte)":"")+(s.pct?" %":"")}</p>`; });
-    task.done=true; record(all); $("#chkAll").remove();
-    $("#sol").innerHTML=`<div class="block"><h3>Lösungsweg</h3><div class="stack">${S.map((s,i)=>`<div><div class="small" style="font-weight:600">${i+1}. ${s.lab}</div>${stepRows(s)}</div>`).join("")}</div>${deutBox(task.data)}</div>`+finishBox(all);
-    bindFinish();
+    task.done=true; record(F.every(([s,i])=>judge(s,task.vals[i]||""))); renderFree();
+    if(!F.every(([s,i])=>judge(s,task.vals[i]||""))) buzzEl($("#tstep"));
   };
+  bindPadKeys(k=>{
+    if(k==="go") return submit();
+    if(k==="tab"){ const ids=F.map(([,i])=>i); task.act=ids[(ids.indexOf(task.act)+1)%ids.length]; return renderFree(); }
+    task.vals[task.act]=editNum(task.vals[task.act],k);
+    const el=document.querySelector(`.tfld[data-i="${task.act}"] .nfield`); if(el) el.innerHTML=showNum(task.vals[task.act])+'<i class="caret" aria-hidden="true"></i>';
+  });
 }
 
 /* Herleitung: selbst schreiben, dann aufdecken und abhaken */
@@ -4363,7 +4468,7 @@ function renderSelf(){
   const S=task.data.steps, guided=task.lvl===2, worked=task.lvl===1;
   const n= worked? S.length : (guided? task.shown : (task.done? S.length : 0));
   $("#app").innerHTML=head()+`
-    ${worked?"":`<p class="small muted">${guided?"Schreib den nächsten Schritt auf den Schmierzettel, dann deck ihn auf.":"Schreib die komplette Herleitung auf den Schmierzettel. Danach vergleichen und abhaken, welche Schritte du hattest."}</p>${padHTML()}`}
+    ${worked?"":`<p class="small muted">${guided?"Überleg dir den nächsten Schritt, dann deck ihn auf.":"Schreib die Herleitung auf Papier oder sag sie dir vor. Danach vergleichen und abhaken, welche Schritte du hattest."}</p>`}
     <div class="block">${S.slice(0,n).map((s,i)=>`
       <div class="check">${worked?"":`<input type="checkbox" id="c${i}" ${task.checks[i]?"checked":""} aria-label="Schritt ${i+1} gehabt">`}
       <div style="min-width:0;flex:1"><div class="small" style="font-weight:600">${i+1}. ${s.lab}</div><div class="eq">${esc(s.f)}</div></div></div>`).join("")||`<p class="small muted" style="margin:0">${S.length} Schritte warten auf dich.</p>`}
@@ -4374,7 +4479,7 @@ function renderSelf(){
         (task.saved?"":`<button class="btn" id="sv">Ergebnis speichern</button>`))}
     </div>
     <div id="fin">${task.saved?finishBox(task.savedOk):""}</div>`;
-  bindHead(); if(!worked) bindPad();
+  bindHead();
   document.querySelectorAll(".check input").forEach(c=>c.onchange=()=>{ task.checks[+c.id.slice(1)]=c.checked; });
   if($("#self")) $("#self").onclick=()=>{ state.lvl[task.t]=2; save(); startTask(task.t,task.mix); };
   if($("#more")) $("#more").onclick=()=>{ if(guided) task.shown++; else task.done=true; renderSelf(); };
@@ -4391,25 +4496,6 @@ function finishBox(ok){
     <div class="row">${sess?sessBtn():`<button class="btn" id="next">${task.mix?"Nächste Aufgabe":"Neue Zahlen"}</button><button class="btn ghost" id="list">Zur Liste</button>`}</div></div>`;
 }
 function bindFinish(){ if($("#next")) $("#next").onclick=nextTask; if($("#list")) $("#list").onclick=()=>go("calc"); }
-
-/* ================= Schmierzettel für den Apple Pencil ================= */
-let padStrokes=[];
-function padHTML(){ return `<div class="pad" style="margin:0 0 14px"><span class="ph">Schmierzettel</span><canvas id="pad" aria-label="Schmierzettel zum Rechnen mit dem Stift"></canvas><div class="tools"><button id="padUndo">Zurück</button><button id="padClr">Leeren</button></div></div>`; }
-function bindPad(){
-  const c=$("#pad"); if(!c) return;
-  const ctx=c.getContext("2d"); let penSeen=false, cur=null;
-  const size=()=>{ const r=c.getBoundingClientRect(), dpr=window.devicePixelRatio||1; c.width=r.width*dpr; c.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); draw(); };
-  const color=()=>getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#1B2433";
-  function draw(){ ctx.clearRect(0,0,c.width,c.height); ctx.lineCap="round"; ctx.lineJoin="round"; ctx.strokeStyle=color();
-    for(const s of padStrokes){ for(let i=1;i<s.length;i++){ ctx.lineWidth=s[i][2]; ctx.beginPath(); ctx.moveTo(s[i-1][0],s[i-1][1]); ctx.lineTo(s[i][0],s[i][1]); ctx.stroke(); } } }
-  const pt=e=>{ const r=c.getBoundingClientRect(); const p=e.pressure&&e.pointerType==="pen"? e.pressure : .5; return [e.clientX-r.left,e.clientY-r.top,1+p*2.4]; };
-  c.onpointerdown=e=>{ if(e.pointerType==="pen") penSeen=true; if(penSeen&&e.pointerType==="touch") return; cur=[pt(e)]; padStrokes.push(cur); c.setPointerCapture(e.pointerId); };
-  c.onpointermove=e=>{ if(!cur) return; const evs=e.getCoalescedEvents?e.getCoalescedEvents():[e]; for(const ev of evs) cur.push(pt(ev)); draw(); };
-  c.onpointerup=c.onpointercancel=()=>{ cur=null; };
-  $("#padUndo").onclick=()=>{ padStrokes.pop(); draw(); };
-  $("#padClr").onclick=()=>{ padStrokes=[]; draw(); };
-  size(); window.onresize=size;
-}
 
 /* ================= Abkürzungen zum Antippen (Muster 23.11., BiWi II) =================
    Bekannte Kürzel werden überall in der App dezent gepunktet unterstrichen. Tippen zeigt eine kleine Blase
@@ -4500,7 +4586,7 @@ if("serviceWorker" in navigator){ window.addEventListener("load", ()=>navigator.
    Beim Start lädt die App eine neue Version sofort. Beim Zurückkehren nur, wenn gerade nichts läuft;
    mitten in Karten, Aufgaben oder Probeklausur erscheint stattdessen ein Hinweis zum Antippen. Der Lernstand liegt im Gerät und wird vorher abgeglichen. */
 (function(){
-  var V="460e1b679335", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
+  var V="74bf3234675f", BUSY=["task","exam","essay","graph","kurz","lesson","cards","kreuz","recall","who","outline"];
   function busy(){ try{ return BUSY.indexOf(view)>=0; }catch(e){ return false; } }
   function syncing(){ try{ return !!(pushTimer||pushing); }catch(e){ return false; } }
   function reload(t){ try{ sessionStorage.setItem("upd-"+t,"1"); }catch(e){} location.replace(location.pathname+"?v="+t+location.hash); }

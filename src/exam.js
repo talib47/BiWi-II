@@ -128,7 +128,7 @@ function openRun(o,pi,no){
       <textarea data-op="${pi}" style="width:100%;min-height:9rem;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:10px;font:1rem/1.5 var(--sans)">${esc(o.ans)}</textarea></div>`; }
   const d=o.data, F=d.steps.map((s,i)=>[s,i]).filter(([s])=>s.final);
   return `<div class="block"><p style="margin:0 0 6px"><b>${no}. ${o.title}</b> <span class="small muted">(${o.pts} P.)</span></p><p class="small" style="margin:0">${d.intro}</p>${d.table}<p style="margin:8px 0 0"><b>${d.q}</b></p>
-    ${F.map(([s,i])=>`<div style="margin-top:8px"><label class="small" style="font-weight:600" for="op${pi}_${i}">${s.lab}</label><div class="inp" style="margin-top:4px"><input id="op${pi}_${i}" data-op="${pi}" data-i="${i}" inputmode="decimal" autocomplete="off" value="${esc(o.ans[i]||"")}"></div></div>`).join("")}</div>`;
+    ${F.map(([s,i])=>`<div style="margin-top:8px"><label class="small" style="font-weight:600" for="op${pi}_${i}">${s.lab}</label><div class="inp" style="margin-top:4px"><input id="op${pi}_${i}" data-op="${pi}" data-i="${i}" inputmode="text" enterkeyhint="done" autocapitalize="off" spellcheck="false" autocomplete="off" value="${esc(o.ans[i]||"")}"></div></div>`).join("")}</div>`;
 }
 function calcPts(o){ const F=o.data.steps.map((s,i)=>[s,i]).filter(([s])=>s.final); const ok=F.filter(([s,i])=>judge(s,o.ans[i]||"")).length; return {ok,n:F.length,p:Math.round(o.pts*ok/F.length*2)/2}; }
 function renderExamGrade(){

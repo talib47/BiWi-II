@@ -480,6 +480,65 @@ abbr.ab:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .lvl i{width:6px;height:6px;border-radius:50%;background:color-mix(in srgb,var(--muted) 28%,transparent)}
 .lvl i.on{background:var(--accent)}
 .lvnew{margin-left:6px;padding:1px 7px;border-radius:999px;font-size:.72rem;font-weight:600;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+
+/* Rechenaufgaben wie Karten, eigene Zahlentastatur mit Minus (Muster 28.11., nur BiWi II) */
+.thead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px}
+.thead .eyebrow{margin:0}
+.tlex{background:none;border:0;color:var(--accent);font:inherit;font-size:.9rem;font-weight:600;min-height:44px;padding:0 4px;cursor:pointer}
+.seg.tlvl{display:flex;width:100%;margin:0 0 14px}
+.seg.tlvl button{flex:1;min-height:36px;padding:6px 4px;white-space:nowrap}
+.card.tq,.card.tstep{min-height:0;cursor:default;justify-content:flex-start;margin:0 0 14px}
+.card.tq{box-shadow:none;background:var(--surface);gap:10px}
+.card.tq .front{font-size:1.12rem;margin:2px 0 0}
+.tintro{margin:0;color:var(--muted);font-size:.95rem}
+.card.tq .tablewrap{margin:0}
+.card.tstep{position:relative;gap:8px}
+.card.tstep>p{margin:0}
+.card.tstep .cctx{padding-right:44px}
+.card.tstep .front{font-size:1.18rem;padding-right:0}
+.twhy{margin:0;color:var(--muted);font-size:.95rem;max-width:62ch}
+.tform{display:flex;flex-direction:column;gap:4px;padding:8px 0 0 12px;border-left:3px solid var(--gold)}
+.tform span{font-size:.75rem;font-weight:650;color:var(--gold)}
+.tform .eq{background:transparent;padding:0}
+.nfield{display:flex;align-items:center;justify-content:flex-end;min-height:56px;margin-top:6px;padding:8px 14px;border-radius:14px;background:var(--bg);font-family:var(--mono);font-size:1.5rem;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:anywhere;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--accent) 35%,transparent)}
+.nfield.bad{box-shadow:inset 0 0 0 1.5px var(--bad)}
+.nfield .caret{display:inline-block;width:2px;height:1.2em;margin-left:2px;background:var(--accent);animation:caret 1s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.nfield .caret{animation:none}}
+.card.tstep .kzv{margin-top:6px}
+.card.tstep .kzv .qlink{min-height:40px;margin-top:2px}
+.npad{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 14px;-webkit-user-select:none;user-select:none}
+.npad .nk{min-height:56px;border:0;border-radius:14px;background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.08);color:var(--ink);font:500 1.45rem var(--sans);font-variant-numeric:tabular-nums;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .08s,background .15s;touch-action:manipulation}
+.npad .nk.op{background:color-mix(in srgb,var(--accent) 12%,var(--surface));color:var(--accent);font-weight:600}
+.npad .nk.n0{grid-column:span 2}
+.npad .nk.go{grid-column:span 2;background:var(--accent);color:var(--accent-ink,#fff);font-size:1.06rem;font-weight:650}
+.npad .nk:active{transform:scale(.95)}
+@media (min-width:768px){ .npad{max-width:26rem;margin-left:auto;margin-right:auto}.npad .nk{min-height:60px} }
+@media (hover:hover) and (pointer:fine){ .npad .nk:not(.go){display:none}.npad{grid-template-columns:1fr;max-width:none}.npad .nk.go{grid-column:auto;min-height:48px} }
+.tdlist{display:flex;flex-direction:column;gap:2px;margin:0 0 12px}
+.tdone{display:flex;gap:12px;align-items:flex-start;padding:10px 2px;border-top:1px solid var(--line)}
+.tdone:first-child{border-top:0}
+.tdone .ic{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:700;color:var(--surface);background:var(--good)}
+.tdone.no .ic{background:var(--bad)}
+.tdone>div{min-width:0;flex:1}
+.tdone .tl{font-size:.9rem;font-weight:600;margin-bottom:4px}
+.tdone .eq{padding:4px 8px}
+.tflds{display:flex;flex-direction:column;gap:10px}
+.tfld{display:flex;flex-direction:column;align-items:stretch;gap:4px;text-align:left;background:none;border:0;padding:0;font:inherit;color:var(--ink);cursor:pointer}
+.tfld .tl{font-weight:600;font-size:.95rem}
+.tfld .nfield{margin:0;box-shadow:inset 0 0 0 1px var(--line);font-size:1.3rem;min-height:52px}
+.tfld.on .nfield{box-shadow:inset 0 0 0 2px var(--accent)}
+.tfld.ok .nfield{box-shadow:inset 0 0 0 2px var(--good)}
+.tfld.no .nfield{box-shadow:inset 0 0 0 2px var(--bad)}
+.tfld:disabled{cursor:default}
+.tfix{font-size:.9rem;color:var(--bad)}
+.tlh{font-weight:600}
+.npad .nk.op{font-size:1.6rem}
+@media (pointer:coarse){
+  .npad{position:sticky;bottom:0;z-index:3;margin:0 -16px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);box-shadow:0 -1px 0 var(--line)}
+  .card.tstep{scroll-margin-bottom:300px;scroll-margin-top:80px}
+}
+@media (pointer:coarse) and (min-width:768px){ .npad{margin:0 auto;max-width:28rem;border-radius:20px 20px 0 0} }
 </style>
 <style>
 /*__DESIGN__*/
